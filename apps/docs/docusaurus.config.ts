@@ -18,21 +18,23 @@ const config: Config = {
   projectName: 'aplica-ds-docs',
 
   onBrokenLinks: 'warn',
-  onBrokenMarkdownLinks: 'warn',
 
   // Treat .md files as standard Markdown (not MDX).
   // Our KB content uses { } in code examples and error messages — MDX would
   // try to parse those as JSX expressions, causing build failures.
   markdown: {
     format: 'detect',
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+    },
   },
 
   i18n: {
     defaultLocale: 'pt-BR',
-    locales: ['pt-BR', 'en'],
+    locales: ['pt-BR', 'en-US'],
     localeConfigs: {
-      'pt-BR': { label: 'Português (BR)', direction: 'ltr', htmlLang: 'pt-BR' },
-      'en':    { label: 'English',        direction: 'ltr', htmlLang: 'en-US' },
+      'pt-BR':  { label: 'Português (BR)', direction: 'ltr', htmlLang: 'pt-BR' },
+      'en-US':  { label: 'English',        direction: 'ltr', htmlLang: 'en-US' },
     },
   },
 
@@ -96,17 +98,17 @@ const config: Config = {
         {
           title: 'Fundamentos',
           items: [
-            { label: 'Visão geral',          to: '/00-overview/01-aplica-ds-vision' },
-            { label: 'Trilha de aprendizado', to: '/00-overview/02-learning-path' },
-            { label: 'Glossário',             to: '/00-overview/03-glossary' },
+            { label: 'Visão geral',          to: '/' },
+            { label: 'Trilha de aprendizado', to: '/overview/learning-path' },
+            { label: 'Glossário',             to: '/overview/glossary' },
           ],
         },
         {
           title: 'Tutoriais',
           items: [
-            { label: 'N1 · Product Designer',  to: '/08-tutorials/n1-product-designer/01-o-que-sao-tokens' },
-            { label: 'N2 · System Designer',   to: '/08-tutorials/n2-system-designer/01-modelo-mental-5-camadas' },
-            { label: 'N3 · Design Engineer',   to: '/08-tutorials/n3-design-engineer/01-contrato-de-tokens' },
+            { label: 'N1 · Product Designer',  to: '/tutorials/n1-product-designer/N1-01' },
+            { label: 'N2 · System Designer',   to: '/tutorials/n2-system-designer/N2-01' },
+            { label: 'N3 · Design Engineer',   to: '/tutorials/n3-design-engineer/N3-01' },
           ],
         },
         {

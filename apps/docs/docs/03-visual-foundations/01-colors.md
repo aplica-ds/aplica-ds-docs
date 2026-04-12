@@ -412,8 +412,8 @@ A mudança para OKLCh foi a maior ruptura técnica entre V1 e V2. No espaço OKL
 
 ## Referências
 
-- Script de decomposição: [color-decomposer.mjs](../../references/aplica-tokens-theme-engine/dynamic-themes/scripts/color-decomposer.mjs)
-- Spec técnica: [COLOR-DECOMPOSITION-SPEC.md](../../references/aplica-tokens-theme-engine/docs/context/dynamic-themes-reference/COLOR-DECOMPOSITION-SPEC.md)
-- Exemplo de config: [aplica-joy.config.mjs](../../references/aplica-tokens-theme-engine/config/aplica-joy.config.mjs)
-- Verificação de contraste: [verify-aa-compliance.mjs](../../references/aplica-tokens-theme-engine/dynamic-themes/scripts/verify-aa-compliance.mjs)
+- Script de decomposição: color-decomposer.mjs
+- Spec técnica: COLOR-DECOMPOSITION-SPEC.md
+- Exemplo de config: aplica-joy.config.mjs
+- Verificação de contraste: verify-aa-compliance.mjs
 - Mapeamento Alpha→V2: [04-v1-to-v2-rationals-mapping.md](../06-history/04-v1-to-v2-rationals-mapping.md)

@@ -79,5 +79,5 @@ Com as variáveis sincronizadas, o designer pode:
 - O que é o Theme Engine: [01-what-is-theme-engine.md](./01-what-is-theme-engine.md)
 - Guia de configuração: [03-configuration-guide.md](./03-configuration-guide.md)
 - Camada Foundation (por que Figma consome Foundation): [05-foundation-layer.md](../02-token-layers/05-foundation-layer.md)
-- Contrato de naming: [canonical-taxonomy-and-naming-contract.md](../../references/aplica-tokens-theme-engine/docs/context/tokens/canonical-taxonomy-and-naming-contract.md)
-- Uso de tokens em componentes e Figma: [token-usage-for-components-and-figma.md](../../references/aplica-tokens-theme-engine/docs/context/tokens/token-usage-for-components-and-figma.md)
+- Contrato de naming: canonical-taxonomy-and-naming-contract.md
+- Uso de tokens em componentes e Figma: token-usage-for-components-and-figma.md

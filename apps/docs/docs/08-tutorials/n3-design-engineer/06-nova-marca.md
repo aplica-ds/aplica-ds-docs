@@ -375,8 +375,8 @@ Você completou o N3. Você sabe construir componentes conformes, integrar token
 O próximo nível é **governança em larga escala**: múltiplas equipes consumindo o mesmo sistema, ciclos de atualização, breaking changes e estratégias de migração. Esses tópicos estão cobertos em:
 
 - [Guia de migração](../../07-implementation/01-migration-guide.md)
-- [Boas práticas de overrides](../../../references/aplica-tokens-theme-engine/docs/context/dynamic-themes-reference/OVERRIDE-BEST-PRACTICES.md)
-- [Contrato de naming canônico](../../../references/aplica-tokens-theme-engine/docs/context/tokens/canonical-taxonomy-and-naming-contract.md)
+- Boas práticas de overrides
+- Contrato de naming canônico
 
 ---
 

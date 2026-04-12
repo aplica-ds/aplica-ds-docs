@@ -2,25 +2,32 @@
 import Base from '../../layouts/Base.astro';
 import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
+import { LayerDemo } from '../../components/LayerDemo';
+import { ThemeGrid } from '../../components/ThemeGrid';
+import { TokenResolution } from '../../components/TokenResolution';
 ---
 
 <Base title="Design tokens that scale with your product" lang="en-US" description="5-layer token architecture, dynamic theme generation, dark mode by design, Figma/React/Vue/Flutter support — from a single config file.">
   <Nav lang="en" />
 
   <!-- ── 1. Hero ─────────────────────────────────────────────────── -->
-  <section style="padding: 6rem 0 4rem; text-align: center;">
-    <div class="container">
-      <p style="display: inline-block; background: #eff6ff; color: #1d4ed8; font-size: 0.8125rem; font-weight: 600; padding: 0.25rem 0.75rem; border-radius: 99px; margin-bottom: 1.5rem; letter-spacing: 0.04em; text-transform: uppercase;">
+  <section style="position: relative; overflow: hidden; padding: 6rem 0 4.5rem; text-align: center;">
+    <!-- Gradient overlay -->
+    <div style="position: absolute; inset: 0; background: var(--gradient-hero-overlay); pointer-events: none;" aria-hidden="true"></div>
+
+    <div class="container" style="position: relative;">
+      <p class="badge" style="margin-bottom: 1.5rem;">
         Open Source · MIT
       </p>
       <h1 style="font-family: var(--font-display); font-size: clamp(2.25rem, 5vw, 3.5rem); font-weight: 700; line-height: 1.15; max-width: 760px; margin: 0 auto 1.25rem;">
-        Design tokens that scale with your product.
+        Design tokens that
+        <span class="text-gradient"> scale with your product.</span>
       </h1>
       <p style="font-size: 1.125rem; color: var(--color-text-muted); max-width: 560px; margin: 0 auto 2.5rem; line-height: 1.7;">
         5-layer architecture, dynamic theme generation, dark mode by design, multi-platform support (Figma, React, Vue, Flutter) — from a single config file.
       </p>
       <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-        <a href="https://docs.aplica.design/en/08-tutorials/n1-product-designer/01-o-que-sao-tokens" class="btn btn-primary">
+        <a href="https://docs.aplica.design/en-US/tutorials/n1-product-designer/N1-01" class="btn btn-primary">
           Start with N1 tutorials →
         </a>
         <a href="https://github.com/aplica-ds/aplica-ds" class="btn btn-outline">
@@ -36,22 +43,22 @@ import Footer from '../../components/Footer.astro';
       <h2 style="font-family: var(--font-display); font-size: 1.75rem; font-weight: 700; text-align: center; margin-bottom: 0.75rem;">The problem every team faces</h2>
       <p style="text-align: center; color: var(--color-text-muted); max-width: 520px; margin: 0 auto 3rem;">Hardcoded tokens, manual dark mode, cross-platform inconsistencies — the cost grows with every new product or partner.</p>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; max-width: 900px; margin: 0 auto;">
-        <div style="background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius); padding: 1.5rem;">
+        <div class="card" style="padding: 1.5rem;">
           <div style="font-size: 1.5rem; margin-bottom: 0.75rem;">🔁</div>
           <h3 style="font-weight: 600; margin-bottom: 0.5rem;">Duplication</h3>
           <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6;">The same blue defined in 14 different places. Change one, forget the others.</p>
         </div>
-        <div style="background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius); padding: 1.5rem;">
+        <div class="card" style="padding: 1.5rem;">
           <div style="font-size: 1.5rem; margin-bottom: 0.75rem;">🌙</div>
           <h3 style="font-weight: 600; margin-bottom: 0.5rem;">Manual dark mode</h3>
           <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6;">Every color needs a handcrafted dark variant. Bugs guaranteed.</p>
         </div>
-        <div style="background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius); padding: 1.5rem;">
+        <div class="card" style="padding: 1.5rem;">
           <div style="font-size: 1.5rem; margin-bottom: 0.75rem;">🏝️</div>
           <h3 style="font-weight: 600; margin-bottom: 0.5rem;">Platform silos</h3>
           <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6;">Web, mobile, and Figma live in separate worlds. Syncing costs hours.</p>
         </div>
-        <div style="background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius); padding: 1.5rem;">
+        <div class="card" style="padding: 1.5rem;">
           <div style="font-size: 1.5rem; margin-bottom: 0.75rem;">📈</div>
           <h3 style="font-weight: 600; margin-bottom: 0.5rem;">Impossible scale</h3>
           <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6;">Each new product or partner multiplies the problem. There's no "clean up later".</p>
@@ -60,88 +67,120 @@ import Footer from '../../components/Footer.astro';
     </div>
   </section>
 
-  <!-- ── 3. The solution — 5 layers ─────────────────────────────── -->
-  <section style="padding: 5rem 0;">
+  <!-- ── 3. 5-layer architecture — interactive island ──────────── -->
+  <LayerDemo lang="en" client:load />
+
+  <!-- ── 4. Auto-generated themes — interactive island ─────────── -->
+  <ThemeGrid lang="en" client:load />
+
+  <!-- ── 5. Token resolution — interactive island ──────────────── -->
+  <TokenResolution lang="en" client:load />
+
+  <!-- ── 6. How it works ───────────────────────────────────────── -->
+  <section style="padding: 5rem 0; background: var(--color-bg-subtle);">
     <div class="container">
-      <h2 style="font-family: var(--font-display); font-size: 1.75rem; font-weight: 700; text-align: center; margin-bottom: 0.75rem;">5-layer architecture</h2>
-      <p style="text-align: center; color: var(--color-text-muted); max-width: 520px; margin: 0 auto 3rem;">Each layer has a single responsibility. Swapping a brand doesn't affect semantics. Swapping the mode doesn't affect structure.</p>
-      <div style="display: flex; flex-direction: column; gap: 0.75rem; max-width: 680px; margin: 0 auto;">
-        <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem 1.25rem; border: 1px solid var(--color-border); border-left: 4px solid #2563eb; border-radius: var(--radius);">
-          <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600; color: #2563eb; min-width: 24px; margin-top: 2px;">01</span>
-          <div><strong style="font-size: 0.9375rem;">Brand</strong><p style="color: var(--color-text-muted); font-size: 0.9rem; margin-top: 0.25rem; line-height: 1.5;">Visual identity — palette, typography, brand personality.</p></div>
+      <h2 style="font-family: var(--font-display); font-size: 1.75rem; font-weight: 700; text-align: center; margin-bottom: 0.75rem;">How it works</h2>
+      <p style="text-align: center; color: var(--color-text-muted); max-width: 480px; margin: 0 auto 3rem;">From a config file to ready-to-use tokens on any platform.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; max-width: 860px; margin: 0 auto;">
+        <div style="background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm);">
+          <div style="padding: 1.25rem 1.25rem 0;">
+            <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: var(--color-accent);">01</span>
+            <h3 style="font-weight: 700; font-size: 1.0625rem; margin: 0.25rem 0 0.5rem;">Config</h3>
+            <p style="color: var(--color-text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1rem;">Define brand colors, typography, and semantic mappings in a .config.mjs file.</p>
+          </div>
+          <pre style="margin: 0; border-radius: 0; font-size: 0.8125rem;">export default &#123;
+  name: 'my-brand',
+  colors: &#123;
+    brand_blue: '#2563EB',
+    ...
+  &#125;
+&#125;</pre>
         </div>
-        <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem 1.25rem; border: 1px solid var(--color-border); border-left: 4px solid #7c3aed; border-radius: var(--radius);">
-          <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600; color: #7c3aed; min-width: 24px; margin-top: 2px;">02</span>
-          <div><strong style="font-size: 0.9375rem;">Mode</strong><p style="color: var(--color-text-muted); font-size: 0.9rem; margin-top: 0.25rem; line-height: 1.5;">Light / Dark — perceptual palette inversion via OKLCh.</p></div>
+        <div style="background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm);">
+          <div style="padding: 1.25rem 1.25rem 0;">
+            <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: var(--color-accent);">02</span>
+            <h3 style="font-weight: 700; font-size: 1.0625rem; margin: 0.25rem 0 0.5rem;">Build</h3>
+            <p style="color: var(--color-text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1rem;">npm run build:themes runs the pipeline: OKLCh palette → semantic → Foundation → outputs.</p>
+          </div>
+          <pre style="margin: 0; border-radius: 0; font-size: 0.8125rem;">npm run build:themes
+
+✓ palette decomposed
+✓ semantic synced
+✓ 4 themes written</pre>
         </div>
-        <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem 1.25rem; border: 1px solid var(--color-border); border-left: 4px solid #0891b2; border-radius: var(--radius);">
-          <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600; color: #0891b2; min-width: 24px; margin-top: 2px;">03</span>
-          <div><strong style="font-size: 0.9375rem;">Surface</strong><p style="color: var(--color-text-muted); font-size: 0.9rem; margin-top: 0.25rem; line-height: 1.5;">Positive / Negative — light or dark background within the same mode.</p></div>
-        </div>
-        <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem 1.25rem; border: 1px solid var(--color-border); border-left: 4px solid #059669; border-radius: var(--radius);">
-          <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600; color: #059669; min-width: 24px; margin-top: 2px;">04</span>
-          <div><strong style="font-size: 0.9375rem;">Semantic</strong><p style="color: var(--color-text-muted); font-size: 0.9rem; margin-top: 0.25rem; line-height: 1.5;">Meaningful names: interface.function.primary, interface.brand.ambient…</p></div>
-        </div>
-        <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem 1.25rem; border: 1px solid var(--color-border); border-left: 4px solid #d97706; border-radius: var(--radius);">
-          <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600; color: #d97706; min-width: 24px; margin-top: 2px;">05</span>
-          <div><strong style="font-size: 0.9375rem;">Foundation</strong><p style="color: var(--color-text-muted); font-size: 0.9rem; margin-top: 0.25rem; line-height: 1.5;">Simple aliases for product teams: bg.primary, text.body, spacing.medium.</p></div>
+        <div style="background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm);">
+          <div style="padding: 1.25rem 1.25rem 0;">
+            <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: var(--color-accent);">03</span>
+            <h3 style="font-weight: 700; font-size: 1.0625rem; margin: 0.25rem 0 0.5rem;">Use</h3>
+            <p style="color: var(--color-text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1rem;">CSS Custom Properties, ESM, TypeScript declarations, and JSON — ready for web, mobile, and Figma.</p>
+          </div>
+          <pre style="margin: 0; border-radius: 0; font-size: 0.8125rem;">.btn &#123;
+  background: var(
+    --semantic-color-
+    interface-function-
+    primary-normal-bg);
+&#125;</pre>
         </div>
       </div>
-      <p style="text-align: center; color: var(--color-text-muted); font-size: 0.875rem; margin-top: 1.5rem;">
-        + orthogonal layer <strong>Dimension</strong> (minor / normal / major) for dimensional scale.
-      </p>
     </div>
   </section>
 
-  <!-- ── 4. For whom ────────────────────────────────────────────── -->
-  <section style="padding: 5rem 0; background: var(--color-bg-subtle);">
+  <!-- ── 7. Who it's for ───────────────────────────────────────── -->
+  <section style="padding: 5rem 0;">
     <div class="container">
       <h2 style="font-family: var(--font-display); font-size: 1.75rem; font-weight: 700; text-align: center; margin-bottom: 0.75rem;">Who is Aplica DS for?</h2>
       <p style="text-align: center; color: var(--color-text-muted); max-width: 480px; margin: 0 auto 3rem;">Three learning tracks, each with 6 progressive tutorials.</p>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; max-width: 900px; margin: 0 auto;">
-        <div style="border: 1px solid var(--color-border); border-top: 3px solid #2563eb; border-radius: var(--radius); padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; background: var(--color-bg);">
+        <div style="border: 1px solid var(--color-border); border-top: 3px solid #f97316; border-radius: var(--radius); padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; box-shadow: var(--shadow-sm);">
           <div>
-            <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: #2563eb;">N1</span>
+            <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: #f97316;">N1</span>
             <h3 style="font-weight: 700; font-size: 1.0625rem; margin-top: 0.25rem;">Product Designer</h3>
           </div>
           <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6; flex: 1;">Uses the system without needing to understand the architecture. Learns token vocabulary, accessibility, and dark mode in Figma.</p>
-          <a href="https://docs.aplica.design/en/08-tutorials/n1-product-designer/01-o-que-sao-tokens" style="color: #2563eb; font-weight: 600; font-size: 0.9rem;">Start N1 tutorials →</a>
+          <a href="https://docs.aplica.design/en-US/tutorials/n1-product-designer/N1-01" style="color: #f97316; font-weight: 600; font-size: 0.9rem;">Start N1 tutorials →</a>
         </div>
-        <div style="border: 1px solid var(--color-border); border-top: 3px solid #7c3aed; border-radius: var(--radius); padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; background: var(--color-bg);">
+        <div style="border: 1px solid var(--color-border); border-top: 3px solid #8b5cf6; border-radius: var(--radius); padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; box-shadow: var(--shadow-sm);">
           <div>
-            <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: #7c3aed;">N2</span>
+            <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: #8b5cf6;">N2</span>
             <h3 style="font-weight: 700; font-size: 1.0625rem; margin-top: 0.25rem;">System Designer</h3>
           </div>
           <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6; flex: 1;">Configures and extends the system. Understands the OKLCh pipeline, creates themes, defines responsible overrides.</p>
-          <a href="https://docs.aplica.design/en/08-tutorials/n2-system-designer/01-modelo-mental-5-camadas" style="color: #7c3aed; font-weight: 600; font-size: 0.9rem;">Start N2 tutorials →</a>
+          <a href="https://docs.aplica.design/en-US/tutorials/n2-system-designer/N2-01" style="color: #8b5cf6; font-weight: 600; font-size: 0.9rem;">Start N2 tutorials →</a>
         </div>
-        <div style="border: 1px solid var(--color-border); border-top: 3px solid #059669; border-radius: var(--radius); padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; background: var(--color-bg);">
+        <div style="border: 1px solid var(--color-border); border-top: 3px solid #10b981; border-radius: var(--radius); padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; box-shadow: var(--shadow-sm);">
           <div>
-            <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: #059669;">N3</span>
+            <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: #10b981;">N3</span>
             <h3 style="font-weight: 700; font-size: 1.0625rem; margin-top: 0.25rem;">Design Engineer</h3>
           </div>
           <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6; flex: 1;">Builds conformant components, integrates tokens on any platform, adds new brands to the engine from scratch.</p>
-          <a href="https://docs.aplica.design/en/08-tutorials/n3-design-engineer/01-contrato-de-tokens" style="color: #059669; font-weight: 600; font-size: 0.9rem;">Start N3 tutorials →</a>
+          <a href="https://docs.aplica.design/en-US/tutorials/n3-design-engineer/N3-01" style="color: #10b981; font-weight: 600; font-size: 0.9rem;">Start N3 tutorials →</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ── 5. CTA ─────────────────────────────────────────────────── -->
+  <!-- ── 8. Open source ────────────────────────────────────────── -->
+  <section style="padding: 5rem 0; background: var(--color-bg-subtle);">
+    <div class="container" style="text-align: center;">
+      <h2 style="font-family: var(--font-display); font-size: 1.75rem; font-weight: 700; margin-bottom: 0.75rem;">100% open source</h2>
+      <p style="color: var(--color-text-muted); max-width: 480px; margin: 0 auto 2rem; line-height: 1.7;">MIT license. No vendor lock-in. Contributions via PR. The git history is the documentation.</p>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="https://github.com/aplica-ds/aplica-ds" class="btn btn-primary">View repository</a>
+        <a href="https://docs.aplica.design/en-US" class="btn btn-outline">Read documentation</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 9. CTA final ──────────────────────────────────────────── -->
   <section style="padding: 5rem 0;">
     <div class="container" style="text-align: center;">
       <h2 style="font-family: var(--font-display); font-size: 2rem; font-weight: 700; margin-bottom: 1rem;">Ready to start?</h2>
       <p style="color: var(--color-text-muted); max-width: 440px; margin: 0 auto 2.5rem; line-height: 1.7;">
         The N1 tutorials introduce the system in 30 minutes. No setup required — just Figma.
       </p>
-      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-        <a href="https://docs.aplica.design/en/08-tutorials/n1-product-designer/01-o-que-sao-tokens" class="btn btn-primary" style="font-size: 1rem; padding: 0.75rem 1.75rem;">
-          Start N1 tutorials →
-        </a>
-        <a href="https://github.com/aplica-ds/aplica-ds" class="btn btn-outline">
-          GitHub
-        </a>
-      </div>
+      <a href="https://docs.aplica.design/en-US/tutorials/n1-product-designer/N1-01" class="btn btn-primary" style="font-size: 1rem; padding: 0.75rem 1.75rem;">
+        Start N1 tutorials →
+      </a>
     </div>
   </section>
 

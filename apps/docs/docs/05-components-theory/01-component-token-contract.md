@@ -222,7 +222,7 @@ Cores específicas de produto — promoções, cashback, tiers, categorizações
 Tokens de texto plano também disponíveis em `semantic.color.text.{item}` e `semantic.color.text.{item}_secondary`.
 
 > [!CAUTION]
-> **Custo exponencial.** Cada item novo em `product` gera no mínimo 30 tokens que se propagam por todas as camadas e todos os temas. Em um sistema com 4 temas, um único item representa +120 tokens. Antes de adicionar, pergunte: _"Isso pode ser resolvido com feedback ou brand existentes?"_ Veja [04-semantic-layer.md](../02-token-layers/04-semantic-layer.md#product) para o racional completo.
+> **Custo exponencial.** Cada item novo em `product` gera no mínimo 30 tokens que se propagam por todas as camadas e todos os temas. Em um sistema com 4 temas, um único item representa +120 tokens. Antes de adicionar, pergunte: _"Isso pode ser resolvido com feedback ou brand existentes?"_ Veja [04-semantic-layer.md](../02-token-layers/04-semantic-layer.md) para o racional completo.
 
 ---
 
@@ -378,8 +378,8 @@ Mudanças são documentadas no `CHANGELOG.md` do engine, que especifica: caminho
 
 - Camada Semantic em detalhe: [04-semantic-layer.md](../02-token-layers/04-semantic-layer.md)
 - Camada Foundation: [05-foundation-layer.md](../02-token-layers/05-foundation-layer.md)
-- Taxonomia canônica e naming: [canonical-taxonomy-and-naming-contract.md](../../references/aplica-tokens-theme-engine/docs/context/tokens/canonical-taxonomy-and-naming-contract.md)
-- Uso de tokens para componentes e Figma: [token-usage-for-components-and-figma.md](../../references/aplica-tokens-theme-engine/docs/context/tokens/token-usage-for-components-and-figma.md)
+- Taxonomia canônica e naming: canonical-taxonomy-and-naming-contract.md
+- Uso de tokens para componentes e Figma: token-usage-for-components-and-figma.md
 - Formatos de output e variáveis CSS: [05-output-formats.md](../04-theme-engine/05-output-formats.md)
 - Variantes e estados por componente: [02-component-variants.md](./02-component-variants.md)
 - Padrões de dark mode: [03-dark-mode-patterns.md](./03-dark-mode-patterns.md)

@@ -1,10 +1,6 @@
 ---
 title: "Aplica Design System — Visão Geral"
-lang: pt-BR
----
-
----
-title: "Aplica Design System — Visão Geral"
+slug: /
 lang: pt-BR
 ---
 

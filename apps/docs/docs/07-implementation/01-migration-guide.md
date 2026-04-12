@@ -301,8 +301,8 @@ grep "semantic-color-new-path" dist/css/*.css
 
 - Pipeline de build: [04-build-pipeline.md](../04-theme-engine/04-build-pipeline.md)
 - Guia de configuração: [03-configuration-guide.md](../04-theme-engine/03-configuration-guide.md)
-- Contrato de naming e versionamento: [canonical-taxonomy-and-naming-contract.md](../../references/aplica-tokens-theme-engine/docs/context/tokens/canonical-taxonomy-and-naming-contract.md)
-- Migração para estrutura centralizada (técnico): [MIGRATE_TO_CENTRALIZED_THEMES.md](../../references/aplica-tokens-theme-engine/docs/context/MIGRATE_TO_CENTRALIZED_THEMES.md)
+- Contrato de naming e versionamento: canonical-taxonomy-and-naming-contract.md
+- Migração para estrutura centralizada (técnico): MIGRATE_TO_CENTRALIZED_THEMES.md
 - Changelog do engine: `references/aplica-tokens-theme-engine/CHANGELOG.md`
-- Arquivos por versão: [RELEASE_FILES.md](../../references/aplica-tokens-theme-engine/docs/context/RELEASE_FILES.md)
+- Arquivos por versão: RELEASE_FILES.md
 - Integração em plataformas: [02-platform-integration.md](./02-platform-integration.md)

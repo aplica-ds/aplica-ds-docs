@@ -264,9 +264,9 @@ O pipeline inclui verificações automáticas:
 
 - Guia de configuração: [03-configuration-guide.md](./03-configuration-guide.md)
 - Formatos de output em detalhe: [05-output-formats.md](./05-output-formats.md)
-- Fluxo Surface → Mode → Theme: [SURFACE-MODE-THEME-FLOW.md](../../references/aplica-tokens-theme-engine/docs/context/SURFACE-MODE-THEME-FLOW.md)
+- Fluxo Surface → Mode → Theme: SURFACE-MODE-THEME-FLOW.md
 - Schema de arquitetura: `references/aplica-tokens-theme-engine/dynamic-themes/themes/schemas/architecture-schema.mjs`
-- Script de decomposição de cores: [color-decomposer.mjs](../../references/aplica-tokens-theme-engine/dynamic-themes/scripts/color-decomposer.mjs)
+- Script de decomposição de cores: color-decomposer.mjs
 - Script de sync: `references/aplica-tokens-theme-engine/dynamic-themes/scripts/sync-architecture.mjs`
-- Dynamic themes (referência): [DYNAMIC_THEMES.md](../../references/aplica-tokens-theme-engine/docs/context/DYNAMIC_THEMES.md)
+- Dynamic themes (referência): DYNAMIC_THEMES.md
 - Matemática e algoritmos: [06-mathematics-and-algorithms.md](../03-visual-foundations/06-mathematics-and-algorithms.md)

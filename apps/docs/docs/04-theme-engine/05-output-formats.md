@@ -329,7 +329,7 @@ Para usar uma base diferente de `16px` (ex.: estratégia 62.5% com `10px` root):
 ## Referências
 
 - Pipeline de build: [04-build-pipeline.md](./04-build-pipeline.md)
-- Unidades de output em detalhe: [05-output-units.md](../../references/aplica-tokens-theme-engine/docs/context/dimension/05-output-units.md)
-- Uso de tokens em componentes: [token-usage-for-components-and-figma.md](../../references/aplica-tokens-theme-engine/docs/context/tokens/token-usage-for-components-and-figma.md)
-- Contrato de naming: [canonical-taxonomy-and-naming-contract.md](../../references/aplica-tokens-theme-engine/docs/context/tokens/canonical-taxonomy-and-naming-contract.md)
+- Unidades de output em detalhe: 05-output-units.md
+- Uso de tokens em componentes: token-usage-for-components-and-figma.md
+- Contrato de naming: canonical-taxonomy-and-naming-contract.md
 - Workflow do designer (Figma): [02-designer-workflow.md](./02-designer-workflow.md)

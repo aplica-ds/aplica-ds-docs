@@ -235,7 +235,7 @@ overrides: {
 }
 ```
 
-> **Regra:** Overrides são a última alternativa após esgotar as opções semânticas padrão. Leia o guia de boas práticas antes de usar: [OVERRIDE-BEST-PRACTICES.md](../../references/aplica-tokens-theme-engine/docs/context/dynamic-themes-reference/OVERRIDE-BEST-PRACTICES.md).
+> **Regra:** Overrides são a última alternativa após esgotar as opções semânticas padrão. Leia o guia de boas práticas antes de usar: OVERRIDE-BEST-PRACTICES.md.
 
 ---
 
@@ -362,8 +362,8 @@ Quando o conjunto padrão de aliases não é suficiente para um consumidor espec
 - O que é o Theme Engine: [01-what-is-theme-engine.md](./01-what-is-theme-engine.md)
 - Pipeline de build detalhado: [04-build-pipeline.md](./04-build-pipeline.md)
 - Formatos de output: [05-output-formats.md](./05-output-formats.md)
-- Referência completa do config: [THEME_CONFIG_REFERENCE.md](../../references/aplica-tokens-theme-engine/docs/context/THEME_CONFIG_REFERENCE.md)
-- Boas práticas de overrides: [OVERRIDE-BEST-PRACTICES.md](../../references/aplica-tokens-theme-engine/docs/context/dynamic-themes-reference/OVERRIDE-BEST-PRACTICES.md)
-- Exemplo de config: [aplica-joy.config.mjs](../../references/aplica-tokens-theme-engine/config/aplica-joy.config.mjs)
+- Referência completa do config: THEME_CONFIG_REFERENCE.md
+- Boas práticas de overrides: OVERRIDE-BEST-PRACTICES.md
+- Exemplo de config: aplica-joy.config.mjs
 - Sistema de cores: [01-colors.md](../03-visual-foundations/01-colors.md)
 - Camada Foundation: [05-foundation-layer.md](../02-token-layers/05-foundation-layer.md)

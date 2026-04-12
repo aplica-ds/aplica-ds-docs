@@ -150,6 +150,6 @@ Renomear ou remover um token é tratado como breaking change porque quebra o có
 - Workflow do designer: [02-designer-workflow.md](./02-designer-workflow.md)
 - Guia de configuração: [03-configuration-guide.md](./03-configuration-guide.md)
 - Arquitetura de tokens (5 camadas): [01-token-architecture.md](../01-design-tokens-fundamentals/01-token-architecture.md)
-- Contrato de naming canônico: [canonical-taxonomy-and-naming-contract.md](../../references/aplica-tokens-theme-engine/docs/context/tokens/canonical-taxonomy-and-naming-contract.md)
-- Fluxo Surface → Mode → Theme: [SURFACE-MODE-THEME-FLOW.md](../../references/aplica-tokens-theme-engine/docs/context/SURFACE-MODE-THEME-FLOW.md)
-- Visão do engine (referência): [WHAT_IS_THEME_ENGINE.md](../../references/aplica-tokens-theme-engine/docs/context/WHAT_IS_THEME_ENGINE.md)
+- Contrato de naming canônico: canonical-taxonomy-and-naming-contract.md
+- Fluxo Surface → Mode → Theme: SURFACE-MODE-THEME-FLOW.md
+- Visão do engine (referência): WHAT_IS_THEME_ENGINE.md
