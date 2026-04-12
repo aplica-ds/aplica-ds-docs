@@ -4,7 +4,7 @@ import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import { LayerDemo } from '../components/LayerDemo';
 import { ThemeGrid } from '../components/ThemeGrid';
-import { TokenResolution } from '../components/TokenResolution';
+import { ThemePlayground } from '../components/ThemePlayground';
 ---
 
 <Base title="Design tokens que escalam com o produto">
@@ -73,8 +73,8 @@ import { TokenResolution } from '../components/TokenResolution';
   <!-- ── 4. Temas gerados automaticamente — interactive island ──── -->
   <ThemeGrid lang="pt-br" client:load />
 
-  <!-- ── 5. Resolução de tokens — interactive island ────────────── -->
-  <TokenResolution lang="pt-br" client:load />
+  <!-- ── 5. Playground de Temas — token resolution integrada ─────── -->
+  <ThemePlayground lang="pt-br" client:load />
 
   <!-- ── 6. Como funciona ───────────────────────────────────────── -->
   <section style="padding: 5rem 0; background: var(--color-bg-subtle);">

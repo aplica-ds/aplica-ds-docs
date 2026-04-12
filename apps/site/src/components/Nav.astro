@@ -1,4 +1,6 @@
 ---
+import { DarkModeToggle } from './DarkModeToggle';
+
 interface Props {
   lang?: 'pt-br' | 'en';
 }
@@ -44,15 +46,25 @@ const base = lang === 'en' ? '/en' : '';
       <a href={t.forWhomHref} style="color: var(--color-text-muted); text-decoration: none; font-weight: 500; transition: color 0.15s;" onmouseover="this.style.color='var(--color-text)'" onmouseout="this.style.color='var(--color-text-muted)'">{t.forWhom}</a>
       <a href={t.docsHref} style="color: var(--color-text-muted); text-decoration: none; font-weight: 500; transition: color 0.15s;" onmouseover="this.style.color='var(--color-text)'" onmouseout="this.style.color='var(--color-text-muted)'">{t.docs}</a>
       <a href="https://github.com/aplica-ds/aplica-ds" class="btn btn-outline" style="padding: 0.375rem 0.875rem; font-size: 0.875rem;">{t.github}</a>
+      <DarkModeToggle client:load />
       <a href={t.langHref} style="color: var(--color-text-muted); font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.05em; text-decoration: none; transition: color 0.15s;" onmouseover="this.style.color='var(--color-accent)'" onmouseout="this.style.color='var(--color-text-muted)'">{t.langSwitch}</a>
     </nav>
   </div>
 </header>
 
 <style>
+  /* System dark preference — only applies when user hasn't explicitly chosen light */
   @media (prefers-color-scheme: dark) {
-    header {
+    html:not(.light) header {
       background: rgba(15, 23, 42, 0.9) !important;
     }
+  }
+  /* Explicit dark toggle — always applies regardless of system preference */
+  html.dark header {
+    background: rgba(15, 23, 42, 0.9) !important;
+  }
+  /* Explicit light toggle — always restores light background */
+  html.light header {
+    background: rgba(255, 255, 255, 0.9) !important;
   }
 </style>

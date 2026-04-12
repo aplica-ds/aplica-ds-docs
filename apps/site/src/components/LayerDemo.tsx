@@ -1,12 +1,33 @@
-import { useState } from "react"
+import { useState } from "react";
+import { ExternalLink } from "lucide-react";
 
-type Lang = "pt-br" | "en"
+type Lang = "pt-br" | "en";
 
 interface Layer {
-  name: string
-  desc: string
-  example: string
+  name: string;
+  desc: string;
+  example: string;
+  docsPath: string;
 }
+
+const LAYER_COLORS: Array<{ from: string; to: string }> = [
+  { from: "#f97316", to: "#fb923c" },  // orange  — Brand
+  { from: "#3b82f6", to: "#60a5fa" },  // blue    — Mode
+  { from: "#10b981", to: "#34d399" },  // green   — Surface
+  { from: "#8b5cf6", to: "#a78bfa" },  // purple  — Semantic
+  { from: "#ec4899", to: "#f472b6" },  // pink    — Foundation
+];
+
+const DOCS_BASE = "https://docs.aplica.design";
+const DOCS_BASE_EN = "https://docs.aplica.design/en-US";
+
+const LAYER_DOCS = [
+  "token-layers/brand-layer",
+  "token-layers/mode-layer",
+  "token-layers/surface-layer",
+  "token-layers/semantic-layer",
+  "token-layers/foundation-layer",
+];
 
 const translations: Record<Lang, { title: string; subtitle: string; preview: string; explore: string; layers: Layer[] }> = {
   "pt-br": {
@@ -16,56 +37,137 @@ const translations: Record<Lang, { title: string; subtitle: string; preview: str
     preview: "Visualização da Camada",
     explore: "Explorar camada",
     layers: [
-      { name: "Brand",      desc: "Identidade visual e paleta da marca",          example: 'tangerine: { primary: "#FF6B35", secondary: "#F7931E" }' },
-      { name: "Mode",       desc: "Light / Dark — inversão perceptual OKLCh",     example: 'light: { contrast: "high", luminance: "bright" }' },
-      { name: "Surface",    desc: "Positive / Negative — tratamento de superfície", example: 'positive: { elevation: "raised", emphasis: "primary" }' },
-      { name: "Semantic",   desc: "Tokens com significado contextual",             example: 'success: { intent: "positive", action: "confirm" }' },
-      { name: "Foundation", desc: "Aliases simples prontos para uso no produto",   example: 'bg.primary: "var(--color-orange-500)"' },
+      {
+        name: "Brand",
+        desc: "Identidade visual — paleta de cores da marca",
+        example: `// aplica-tangerine.config.mjs
+tangerine: {
+  primary: "#ffae03",
+  secondary: "#f8f0d4"
+}`,
+        docsPath: LAYER_DOCS[0],
+      },
+      {
+        name: "Mode",
+        desc: "Light / Dark — inversão perceptual via OKLCh",
+        example: `// Algoritmo de inversão (dark mode)
+dark[N] = light[20 - N]
+
+// Exemplo:
+light[09] → oklch(0.52 0.21 60°)
+dark[11]  → oklch(0.48 0.18 60°)`,
+        docsPath: LAYER_DOCS[1],
+      },
+      {
+        name: "Surface",
+        desc: "Positive / Negative — contexto de fundo da superfície",
+        example: `// positive  → fundo claro (base de conteúdo)
+--semantic-color-brand-ambient-contrast-base-positive-background
+
+// negative  → fundo escuro (contraste invertido)
+--semantic-color-brand-ambient-contrast-base-negative-background`,
+        docsPath: LAYER_DOCS[2],
+      },
+      {
+        name: "Semantic",
+        desc: "Tokens com propósito — não cor, mas papel",
+        example: `// Não "#ffae03", mas o papel deste cor:
+--semantic-color-brand-branding-first-default-background: #ffae03;
+--semantic-color-brand-branding-first-default-txtOn: #080000;
+--semantic-color-brand-branding-first-default-border: #c67900;`,
+        docsPath: LAYER_DOCS[3],
+      },
+      {
+        name: "Foundation",
+        desc: "Aliases simples — redução de carga cognitiva para times de produto",
+        example: `/* foundation.css — alias para o Semantic */
+--foundation-bg-brand-default:
+  var(--semantic-color-brand-branding-first-default-background);
+
+--foundation-txt-title:
+  var(--semantic-color-brand-ambient-neutral-highest-background);`,
+        docsPath: LAYER_DOCS[4],
+      },
     ],
   },
   en: {
     title: "5-Layer Architecture",
     subtitle:
-      "Each layer has a unique responsibility. Swapping a brand doesn't affect semantics. Swapping a mode doesn't affect structure.",
+      "Each layer has a single responsibility. Swapping a brand doesn't affect semantics. Swapping a mode doesn't affect structure.",
     preview: "Layer Preview",
     explore: "Explore layer",
     layers: [
-      { name: "Brand",      desc: "Brand visual identity and color palette",       example: 'tangerine: { primary: "#FF6B35", secondary: "#F7931E" }' },
-      { name: "Mode",       desc: "Light / Dark — perceptual OKLCh inversion",     example: 'light: { contrast: "high", luminance: "bright" }' },
-      { name: "Surface",    desc: "Positive / Negative — surface treatment",       example: 'positive: { elevation: "raised", emphasis: "primary" }' },
-      { name: "Semantic",   desc: "Tokens with contextual meaning",                example: 'success: { intent: "positive", action: "confirm" }' },
-      { name: "Foundation", desc: "Simple aliases ready for product use",          example: 'bg.primary: "var(--color-orange-500)"' },
+      {
+        name: "Brand",
+        desc: "Visual identity — brand color palette",
+        example: `// aplica-tangerine.config.mjs
+tangerine: {
+  primary: "#ffae03",
+  secondary: "#f8f0d4"
+}`,
+        docsPath: LAYER_DOCS[0],
+      },
+      {
+        name: "Mode",
+        desc: "Light / Dark — perceptual inversion via OKLCh",
+        example: `// Dark mode inversion algorithm
+dark[N] = light[20 - N]
+
+// Example:
+light[09] → oklch(0.52 0.21 60°)
+dark[11]  → oklch(0.48 0.18 60°)`,
+        docsPath: LAYER_DOCS[1],
+      },
+      {
+        name: "Surface",
+        desc: "Positive / Negative — surface background context",
+        example: `// positive  → light background (content base)
+--semantic-color-brand-ambient-contrast-base-positive-background
+
+// negative  → dark background (inverted contrast)
+--semantic-color-brand-ambient-contrast-base-negative-background`,
+        docsPath: LAYER_DOCS[2],
+      },
+      {
+        name: "Semantic",
+        desc: "Purpose-driven tokens — not a color, but a role",
+        example: `// Not "#ffae03", but the role of this color:
+--semantic-color-brand-branding-first-default-background: #ffae03;
+--semantic-color-brand-branding-first-default-txtOn: #080000;
+--semantic-color-brand-branding-first-default-border: #c67900;`,
+        docsPath: LAYER_DOCS[3],
+      },
+      {
+        name: "Foundation",
+        desc: "Simple aliases — cognitive load reduction for product teams",
+        example: `/* foundation.css — alias to Semantic */
+--foundation-bg-brand-default:
+  var(--semantic-color-brand-branding-first-default-background);
+
+--foundation-txt-title:
+  var(--semantic-color-brand-ambient-neutral-highest-background);`,
+        docsPath: LAYER_DOCS[4],
+      },
     ],
   },
-}
-
-const LAYER_COLORS: Array<{ from: string; to: string }> = [
-  { from: "#f97316", to: "#fb923c" },  // orange  — Brand
-  { from: "#3b82f6", to: "#60a5fa" },  // blue    — Mode
-  { from: "#10b981", to: "#34d399" },  // green   — Surface
-  { from: "#8b5cf6", to: "#a78bfa" },  // purple  — Semantic
-  { from: "#ec4899", to: "#f472b6" },  // pink    — Foundation
-]
+};
 
 interface Props {
-  lang?: Lang
+  lang?: Lang;
 }
 
 export function LayerDemo({ lang = "pt-br" }: Props) {
-  const [activeLayer, setActiveLayer] = useState(0)
-  const t = translations[lang]
-  const active = t.layers[activeLayer]
-  const color = LAYER_COLORS[activeLayer]
-  const gradient = `linear-gradient(135deg, ${color.from}, ${color.to})`
+  const [activeLayer, setActiveLayer] = useState(0);
+  const t = translations[lang];
+  const active = t.layers[activeLayer];
+  const color = LAYER_COLORS[activeLayer];
+  const gradient = `linear-gradient(135deg, ${color.from}, ${color.to})`;
+  const docsBase = lang === "en" ? DOCS_BASE_EN : DOCS_BASE;
+  const exploreUrl = `${docsBase}/${active.docsPath}`;
 
   const s = {
-    section: {
-      padding: "5rem 0",
-    } as React.CSSProperties,
-    heading: {
-      textAlign: "center",
-      marginBottom: "4rem",
-    } as React.CSSProperties,
+    section: { padding: "5rem 0" } as React.CSSProperties,
+    heading: { textAlign: "center", marginBottom: "4rem" } as React.CSSProperties,
     h2: {
       fontFamily: "var(--font-display)",
       fontSize: "clamp(1.75rem, 3vw, 2.25rem)",
@@ -97,10 +199,14 @@ export function LayerDemo({ lang = "pt-br" }: Props) {
       gap: "1rem",
       padding: "1rem 1.25rem",
       background: "var(--color-bg-card)",
-      border: isActive ? `1.5px solid ${LAYER_COLORS[activeLayer].from}` : "1.5px solid var(--color-border)",
+      border: isActive
+        ? `1.5px solid ${LAYER_COLORS[activeLayer].from}`
+        : "1.5px solid var(--color-border)",
       borderRadius: "var(--radius)",
       cursor: "pointer",
-      boxShadow: isActive ? `0 0 0 3px ${LAYER_COLORS[activeLayer].from}22, var(--shadow-md)` : "var(--shadow-sm)",
+      boxShadow: isActive
+        ? `0 0 0 3px ${LAYER_COLORS[activeLayer].from}22, var(--shadow-md)`
+        : "var(--shadow-sm)",
       transform: isActive ? "scale(1.01)" : "scale(1)",
       transition: "all 0.2s ease",
     }),
@@ -120,9 +226,7 @@ export function LayerDemo({ lang = "pt-br" }: Props) {
       flexShrink: 0,
       transition: "background 0.2s",
     }),
-    layerInfo: {
-      flex: 1,
-    } as React.CSSProperties,
+    layerInfo: { flex: 1 } as React.CSSProperties,
     layerName: {
       fontWeight: 600,
       fontSize: "0.9375rem",
@@ -147,6 +251,8 @@ export function LayerDemo({ lang = "pt-br" }: Props) {
       borderRadius: "var(--radius-lg)",
       padding: "1.5rem",
       boxShadow: "var(--shadow-sm)",
+      display: "flex",
+      flexDirection: "column" as const,
     } as React.CSSProperties,
     previewHeader: {
       display: "flex",
@@ -154,19 +260,9 @@ export function LayerDemo({ lang = "pt-br" }: Props) {
       gap: "0.5rem",
       marginBottom: "1.25rem",
     } as React.CSSProperties,
-    previewEye: {
-      width: "1.125rem",
-      height: "1.125rem",
-      color: "var(--color-accent)",
-    } as React.CSSProperties,
-    previewLabel: {
-      fontWeight: 600,
-      fontSize: "0.875rem",
-      color: "var(--color-text)",
-    } as React.CSSProperties,
     previewSwatch: {
       width: "100%",
-      height: "7rem",
+      height: "6rem",
       borderRadius: "var(--radius)",
       background: gradient,
       display: "flex",
@@ -180,34 +276,20 @@ export function LayerDemo({ lang = "pt-br" }: Props) {
       letterSpacing: "0.01em",
     } as React.CSSProperties,
     codeBlock: {
-      background: "var(--color-bg-subtle)",
-      border: "1px solid var(--color-border)",
+      background: "#1e1e2e",
+      border: "1px solid rgba(255,255,255,0.07)",
       borderRadius: "var(--radius-sm)",
       padding: "0.875rem 1rem",
       fontFamily: "var(--font-mono)",
-      fontSize: "0.8rem",
-      color: "var(--color-text-muted)",
-      lineHeight: 1.6,
+      fontSize: "0.7375rem",
+      color: "#cdd6f4",
+      lineHeight: 1.65,
       overflowX: "auto" as const,
       marginBottom: "1rem",
       whiteSpace: "pre",
+      flex: 1,
     } as React.CSSProperties,
-    exploreBtn: {
-      display: "inline-flex",
-      alignItems: "center",
-      justifyContent: "center",
-      width: "100%",
-      padding: "0.5rem 1rem",
-      borderRadius: "var(--radius)",
-      border: "1.5px solid var(--color-border)",
-      background: "transparent",
-      color: "var(--color-text)",
-      fontWeight: 600,
-      fontSize: "0.875rem",
-      cursor: "pointer",
-      transition: "border-color 0.2s, color 0.2s",
-    } as React.CSSProperties,
-  }
+  };
 
   return (
     <section style={s.section}>
@@ -229,9 +311,7 @@ export function LayerDemo({ lang = "pt-br" }: Props) {
                 tabIndex={0}
                 onKeyDown={(e) => e.key === "Enter" && setActiveLayer(idx)}
               >
-                <div style={s.layerNumber(activeLayer === idx, idx)}>
-                  {idx + 1}
-                </div>
+                <div style={s.layerNumber(activeLayer === idx, idx)}>{idx + 1}</div>
                 <div style={s.layerInfo}>
                   <div style={s.layerName}>{layer.name}</div>
                   <div style={s.layerDesc}>{layer.desc}</div>
@@ -246,37 +326,59 @@ export function LayerDemo({ lang = "pt-br" }: Props) {
           {/* Preview panel */}
           <div style={s.preview}>
             <div style={s.previewHeader}>
-              <svg style={s.previewEye} viewBox="0 0 20 20" fill="currentColor">
+              <svg
+                style={{ width: "1.125rem", height: "1.125rem", color: "var(--color-accent)" }}
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
                 <path d="M10 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" />
                 <path fillRule="evenodd" d="M.664 10.59a1.651 1.651 0 010-1.186A10.004 10.004 0 0110 3c4.257 0 7.893 2.66 9.336 6.41.147.381.146.804 0 1.186A10.004 10.004 0 0110 17c-4.257 0-7.893-2.66-9.336-6.41zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
               </svg>
-              <span style={s.previewLabel}>{t.preview}</span>
+              <span style={{ fontWeight: 600, fontSize: "0.875rem", color: "var(--color-text)" }}>
+                {t.preview}
+              </span>
             </div>
 
-            <div style={s.previewSwatch}>
-              {active.name}
-            </div>
+            <div style={s.previewSwatch}>{active.name}</div>
 
             <div style={s.codeBlock}>{active.example}</div>
 
-            <button
-              style={s.exploreBtn}
+            <a
+              href={exploreUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "0.375rem",
+                width: "100%",
+                padding: "0.5rem 1rem",
+                borderRadius: "var(--radius)",
+                border: `1.5px solid ${color.from}44`,
+                background: `${color.from}08`,
+                color: color.from,
+                fontWeight: 600,
+                fontSize: "0.875rem",
+                textDecoration: "none",
+                transition: "background 0.2s, border-color 0.2s",
+              }}
               onMouseEnter={(e) => {
-                ;(e.target as HTMLButtonElement).style.borderColor = color.from
-                ;(e.target as HTMLButtonElement).style.color = color.from
+                (e.currentTarget as HTMLAnchorElement).style.background = `${color.from}15`;
+                (e.currentTarget as HTMLAnchorElement).style.borderColor = color.from;
               }}
               onMouseLeave={(e) => {
-                ;(e.target as HTMLButtonElement).style.borderColor = "var(--color-border)"
-                ;(e.target as HTMLButtonElement).style.color = "var(--color-text)"
+                (e.currentTarget as HTMLAnchorElement).style.background = `${color.from}08`;
+                (e.currentTarget as HTMLAnchorElement).style.borderColor = `${color.from}44`;
               }}
             >
               {t.explore} {active.name}
-            </button>
+              <ExternalLink size={13} />
+            </a>
           </div>
         </div>
       </div>
 
-      {/* Responsive 2-col on larger screens */}
       <style>{`
         @media (min-width: 768px) {
           .layer-demo-grid {
@@ -285,5 +387,5 @@ export function LayerDemo({ lang = "pt-br" }: Props) {
         }
       `}</style>
     </section>
-  )
+  );
 }

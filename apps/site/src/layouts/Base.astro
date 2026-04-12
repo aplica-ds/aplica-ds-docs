@@ -20,6 +20,19 @@ const {
     <meta name="description" content={description} />
     <title>{title} — Aplica DS</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- Dark mode: apply class before first paint to avoid flash -->
+    <script is:inline>
+      (function() {
+        var saved = localStorage.getItem('aplica-theme');
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (saved === 'dark' || (!saved && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          // Explicitly mark light so :root:not(.light) and html:not(.light) selectors behave correctly
+          document.documentElement.classList.add('light');
+        }
+      })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -174,8 +187,9 @@ const {
         overflow-x: auto;
       }
 
+      /* Dark mode — via system preference OR html.dark class (set by toggle) */
       @media (prefers-color-scheme: dark) {
-        :root {
+        :root:not(.light) {
           --color-bg:         #0f172a;
           --color-bg-subtle:  #1e293b;
           --color-bg-card:    #1e293b;
@@ -187,10 +201,25 @@ const {
           --color-accent-bg:  rgba(249,115,22,0.12);
           --color-accent-text:#fb923c;
         }
-        .card-interactive:hover { border-color: #475569; }
-        .btn-outline:hover { background: rgba(249,115,22,0.1); }
-        .code-block { background: #0f172a; border-color: #334155; }
+        :root:not(.light) .card-interactive:hover { border-color: #475569; }
+        :root:not(.light) .btn-outline:hover { background: rgba(249,115,22,0.1); }
+        :root:not(.light) .code-block { background: #0f172a; border-color: #334155; }
       }
+      html.dark {
+        --color-bg:         #0f172a;
+        --color-bg-subtle:  #1e293b;
+        --color-bg-card:    #1e293b;
+        --color-border:     #334155;
+        --color-text:       #f1f5f9;
+        --color-text-muted: #94a3b8;
+        --color-accent:     #fb923c;
+        --color-accent-dark:#f97316;
+        --color-accent-bg:  rgba(249,115,22,0.12);
+        --color-accent-text:#fb923c;
+      }
+      html.dark .card-interactive:hover { border-color: #475569; }
+      html.dark .btn-outline:hover { background: rgba(249,115,22,0.1); }
+      html.dark .code-block { background: #0f172a; border-color: #334155; }
     </style>
   </head>
   <body>

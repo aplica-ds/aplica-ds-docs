@@ -1,61 +1,92 @@
-import { useState } from "react"
+import { useState, useEffect } from "react";
 
-type Lang = "pt-br" | "en"
+type Lang = "pt-br" | "en";
 
 const translations = {
   "pt-br": {
-    title: "12 Temas Auto-Gerados",
+    title: "16 Temas Auto-Gerados",
     subtitle:
-      "3 marcas × 2 modos × 2 superfícies = 12 temas consistentes. Cada tema mantém a mesma lógica semântica com personalidade única.",
-    brand: "Marca",
-    mode: "Modo",
-    surface: "Superfície",
-    selected: "Ativo",
+      "4 marcas × 2 modos × 2 superfícies = 16 temas consistentes. Cada tema mantém a mesma lógica semântica com personalidade única.",
+    selected: "Selecionado",
+    cssClass: "Classe CSS",
   },
   en: {
-    title: "12 Auto-Generated Themes",
+    title: "16 Auto-Generated Themes",
     subtitle:
-      "3 brands × 2 modes × 2 surfaces = 12 consistent themes. Each theme shares the same semantic logic with unique brand personality.",
-    brand: "Brand",
-    mode: "Mode",
-    surface: "Surface",
-    selected: "Active",
+      "4 brands × 2 modes × 2 surfaces = 16 consistent themes. Each theme shares the same semantic logic with unique brand personality.",
+    selected: "Selected",
+    cssClass: "CSS class",
   },
-}
+};
 
 interface Theme {
-  brand: string
-  mode: "light" | "dark"
-  surface: "positive" | "negative"
-  primaryColor: string
-  bgColor: string
-  textColor: string
+  brand: string;
+  displayName: string;
+  mode: "light" | "dark";
+  surface: "positive" | "negative";
+  cssClass: string;
+  // primary color for the details bar (static, won't change per CSS load order)
+  primaryHex: string;
 }
 
-const themes: Theme[] = [
-  { brand: "tangerine", mode: "light",  surface: "positive", primaryColor: "#FF6B35", bgColor: "#FFF8F5", textColor: "#4A1505" },
-  { brand: "tangerine", mode: "light",  surface: "negative", primaryColor: "#FF8A65", bgColor: "#FF6B35", textColor: "#FFF8F5" },
-  { brand: "tangerine", mode: "dark",   surface: "positive", primaryColor: "#FF7043", bgColor: "#1C0A05", textColor: "#FFD0BC" },
-  { brand: "tangerine", mode: "dark",   surface: "negative", primaryColor: "#FF5722", bgColor: "#FF7043", textColor: "#1C0A05" },
-  { brand: "joy",       mode: "light",  surface: "positive", primaryColor: "#4CAF50", bgColor: "#F3FBF3", textColor: "#1B4C1D" },
-  { brand: "joy",       mode: "light",  surface: "negative", primaryColor: "#66BB6A", bgColor: "#4CAF50", textColor: "#F3FBF3" },
-  { brand: "joy",       mode: "dark",   surface: "positive", primaryColor: "#43A047", bgColor: "#071508", textColor: "#B8E6BA" },
-  { brand: "joy",       mode: "dark",   surface: "negative", primaryColor: "#388E3C", bgColor: "#43A047", textColor: "#071508" },
-  { brand: "grinch",    mode: "light",  surface: "positive", primaryColor: "#8BC34A", bgColor: "#F7FBF1", textColor: "#2C4A0E" },
-  { brand: "grinch",    mode: "light",  surface: "negative", primaryColor: "#9CCC65", bgColor: "#8BC34A", textColor: "#F7FBF1" },
-  { brand: "grinch",    mode: "dark",   surface: "positive", primaryColor: "#7CB342", bgColor: "#0D1A04", textColor: "#C8E89E" },
-  { brand: "grinch",    mode: "dark",   surface: "negative", primaryColor: "#689F38", bgColor: "#7CB342", textColor: "#0D1A04" },
-]
+const THEMES: Theme[] = [
+  { brand: "aplica_tangerine", displayName: "Tangerine", mode: "light", surface: "positive", cssClass: "aplica-tangerine-light-positive", primaryHex: "#ffae03" },
+  { brand: "aplica_tangerine", displayName: "Tangerine", mode: "light", surface: "negative", cssClass: "aplica-tangerine-light-negative", primaryHex: "#ffae03" },
+  { brand: "aplica_tangerine", displayName: "Tangerine", mode: "dark",  surface: "positive", cssClass: "aplica-tangerine-dark-positive",  primaryHex: "#ffae03" },
+  { brand: "aplica_tangerine", displayName: "Tangerine", mode: "dark",  surface: "negative", cssClass: "aplica-tangerine-dark-negative",  primaryHex: "#ffae03" },
+  { brand: "aplica_joy",       displayName: "Joy",       mode: "light", surface: "positive", cssClass: "aplica-joy-light-positive",       primaryHex: "#e7398a" },
+  { brand: "aplica_joy",       displayName: "Joy",       mode: "light", surface: "negative", cssClass: "aplica-joy-light-negative",       primaryHex: "#e7398a" },
+  { brand: "aplica_joy",       displayName: "Joy",       mode: "dark",  surface: "positive", cssClass: "aplica-joy-dark-positive",        primaryHex: "#e7398a" },
+  { brand: "aplica_joy",       displayName: "Joy",       mode: "dark",  surface: "negative", cssClass: "aplica-joy-dark-negative",        primaryHex: "#e7398a" },
+  { brand: "aplica_grinch",    displayName: "Grinch",    mode: "light", surface: "positive", cssClass: "aplica-grinch-light-positive",    primaryHex: "#58bd59" },
+  { brand: "aplica_grinch",    displayName: "Grinch",    mode: "light", surface: "negative", cssClass: "aplica-grinch-light-negative",    primaryHex: "#58bd59" },
+  { brand: "aplica_grinch",    displayName: "Grinch",    mode: "dark",  surface: "positive", cssClass: "aplica-grinch-dark-positive",     primaryHex: "#58bd59" },
+  { brand: "aplica_grinch",    displayName: "Grinch",    mode: "dark",  surface: "negative", cssClass: "aplica-grinch-dark-negative",     primaryHex: "#58bd59" },
+  { brand: "aplica_blue_sky",  displayName: "Blue Sky",  mode: "light", surface: "positive", cssClass: "aplica-blue-sky-light-positive",  primaryHex: "#265ed9" },
+  { brand: "aplica_blue_sky",  displayName: "Blue Sky",  mode: "light", surface: "negative", cssClass: "aplica-blue-sky-light-negative",  primaryHex: "#265ed9" },
+  { brand: "aplica_blue_sky",  displayName: "Blue Sky",  mode: "dark",  surface: "positive", cssClass: "aplica-blue-sky-dark-positive",   primaryHex: "#265ed9" },
+  { brand: "aplica_blue_sky",  displayName: "Blue Sky",  mode: "dark",  surface: "negative", cssClass: "aplica-blue-sky-dark-negative",   primaryHex: "#265ed9" },
+];
 
-const brandInitial = (brand: string) => brand.charAt(0).toUpperCase()
+function injectCss(href: string, id: string) {
+  if (typeof document === "undefined" || document.getElementById(id)) return;
+  const link = document.createElement("link");
+  link.id = id;
+  link.rel = "stylesheet";
+  link.href = href;
+  document.head.appendChild(link);
+}
 
 interface Props {
-  lang?: Lang
+  lang?: Lang;
 }
 
 export function ThemeGrid({ lang = "pt-br" }: Props) {
-  const [selectedIdx, setSelectedIdx] = useState(0)
-  const t = translations[lang]
+  const [selectedIdx, setSelectedIdx] = useState(0);
+  const [cssLoaded, setCssLoaded] = useState(false);
+  const t = translations[lang];
+
+  useEffect(() => {
+    // Load all 16 theme CSS files
+    THEMES.forEach((theme) => {
+      const fileName = `aplica_${theme.brand.replace("aplica_", "")}-${theme.mode}-${theme.surface}`;
+      injectCss(
+        `/aplica-package/dist/css/${fileName}.css`,
+        `theme-css-${fileName}`
+      );
+    });
+    // Short delay to allow stylesheets to parse before rendering with CSS vars
+    const t = setTimeout(() => setCssLoaded(true), 150);
+    return () => clearTimeout(t);
+  }, []);
+
+  const sel = THEMES[selectedIdx];
+
+  // Ambient background token per surface
+  const bgToken = (surface: "positive" | "negative") =>
+    surface === "positive"
+      ? "var(--semantic-color-brand-ambient-contrast-base-positive-background)"
+      : "var(--semantic-color-brand-ambient-contrast-base-negative-background)";
 
   return (
     <section style={{ padding: "5rem 0", background: "var(--color-bg-subtle)" }}>
@@ -76,7 +107,7 @@ export function ThemeGrid({ lang = "pt-br" }: Props) {
             style={{
               fontSize: "1.0625rem",
               color: "var(--color-text-muted)",
-              maxWidth: "560px",
+              maxWidth: "580px",
               margin: "0 auto",
               lineHeight: 1.7,
             }}
@@ -86,73 +117,85 @@ export function ThemeGrid({ lang = "pt-br" }: Props) {
         </div>
 
         <div
-          className="theme-grid-layout"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))",
-            gap: "1rem",
-            maxWidth: "920px",
+            gridTemplateColumns: "repeat(4, 1fr)",
+            gap: "0.875rem",
+            maxWidth: "960px",
             margin: "0 auto",
           }}
         >
-          {themes.map((theme, idx) => {
-            const isSelected = selectedIdx === idx
+          {THEMES.map((theme, idx) => {
+            const isSelected = selectedIdx === idx;
             return (
               <div
-                key={idx}
+                key={theme.cssClass}
                 onClick={() => setSelectedIdx(idx)}
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) => e.key === "Enter" && setSelectedIdx(idx)}
                 style={{
                   background: "var(--color-bg-card)",
-                  border: isSelected ? `2px solid ${theme.primaryColor}` : "1.5px solid var(--color-border)",
+                  border: isSelected
+                    ? `2px solid ${theme.primaryHex}`
+                    : "1.5px solid var(--color-border)",
                   borderRadius: "var(--radius)",
-                  padding: "1rem",
+                  padding: "0.75rem",
                   cursor: "pointer",
-                  boxShadow: isSelected ? `0 0 0 3px ${theme.primaryColor}22, var(--shadow-md)` : "var(--shadow-sm)",
+                  boxShadow: isSelected
+                    ? `0 0 0 3px ${theme.primaryHex}22, var(--shadow-md)`
+                    : "var(--shadow-sm)",
                   transition: "all 0.2s ease",
                   transform: isSelected ? "scale(1.02)" : "scale(1)",
                 }}
               >
-                {/* Color swatch */}
+                {/* Swatch using real CSS vars from loaded theme */}
                 <div
+                  className={cssLoaded ? theme.cssClass : ""}
                   style={{
                     width: "100%",
-                    height: "4.5rem",
+                    height: "3.75rem",
                     borderRadius: "var(--radius-sm)",
-                    background: theme.bgColor,
-                    marginBottom: "0.75rem",
+                    background: cssLoaded
+                      ? bgToken(theme.surface)
+                      : theme.mode === "dark" ? "#1e293b" : "#f9fafb",
+                    marginBottom: "0.625rem",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     position: "relative",
+                    transition: "background 0.3s",
                   }}
                 >
                   <div
                     style={{
-                      width: "2rem",
-                      height: "2rem",
+                      width: "1.75rem",
+                      height: "1.75rem",
                       borderRadius: "50%",
-                      background: theme.primaryColor,
+                      background: cssLoaded
+                        ? "var(--semantic-color-brand-branding-first-default-background)"
+                        : theme.primaryHex,
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      color: theme.textColor,
+                      color: cssLoaded
+                        ? "var(--semantic-color-brand-branding-first-default-txtOn)"
+                        : "#fff",
                       fontWeight: 700,
-                      fontSize: "0.875rem",
+                      fontSize: "0.8125rem",
+                      transition: "background 0.3s",
                     }}
                   >
-                    {brandInitial(theme.brand)}
+                    {theme.displayName.charAt(0)}
                   </div>
                   {isSelected && (
                     <div
                       style={{
                         position: "absolute",
-                        top: "0.375rem",
-                        right: "0.375rem",
-                        width: "1.25rem",
-                        height: "1.25rem",
+                        top: "0.3rem",
+                        right: "0.3rem",
+                        width: "1.125rem",
+                        height: "1.125rem",
                         borderRadius: "50%",
                         background: "#fff",
                         boxShadow: "var(--shadow-sm)",
@@ -161,101 +204,91 @@ export function ThemeGrid({ lang = "pt-br" }: Props) {
                         justifyContent: "center",
                       }}
                     >
-                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                        <path d="M2 6l3 3 5-5" stroke={theme.primaryColor} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                        <path d="M1.5 5l2.5 2.5 4.5-4.5" stroke={theme.primaryHex} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </div>
                   )}
                 </div>
 
                 {/* Theme info */}
-                <div>
-                  <div
-                    style={{
-                      fontWeight: 600,
-                      fontSize: "0.8125rem",
-                      color: "var(--color-text)",
-                      marginBottom: "0.375rem",
-                      textTransform: "capitalize",
-                    }}
-                  >
-                    {theme.brand}
-                  </div>
-                  <div style={{ display: "flex", gap: "0.25rem", flexWrap: "wrap" as const }}>
-                    {[theme.mode, theme.surface].map((tag) => (
-                      <span
-                        key={tag}
-                        style={{
-                          padding: "0.125rem 0.5rem",
-                          background: "var(--color-bg-subtle)",
-                          border: "1px solid var(--color-border)",
-                          borderRadius: "var(--radius-full)",
-                          fontSize: "0.6875rem",
-                          color: "var(--color-text-muted)",
-                          textTransform: "capitalize" as const,
-                        }}
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
+                <div style={{ fontWeight: 600, fontSize: "0.75rem", color: "var(--color-text)", marginBottom: "0.3rem" }}>
+                  {theme.displayName}
+                </div>
+                <div style={{ display: "flex", gap: "0.25rem", flexWrap: "wrap" as const }}>
+                  {[theme.mode, theme.surface].map((tag) => (
+                    <span
+                      key={tag}
+                      style={{
+                        padding: "0.1rem 0.4rem",
+                        background: "var(--color-bg-subtle)",
+                        border: "1px solid var(--color-border)",
+                        borderRadius: "var(--radius-full)",
+                        fontSize: "0.625rem",
+                        color: "var(--color-text-muted)",
+                        textTransform: "capitalize" as const,
+                      }}
+                    >
+                      {tag}
+                    </span>
+                  ))}
                 </div>
               </div>
-            )
+            );
           })}
         </div>
 
-        {/* Selected theme details */}
+        {/* Selected theme details bar */}
         <div
           style={{
-            maxWidth: "920px",
-            margin: "1.5rem auto 0",
-            padding: "1rem 1.25rem",
+            maxWidth: "960px",
+            margin: "1.25rem auto 0",
+            padding: "0.875rem 1.25rem",
             background: "var(--color-bg-card)",
             border: "1px solid var(--color-border)",
             borderRadius: "var(--radius)",
             display: "flex",
             alignItems: "center",
-            gap: "1rem",
+            gap: "0.875rem",
             flexWrap: "wrap" as const,
           }}
         >
           <div
             style={{
-              width: "1.5rem",
-              height: "1.5rem",
+              width: "1.25rem",
+              height: "1.25rem",
               borderRadius: "50%",
-              background: themes[selectedIdx].primaryColor,
+              background: sel.primaryHex,
               flexShrink: 0,
             }}
           />
-          <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.8125rem", color: "var(--color-text-muted)" }}>
-            <span style={{ color: "var(--color-text)", fontWeight: 600, textTransform: "capitalize" }}>
-              {themes[selectedIdx].brand}
-            </span>
-            {" · "}
-            {themes[selectedIdx].mode}
-            {" · "}
-            {themes[selectedIdx].surface}
-            {" · "}
-            {themes[selectedIdx].primaryColor}
-          </div>
-          <div style={{ marginLeft: "auto" }}>
-            <span
-              style={{
-                padding: "0.25rem 0.75rem",
-                background: `${themes[selectedIdx].primaryColor}18`,
-                color: themes[selectedIdx].primaryColor,
-                borderRadius: "var(--radius-full)",
-                fontSize: "0.75rem",
-                fontWeight: 600,
-              }}
-            >
-              {t.selected}
-            </span>
-          </div>
+          <code style={{ fontFamily: "var(--font-mono)", fontSize: "0.8125rem", color: "var(--color-text-muted)", flex: 1 }}>
+            <span style={{ color: "var(--color-accent)" }}>class</span>
+            {"=\""}
+            <span style={{ color: "var(--color-text)", fontWeight: 600 }}>{sel.cssClass}</span>
+            {"\""}
+          </code>
+          <span
+            style={{
+              padding: "0.2rem 0.6rem",
+              background: `${sel.primaryHex}20`,
+              color: sel.primaryHex,
+              borderRadius: "var(--radius-full)",
+              fontSize: "0.6875rem",
+              fontWeight: 600,
+              fontFamily: "var(--font-mono)",
+            }}
+          >
+            {sel.primaryHex}
+          </span>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 640px) {
+          .theme-grid-4col { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+      `}</style>
     </section>
-  )
+  );
 }

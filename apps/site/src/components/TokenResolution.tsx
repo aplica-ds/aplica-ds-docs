@@ -1,98 +1,109 @@
-import { useState } from "react"
+import { useState } from "react";
+import { Play, RotateCcw, ArrowRight } from "lucide-react";
 
-type Lang = "pt-br" | "en"
+type Lang = "pt-br" | "en";
 
-interface Step {
-  layer: string
-  token: string
-  value: string
-  description: string
-}
+const BRAND_COLORS: Record<string, string> = {
+  tangerine: "#ffae03",
+  joy:       "#e7398a",
+  grinch:    "#58bd59",
+  blue_sky:  "#265ed9",
+};
+
+const BRAND_LABELS: Record<string, string> = {
+  tangerine: "Tangerine",
+  joy:       "Joy",
+  grinch:    "Grinch",
+  blue_sky:  "Blue Sky",
+};
+
+// Real token resolution path — same for all brands, only final value differs
+const RESOLUTION_STEPS = (finalColor: string) => [
+  {
+    layer: "Foundation",
+    token: "--foundation-bg-brand-default",
+    value: "var(--semantic-color-...)",
+  },
+  {
+    layer: "Semantic",
+    token: "--semantic-color-brand-branding-first-default-background",
+    value: finalColor,
+  },
+];
 
 const translations = {
   "pt-br": {
-    title: "Resolução de Tokens",
+    title: "O mesmo token. 4 resoluções diferentes.",
     subtitle:
-      "Veja como uma única solicitação de token percorre as cinco camadas, resolvendo automaticamente para o valor correto do contexto do tema.",
-    tracerLabel: "Rastreador de Caminho de Token",
-    traceBtn: "Rastrear Resolução",
+      "O token --foundation-bg-brand-default sempre aponta para o mesmo slot semântico. O valor final muda conforme a marca ativa — sem alterar nenhum componente.",
+    tracerLabel: "Rastreador de Caminho",
+    traceBtn: "Rastrear",
     resetBtn: "Resetar",
-    previewLabel: "Visualização ao Vivo",
-    finalLabel: "Valor Final:",
+    previewLabel: "Valor Resolvido",
+    finalLabel: "Valor final:",
     resolvedText: "Resolvido!",
     resolvingText: "Resolvendo...",
     steps: [
-      "Camada Foundation referencia token semântico",
-      "Camada Semantic adiciona significado contextual",
-      "Camada Surface aplica contexto de elevação",
-      "Camada Mode ajusta para claro / escuro",
-      "Camada Brand fornece o valor final da cor",
+      "Foundation alias aponta para o slot semântico",
+      "Semantic token resolve para o valor da marca ativa",
     ],
+    brandLabel: "Marca ativa",
   },
   en: {
-    title: "Token Resolution",
+    title: "Same token. 4 different resolutions.",
     subtitle:
-      "Watch how a single token request cascades through all five layers, automatically resolving to the correct value for the current theme context.",
-    tracerLabel: "Token Path Tracer",
-    traceBtn: "Trace Resolution",
+      "The token --foundation-bg-brand-default always points to the same semantic slot. The final value changes with the active brand — without touching any component.",
+    tracerLabel: "Path Tracer",
+    traceBtn: "Trace",
     resetBtn: "Reset",
-    previewLabel: "Live Preview",
-    finalLabel: "Final Value:",
+    previewLabel: "Resolved Value",
+    finalLabel: "Final value:",
     resolvedText: "Resolved!",
     resolvingText: "Resolving...",
     steps: [
-      "Foundation layer references semantic token",
-      "Semantic layer adds contextual meaning",
-      "Surface layer applies elevation context",
-      "Mode layer adjusts for light / dark",
-      "Brand layer provides the final color value",
+      "Foundation alias points to the semantic slot",
+      "Semantic token resolves to the active brand's value",
     ],
+    brandLabel: "Active brand",
   },
-}
+};
 
-const FINAL_COLOR = "#FF6B35"
-const UNRESOLVED_COLOR = "#94a3b8"
-
-const RESOLUTION_STEPS: Array<{ layer: string; token: string; value: string }> = [
-  { layer: "Foundation", token: "foundation.bg.primary",   value: "var(--semantic-bg-primary)" },
-  { layer: "Semantic",   token: "semantic.bg.primary",     value: "var(--surface-bg-brand-primary)" },
-  { layer: "Surface",    token: "surface.bg.brand.primary",value: "var(--mode-bg-brand-primary)" },
-  { layer: "Mode",       token: "mode.bg.brand.primary",   value: "var(--brand-primary-500)" },
-  { layer: "Brand",      token: "brand.primary.500",       value: FINAL_COLOR },
-]
+const UNRESOLVED_COLOR = "#94a3b8";
 
 interface Props {
-  lang?: Lang
+  lang?: Lang;
 }
 
 export function TokenResolution({ lang = "pt-br" }: Props) {
-  const [currentStep, setCurrentStep] = useState(-1)
-  const [isAnimating, setIsAnimating] = useState(false)
-  const t = translations[lang]
+  const [currentStep, setCurrentStep] = useState(-1);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [activeBrand, setActiveBrand] = useState<string>("tangerine");
+  const t = translations[lang];
 
-  const isResolved = currentStep >= RESOLUTION_STEPS.length - 1
-  const previewColor = isResolved ? FINAL_COLOR : UNRESOLVED_COLOR
+  const finalColor = BRAND_COLORS[activeBrand];
+  const steps = RESOLUTION_STEPS(finalColor);
+  const isResolved = currentStep >= steps.length - 1;
+  const previewColor = isResolved ? finalColor : UNRESOLVED_COLOR;
 
   const startAnimation = () => {
-    if (isAnimating) return
-    setIsAnimating(true)
-    setCurrentStep(0)
-
-    let step = 0
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setCurrentStep(0);
+    let step = 0;
     const interval = setInterval(() => {
-      step += 1
-      setCurrentStep(step)
-      if (step >= RESOLUTION_STEPS.length - 1) {
-        clearInterval(interval)
-        setIsAnimating(false)
+      step += 1;
+      setCurrentStep(step);
+      if (step >= steps.length - 1) {
+        clearInterval(interval);
+        setIsAnimating(false);
       }
-    }, 750)
-  }
+    }, 900);
+  };
 
   const resetAnimation = () => {
-    setCurrentStep(-1)
-    setIsAnimating(false)
-  }
+    setCurrentStep(-1);
+    setIsAnimating(false);
+  };
 
   const btnStyle: React.CSSProperties = {
     display: "inline-flex",
@@ -105,7 +116,7 @@ export function TokenResolution({ lang = "pt-br" }: Props) {
     cursor: "pointer",
     border: "none",
     transition: "opacity 0.15s",
-  }
+  };
 
   return (
     <section style={{ padding: "5rem 0" }}>
@@ -126,7 +137,7 @@ export function TokenResolution({ lang = "pt-br" }: Props) {
             style={{
               fontSize: "1.0625rem",
               color: "var(--color-text-muted)",
-              maxWidth: "560px",
+              maxWidth: "600px",
               margin: "0 auto",
               lineHeight: 1.7,
             }}
@@ -136,6 +147,57 @@ export function TokenResolution({ lang = "pt-br" }: Props) {
         </div>
 
         <div style={{ maxWidth: "860px", margin: "0 auto" }}>
+          {/* Brand selector */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "0.75rem",
+              marginBottom: "1.5rem",
+              flexWrap: "wrap" as const,
+            }}
+          >
+            <span style={{ fontSize: "0.875rem", color: "var(--color-text-muted)", fontWeight: 500 }}>
+              {t.brandLabel}:
+            </span>
+            {Object.entries(BRAND_LABELS).map(([key, label]) => {
+              const isActive = activeBrand === key;
+              const color = BRAND_COLORS[key];
+              return (
+                <button
+                  key={key}
+                  onClick={() => { setActiveBrand(key); resetAnimation(); }}
+                  style={{
+                    padding: "0.3rem 0.875rem",
+                    borderRadius: "var(--radius-full)",
+                    border: isActive ? `2px solid ${color}` : "1.5px solid var(--color-border)",
+                    background: isActive ? `${color}15` : "transparent",
+                    color: isActive ? color : "var(--color-text-muted)",
+                    fontWeight: isActive ? 700 : 500,
+                    fontSize: "0.8125rem",
+                    cursor: "pointer",
+                    transition: "all 0.15s",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.375rem",
+                  }}
+                >
+                  <span
+                    style={{
+                      width: "0.625rem",
+                      height: "0.625rem",
+                      borderRadius: "50%",
+                      background: color,
+                      display: "inline-block",
+                      flexShrink: 0,
+                    }}
+                  />
+                  {label}
+                </button>
+              );
+            })}
+          </div>
+
           <div
             style={{
               background: "linear-gradient(135deg, var(--color-bg-card), var(--color-bg-subtle))",
@@ -174,10 +236,7 @@ export function TokenResolution({ lang = "pt-br" }: Props) {
                       onClick={startAnimation}
                       disabled={isAnimating}
                     >
-                      {/* Play icon */}
-                      <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
-                        <path d="M3 2l9 5-9 5V2z" />
-                      </svg>
+                      <Play size={13} />
                       {t.traceBtn}
                     </button>
                     <button
@@ -189,11 +248,7 @@ export function TokenResolution({ lang = "pt-br" }: Props) {
                       }}
                       onClick={resetAnimation}
                     >
-                      {/* Reset icon */}
-                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
-                        <path d="M1 4a6 6 0 1 1 0 6" />
-                        <path d="M1 1v3h3" />
-                      </svg>
+                      <RotateCcw size={13} />
                       {t.resetBtn}
                     </button>
                   </div>
@@ -201,8 +256,9 @@ export function TokenResolution({ lang = "pt-br" }: Props) {
 
                 {/* Steps */}
                 <div style={{ display: "flex", flexDirection: "column", gap: "0.625rem" }}>
-                  {RESOLUTION_STEPS.map((step, idx) => {
-                    const isActive = currentStep >= idx
+                  {steps.map((step, idx) => {
+                    const isActive = currentStep >= idx;
+                    const isFinal = idx === steps.length - 1;
                     return (
                       <div
                         key={idx}
@@ -213,9 +269,9 @@ export function TokenResolution({ lang = "pt-br" }: Props) {
                           padding: "0.875rem 1rem",
                           borderRadius: "var(--radius)",
                           border: isActive
-                            ? "1.5px solid rgba(249,115,22,0.25)"
+                            ? `1.5px solid ${finalColor}44`
                             : "1.5px solid transparent",
-                          background: isActive ? "rgba(249,115,22,0.05)" : "var(--color-bg-subtle)",
+                          background: isActive ? `${finalColor}08` : "var(--color-bg-subtle)",
                           transition: "all 0.4s ease",
                         }}
                       >
@@ -225,7 +281,9 @@ export function TokenResolution({ lang = "pt-br" }: Props) {
                             width: "1.875rem",
                             height: "1.875rem",
                             borderRadius: "50%",
-                            background: isActive ? "var(--gradient-primary)" : "var(--color-border)",
+                            background: isActive
+                              ? isFinal ? finalColor : "var(--gradient-primary)"
+                              : "var(--color-border)",
                             color: isActive ? "#fff" : "var(--color-text-muted)",
                             display: "flex",
                             alignItems: "center",
@@ -244,7 +302,7 @@ export function TokenResolution({ lang = "pt-br" }: Props) {
                           <div
                             style={{
                               fontFamily: "var(--font-mono)",
-                              fontSize: "0.8rem",
+                              fontSize: "0.75rem",
                               fontWeight: 600,
                               color: isActive ? "var(--color-text)" : "var(--color-text-muted)",
                               overflow: "hidden",
@@ -266,19 +324,14 @@ export function TokenResolution({ lang = "pt-br" }: Props) {
                         </div>
 
                         {/* Arrow */}
-                        <svg
-                          width="14"
-                          height="14"
-                          viewBox="0 0 14 14"
-                          fill="currentColor"
+                        <ArrowRight
+                          size={14}
                           style={{
-                            color: isActive ? "var(--color-accent)" : "var(--color-border)",
+                            color: isActive ? finalColor : "var(--color-border)",
                             transition: "color 0.4s",
                             flexShrink: 0,
                           }}
-                        >
-                          <path d="M1 7h10M7 3l4 4-4 4" stroke="currentColor" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
+                        />
 
                         {/* Value pill */}
                         <div
@@ -287,21 +340,26 @@ export function TokenResolution({ lang = "pt-br" }: Props) {
                             fontSize: "0.7rem",
                             padding: "0.25rem 0.625rem",
                             borderRadius: "var(--radius-full)",
-                            background: isActive ? "var(--gradient-primary)" : "var(--color-border)",
-                            color: isActive ? "#fff" : "var(--color-text-muted)",
+                            background: isActive
+                              ? isFinal ? finalColor : `${finalColor}20`
+                              : "var(--color-border)",
+                            color: isActive
+                              ? isFinal ? "#fff" : finalColor
+                              : "var(--color-text-muted)",
                             flexShrink: 0,
-                            maxWidth: "11rem",
+                            maxWidth: "9rem",
                             overflow: "hidden",
                             textOverflow: "ellipsis",
                             whiteSpace: "nowrap",
                             transition: "background 0.4s, color 0.4s",
+                            fontWeight: isFinal && isActive ? 700 : 400,
                           }}
                           title={step.value}
                         >
                           {step.value}
                         </div>
                       </div>
-                    )
+                    );
                   })}
                 </div>
               </div>
@@ -360,12 +418,12 @@ export function TokenResolution({ lang = "pt-br" }: Props) {
                     style={{
                       fontFamily: "var(--font-mono)",
                       fontSize: "0.9375rem",
-                      fontWeight: 600,
-                      color: isResolved ? FINAL_COLOR : "var(--color-text-muted)",
+                      fontWeight: 700,
+                      color: isResolved ? finalColor : "var(--color-text-muted)",
                       transition: "color 0.4s",
                     }}
                   >
-                    {isResolved ? FINAL_COLOR : "var(--resolving)"}
+                    {isResolved ? finalColor : "var(--resolving)"}
                   </div>
                 </div>
               </div>
@@ -386,5 +444,5 @@ export function TokenResolution({ lang = "pt-br" }: Props) {
         }
       `}</style>
     </section>
-  )
+  );
 }
