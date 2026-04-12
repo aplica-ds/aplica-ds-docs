@@ -1,5 +1,5 @@
 {
-  "name": "aplica-ds",
+  "name": "aplica-ds-docs",
   "private": true,
   "workspaces": [
     "apps/*",

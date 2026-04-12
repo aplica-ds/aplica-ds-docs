@@ -15,10 +15,17 @@ const config: Config = {
   baseUrl: '/',
 
   organizationName: 'aplica-ds',
-  projectName: 'aplica-ds',
+  projectName: 'aplica-ds-docs',
 
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
+
+  // Treat .md files as standard Markdown (not MDX).
+  // Our KB content uses { } in code examples and error messages — MDX would
+  // try to parse those as JSX expressions, causing build failures.
+  markdown: {
+    format: 'detect',
+  },
 
   i18n: {
     defaultLocale: 'pt-BR',
