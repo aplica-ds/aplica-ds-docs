@@ -1,0 +1,10 @@
+node_modules/
+.pnpm-store/
+dist/
+build/
+.docusaurus/
+.astro/
+.vercel/
+.netlify/
+*.local
+.DS_Store

@@ -1,0 +1,100 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  lang?: string;
+}
+
+const {
+  title,
+  description = 'Design tokens que escalam com o produto. Sistema de tokens semântico com arquitetura de 5 camadas, geração dinâmica de temas e suporte multi-plataforma.',
+  lang = 'pt-BR',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title} — Aplica DS</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style is:global>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --color-bg:         #ffffff;
+        --color-bg-subtle:  #f9fafb;
+        --color-border:     #e5e7eb;
+        --color-text:       #111827;
+        --color-text-muted: #6b7280;
+        --color-accent:     #2563eb;
+        --color-accent-dark:#1d4ed8;
+        --font-sans:  'Inter', system-ui, sans-serif;
+        --font-display: 'DM Sans', system-ui, sans-serif;
+        --font-mono:  'JetBrains Mono', monospace;
+        --max-width:  1200px;
+        --radius:     8px;
+      }
+
+      html { font-family: var(--font-sans); color: var(--color-text); background: var(--color-bg); }
+      body { min-height: 100vh; line-height: 1.6; }
+
+      a { color: var(--color-accent); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+
+      code, pre { font-family: var(--font-mono); }
+      pre { background: #1e1e2e; color: #cdd6f4; padding: 1rem 1.25rem; border-radius: var(--radius); overflow-x: auto; font-size: 0.875rem; line-height: 1.7; }
+
+      .container { max-width: var(--max-width); margin: 0 auto; padding: 0 1.5rem; }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.625rem 1.25rem;
+        border-radius: var(--radius);
+        font-weight: 600;
+        font-size: 0.9375rem;
+        cursor: pointer;
+        transition: background 0.15s, box-shadow 0.15s;
+        border: none;
+        text-decoration: none;
+      }
+      .btn-primary {
+        background: var(--color-accent);
+        color: #fff;
+      }
+      .btn-primary:hover { background: var(--color-accent-dark); text-decoration: none; }
+      .btn-outline {
+        background: transparent;
+        color: var(--color-accent);
+        border: 1.5px solid var(--color-accent);
+      }
+      .btn-outline:hover { background: #eff6ff; text-decoration: none; }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --color-bg:         #0f172a;
+          --color-bg-subtle:  #1e293b;
+          --color-border:     #334155;
+          --color-text:       #f1f5f9;
+          --color-text-muted: #94a3b8;
+          --color-accent:     #60a5fa;
+          --color-accent-dark:#93c5fd;
+        }
+        .btn-outline:hover { background: #1e3a5f; }
+      }
+    </style>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

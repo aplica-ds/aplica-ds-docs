@@ -1,0 +1,19 @@
+{
+  "name": "aplica-ds",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:site": "pnpm --filter @aplica-ds/site dev",
+    "dev:docs": "pnpm --filter @aplica-ds/docs start",
+    "build:site": "pnpm --filter @aplica-ds/site build",
+    "build:docs": "pnpm --filter @aplica-ds/docs build",
+    "build": "pnpm build:site && pnpm build:docs"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  }
+}

@@ -1,0 +1,84 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Base title="Sobre" description="A história do Aplica DS — das fases Alpha, V1 e V2 até o sistema de tokens open source que existe hoje.">
+  <Nav lang="pt-br" />
+
+  <section style="padding: 5rem 0;">
+    <div class="container" style="max-width: 720px;">
+      <p style="font-family: var(--font-mono); font-size: 0.8125rem; color: var(--color-accent); font-weight: 600; margin-bottom: 1rem;">SOBRE</p>
+      <h1 style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; line-height: 1.2; margin-bottom: 1.25rem;">
+        Três fases. Uma filosofia.
+      </h1>
+      <p style="font-size: 1.0625rem; color: var(--color-text-muted); line-height: 1.75; margin-bottom: 3rem;">
+        O Aplica DS não foi projetado de uma vez — foi destilado de anos de experiência com design systems em produção, três fases de evolução e muitas decisões reversadas.
+      </p>
+
+      <div style="display: flex; flex-direction: column; gap: 2.5rem;">
+
+        <div>
+          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+            <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; background: var(--color-bg-subtle); border: 1px solid var(--color-border); padding: 0.2rem 0.6rem; border-radius: 4px;">Alpha</span>
+            <h2 style="font-weight: 700; font-size: 1.1875rem;">Formação (2020–2021)</h2>
+          </div>
+          <p style="color: var(--color-text-muted); line-height: 1.75;">
+            Quatro decisões fundadoras: nomeação semântica (não por valor), separação de camadas, decomposição de cores e algoritmo de acessibilidade. O Alpha não tinha geração dinâmica — tudo era manual. Mas as decisões conceituais desta fase são o DNA do sistema atual.
+          </p>
+        </div>
+
+        <div>
+          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+            <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; background: var(--color-bg-subtle); border: 1px solid var(--color-border); padding: 0.2rem 0.6rem; border-radius: 4px;">V1</span>
+            <h2 style="font-weight: 700; font-size: 1.1875rem;">Maturação (2021–2023)</h2>
+          </div>
+          <p style="color: var(--color-text-muted); line-height: 1.75;">
+            O V1 formalizou depth, opacity, tipografia e bordas. Introduziu o conceito de Engineering Summaries — documentação técnica dos racionais por trás de cada decisão de sistema. O V1 também identificou os limites: a nomenclatura ainda carregava legado do Alpha, e a geração de tokens era parcialmente manual.
+          </p>
+        </div>
+
+        <div>
+          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+            <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; background: var(--color-bg-subtle); border: 1px solid var(--color-border); padding: 0.2rem 0.6rem; border-radius: 4px;">V2</span>
+            <h2 style="font-weight: 700; font-size: 1.1875rem;">Desacoplamento (2023–presente)</h2>
+          </div>
+          <p style="color: var(--color-text-muted); line-height: 1.75;">
+            O V2 resolveu os limites do V1 com oito inovações: gerador dinâmico, pipeline OKLCh, camada Dimension, nomenclatura canônica, Foundation como estilos compostos, gradientes, bundles de migração e outputs multi-plataforma. O sistema tornou-se determinístico — dada a mesma config, o output é sempre o mesmo.
+          </p>
+        </div>
+
+        <div style="padding: 1.5rem; background: var(--color-bg-subtle); border-radius: var(--radius); border: 1px solid var(--color-border);">
+          <h2 style="font-weight: 700; font-size: 1rem; margin-bottom: 0.75rem;">Filosofia</h2>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem;">
+            {[
+              '"Menos é mais" — cada token extra custa ~30 variáveis por tema.',
+              '"Foundation não é simplificação técnica — é uma decisão de produto."',
+              '"Overrides são permitidos — mas são a última alternativa."',
+              '"Dark mode por construção, não por override."',
+              '"O sistema deve ser compreensível por designers, não apenas por engenheiros."',
+            ].map(quote => (
+              <li style="color: var(--color-text-muted); font-size: 0.9375rem; display: flex; gap: 0.5rem;">
+                <span style="color: var(--color-accent); flex-shrink: 0;">—</span>
+                <span>{quote}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+      </div>
+
+      <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--color-border);">
+        <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.7; margin-bottom: 1.5rem;">
+          A história completa — incluindo as decisões que foram revertidas e por quê — está documentada na knowledge base.
+        </p>
+        <a href="https://docs.aplica.design/06-history/01-aplica-ds-alpha" class="btn btn-outline">
+          Ler histórico completo →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer lang="pt-br" />
+</Base>

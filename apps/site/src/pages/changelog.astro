@@ -1,0 +1,102 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+const releases = [
+  {
+    version: 'v2.25.0',
+    date: '2026-04',
+    status: 'latest',
+    changes: [
+      'Pipeline OKLCh estabilizado — outputs determinísticos para todas as configurações de marca',
+      'Camada Dimension com DefaultDesignUnit por variante (minor=8px, normal=16px, major=24px)',
+      'Foundation como estilos compostos — separação da camada Semantic',
+      'Outputs: CSS, JSON, ESM, CJS, TypeScript declarations',
+      'Suporte a React Native (px como string) e Flutter (Dart classes planejado)',
+      'Knowledge base pública — 48 artigos em pt-BR e en-US',
+    ],
+  },
+  {
+    version: 'v2.0.0',
+    date: '2024',
+    status: 'stable',
+    changes: [
+      'Gerador dinâmico de temas — substituiu geração manual',
+      'Nomeclatua canônica: canonical-taxonomy-and-naming-contract',
+      'Bundl de migração V1 → V2',
+      'Algoritmo de inversão de dark mode (dark[N] = light[20-N])',
+      '4 variants por tema: light-positive, light-negative, dark-positive, dark-negative',
+    ],
+  },
+  {
+    version: 'v1.x',
+    date: '2021–2023',
+    status: 'legacy',
+    changes: [
+      'Formalização de depth, opacity, tipografia e bordas',
+      'Engineering Summaries — documentação de racionais',
+      'Tokens parcialmente manuais — limitação identificada',
+    ],
+  },
+  {
+    version: 'Alpha',
+    date: '2020–2021',
+    status: 'legacy',
+    changes: [
+      'Quatro decisões fundadoras: nomeação semântica, separação de camadas, decomposição de cores, algoritmo de acessibilidade',
+      'Sem geração dinâmica — base conceitual do sistema atual',
+    ],
+  },
+];
+---
+
+<Base title="Changelog" description="Histórico de versões do Aplica DS e do Aplica Tokens Theme Engine.">
+  <Nav lang="pt-br" />
+
+  <section style="padding: 5rem 0;">
+    <div class="container" style="max-width: 720px;">
+      <p style="font-family: var(--font-mono); font-size: 0.8125rem; color: var(--color-accent); font-weight: 600; margin-bottom: 1rem;">CHANGELOG</p>
+      <h1 style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; line-height: 1.2; margin-bottom: 1.25rem;">
+        Histórico de versões
+      </h1>
+      <p style="font-size: 1.0625rem; color: var(--color-text-muted); line-height: 1.75; margin-bottom: 3rem;">
+        Aplica Tokens Theme Engine — evolução do sistema de tokens de design.
+      </p>
+
+      <div style="display: flex; flex-direction: column; gap: 2rem;">
+        {releases.map(({ version, date, status, changes }) => (
+          <div style="border: 1px solid var(--color-border); border-radius: var(--radius); overflow: hidden;">
+            <div style="padding: 1rem 1.25rem; background: var(--color-bg-subtle); border-bottom: 1px solid var(--color-border); display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+              <span style="font-family: var(--font-mono); font-weight: 700; font-size: 0.9375rem;">{version}</span>
+              <span style="color: var(--color-text-muted); font-size: 0.875rem;">{date}</span>
+              {status === 'latest' && (
+                <span style="background: #dcfce7; color: #065f46; font-size: 0.75rem; font-weight: 600; padding: 0.15rem 0.5rem; border-radius: 99px;">latest</span>
+              )}
+              {status === 'legacy' && (
+                <span style="background: var(--color-bg-subtle); color: var(--color-text-muted); font-size: 0.75rem; font-weight: 600; padding: 0.15rem 0.5rem; border-radius: 99px; border: 1px solid var(--color-border);">legacy</span>
+              )}
+            </div>
+            <ul style="list-style: none; padding: 1rem 1.25rem; display: flex; flex-direction: column; gap: 0.5rem;">
+              {changes.map(change => (
+                <li style="color: var(--color-text-muted); font-size: 0.9375rem; display: flex; gap: 0.5rem; align-items: flex-start; line-height: 1.5;">
+                  <span style="color: var(--color-accent); flex-shrink: 0; margin-top: 1px;">·</span>
+                  {change}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      <div style="margin-top: 2.5rem; padding: 1.25rem 1.5rem; background: var(--color-bg-subtle); border-radius: var(--radius); border: 1px solid var(--color-border);">
+        <p style="font-size: 0.9rem; color: var(--color-text-muted);">
+          O histórico completo de decisões de design — incluindo o mapeamento V1→V2 e os racionais de cada mudança — está documentado em
+          <a href="https://docs.aplica.design/06-history/04-v1-to-v2-rationals-mapping">06 · History na documentação</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <Footer lang="pt-br" />
+</Base>

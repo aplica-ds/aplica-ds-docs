@@ -1,0 +1,35 @@
+---
+interface Props {
+  lang?: 'pt-br' | 'en';
+}
+const { lang = 'pt-br' } = Astro.props;
+const base = lang === 'en' ? '/en' : '';
+---
+
+<footer style="border-top: 1px solid var(--color-border); margin-top: 6rem; padding: 3rem 0;">
+  <div class="container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 2.5rem;">
+    <div>
+      <p style="font-family: var(--font-display); font-weight: 700; font-size: 1rem; margin-bottom: 0.75rem;">Aplica DS</p>
+      <p style="color: var(--color-text-muted); font-size: 0.875rem; line-height: 1.7;">Design tokens que escalam com o produto. Open source, MIT.</p>
+    </div>
+    <div>
+      <p style="font-weight: 600; font-size: 0.875rem; margin-bottom: 0.75rem;">Documentação</p>
+      <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem;">
+        <li><a href="https://docs.aplica.design" style="color: var(--color-text-muted); font-size: 0.875rem;">Visão geral</a></li>
+        <li><a href="https://docs.aplica.design/08-tutorials/n1-product-designer/01-o-que-sao-tokens" style="color: var(--color-text-muted); font-size: 0.875rem;">Tutoriais N1</a></li>
+        <li><a href="https://docs.aplica.design/04-theme-engine/01-what-is-theme-engine" style="color: var(--color-text-muted); font-size: 0.875rem;">Theme Engine</a></li>
+      </ul>
+    </div>
+    <div>
+      <p style="font-weight: 600; font-size: 0.875rem; margin-bottom: 0.75rem;">Projeto</p>
+      <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem;">
+        <li><a href={base + '/sobre'} style="color: var(--color-text-muted); font-size: 0.875rem;">Sobre</a></li>
+        <li><a href={base + '/changelog'} style="color: var(--color-text-muted); font-size: 0.875rem;">Changelog</a></li>
+        <li><a href="https://github.com/aplica-ds/aplica-ds" style="color: var(--color-text-muted); font-size: 0.875rem;">GitHub</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container" style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--color-border); color: var(--color-text-muted); font-size: 0.8125rem;">
+    © {new Date().getFullYear()} Aplica DS — Licença MIT
+  </div>
+</footer>
