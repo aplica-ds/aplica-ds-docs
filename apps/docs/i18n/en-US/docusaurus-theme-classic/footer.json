@@ -41,7 +41,7 @@
   },
   "link.item.label.GitHub": {
     "message": "GitHub",
-    "description": "The label of footer link with label=GitHub linking to https://github.com/aplica-ds/aplica-ds"
+    "description": "The label of footer link with label=GitHub linking to https://https://github.com/bellentani/aplica-design-token"
   },
   "copyright": {
     "message": "Copyright © 2026 Aplica DS. Open source under MIT license.",
