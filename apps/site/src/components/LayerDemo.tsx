@@ -316,7 +316,7 @@ export function LayerDemo({ lang = "pt-br" }: Props) {
   };
 
   return (
-    <section style={s.section}>
+    <section id="layer-demo" style={s.section}>
       <div className="container">
         <div style={s.heading}>
           <h2 style={s.h2}>{t.title}</h2>

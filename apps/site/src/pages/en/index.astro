@@ -5,7 +5,6 @@ import Footer from '../../components/Footer.astro';
 import { LayerDemo } from '../../components/LayerDemo';
 import { ThemeGrid } from '../../components/ThemeGrid';
 import { ThemePlayground } from '../../components/ThemePlayground';
-import { TokenResolution } from '../../components/TokenResolution';
 import { routes } from '../../i18n/routes';
 
 const r = routes.en;
@@ -15,7 +14,7 @@ const r = routes.en;
   <Nav lang="en" />
 
   <!-- ── 1. Hero ─────────────────────────────────────────────────── -->
-  <section style="position: relative; overflow: hidden; padding: 6rem 0 4.5rem; text-align: center;">
+  <section id="hero" style="position: relative; overflow: hidden; padding: 6rem 0 4.5rem; text-align: center;">
     <div style="position: absolute; inset: 0; background: var(--gradient-hero-overlay); pointer-events: none;" aria-hidden="true"></div>
 
     <div class="container" style="position: relative;">
@@ -41,7 +40,7 @@ const r = routes.en;
   </section>
 
   <!-- ── 2. The problem ──────────────────────────────────────────── -->
-  <section style="padding: 5rem 0; background: var(--color-bg-subtle);">
+  <section id="problem-statement" style="padding: 5rem 0; background: var(--color-bg-subtle);">
     <div class="container">
       <h2 data-animate style="font-family: var(--font-display); font-size: 1.75rem; font-weight: 700; text-align: center; margin-bottom: 0.75rem;">The problem every team faces</h2>
       <p data-animate style="text-align: center; color: var(--color-text-muted); max-width: 540px; margin: 0 auto 3rem;">Six recurring pains that grow as the product scales — and that Aplica DS solves structurally.</p>
@@ -105,11 +104,18 @@ const r = routes.en;
   <!-- ── 4. Auto-generated themes — interactive island ──────────── -->
   <ThemeGrid lang="en" client:load />
 
-  <!-- ── 5. Theme Playground — token resolution integrated ────────── -->
-  <ThemePlayground lang="en" client:load />
-
-  <!-- ── 5b. Token Resolution — full 5-layer chain ────────────── -->
-  <TokenResolution lang="en" client:load />
+  <!-- ── 5. Theme Playground + Token Resolution widget ───────────── -->
+  <section id="token-resolution">
+    <div class="container" style="text-align: center; margin-bottom: 2.5rem;">
+      <h2 style="font-family: var(--font-display); font-size: clamp(1.75rem, 3vw, 2.25rem); font-weight: 700; margin-bottom: 0.75rem; color: var(--color-text);">
+        Same token. 4 different resolutions.
+      </h2>
+      <p style="font-size: 1.0625rem; color: var(--color-text-muted); max-width: 600px; margin: 0 auto; line-height: 1.7;">
+        foundation.bg.brand.default always points to the same path. The final value changes with the active brand — without touching any component.
+      </p>
+    </div>
+    <ThemePlayground lang="en" client:load />
+  </section>
 
   <!-- ── 6. How it works ───────────────────────────────────────── -->
   <section id="como-funciona" style="padding: 5rem 0; background: var(--color-bg-subtle);">
@@ -300,7 +306,7 @@ const r = routes.en;
   </style>
 
   <!-- ── 8. Open source ─────────────────────────────────────────── -->
-  <section style="padding: 5rem 0; background: var(--color-bg-subtle);">
+  <section id="open-source" style="padding: 5rem 0; background: var(--color-bg-subtle);">
     <div class="container" style="text-align: center;">
       <h2 data-animate style="font-family: var(--font-display); font-size: 1.75rem; font-weight: 700; margin-bottom: 0.75rem;">100% open source</h2>
       <p data-animate style="color: var(--color-text-muted); max-width: 480px; margin: 0 auto 2rem; line-height: 1.7;">MIT license. No vendor lock-in. Contributions via PR. The git history is the documentation.</p>
@@ -312,7 +318,7 @@ const r = routes.en;
   </section>
 
   <!-- ── 9. Final CTA ───────────────────────────────────────────── -->
-  <section style="padding: 5rem 0;">
+  <section id="cta-final" style="padding: 5rem 0;">
     <div class="container" style="text-align: center;">
       <h2 style="font-family: var(--font-display); font-size: 2rem; font-weight: 700; margin-bottom: 1rem;">Ready to start?</h2>
       <p style="color: var(--color-text-muted); max-width: 440px; margin: 0 auto 2.5rem; line-height: 1.7;">

@@ -72,7 +72,7 @@ export function ThemeGrid({ lang = "pt-br" }: Props) {
       : "var(--semantic-color-brand-ambient-contrast-base-negative-background)";
 
   return (
-    <section style={{ padding: "5rem 0", background: "var(--color-bg-subtle)" }}>
+    <section id="theme-grid" style={{ padding: "5rem 0", background: "var(--color-bg-subtle)" }}>
       <div className="container">
         <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
           <h2

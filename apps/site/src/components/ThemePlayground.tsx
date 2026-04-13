@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { TokenResolutionWidget } from "./TokenResolution";
 
 type Lang     = "pt-br" | "en";
 type Brand    = "tangerine" | "joy" | "grinch" | "blue_sky";
@@ -157,7 +158,13 @@ function injectPlaygroundLayer() {
     .card-muted { background: var(--semantic-color-interface-function-disabled-normal-background) !important; color: var(--semantic-color-interface-function-disabled-normal-txtOn) !important; }
 
 
-    @media (min-width: 760px) { .pg-grid { grid-template-columns: 1fr 280px !important; } }
+    /* Preview | Token Resolution — coluna do widget mais larga que o antigo 280px */
+    @media (min-width: 760px) {
+      .pg-grid { grid-template-columns: minmax(0, 1fr) minmax(480px, 1.25fr) !important; }
+    }
+    @media (min-width: 1100px) {
+      .pg-grid { grid-template-columns: minmax(0, 1fr) minmax(560px, 1.35fr) !important; }
+    }
   `;
   document.head.appendChild(s);
 }
@@ -230,7 +237,7 @@ export function ThemePlayground({ lang = "pt-br" }: Props) {
   const tc = ready ? cssClass : "";
 
   return (
-    <section style={{ padding: "5rem 0" }}>
+    <section id="theme-playground" style={{ padding: "5rem 0" }}>
       <div className="container">
 
         {/* Header */}
@@ -479,7 +486,9 @@ export function ThemePlayground({ lang = "pt-br" }: Props) {
 
               </div>
             </div>
-            {/* !-- Insert Token Resolution Here => D:\workspace\aplica-ds\aplica-ds-docs\apps\site\src\components\TokenResolution.tsx */}
+            <div style={{ width: "100%", minWidth: 0 }}>
+              <TokenResolutionWidget lang={lang} brand={brand} mode={mode} surface={surface} />
+            </div>
           </div>
         </div>
       </div>
