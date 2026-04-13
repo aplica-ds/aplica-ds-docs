@@ -1,40 +1,34 @@
 ---
+import { routes, type Lang } from '../i18n/routes';
+
 interface Props {
-  lang?: 'pt-br' | 'en';
+  lang?: Lang;
 }
 const { lang = 'pt-br' } = Astro.props;
+
+const r = routes[lang];
 
 const ft = {
   'pt-br': {
     tagline:   'Design tokens que escalam com o produto. Arquitetura de 5 camadas, open source, licença MIT.',
     docsCol:   'Documentação',
     overview:  'Visão geral',
-    overviewHref: 'https://docs.aplica.me',
     n1:        'Tutoriais N1',
-    n1Href:    'https://docs.aplica.me/tutorials/n1-product-designer/N1-01',
     engine:    'Theme Engine',
-    engineHref:'https://docs.aplica.me/theme-engine/what-is-theme-engine',
     projCol:   'Projeto',
     about:     'Sobre',
-    aboutHref: '/sobre',
     changelog: 'Changelog',
-    changelogHref: '/changelog',
     license:   `© ${new Date().getFullYear()} Aplica DS — Licença MIT`,
   },
   en: {
     tagline:   'Design tokens that scale with your product. 5-layer architecture, open source, MIT license.',
     docsCol:   'Documentation',
     overview:  'Overview',
-    overviewHref: 'https://docs.aplica.me/en-US',
     n1:        'N1 Tutorials',
-    n1Href:    'https://docs.aplica.me/en-US/tutorials/n1-product-designer/N1-01',
     engine:    'Theme Engine',
-    engineHref:'https://docs.aplica.me/en-US/theme-engine/what-is-theme-engine',
     projCol:   'Project',
     about:     'About',
-    aboutHref: '/en/about',
     changelog: 'Changelog',
-    changelogHref: '/en/changelog',
     license:   `© ${new Date().getFullYear()} Aplica DS — MIT License`,
   },
 }[lang];
@@ -57,9 +51,9 @@ const ft = {
       <div>
         <p style="font-weight: 600; font-size: 0.8125rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-text-muted);">{ft.docsCol}</p>
         <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.625rem;">
-          <li><a href={ft.overviewHref} style="color: var(--color-text-muted); font-size: 0.875rem; text-decoration: none; transition: color 0.15s;" onmouseover="this.style.color='var(--color-text)'" onmouseout="this.style.color='var(--color-text-muted)'">{ft.overview}</a></li>
-          <li><a href={ft.n1Href} style="color: var(--color-text-muted); font-size: 0.875rem; text-decoration: none; transition: color 0.15s;" onmouseover="this.style.color='var(--color-text)'" onmouseout="this.style.color='var(--color-text-muted)'">{ft.n1}</a></li>
-          <li><a href={ft.engineHref} style="color: var(--color-text-muted); font-size: 0.875rem; text-decoration: none; transition: color 0.15s;" onmouseover="this.style.color='var(--color-text)'" onmouseout="this.style.color='var(--color-text-muted)'">{ft.engine}</a></li>
+          <li><a href={r.docs} style="color: var(--color-text-muted); font-size: 0.875rem; text-decoration: none; transition: color 0.15s;" onmouseover="this.style.color='var(--color-text)'" onmouseout="this.style.color='var(--color-text-muted)'">{ft.overview}</a></li>
+          <li><a href={r.docsN1} style="color: var(--color-text-muted); font-size: 0.875rem; text-decoration: none; transition: color 0.15s;" onmouseover="this.style.color='var(--color-text)'" onmouseout="this.style.color='var(--color-text-muted)'">{ft.n1}</a></li>
+          <li><a href={r.docsEngine} style="color: var(--color-text-muted); font-size: 0.875rem; text-decoration: none; transition: color 0.15s;" onmouseover="this.style.color='var(--color-text)'" onmouseout="this.style.color='var(--color-text-muted)'">{ft.engine}</a></li>
         </ul>
       </div>
 
@@ -67,8 +61,8 @@ const ft = {
       <div>
         <p style="font-weight: 600; font-size: 0.8125rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-text-muted);">{ft.projCol}</p>
         <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.625rem;">
-          <li><a href={ft.aboutHref} style="color: var(--color-text-muted); font-size: 0.875rem; text-decoration: none; transition: color 0.15s;" onmouseover="this.style.color='var(--color-text)'" onmouseout="this.style.color='var(--color-text-muted)'">{ft.about}</a></li>
-          <li><a href={ft.changelogHref} style="color: var(--color-text-muted); font-size: 0.875rem; text-decoration: none; transition: color 0.15s;" onmouseover="this.style.color='var(--color-text)'" onmouseout="this.style.color='var(--color-text-muted)'">{ft.changelog}</a></li>
+          <li><a href={r.sobre} style="color: var(--color-text-muted); font-size: 0.875rem; text-decoration: none; transition: color 0.15s;" onmouseover="this.style.color='var(--color-text)'" onmouseout="this.style.color='var(--color-text-muted)'">{ft.about}</a></li>
+          <li><a href={r.changelog} style="color: var(--color-text-muted); font-size: 0.875rem; text-decoration: none; transition: color 0.15s;" onmouseover="this.style.color='var(--color-text)'" onmouseout="this.style.color='var(--color-text-muted)'">{ft.changelog}</a></li>
           <li><a href="https://github.com/bellentani/aplica-design-tokens" style="color: var(--color-text-muted); font-size: 0.875rem; text-decoration: none; transition: color 0.15s;" onmouseover="this.style.color='var(--color-text)'" onmouseout="this.style.color='var(--color-text-muted)'">GitHub</a></li>
         </ul>
       </div>
@@ -81,7 +75,7 @@ const ft = {
       </p>
       <div style="display: flex; gap: 1.5rem;">
         <a href="https://github.com/bellentani/aplica-design-tokens" style="color: var(--color-text-muted); font-size: 0.8125rem; text-decoration: none; transition: color 0.15s;" onmouseover="this.style.color='var(--color-text)'" onmouseout="this.style.color='var(--color-text-muted)'">GitHub</a>
-        <a href={ft.overviewHref} style="color: var(--color-text-muted); font-size: 0.8125rem; text-decoration: none; transition: color 0.15s;" onmouseover="this.style.color='var(--color-text)'" onmouseout="this.style.color='var(--color-text-muted)'">Docs</a>
+        <a href={r.docs} style="color: var(--color-text-muted); font-size: 0.8125rem; text-decoration: none; transition: color 0.15s;" onmouseover="this.style.color='var(--color-text)'" onmouseout="this.style.color='var(--color-text-muted)'">Docs</a>
       </div>
     </div>
   </div>

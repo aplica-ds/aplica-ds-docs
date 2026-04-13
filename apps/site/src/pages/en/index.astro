@@ -6,6 +6,9 @@ import { LayerDemo } from '../../components/LayerDemo';
 import { ThemeGrid } from '../../components/ThemeGrid';
 import { ThemePlayground } from '../../components/ThemePlayground';
 import { TokenResolution } from '../../components/TokenResolution';
+import { routes } from '../../i18n/routes';
+
+const r = routes.en;
 ---
 
 <Base title="Design tokens that scale with your product" lang="en-US" description="5-layer token architecture, dynamic theme generation, dark mode by design, Figma/React/Vue/Flutter support — from a single config file.">
@@ -13,65 +16,93 @@ import { TokenResolution } from '../../components/TokenResolution';
 
   <!-- ── 1. Hero ─────────────────────────────────────────────────── -->
   <section style="position: relative; overflow: hidden; padding: 6rem 0 4.5rem; text-align: center;">
-    <!-- Gradient overlay -->
     <div style="position: absolute; inset: 0; background: var(--gradient-hero-overlay); pointer-events: none;" aria-hidden="true"></div>
 
     <div class="container" style="position: relative;">
-      <p class="badge" style="margin-bottom: 1.5rem;">
+      <p data-animate class="badge" style="margin-bottom: 1.5rem;">
         Open Source · MIT
       </p>
-      <h1 style="font-family: var(--font-display); font-size: clamp(2.25rem, 5vw, 3.5rem); font-weight: 700; line-height: 1.15; max-width: 760px; margin: 0 auto 1.25rem;">
+      <h1 data-animate="delay-1" style="font-family: var(--font-display); font-size: clamp(2.25rem, 5vw, 3.5rem); font-weight: 700; line-height: 1.15; max-width: 760px; margin: 0 auto 1.25rem;">
         Design tokens that
         <span class="text-gradient"> scale with your product.</span>
       </h1>
-      <p style="font-size: 1.125rem; color: var(--color-text-muted); max-width: 560px; margin: 0 auto 2.5rem; line-height: 1.7;">
-        5-layer architecture, dynamic theme generation, dark mode by design, multi-platform support (Figma, React, Vue, Flutter) — from a single config file.
+      <p data-animate="delay-2" style="font-size: 1.125rem; color: var(--color-text-muted); max-width: 560px; margin: 0 auto 2.5rem; line-height: 1.7;">
+        5-layer architecture, dynamic theme generation, dark mode by design, and support for Figma, React, Vue, Flutter — from a single config file.
       </p>
-      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-        <a href="https://docs.aplica.me/en-US/08-tutorials/N1-01" class="btn btn-primary">
+      <div data-animate="delay-3" style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href={r.docsN1} class="btn btn-primary">
           Start with N1 tutorials →
         </a>
-        <a href="https://github.com/bellentani/aplica-design-tokens" class="btn btn-outline">
+        <a href="https://github.com/bellentani/aplica-design-tokens" class="btn btn-outline" target="_blank" rel="noopener noreferrer">
           View on GitHub
         </a>
       </div>
     </div>
   </section>
 
-  <!-- ── 2. The problem ─────────────────────────────────────────── -->
+  <!-- ── 2. The problem ──────────────────────────────────────────── -->
   <section style="padding: 5rem 0; background: var(--color-bg-subtle);">
     <div class="container">
-      <h2 style="font-family: var(--font-display); font-size: 1.75rem; font-weight: 700; text-align: center; margin-bottom: 0.75rem;">The problem every team faces</h2>
-      <p style="text-align: center; color: var(--color-text-muted); max-width: 520px; margin: 0 auto 3rem;">Hardcoded tokens, manual dark mode, cross-platform inconsistencies — the cost grows with every new product or partner.</p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; max-width: 900px; margin: 0 auto;">
-        <div class="card" style="padding: 1.5rem;">
-          <div style="font-size: 1.5rem; margin-bottom: 0.75rem;">🔁</div>
-          <h3 style="font-weight: 600; margin-bottom: 0.5rem;">Duplication</h3>
-          <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6;">The same blue defined in 14 different places. Change one, forget the others.</p>
+      <h2 data-animate style="font-family: var(--font-display); font-size: 1.75rem; font-weight: 700; text-align: center; margin-bottom: 0.75rem;">The problem every team faces</h2>
+      <p data-animate style="text-align: center; color: var(--color-text-muted); max-width: 540px; margin: 0 auto 3rem;">Six recurring pains that grow as the product scales — and that Aplica DS solves structurally.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; max-width: 900px; margin: 0 auto;">
+
+        <div class="card hover-lift" data-animate="delay-1" style="padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
+          <div style="width: 2.5rem; height: 2.5rem; border-radius: 0.625rem; background: rgba(249,115,22,0.1); display: flex; align-items: center; justify-content: center;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg>
+          </div>
+          <h3 style="font-weight: 600; font-size: 1rem;">Hardcoded values</h3>
+          <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6;"><code style="font-size: 0.8125rem;">#2563EB</code> repeated across 50+ files. Changing the brand color means a manual find-and-replace throughout the codebase.</p>
         </div>
-        <div class="card" style="padding: 1.5rem;">
-          <div style="font-size: 1.5rem; margin-bottom: 0.75rem;">🌙</div>
-          <h3 style="font-weight: 600; margin-bottom: 0.5rem;">Manual dark mode</h3>
-          <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6;">Every color needs a handcrafted dark variant. Bugs guaranteed.</p>
+
+        <div class="card hover-lift" data-animate="delay-2" style="padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
+          <div style="width: 2.5rem; height: 2.5rem; border-radius: 0.625rem; background: rgba(99,102,241,0.1); display: flex; align-items: center; justify-content: center;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </div>
+          <h3 style="font-weight: 600; font-size: 1rem;">Dark mode = 2x the work</h3>
+          <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6;">Every new color requires a handcrafted dark variant. The number of tokens doubles — and so does the risk of inconsistency.</p>
         </div>
-        <div class="card" style="padding: 1.5rem;">
-          <div style="font-size: 1.5rem; margin-bottom: 0.75rem;">🏝️</div>
-          <h3 style="font-weight: 600; margin-bottom: 0.5rem;">Platform silos</h3>
-          <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6;">Web, mobile, and Figma live in separate worlds. Syncing costs hours.</p>
+
+        <div class="card hover-lift" data-animate="delay-3" style="padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
+          <div style="width: 2.5rem; height: 2.5rem; border-radius: 0.625rem; background: rgba(16,185,129,0.1); display: flex; align-items: center; justify-content: center;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>
+          </div>
+          <h3 style="font-weight: 600; font-size: 1rem;">Platforms diverge</h3>
+          <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6;">CSS, React Native, and Figma each define their own values. Cross-platform divergence is a matter of time, not luck.</p>
         </div>
-        <div class="card" style="padding: 1.5rem;">
-          <div style="font-size: 1.5rem; margin-bottom: 0.75rem;">📈</div>
-          <h3 style="font-weight: 600; margin-bottom: 0.5rem;">Impossible scale</h3>
-          <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6;">Each new product or partner multiplies the problem. There's no "clean up later".</p>
+
+        <div class="card hover-lift" data-animate="delay-4" style="padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
+          <div style="width: 2.5rem; height: 2.5rem; border-radius: 0.625rem; background: rgba(236,72,153,0.1); display: flex; align-items: center; justify-content: center;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </div>
+          <h3 style="font-weight: 600; font-size: 1rem;">No semantic contract</h3>
+          <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6;"><code style="font-size: 0.8125rem;">blue-500</code> is a color, not a role. Engineers guess which token to use in each component — and get it wrong.</p>
         </div>
+
+        <div class="card hover-lift" data-animate="delay-5" style="padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
+          <div style="width: 2.5rem; height: 2.5rem; border-radius: 0.625rem; background: rgba(245,158,11,0.1); display: flex; align-items: center; justify-content: center;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg>
+          </div>
+          <h3 style="font-weight: 600; font-size: 1rem;">New brand = fork the system</h3>
+          <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6;">Adding a second brand requires duplicating the entire system. Maintenance cost grows exponentially with each new brand.</p>
+        </div>
+
+        <div class="card hover-lift" data-animate="delay-6" style="padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
+          <div style="width: 2.5rem; height: 2.5rem; border-radius: 0.625rem; background: rgba(139,92,246,0.1); display: flex; align-items: center; justify-content: center;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          </div>
+          <h3 style="font-weight: 600; font-size: 1rem;">Per-component density</h3>
+          <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6;">Creating a compact variant requires overriding each component individually. There is no global density — only local patches.</p>
+        </div>
+
       </div>
     </div>
   </section>
 
-  <!-- ── 3. 5-layer architecture — interactive island ──────────── -->
+  <!-- ── 3. 5-layer architecture — interactive island ───────────── -->
   <LayerDemo lang="en" client:load />
 
-  <!-- ── 4. Auto-generated themes — interactive island ─────────── -->
+  <!-- ── 4. Auto-generated themes — interactive island ──────────── -->
   <ThemeGrid lang="en" client:load />
 
   <!-- ── 5. Theme Playground — token resolution integrated ────────── -->
@@ -81,218 +112,214 @@ import { TokenResolution } from '../../components/TokenResolution';
   <TokenResolution lang="en" client:load />
 
   <!-- ── 6. How it works ───────────────────────────────────────── -->
-  <section id="how-it-works" style="padding: 5rem 0; background: var(--color-bg-subtle);">
-    <div class="container" style="max-width: 760px;">
-      <p style="font-family: var(--font-mono); font-size: 0.8125rem; color: var(--color-accent); font-weight: 600; margin-bottom: 1rem; text-align: center;">HOW IT WORKS</p>
-      <h2 style="font-family: var(--font-display); font-size: 1.75rem; font-weight: 700; text-align: center; margin-bottom: 0.75rem;">From config to CSS in 6 stages</h2>
-      <p style="text-align: center; color: var(--color-text-muted); max-width: 520px; margin: 0 auto 3rem; line-height: 1.7;">The Aplica Tokens Theme Engine is a deterministic generation pipeline. You describe the brand identity; the engine produces consistent, accessible tokens ready for any platform.</p>
+  <section id="como-funciona" style="padding: 5rem 0; background: var(--color-bg-subtle);">
+    <div class="container" style="max-width: 900px;">
+      <p data-animate style="font-family: var(--font-mono); font-size: 0.8125rem; color: var(--color-accent); font-weight: 600; margin-bottom: 1rem; text-align: center;">HOW IT WORKS</p>
+      <h2 data-animate style="font-family: var(--font-display); font-size: 1.75rem; font-weight: 700; text-align: center; margin-bottom: 0.75rem;">From config to token in 6 steps</h2>
+      <p data-animate style="text-align: center; color: var(--color-text-muted); max-width: 520px; margin: 0 auto 3rem; line-height: 1.7;">One config file. One deterministic pipeline. Consistent, accessible tokens ready for any platform.</p>
 
-      <div style="display: flex; flex-direction: column; gap: 2rem;">
-        <div style="border: 1px solid var(--color-border); border-radius: var(--radius); overflow: hidden;">
-          <div style="padding: 1.25rem 1.5rem; background: var(--color-bg-card); border-bottom: 1px solid var(--color-border); display: flex; align-items: center; gap: 0.75rem;">
-            <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; background: var(--color-accent-bg); color: var(--color-accent-text); padding: 0.2rem 0.5rem; border-radius: 4px;">[01] ensure:data</span>
-            <span style="font-weight: 600;">Directory verification</span>
-          </div>
-          <div style="padding: 1.25rem 1.5rem;">
-            <p style="color: var(--color-text-muted); line-height: 1.7;">Ensures all data directories exist before any generation. Fails fast if the structure is incomplete.</p>
-          </div>
-        </div>
+      <!-- Tier A: 6 pipeline steps -->
+      <div style="position: relative; display: flex; flex-direction: column; gap: 0; margin-bottom: 3rem;">
+        <!-- Vertical connector line -->
+        <div style="position: absolute; left: 1.5rem; top: 3rem; bottom: 3rem; width: 2px; background: linear-gradient(to bottom, var(--color-accent), rgba(139,92,246,0.3)); z-index: 0;"></div>
 
-        <div style="border: 1px solid var(--color-border); border-radius: var(--radius); overflow: hidden;">
-          <div style="padding: 1.25rem 1.5rem; background: var(--color-bg-card); border-bottom: 1px solid var(--color-border); display: flex; align-items: center; gap: 0.75rem;">
-            <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; background: var(--color-accent-bg); color: var(--color-accent-text); padding: 0.2rem 0.5rem; border-radius: 4px;">[02] dimension:generate</span>
-            <span style="font-weight: 600;">Dimensional scale</span>
+        {[
+          {
+            step: '01',
+            icon: '<path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/><polyline points="9 11 12 14 15 11"/>',
+            title: 'Directory verification',
+            desc: 'Ensures all data folders and files exist. Fails fast if anything is missing.',
+            color: '#f97316',
+          },
+          {
+            step: '02',
+            icon: '<path d="M21 3H3"/><path d="M9 3v11a3 3 0 0 0 6 0V3"/>',
+            title: 'Dimensional scale',
+            desc: 'Generates the spacing scale in 3 variants: minor (8px), normal (16px), major (24px). Geometric progression, 10 steps each.',
+            color: '#3b82f6',
+          },
+          {
+            step: '03',
+            icon: '<circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/>',
+            title: 'OKLCh pipeline',
+            desc: 'Decomposes each brand color into 19 lightness levels in the perceptual OKLCh color space. Dark mode derived mathematically: dark[N] = light[20-N].',
+            color: '#10b981',
+          },
+          {
+            step: '04',
+            icon: '<line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/>',
+            title: 'Layer synchronization',
+            desc: 'Maps palette → Mode → Surface → Semantic. Produces 4 theme variants: light-positive, light-negative, dark-positive, dark-negative.',
+            color: '#8b5cf6',
+          },
+          {
+            step: '05',
+            icon: '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',
+            title: 'Foundation aliases',
+            desc: 'Generates short aliases for product teams: foundation.bg.primary, foundation.txt.title, foundation.spacing.medium — all pointing to the Semantic layer.',
+            color: '#ec4899',
+          },
+          {
+            step: '06',
+            icon: '<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>',
+            title: 'Multi-platform build',
+            desc: 'Style Dictionary compiles the generated tokens into CSS Custom Properties, JSON, ESM, CJS, and TypeScript declarations — ready for web, mobile, and Figma.',
+            color: '#f59e0b',
+          },
+        ].map((s, i) => (
+          <div data-animate={`delay-${i + 1}`} style="position: relative; z-index: 1; display: flex; align-items: flex-start; gap: 1.25rem; padding: 1.25rem 0;">
+            <div style={`flex-shrink: 0; width: 3rem; height: 3rem; border-radius: 50%; background: ${s.color}; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 4px var(--color-bg-subtle);`}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={s.icon} />
+            </div>
+            <div style="flex: 1; padding-top: 0.5rem;">
+              <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.25rem;">
+                <span style={`font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700; color: ${s.color};`}>[{s.step}]</span>
+                <h3 style="font-weight: 700; font-size: 1rem;">{s.title}</h3>
+              </div>
+              <p style="color: var(--color-text-muted); font-size: 0.9rem; line-height: 1.65;">{s.desc}</p>
+            </div>
           </div>
-          <div style="padding: 1.25rem 1.5rem;">
-            <p style="color: var(--color-text-muted); line-height: 1.7; margin-bottom: 1rem;">Generates the spacing scale based on the <code>DefaultDesignUnit</code> of each dimensional variant (minor=8px, normal=16px, major=24px). Geometric progression algorithm with 10 steps.</p>
-            <pre style="font-size: 0.8125rem; margin: 0;">minor:  4px · 8px · 12px · 16px · ...
-normal: 8px · 16px · 24px · 32px · ...
-major:  12px · 24px · 36px · 48px · ...</pre>
-          </div>
-        </div>
-
-        <div style="border: 1px solid var(--color-border); border-radius: var(--radius); overflow: hidden;">
-          <div style="padding: 1.25rem 1.5rem; background: var(--color-bg-card); border-bottom: 1px solid var(--color-border); display: flex; align-items: center; gap: 0.75rem;">
-            <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; background: var(--color-accent-bg); color: var(--color-accent-text); padding: 0.2rem 0.5rem; border-radius: 4px;">[03] themes:generate</span>
-            <span style="font-weight: 600;">OKLCh pipeline</span>
-          </div>
-          <div style="padding: 1.25rem 1.5rem;">
-            <p style="color: var(--color-text-muted); line-height: 1.7; margin-bottom: 1rem;">Converts each config color to the perceptual OKLCh color space and decomposes into 19 lightness levels (01–19). Dark mode is derived mathematically: <code>dark[N] = light[20-N]</code>. AA/AAA accessibility guaranteed by design.</p>
-            <pre style="font-size: 0.8125rem; margin: 0;">#2563EB → oklch(0.52 0.21 264°)
-  level 01: oklch(0.97 0.03 264°)  ← lightest
-  level 09: oklch(0.52 0.21 264°)  ← base color
-  level 19: oklch(0.18 0.08 264°)  ← darkest</pre>
-          </div>
-        </div>
-
-        <div style="border: 1px solid var(--color-border); border-radius: var(--radius); overflow: hidden;">
-          <div style="padding: 1.25rem 1.5rem; background: var(--color-bg-card); border-bottom: 1px solid var(--color-border); display: flex; align-items: center; gap: 0.75rem;">
-            <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; background: var(--color-accent-bg); color: var(--color-accent-text); padding: 0.2rem 0.5rem; border-radius: 4px;">[04] sync:architecture</span>
-            <span style="font-weight: 600;">Layers Mode → Surface → Semantic → Foundation</span>
-          </div>
-          <div style="padding: 1.25rem 1.5rem;">
-            <p style="color: var(--color-text-muted); line-height: 1.7;">Syncs the generated palette with the semantic mappings defined in the config. Produces 4 variants: light-positive, light-negative, dark-positive, dark-negative.</p>
-          </div>
-        </div>
-
-        <div style="border: 1px solid var(--color-border); border-radius: var(--radius); overflow: hidden;">
-          <div style="padding: 1.25rem 1.5rem; background: var(--color-bg-card); border-bottom: 1px solid var(--color-border); display: flex; align-items: center; gap: 0.75rem;">
-            <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; background: var(--color-accent-bg); color: var(--color-accent-text); padding: 0.2rem 0.5rem; border-radius: 4px;">[05] foundations:generate</span>
-            <span style="font-weight: 600;">Foundation styles</span>
-          </div>
-          <div style="padding: 1.25rem 1.5rem;">
-            <p style="color: var(--color-text-muted); line-height: 1.7;">Generates Foundation aliases — the simplified layer for product teams. <code>bg.primary</code>, <code>text.body</code>, <code>spacing.medium</code> resolve to the correct Semantic tokens.</p>
-          </div>
-        </div>
-
-        <div style="border: 1px solid var(--color-border); border-radius: var(--radius); overflow: hidden;">
-          <div style="padding: 1.25rem 1.5rem; background: var(--color-bg-card); border-bottom: 1px solid var(--color-border); display: flex; align-items: center; gap: 0.75rem;">
-            <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; background: var(--color-accent-bg); color: var(--color-accent-text); padding: 0.2rem 0.5rem; border-radius: 4px;">[06] build</span>
-            <span style="font-weight: 600;">Style Dictionary — multi-platform outputs</span>
-          </div>
-          <div style="padding: 1.25rem 1.5rem;">
-            <p style="color: var(--color-text-muted); line-height: 1.7; margin-bottom: 1rem;">Style Dictionary compiles the generated data into all output formats.</p>
-            <pre style="font-size: 0.8125rem; margin: 0;">dist/
-├── css/   theme-light-positive.css  (Custom Properties)
-├── json/  theme-light-positive.json
-├── esm/   theme-light-positive.mjs
-├── cjs/   theme-light-positive.js
-└── dts/   theme.d.ts                (TypeScript)</pre>
-          </div>
-        </div>
+        ))}
       </div>
 
-      <div style="margin-top: 2.5rem; padding: 1.5rem; background: var(--color-bg-card); border-radius: var(--radius); border: 1px solid var(--color-border);">
-        <p style="font-weight: 600; margin-bottom: 0.5rem;">Next steps</p>
-        <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin: 0; padding: 0;">
-          <li><a href="https://docs.aplica.me/en-US/04-theme-engine/01-what-is-theme-engine" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent);">→ What is the Theme Engine</a></li>
-          <li><a href="https://docs.aplica.me/en-US/04-theme-engine/03-configuration-guide" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent);">→ Complete configuration guide</a></li>
-          <li><a href="https://docs.aplica.me/en-US/08-tutorials/n2-system-designer/03-paradigma-config-first" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent);">→ Tutorial N2-03: Config-First paradigm</a></li>
-        </ul>
+      <!-- Tier B: 3-card code summary -->
+      <div data-animate style="margin-top: 1rem;">
+        <p style="text-align: center; font-weight: 600; font-size: 0.875rem; margin-bottom: 1.5rem; color: var(--color-text-muted);">The result in code</p>
+        <div class="como-funciona-cards" style="display: grid; gap: 1.25rem;">
+          <div style="background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm);">
+            <div style="padding: 1rem 1.25rem 0;">
+              <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: var(--color-accent);">01 · Config</span>
+              <p style="color: var(--color-text-muted); font-size: 0.875rem; line-height: 1.55; margin: 0.375rem 0 0.875rem;">Define your brand colors in a <code>.config.mjs</code> file.</p>
+            </div>
+            <pre style="margin: 0; border-radius: 0; font-size: 0.8125rem;">export default &#123;
+  name: 'my-brand',
+  colors: &#123;
+    brand_blue: '#2563EB',
+  &#125;
+&#125;</pre>
+          </div>
+          <div style="background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm);">
+            <div style="padding: 1rem 1.25rem 0;">
+              <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: var(--color-accent);">02 · Build</span>
+              <p style="color: var(--color-text-muted); font-size: 0.875rem; line-height: 1.55; margin: 0.375rem 0 0.875rem;">One command runs the full pipeline.</p>
+            </div>
+            <pre style="margin: 0; border-radius: 0; font-size: 0.8125rem;">npm run build:themes
+
+✓ palette decomposed
+✓ 4 themes written
+✓ outputs ready</pre>
+          </div>
+          <div style="background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm);">
+            <div style="padding: 1rem 1.25rem 0;">
+              <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: var(--color-accent);">03 · Usage</span>
+              <p style="color: var(--color-text-muted); font-size: 0.875rem; line-height: 1.55; margin: 0.375rem 0 0.875rem;">Foundation tokens ready for any platform.</p>
+            </div>
+            <pre style="margin: 0; border-radius: 0; font-size: 0.8125rem;">.btn &#123;
+  background:
+    foundation.bg.brand.default;
+  color:
+    foundation.txt.on-brand;
+&#125;</pre>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ── 7. Who it's for ───────────────────────────────────────── -->
-  <section id="for-whom" style="padding: 5rem 0;">
-    <div class="container" style="max-width: 860px;">
-      <p style="font-family: var(--font-mono); font-size: 0.8125rem; color: var(--color-accent); font-weight: 600; margin-bottom: 1rem; text-align: center;">FOR WHOM</p>
-      <h2 style="font-family: var(--font-display); font-size: 1.75rem; font-weight: 700; text-align: center; margin-bottom: 0.75rem;">Three profiles, one system</h2>
-      <p style="text-align: center; color: var(--color-text-muted); max-width: 520px; margin: 0 auto 3.5rem; line-height: 1.75;">Aplica DS is designed to be useful at different points on the design–engineering spectrum. Each track has 6 progressive tutorials, with clear prerequisites and estimated time.</p>
+  <style>
+    @media (min-width: 640px) {
+      .como-funciona-cards { grid-template-columns: repeat(3, 1fr) !important; }
+    }
+  </style>
 
-      <!-- N1 -->
-      <div style="border: 1px solid var(--color-border); border-left: 4px solid #f97316; border-radius: var(--radius); padding: 2rem; margin-bottom: 2rem;">
-        <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+  <!-- ── 7. For whom ───────────────────────────────────────────── -->
+  <section id="para-quem" style="padding: 5rem 0;">
+    <div class="container" style="max-width: 960px;">
+      <p data-animate style="font-family: var(--font-mono); font-size: 0.8125rem; color: var(--color-accent); font-weight: 600; margin-bottom: 1rem; text-align: center;">FOR WHOM</p>
+      <h2 data-animate style="font-family: var(--font-display); font-size: 1.75rem; font-weight: 700; text-align: center; margin-bottom: 0.75rem;">Three profiles, one system</h2>
+      <p data-animate style="text-align: center; color: var(--color-text-muted); max-width: 520px; margin: 0 auto 3.5rem; line-height: 1.75;">Each track has 6 progressive tutorials built for your position on the design–engineering spectrum.</p>
+
+      <div class="para-quem-grid" style="display: grid; gap: 1.5rem; max-width: 900px; margin: 0 auto;">
+
+        <!-- N1 -->
+        <div class="card hover-lift" data-animate="delay-1" style="padding: 2rem; display: flex; flex-direction: column; gap: 1.25rem; border-top: 3px solid #f97316;">
+          <div style="width: 3rem; height: 3rem; border-radius: 0.75rem; background: rgba(249,115,22,0.1); display: flex; align-items: center; justify-content: center;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+          </div>
           <div>
             <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: #f97316;">TRACK N1</span>
-            <h3 style="font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; margin-top: 0.25rem;">Product Designer</h3>
+            <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; margin-top: 0.25rem;">Product Designer</h3>
           </div>
-          <span style="background: var(--color-accent-bg); color: var(--color-accent-text); font-size: 0.8125rem; font-weight: 600; padding: 0.25rem 0.75rem; border-radius: 99px;">6 tutorials · ~3h</span>
+          <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.65; flex: 1;">Uses the system in Figma without needing to understand the architecture. Learns token vocabulary, built-in accessibility, and automatic dark mode via Tokens Studio.</p>
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;">
+            <span style="background: rgba(249,115,22,0.1); color: #f97316; font-size: 0.75rem; font-weight: 600; padding: 0.2rem 0.625rem; border-radius: 99px;">6 tutorials · ~3h</span>
+            <a href={r.docsN1} style="color: #f97316; font-weight: 600; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 0.25rem;" target="_blank" rel="noopener noreferrer">Start N1 →</a>
+          </div>
         </div>
-        <p style="color: var(--color-text-muted); line-height: 1.7; margin-bottom: 1.5rem;">For designers who use the system in Figma without needing to understand the internal architecture. Track N1 teaches the token vocabulary, built-in accessibility, and automatic dark mode.</p>
-        <p style="font-weight: 600; font-size: 0.875rem; margin-bottom: 0.75rem;">What you learn:</p>
-        <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.5rem; padding: 0;">
-          {[
-            'What tokens are and why they exist',
-            'Color vocabulary: brand, interface, product',
-            'Dimensional scale: minor / normal / major',
-            'Tokens in Figma via Tokens Studio',
-            'Accessibility by design (WCAG AA/AAA)',
-            'Dark mode without effort',
-          ].map(item => (
-            <li style="color: var(--color-text-muted); font-size: 0.9375rem; display: flex; gap: 0.5rem; align-items: flex-start;">
-              <span style="color: #f97316; flex-shrink: 0;">→</span> {item}
-            </li>
-          ))}
-        </ul>
-        <a href="https://docs.aplica.me/en-US/08-tutorials/n1-product-designer/01-o-que-sao-tokens" class="btn btn-primary" style="font-size: 0.9rem;" target="_blank" rel="noopener noreferrer">
-          Start N1 →
-        </a>
-      </div>
 
-      <!-- N2 -->
-      <div style="border: 1px solid var(--color-border); border-left: 4px solid #8b5cf6; border-radius: var(--radius); padding: 2rem; margin-bottom: 2rem;">
-        <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+        <!-- N2 -->
+        <div class="card hover-lift" data-animate="delay-2" style="padding: 2rem; display: flex; flex-direction: column; gap: 1.25rem; border-top: 3px solid #8b5cf6;">
+          <div style="width: 3rem; height: 3rem; border-radius: 0.75rem; background: rgba(139,92,246,0.1); display: flex; align-items: center; justify-content: center;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
           <div>
             <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: #8b5cf6;">TRACK N2</span>
-            <h3 style="font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; margin-top: 0.25rem;">System Designer</h3>
+            <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; margin-top: 0.25rem;">System Designer</h3>
           </div>
-          <span style="background: rgba(139,92,246,0.1); color: #7c3aed; font-size: 0.8125rem; font-weight: 600; padding: 0.25rem 0.75rem; border-radius: 99px;">6 tutorials · ~4h · Prereq: N1</span>
+          <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.65; flex: 1;">Configures, extends, and governs the system. Understands the OKLCh pipeline, creates themes, defines responsible overrides, and manages product color entropy.</p>
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;">
+            <span style="background: rgba(139,92,246,0.1); color: #8b5cf6; font-size: 0.75rem; font-weight: 600; padding: 0.2rem 0.625rem; border-radius: 99px;">6 tutorials · ~4h · Prereq: N1</span>
+            <a href={r.docsN2} style="color: #8b5cf6; font-weight: 600; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 0.25rem;" target="_blank" rel="noopener noreferrer">Start N2 →</a>
+          </div>
         </div>
-        <p style="color: var(--color-text-muted); line-height: 1.7; margin-bottom: 1.5rem;">For those who configure, extend, and govern the system. Track N2 goes deep on the 5-layer architecture, the OKLCh pipeline, and responsible override decisions.</p>
-        <p style="font-weight: 600; font-size: 0.875rem; margin-bottom: 0.75rem;">What you learn:</p>
-        <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.5rem; padding: 0;">
-          {[
-            'The 5-layer mental model in depth',
-            'OKLCh pipeline: how colors are generated',
-            'Config-First paradigm',
-            'Anatomy of a complete theme',
-            'Product colors: exponential cost and entropy',
-            'Responsible overrides: Study → Test → Document',
-          ].map(item => (
-            <li style="color: var(--color-text-muted); font-size: 0.9375rem; display: flex; gap: 0.5rem; align-items: flex-start;">
-              <span style="color: #8b5cf6; flex-shrink: 0;">→</span> {item}
-            </li>
-          ))}
-        </ul>
-        <a href="https://docs.aplica.me/en-US/08-tutorials/n2-system-designer/01-modelo-mental-5-camadas" class="btn btn-primary" style="font-size: 0.9rem; background: #8b5cf6;" target="_blank" rel="noopener noreferrer">
-          Start N2 →
-        </a>
-      </div>
 
-      <!-- N3 -->
-      <div style="border: 1px solid var(--color-border); border-left: 4px solid #10b981; border-radius: var(--radius); padding: 2rem;">
-        <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+        <!-- N3 -->
+        <div class="card hover-lift" data-animate="delay-3" style="padding: 2rem; display: flex; flex-direction: column; gap: 1.25rem; border-top: 3px solid #10b981;">
+          <div style="width: 3rem; height: 3rem; border-radius: 0.75rem; background: rgba(16,185,129,0.1); display: flex; align-items: center; justify-content: center;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
           <div>
             <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: #10b981;">TRACK N3</span>
-            <h3 style="font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; margin-top: 0.25rem;">Design Engineer</h3>
+            <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; margin-top: 0.25rem;">Design Engineer</h3>
           </div>
-          <span style="background: rgba(16,185,129,0.1); color: #059669; font-size: 0.8125rem; font-weight: 600; padding: 0.25rem 0.75rem; border-radius: 99px;">6 tutorials · ~5h · Prereq: N2</span>
+          <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.65; flex: 1;">Implements conformant components, integrates tokens in React, Vue, React Native, and Flutter, and adds new brands to the engine from a single config file.</p>
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;">
+            <span style="background: rgba(16,185,129,0.1); color: #10b981; font-size: 0.75rem; font-weight: 600; padding: 0.2rem 0.625rem; border-radius: 99px;">6 tutorials · ~5h · Prereq: N2</span>
+            <a href={r.docsN3} style="color: #10b981; font-weight: 600; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 0.25rem;" target="_blank" rel="noopener noreferrer">Start N3 →</a>
+          </div>
         </div>
-        <p style="color: var(--color-text-muted); line-height: 1.7; margin-bottom: 1.5rem;">For engineers who implement components and integrate tokens in code. Track N3 covers the token contract, dark mode by design, multi-platform integration, and adding new brands.</p>
-        <p style="font-weight: 600; font-size: 0.875rem; margin-bottom: 0.75rem;">What you learn:</p>
-        <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.5rem; padding: 0;">
-          {[
-            'Token contract: correct consumption in components',
-            'Building a conformant component from scratch',
-            'Dark mode by design (not by override)',
-            'Build pipeline in depth',
-            'Integration in React, Vue, Next.js, React Native',
-            'Adding a new brand to the engine',
-          ].map(item => (
-            <li style="color: var(--color-text-muted); font-size: 0.9375rem; display: flex; gap: 0.5rem; align-items: flex-start;">
-              <span style="color: #10b981; flex-shrink: 0;">→</span> {item}
-            </li>
-          ))}
-        </ul>
-        <a href="https://docs.aplica.me/en-US/08-tutorials/n3-design-engineer/01-contrato-de-tokens" class="btn btn-primary" style="font-size: 0.9rem; background: #10b981;" target="_blank" rel="noopener noreferrer">
-          Start N3 →
-        </a>
+
       </div>
     </div>
   </section>
 
-  <!-- ── 8. Open source ────────────────────────────────────────── -->
+  <style>
+    @media (min-width: 700px) {
+      .para-quem-grid { grid-template-columns: repeat(3, 1fr) !important; }
+    }
+  </style>
+
+  <!-- ── 8. Open source ─────────────────────────────────────────── -->
   <section style="padding: 5rem 0; background: var(--color-bg-subtle);">
     <div class="container" style="text-align: center;">
-      <h2 style="font-family: var(--font-display); font-size: 1.75rem; font-weight: 700; margin-bottom: 0.75rem;">100% open source</h2>
-      <p style="color: var(--color-text-muted); max-width: 480px; margin: 0 auto 2rem; line-height: 1.7;">MIT license. No vendor lock-in. Contributions via PR. The git history is the documentation.</p>
-      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-        <a href="https://github.com/bellentani/aplica-design-tokens" class="btn btn-primary">View repository</a>
-        <a href="https://docs.aplica.me/en-US" class="btn btn-outline">Read documentation</a>
+      <h2 data-animate style="font-family: var(--font-display); font-size: 1.75rem; font-weight: 700; margin-bottom: 0.75rem;">100% open source</h2>
+      <p data-animate style="color: var(--color-text-muted); max-width: 480px; margin: 0 auto 2rem; line-height: 1.7;">MIT license. No vendor lock-in. Contributions via PR. The git history is the documentation.</p>
+      <div data-animate style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="https://github.com/bellentani/aplica-design-tokens" class="btn btn-primary" target="_blank" rel="noopener noreferrer">View repository</a>
+        <a href={r.docs} class="btn btn-outline" target="_blank" rel="noopener noreferrer">Read documentation</a>
       </div>
     </div>
   </section>
 
-  <!-- ── 9. CTA final ──────────────────────────────────────────── -->
+  <!-- ── 9. Final CTA ───────────────────────────────────────────── -->
   <section style="padding: 5rem 0;">
     <div class="container" style="text-align: center;">
       <h2 style="font-family: var(--font-display); font-size: 2rem; font-weight: 700; margin-bottom: 1rem;">Ready to start?</h2>
       <p style="color: var(--color-text-muted); max-width: 440px; margin: 0 auto 2.5rem; line-height: 1.7;">
         The N1 tutorials introduce the system in 30 minutes. No setup required — just Figma.
       </p>
-      <a href="https://docs.aplica.me/en-US/08-tutorials/N1-01" class="btn btn-primary" style="font-size: 1rem; padding: 0.75rem 1.75rem;">
-        Start N1 tutorials →
+      <a href={r.docsN1} class="btn btn-primary" style="font-size: 1rem; padding: 0.75rem 1.75rem;">
+        Start with N1 tutorials →
       </a>
     </div>
   </section>

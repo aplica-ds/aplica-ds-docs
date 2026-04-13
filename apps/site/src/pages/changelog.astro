@@ -2,6 +2,9 @@
 import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import { routes } from '../i18n/routes';
+
+const r = routes['pt-br'];
 
 const releases = [
   {
@@ -92,7 +95,7 @@ const releases = [
       <div style="margin-top: 2.5rem; padding: 1.25rem 1.5rem; background: var(--color-bg-subtle); border-radius: var(--radius); border: 1px solid var(--color-border);">
         <p style="font-size: 0.9rem; color: var(--color-text-muted);">
           O histórico completo de decisões de design — incluindo o mapeamento V1→V2 e os racionais de cada mudança — está documentado em
-          <a href="https://docs.aplica.me/06-history/04-v1-to-v2-rationals-mapping">06 · History na documentação</a>.
+          <a href={r.docsV1V2}>06 · History na documentação</a>.
         </p>
       </div>
     </div>

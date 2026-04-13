@@ -30,14 +30,14 @@ interface Theme {
 }
 
 const THEMES: Theme[] = [
-  { brand: "aplica_tangerine", displayName: "Tangerine", mode: "light", surface: "positive", cssClass: "aplica-tangerine-light-positive", primaryHex: "#ffae03" },
-  { brand: "aplica_tangerine", displayName: "Tangerine", mode: "light", surface: "negative", cssClass: "aplica-tangerine-light-negative", primaryHex: "#ffae03" },
-  { brand: "aplica_tangerine", displayName: "Tangerine", mode: "dark",  surface: "positive", cssClass: "aplica-tangerine-dark-positive",  primaryHex: "#ffae03" },
-  { brand: "aplica_tangerine", displayName: "Tangerine", mode: "dark",  surface: "negative", cssClass: "aplica-tangerine-dark-negative",  primaryHex: "#ffae03" },
   { brand: "aplica_joy",       displayName: "Joy",       mode: "light", surface: "positive", cssClass: "aplica-joy-light-positive",       primaryHex: "#e7398a" },
   { brand: "aplica_joy",       displayName: "Joy",       mode: "light", surface: "negative", cssClass: "aplica-joy-light-negative",       primaryHex: "#e7398a" },
   { brand: "aplica_joy",       displayName: "Joy",       mode: "dark",  surface: "positive", cssClass: "aplica-joy-dark-positive",        primaryHex: "#e7398a" },
   { brand: "aplica_joy",       displayName: "Joy",       mode: "dark",  surface: "negative", cssClass: "aplica-joy-dark-negative",        primaryHex: "#e7398a" },
+  { brand: "aplica_tangerine", displayName: "Tangerine", mode: "light", surface: "positive", cssClass: "aplica-tangerine-light-positive", primaryHex: "#ffae03" },
+  { brand: "aplica_tangerine", displayName: "Tangerine", mode: "light", surface: "negative", cssClass: "aplica-tangerine-light-negative", primaryHex: "#ffae03" },
+  { brand: "aplica_tangerine", displayName: "Tangerine", mode: "dark",  surface: "positive", cssClass: "aplica-tangerine-dark-positive",  primaryHex: "#ffae03" },
+  { brand: "aplica_tangerine", displayName: "Tangerine", mode: "dark",  surface: "negative", cssClass: "aplica-tangerine-dark-negative",  primaryHex: "#ffae03" },
   { brand: "aplica_grinch",    displayName: "Grinch",    mode: "light", surface: "positive", cssClass: "aplica-grinch-light-positive",    primaryHex: "#58bd59" },
   { brand: "aplica_grinch",    displayName: "Grinch",    mode: "light", surface: "negative", cssClass: "aplica-grinch-light-negative",    primaryHex: "#58bd59" },
   { brand: "aplica_grinch",    displayName: "Grinch",    mode: "dark",  surface: "positive", cssClass: "aplica-grinch-dark-positive",     primaryHex: "#58bd59" },
