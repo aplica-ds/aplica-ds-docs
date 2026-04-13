@@ -46,7 +46,7 @@ const config: Config = {
           // Serve docs at root — /00-overview/01-aplica-ds-vision instead of /docs/...
           routeBasePath: '/',
           sidebarPath: './sidebars.ts',
-          editUrl: 'https://https://github.com/bellentani/aplica-design-token-docs/edit/main/apps/docs/',
+          editUrl: 'https://https://github.com/bellentani/aplica-design-tokens-docs/edit/main/apps/docs/',
         },
         // Blog disabled — changelog lives on the marketing site
         blog: false,
@@ -86,7 +86,7 @@ const config: Config = {
           position: 'right',
         },
         {
-          href: 'https://https://github.com/bellentani/aplica-design-token',
+          href: 'https://https://github.com/bellentani/aplica-design-tokens',
           label: 'GitHub',
           position: 'right',
         },
@@ -115,7 +115,7 @@ const config: Config = {
           title: 'Projeto',
           items: [
             { label: 'Site',   href: 'https://aplica.design' },
-            { label: 'GitHub', href: 'https://https://github.com/bellentani/aplica-design-token' },
+            { label: 'GitHub', href: 'https://https://github.com/bellentani/aplica-design-tokens' },
           ],
         },
       ],
