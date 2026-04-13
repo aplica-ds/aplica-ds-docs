@@ -25,8 +25,9 @@ const SWATCHES = [
 ] as const;
 
 const TYPO = [
-  { cls: "typography-theme_engine-heading-highlight_1", label: "DISPLAY — heading-highlight_1", txt: "Heading Display",                              color: "--foundation-txt-title" },
-  { cls: "typography-theme_engine-heading-title_2",     label: "TITLE — heading-title_2",       txt: "Heading Title Semibold",                       color: "--foundation-txt-title" },
+  // display-display_2 uses fontFamilies-display → Sansita (tangerine/grinch/blue_sky) or Poppins (joy)
+  { cls: "typography-theme_engine-display-display_2",   label: "DISPLAY — fontFamilies-display", txt: "Display titles",                           color: "--foundation-txt-title", sizeOverride: "2rem" },
+  { cls: "typography-theme_engine-heading-title_2",     label: "TITLE — heading-title_2",        txt: "Heading Title — fontFamilies-main",            color: "--foundation-txt-title", sizeOverride: undefined },
   { cls: "typography-theme_engine-content-body",        label: "BODY — content-body",           txt: "Body text with the theme's main font.",        color: "--foundation-txt-body"  },
   { cls: "typography-theme_engine-content-label",       label: "LABEL — content-label",         txt: "Interface label / caption",                    color: "--foundation-txt-muted" },
 ] as const;
@@ -103,13 +104,6 @@ const UI = {
 
 // ── CSS helpers ───────────────────────────────────────────────────────────
 
-function injectLink(href: string, id: string) {
-  if (typeof document === "undefined" || document.getElementById(id)) return;
-  const l = document.createElement("link");
-  l.id = id; l.rel = "stylesheet"; l.href = href;
-  document.head.appendChild(l);
-}
-
 function injectFonts() {
   if (typeof document === "undefined" || document.getElementById("aplica-playground-fonts")) return;
   const s = document.createElement("style");
@@ -153,23 +147,10 @@ export function ThemePlayground({ lang = "pt-br" }: Props) {
 
   // ── Load CSS on mount ──────────────────────────────────────────────────
   useEffect(() => {
+    // All theme CSS files (and foundation/typography) are loaded statically in Base.astro,
+    // so var() chains resolve immediately — no dynamic injection needed.
     injectFonts();
-    injectLink("/aplica-package/dist/css/foundation/engine/foundation.css", "aplica-foundation");
-    injectLink("/aplica-package/dist/css/foundation/engine/typography.css", "aplica-typography");
-
-    // Preload all 16 theme files (file names use underscore in brand part)
-    const brands: Brand[] = ["tangerine", "joy", "grinch", "blue_sky"];
-    const modes:  Mode[]  = ["light", "dark"];
-    const surfs:  Surface[]= ["positive", "negative"];
-    brands.forEach((b) => modes.forEach((m) => surfs.forEach((s) => {
-      injectLink(
-        `/aplica-package/dist/css/aplica_${b}-${m}-${s}.css`,
-        `pg-theme-${b}-${m}-${s}`,
-      );
-    })));
-
-    const id = setTimeout(() => setReady(true), 300);
-    return () => clearTimeout(id);
+    setReady(true);
   }, []);
 
   // ── Auto-trace when brand changes (after first load) ──────────────────
@@ -360,7 +341,7 @@ export function ThemePlayground({ lang = "pt-br" }: Props) {
                           {s.label}
                         </div>
                         <div className={`${s.cls} ${tc}`}
-                          style={{ color: `var(${s.color}, var(--color-text))` }}>
+                          style={{ color: `var(${s.color}, var(--color-text))`, ...((s as any).sizeOverride ? { fontSize: (s as any).sizeOverride } : {}) }}>
                           {s.txt}
                         </div>
                       </div>

@@ -48,14 +48,6 @@ const THEMES: Theme[] = [
   { brand: "aplica_blue_sky",  displayName: "Blue Sky",  mode: "dark",  surface: "negative", cssClass: "aplica-blue-sky-dark-negative",   primaryHex: "#265ed9" },
 ];
 
-function injectCss(href: string, id: string) {
-  if (typeof document === "undefined" || document.getElementById(id)) return;
-  const link = document.createElement("link");
-  link.id = id;
-  link.rel = "stylesheet";
-  link.href = href;
-  document.head.appendChild(link);
-}
 
 interface Props {
   lang?: Lang;
