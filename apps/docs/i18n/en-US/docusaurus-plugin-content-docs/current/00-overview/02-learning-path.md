@@ -27,7 +27,7 @@ If you build screens, flows, and prototypes, your goal is to understand **how to
 4. [Spacing and sizing](../03-visual-foundations/03-spacing-sizing.md) — Using the `minor/normal/major` scale.
 
 **Or start with the tutorials:**
-→ [N1-01 · What are design tokens](../08-tutorials/n1-product-designer/01-o-que-sao-tokens.md)
+→ [N1-01 · What are design tokens](../08-tutorials/N1-01.md)
 
 ---
 
