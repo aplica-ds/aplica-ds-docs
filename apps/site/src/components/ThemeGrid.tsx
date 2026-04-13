@@ -59,17 +59,8 @@ export function ThemeGrid({ lang = "pt-br" }: Props) {
   const t = translations[lang];
 
   useEffect(() => {
-    // Load all 16 theme CSS files
-    THEMES.forEach((theme) => {
-      const fileName = `aplica_${theme.brand.replace("aplica_", "")}-${theme.mode}-${theme.surface}`;
-      injectCss(
-        `/aplica-package/dist/css/${fileName}.css`,
-        `theme-css-${fileName}`
-      );
-    });
-    // Short delay to allow stylesheets to parse before rendering with CSS vars
-    const t = setTimeout(() => setCssLoaded(true), 150);
-    return () => clearTimeout(t);
+    // All theme CSS files are loaded statically in Base.astro — no injection needed.
+    setCssLoaded(true);
   }, []);
 
   const sel = THEMES[selectedIdx];

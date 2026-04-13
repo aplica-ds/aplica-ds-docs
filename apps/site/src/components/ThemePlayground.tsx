@@ -7,29 +7,29 @@ type Mode     = "light" | "dark";
 type Surface  = "positive" | "negative";
 
 const BRANDS: { id: Brand; label: string; hex: string }[] = [
-  { id: "tangerine", label: "Tangerine", hex: "#ffae03" },
   { id: "joy",       label: "Joy",       hex: "#e7398a" },
+  { id: "tangerine", label: "Tangerine", hex: "#ffae03" },
   { id: "grinch",    label: "Grinch",    hex: "#58bd59" },
   { id: "blue_sky",  label: "Blue Sky",  hex: "#265ed9" },
 ];
 
-// bg token → matching txtOn token → label shown inside swatch
+// bg utility class → txtOn utility class → label + token name shown inside swatch
 const SWATCHES = [
-  { bg: "--foundation-bg-primary",                  txtOn: "--foundation-txt-title",                       label: "bg-primary"          },
-  { bg: "--foundation-bg-secondary",                txtOn: "--foundation-txt-body",                        label: "bg-secondary"        },
-  { bg: "--foundation-bg-brand-default",            txtOn: "--foundation-txt-on-brand-default",            label: "bg-brand-default"    },
-  { bg: "--foundation-bg-feedback-info-default",    txtOn: "--foundation-txt-on-feedback-info-default",    label: "feedback-info"       },
-  { bg: "--foundation-bg-feedback-success-default", txtOn: "--foundation-txt-on-feedback-success-default", label: "feedback-success"    },
-  { bg: "--foundation-bg-feedback-warning-default", txtOn: "--foundation-txt-on-feedback-warning-default", label: "feedback-warning"    },
-  { bg: "--foundation-bg-feedback-danger-default",  txtOn: "--foundation-txt-on-feedback-danger-default",  label: "feedback-danger"     },
+  { bgCls: "pg-bg-primary",   txtOnCls: "pg-txt-title",    txtOnToken: "txt-title",             label: "bg-primary"       },
+  { bgCls: "pg-bg-secondary", txtOnCls: "pg-txt-body",     txtOnToken: "txt-body",              label: "bg-secondary"     },
+  { bgCls: "pg-bg-brand",     txtOnCls: "pg-txton-brand",  txtOnToken: "txt-on-brand-default",  label: "bg-brand-default" },
+  { bgCls: "pg-bg-info",      txtOnCls: "pg-txton-info",   txtOnToken: "txt-on-feedback-info",  label: "feedback-info"    },
+  { bgCls: "pg-bg-success",   txtOnCls: "pg-txton-success",txtOnToken: "txt-on-feedback-success",label: "feedback-success" },
+  { bgCls: "pg-bg-warning",   txtOnCls: "pg-txton-warning",txtOnToken: "txt-on-feedback-warning",label: "feedback-warning" },
+  { bgCls: "pg-bg-danger",    txtOnCls: "pg-txton-danger", txtOnToken: "txt-on-feedback-danger", label: "feedback-danger"  },
 ] as const;
 
 const TYPO = [
   // display-display_2 uses fontFamilies-display → Sansita (tangerine/grinch/blue_sky) or Poppins (joy)
-  { cls: "typography-theme_engine-display-display_2",   label: "DISPLAY — fontFamilies-display", txt: "Display titles",                           color: "--foundation-txt-title", sizeOverride: "2rem" },
-  { cls: "typography-theme_engine-heading-title_2",     label: "TITLE — heading-title_2",        txt: "Heading Title — fontFamilies-main",            color: "--foundation-txt-title", sizeOverride: undefined },
-  { cls: "typography-theme_engine-content-body",        label: "BODY — content-body",           txt: "Body text with the theme's main font.",        color: "--foundation-txt-body"  },
-  { cls: "typography-theme_engine-content-label",       label: "LABEL — content-label",         txt: "Interface label / caption",                    color: "--foundation-txt-muted" },
+  { cls: "typography-theme_engine-display-display_2", label: "DISPLAY — fontFamilies-display", txt: "Display titles",                    pgCls: "pg-txt-title", sizeOverride: "2rem" },
+  { cls: "typography-theme_engine-heading-title_2",   label: "TITLE — heading-title_2",        txt: "Heading Title — fontFamilies-main", pgCls: "pg-txt-title", sizeOverride: undefined },
+  { cls: "typography-theme_engine-content-body",      label: "BODY — content-body",            txt: "Body text with the theme's main font.", pgCls: "pg-txt-body"  },
+  { cls: "typography-theme_engine-content-label",     label: "LABEL — content-label",          txt: "Interface label / caption",         pgCls: "pg-txt-muted" },
 ] as const;
 
 const TRACE_STEPS = (hex: string, lang: Lang) => [
@@ -124,12 +124,81 @@ function injectFonts() {
   document.head.appendChild(s);
 }
 
+/**
+ * Injects a <style> block that re-declares foundation aliases scoped to every
+ * aplica-* class AND defines .pg-txt-* / .pg-bg-* utility classes that use
+ * them.  This is the "layer inside" approach: class-based rules resolve var()
+ * chains through the cascade correctly even when the external foundation.css
+ * is not parsed yet, because the semantic tokens are defined on the SAME class
+ * selector that the element carries.
+ */
+function injectPlaygroundLayer() {
+  const ID = "aplica-playground-layer";
+  if (typeof document === "undefined" || document.getElementById(ID)) return;
+  const s = document.createElement("style");
+  s.id = ID;
+  // The attribute selector matches any element whose class attribute contains
+  // a token starting with "aplica-" so it covers all 16 theme classes.
+  s.textContent = `
+    /* ── Foundation aliases re-declared on every aplica-* element ──────── */
+    [class*="aplica-tangerine-"],
+    [class*="aplica-joy-"],
+    [class*="aplica-grinch-"],
+    [class*="aplica-blue-sky-"] {
+      --foundation-txt-title:              var(--semantic-color-text-title);
+      --foundation-txt-body:               var(--semantic-color-text-body);
+      --foundation-txt-muted:              var(--semantic-color-text-muted);
+      --foundation-bg-primary:             var(--semantic-color-brand-ambient-contrast-base-positive-background);
+      --foundation-bg-secondary:           var(--semantic-color-brand-ambient-neutral-lowest-background);
+      --foundation-bg-brand-default:       var(--semantic-color-brand-branding-first-default-background);
+      --foundation-txt-on-brand-default:   var(--semantic-color-brand-branding-first-default-txtOn);
+      --foundation-bg-neutral-low:         var(--semantic-color-brand-ambient-neutral-low-background);
+      --foundation-txt-on-neutral-low:     var(--semantic-color-brand-ambient-neutral-low-txtOn);
+      --foundation-bg-feedback-info-default:       var(--semantic-color-interface-feedback-info-default-normal-background);
+      --foundation-txt-on-feedback-info-default:   var(--semantic-color-interface-feedback-info-default-normal-txtOn);
+      --foundation-bg-feedback-success-default:    var(--semantic-color-interface-feedback-success-default-normal-background);
+      --foundation-txt-on-feedback-success-default:var(--semantic-color-interface-feedback-success-default-normal-txtOn);
+      --foundation-bg-feedback-warning-default:    var(--semantic-color-interface-feedback-warning-default-normal-background);
+      --foundation-txt-on-feedback-warning-default:var(--semantic-color-interface-feedback-warning-default-normal-txtOn);
+      --foundation-bg-feedback-danger-default:     var(--semantic-color-interface-feedback-danger-default-normal-background);
+      --foundation-txt-on-feedback-danger-default: var(--semantic-color-interface-feedback-danger-default-normal-txtOn);
+    }
+
+    /* ── Utility classes used inside the playground preview ────────────── */
+    .pg-txt-title { color: var(--foundation-txt-title) !important; }
+    .pg-txt-body  { color: var(--foundation-txt-body)  !important; }
+    .pg-txt-muted { color: var(--foundation-txt-muted) !important; }
+    .pg-bg-primary   { background: var(--foundation-bg-primary)   !important; }
+    .pg-bg-secondary    { background: var(--foundation-bg-secondary)    !important; }
+    .pg-bg-neutral-low  { background: var(--foundation-bg-neutral-low)  !important; }
+    .pg-txton-neutral-low { color: var(--foundation-txt-on-neutral-low) !important; }
+    .pg-bg-brand     { background: var(--foundation-bg-brand-default) !important; }
+    .pg-txton-brand  { color: var(--foundation-txt-on-brand-default) !important; }
+    .pg-bg-info      { background: var(--foundation-bg-feedback-info-default)    !important; }
+    .pg-txton-info   { color: var(--foundation-txt-on-feedback-info-default)     !important; }
+    .pg-bg-success   { background: var(--foundation-bg-feedback-success-default) !important; }
+    .pg-txton-success{ color: var(--foundation-txt-on-feedback-success-default)  !important; }
+    .pg-bg-warning   { background: var(--foundation-bg-feedback-warning-default) !important; }
+    .pg-txton-warning{ color: var(--foundation-txt-on-feedback-warning-default)  !important; }
+    .pg-bg-danger    { background: var(--foundation-bg-feedback-danger-default)  !important; }
+    .pg-txton-danger { color: var(--foundation-txt-on-feedback-danger-default)   !important; }
+
+    /* ── Surface background ─────────────────────────────────────────────── */
+    /* positive-background is always the main bg for any theme (light/dark/positive/negative).
+       The theme class switch is what drives the actual color change. */
+    .pg-surface { background: var(--semantic-color-brand-ambient-contrast-base-positive-background) !important; }
+
+    @media (min-width: 760px) { .pg-grid { grid-template-columns: 1fr 280px !important; } }
+  `;
+  document.head.appendChild(s);
+}
+
 // ── Component ─────────────────────────────────────────────────────────────
 
 interface Props { lang?: Lang }
 
 export function ThemePlayground({ lang = "pt-br" }: Props) {
-  const [brand,   setBrand]   = useState<Brand>("tangerine");
+  const [brand,   setBrand]   = useState<Brand>("joy");
   const [mode,    setMode]    = useState<Mode>("light");
   const [surface, setSurface] = useState<Surface>("positive");
   const [ready,   setReady]   = useState(false);
@@ -147,9 +216,8 @@ export function ThemePlayground({ lang = "pt-br" }: Props) {
 
   // ── Load CSS on mount ──────────────────────────────────────────────────
   useEffect(() => {
-    // All theme CSS files (and foundation/typography) are loaded statically in Base.astro,
-    // so var() chains resolve immediately — no dynamic injection needed.
     injectFonts();
+    injectPlaygroundLayer();
     setReady(true);
   }, []);
 
@@ -184,10 +252,6 @@ export function ThemePlayground({ lang = "pt-br" }: Props) {
     setTraceStep(-1);
   }
 
-  // ── Surface background token ───────────────────────────────────────────
-  const bgSurface = surface === "positive"
-    ? "var(--semantic-color-brand-ambient-contrast-base-positive-background)"
-    : "var(--semantic-color-brand-ambient-contrast-base-negative-background)";
 
   // ── Shared pill ───────────────────────────────────────────────────────
   function Pill({ active, color, onClick, children }: {
@@ -318,12 +382,11 @@ export function ThemePlayground({ lang = "pt-br" }: Props) {
               reliable path in all browsers.
             */}
             <div
-              className={tc}
+              className={`${tc} ${ready ? "pg-surface" : ""}`}
               style={{
                 borderRadius: "var(--radius-lg)",
                 border: `1.5px solid ${ab.hex}33`,
                 overflow: "hidden",
-                background: ready ? bgSurface : "var(--color-bg-card)",
                 transition: "background 0.4s",
               }}
             >
@@ -340,8 +403,9 @@ export function ThemePlayground({ lang = "pt-br" }: Props) {
                           marginBottom: "0.2rem", opacity: 0.85 }}>
                           {s.label}
                         </div>
-                        <div className={`${s.cls} ${tc}`}
-                          style={{ color: `var(${s.color}, var(--color-text))`, ...((s as any).sizeOverride ? { fontSize: (s as any).sizeOverride } : {}) }}>
+                        {/* pgCls applies color via injected CSS layer — no inline color:var() */}
+                        <div className={`${s.cls} ${tc} ${s.pgCls}`}
+                          style={"sizeOverride" in s && s.sizeOverride ? { fontSize: s.sizeOverride } : {}}>
                           {s.txt}
                         </div>
                       </div>
@@ -353,10 +417,9 @@ export function ThemePlayground({ lang = "pt-br" }: Props) {
                         marginBottom: "0.2rem", opacity: 0.85 }}>
                         CODE — fontFamilies-code (IBM Plex Mono)
                       </div>
-                      <code className={tc} style={{
+                      <code className={`${tc} pg-txt-body`} style={{
                         fontFamily: "var(--semantic-typography-fontFamilies-code, 'IBM Plex Mono', monospace)",
                         fontSize: "0.875rem",
-                        color: `var(--foundation-txt-body, var(--color-text))`,
                       }}>
                         --foundation-bg-brand-default
                       </code>
@@ -373,42 +436,28 @@ export function ThemePlayground({ lang = "pt-br" }: Props) {
                     gap: "0.5rem",
                   }}>
                     {SWATCHES.map((sw) => (
-                      <div key={sw.bg} style={{ borderRadius: "var(--radius-sm)", overflow: "hidden",
+                      <div key={sw.bgCls} style={{ borderRadius: "var(--radius-sm)", overflow: "hidden",
                         border: "1px solid rgba(128,128,128,0.15)" }}>
-                        {/* Color area — cssClass applied directly so var() resolves on this element */}
-                        <div
-                          className={tc}
-                          style={{
-                            height: "3.5rem",
-                            background: `var(${sw.bg})`,
-                            display: "flex", alignItems: "center", justifyContent: "center",
-                            transition: "background 0.35s",
-                          }}
-                        >
-                          {/* txtOn text shown in the txtOn color */}
-                          <span
-                            className={tc}
-                            style={{
-                              fontFamily: "var(--font-mono, monospace)",
-                              fontSize: "0.5rem",
-                              fontWeight: 700,
-                              letterSpacing: "0.04em",
-                              color: `var(${sw.txtOn})`,
-                              textAlign: "center" as const,
-                              lineHeight: 1.3,
-                              maxWidth: "90%",
-                              wordBreak: "break-word" as const,
-                            }}
-                          >
-                            {sw.txtOn.replace("--foundation-txt-", "")}
+                        {/* bgCls sets background; txtOnCls sets text color — both via injected layer */}
+                        <div className={`${tc} ${sw.bgCls}`} style={{
+                          height: "3.5rem",
+                          display: "flex", alignItems: "center", justifyContent: "center",
+                          transition: "background 0.35s",
+                        }}>
+                          <span className={`${tc} ${sw.txtOnCls}`} style={{
+                            fontFamily: "var(--font-mono, monospace)",
+                            fontSize: "0.5rem", fontWeight: 700, letterSpacing: "0.04em",
+                            textAlign: "center" as const, lineHeight: 1.3,
+                            maxWidth: "90%", wordBreak: "break-word" as const,
+                          }}>
+                            {sw.txtOnToken}
                           </span>
                         </div>
                         {/* Token label */}
-                        <div className={tc} style={{ padding: "0.3rem 0.5rem",
+                        <div className={`${tc} pg-txt-muted`} style={{ padding: "0.3rem 0.5rem",
                           background: "rgba(128,128,128,0.07)" }}>
                           <div style={{
                             fontFamily: "var(--font-mono, monospace)", fontSize: "0.5rem",
-                            color: `var(--foundation-txt-muted, var(--color-text-muted))`,
                             overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" as const,
                           }}>
                             {sw.label}
@@ -464,22 +513,21 @@ export function ThemePlayground({ lang = "pt-br" }: Props) {
                     />
 
                     {/* Card */}
-                    <div className={tc} style={{
+                    <div className={`${tc} pg-bg-neutral-low`} style={{
                       padding: "1.25rem", borderRadius: "0.75rem",
                       border: "1px solid var(--semantic-color-brand-ambient-grayscale-lower-border)",
-                      background: "var(--semantic-color-brand-ambient-neutral-lowest-background)",
                       maxWidth: "22rem", transition: "background 0.3s",
                     }}>
-                      <div className={tc} style={{
+                      <div className={`${tc} pg-txton-neutral-low`} style={{
                         fontFamily: "var(--semantic-typography-fontFamilies-main, sans-serif)",
-                        fontWeight: 700, fontSize: "1rem", color: "var(--semantic-color-text-title)",
+                        fontWeight: 700, fontSize: "1rem",
                         marginBottom: "0.5rem",
                       }}>
                         {t.cardTitle}
                       </div>
-                      <div className={tc} style={{
+                      <div className={`${tc} pg-txton-neutral-low`} style={{
                         fontFamily: "var(--semantic-typography-fontFamilies-content, sans-serif)",
-                        fontSize: "0.875rem", color: "var(--semantic-color-text-body)",
+                        fontSize: "0.875rem",
                         lineHeight: 1.6, marginBottom: "1rem",
                       }}>
                         {t.cardBody}
@@ -639,13 +687,6 @@ export function ThemePlayground({ lang = "pt-br" }: Props) {
         </div>
       </div>
 
-      <style>{`
-        @media (min-width: 760px) {
-          .pg-grid {
-            grid-template-columns: 1fr 280px !important;
-          }
-        }
-      `}</style>
     </section>
   );
 }
