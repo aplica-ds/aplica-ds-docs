@@ -1,5 +1,6 @@
 {
-  "buildCommand": "npm run build",
+  "buildCommand": "pnpm run build",
   "outputDirectory": "build",
+  "installCommand": "pnpm install",
   "framework": "docusaurus-2"
 }
