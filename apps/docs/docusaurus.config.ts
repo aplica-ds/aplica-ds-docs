@@ -11,7 +11,7 @@ const config: Config = {
     v4: true,
   },
 
-  url: 'https://docs.aplica.design',
+  url: 'https://docs.aplica.me',
   baseUrl: '/',
 
   organizationName: 'aplica-ds',
@@ -85,8 +85,8 @@ const config: Config = {
           position: 'right',
         },
         {
-          href: 'https://aplica.design',
-          label: 'aplica.design',
+          href: 'https://aplica.me',
+          label: 'aplica.me',
           position: 'right',
         },
         {
@@ -118,7 +118,7 @@ const config: Config = {
         {
           title: 'Projeto',
           items: [
-            { label: 'Site',   href: 'https://aplica.design' },
+            { label: 'Site',   href: 'https://aplica.me' },
             { label: 'GitHub', href: 'https://github.com/bellentani/aplica-design-tokens' },
           ],
         },

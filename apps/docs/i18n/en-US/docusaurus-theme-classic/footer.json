@@ -37,7 +37,7 @@
   },
   "link.item.label.Site": {
     "message": "Site",
-    "description": "The label of footer link with label=Site linking to https://aplica.design"
+    "description": "The label of footer link with label=Site linking to https://aplica.me"
   },
   "link.item.label.GitHub": {
     "message": "GitHub",

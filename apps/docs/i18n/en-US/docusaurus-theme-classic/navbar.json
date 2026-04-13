@@ -11,9 +11,9 @@
     "message": "Documentation",
     "description": "Navbar item with label Documentação"
   },
-  "item.label.aplica.design": {
-    "message": "aplica.design",
-    "description": "Navbar item with label aplica.design"
+  "item.label.aplica.me": {
+    "message": "aplica.me",
+    "description": "Navbar item with label aplica.me"
   },
   "item.label.GitHub": {
     "message": "GitHub",

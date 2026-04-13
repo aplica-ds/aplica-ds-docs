@@ -18,8 +18,8 @@ const LAYER_COLORS: Array<{ from: string; to: string }> = [
   { from: "#ec4899", to: "#f472b6" },  // pink    — Foundation
 ];
 
-const DOCS_BASE = "https://docs.aplica.design";
-const DOCS_BASE_EN = "https://docs.aplica.design/en-US";
+const DOCS_BASE = "https://docs.aplica.me";
+const DOCS_BASE_EN = "https://docs.aplica.me/en-US";
 
 const LAYER_DOCS = [
   "token-layers/brand-layer",

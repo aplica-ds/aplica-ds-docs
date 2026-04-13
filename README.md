@@ -6,8 +6,8 @@ This monorepo contains two products:
 
 | App | Tech | URL | Description |
 |-----|------|-----|-------------|
-| `apps/site` | Astro | `aplica.design` | Institutional/marketing site |
-| `apps/docs` | Docusaurus v3 | `docs.aplica.design` | Full documentation (pt-BR + en) |
+| `apps/site` | Astro | `aplica.me` | Institutional/marketing site |
+| `apps/docs` | Docusaurus v3 | `docs.aplica.me` | Full documentation (pt-BR + en) |
 
 ---
 

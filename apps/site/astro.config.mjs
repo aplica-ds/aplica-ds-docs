@@ -5,7 +5,7 @@ import react from '@astrojs/react';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://aplica.design',
+  site: 'https://aplica.me',
 
   i18n: {
     defaultLocale: 'pt-br',
