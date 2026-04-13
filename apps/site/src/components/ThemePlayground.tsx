@@ -133,8 +133,8 @@ function injectPlaygroundLayer() {
     /* ── Utility classes used inside the playground preview ────────────── */
     .pg-txt-title { color: var(--foundation-txt-title) !important; }
     .pg-txt-body  { color: var(--foundation-txt-body)  !important; }
-    .pg-txt-muted { color: var(--foundation-txt-muted) !important; }
-    .pg-bg-primary   { background: var(--foundation-bg-primary)   !important; }
+    .pg-txt-muted { color: var(--foundation-txt-muted) !important; }    .pg-bg-primary   { background: var(--foundation-bg-primary)   !important; }
+    .pg-txton-primary { color: var(--foundation-txt-title) !important; }
     .pg-bg-secondary    { background: var(--foundation-bg-secondary)    !important; }
     .pg-bg-neutral-low  { background: var(--foundation-bg-neutral-low)  !important; }
     .pg-txton-neutral-low { color: var(--foundation-txt-on-neutral-low) !important; }
@@ -153,6 +153,9 @@ function injectPlaygroundLayer() {
     /* positive-background is always the main bg for any theme (light/dark/positive/negative).
        The theme class switch is what drives the actual color change. */
     .pg-surface { background: var(--semantic-color-brand-ambient-contrast-base-positive-background) !important; }
+
+    .card-muted { background: var(--semantic-color-interface-function-disabled-normal-background) !important; color: var(--semantic-color-interface-function-disabled-normal-txtOn) !important; }
+
 
     @media (min-width: 760px) { .pg-grid { grid-template-columns: 1fr 280px !important; } }
   `;
@@ -383,7 +386,7 @@ export function ThemePlayground({ lang = "pt-br" }: Props) {
                           </span>
                         </div>
                         {/* Token label */}
-                        <div className={`${tc} pg-txt-muted`} style={{ padding: "0.3rem 0.5rem",
+                        <div className={`${tc} card-muted`} style={{ padding: "0.3rem 0.5rem",
                           background: "rgba(128,128,128,0.07)" }}>
                           <div style={{
                             fontFamily: "var(--font-mono, monospace)", fontSize: "0.5rem",
@@ -476,7 +479,7 @@ export function ThemePlayground({ lang = "pt-br" }: Props) {
 
               </div>
             </div>
-
+            {/* !-- Insert Token Resolution Here => D:\workspace\aplica-ds\aplica-ds-docs\apps\site\src\components\TokenResolution.tsx */}
           </div>
         </div>
       </div>

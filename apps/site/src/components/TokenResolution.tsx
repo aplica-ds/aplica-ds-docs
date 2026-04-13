@@ -4,15 +4,15 @@ import { Play, RotateCcw, ArrowRight } from "lucide-react";
 type Lang = "pt-br" | "en";
 
 const BRAND_COLORS: Record<string, string> = {
-  tangerine: "#FFAE03",
   joy:       "#e7398a",
+  tangerine: "#FFAE03",
   grinch:    "#58bd59",
   blue_sky:  "#265ed9",
 };
 
 const BRAND_LABELS: Record<string, string> = {
-  tangerine: "Tangerine",
   joy:       "Joy",
+  tangerine: "Tangerine",
   grinch:    "Grinch",
   blue_sky:  "Blue Sky",
 };
