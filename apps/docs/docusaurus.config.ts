@@ -111,8 +111,8 @@ const config: Config = {
           title: 'Tutoriais',
           items: [
             { label: 'N1 · Product Designer',  to: '/08-tutorials/N1-01' },
-            { label: 'N2 · System Designer',   to: '/08-tutorials/n2-system-designer/01-modelo-mental-5-camadas' },
-            { label: 'N3 · Design Engineer',   to: '/08-tutorials/n3-design-engineer/01-contrato-de-tokens' },
+            { label: 'N2 · System Designer',   to: '/tutorials/n2-system-designer/N2-01' },
+            { label: 'N3 · Design Engineer',   to: '/tutorials/n3-design-engineer/N3-01' },
           ],
         },
         {

@@ -29,11 +29,11 @@
   },
   "link.item.label.N2 · System Designer": {
     "message": "N2 · System Designer",
-    "description": "The label of footer link with label=N2 · System Designer linking to /08-tutorials/n2-system-designer/01-modelo-mental-5-camadas"
+    "description": "The label of footer link with label=N2 · System Designer linking to /tutorials/n2-system-designer/N2-01"
   },
   "link.item.label.N3 · Design Engineer": {
     "message": "N3 · Design Engineer",
-    "description": "The label of footer link with label=N3 · Design Engineer linking to /08-tutorials/n3-design-engineer/01-contrato-de-tokens"
+    "description": "The label of footer link with label=N3 · Design Engineer linking to /tutorials/n3-design-engineer/N3-01"
   },
   "link.item.label.Site": {
     "message": "Site",
