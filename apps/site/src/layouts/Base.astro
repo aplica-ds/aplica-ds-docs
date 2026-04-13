@@ -248,9 +248,68 @@ const {
       html.dark .card-interactive:hover { border-color: #475569; }
       html.dark .btn-outline:hover { background: rgba(249,115,22,0.1); }
       html.dark .code-block { background: #0f172a; border-color: #334155; }
+
+      /* ── Scroll animations ───────────────────────────────────────── */
+      @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(24px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+      [data-animate] {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+      [data-animate].is-visible {
+        animation: fadeInUp 0.55s cubic-bezier(0.16,1,0.3,1) forwards;
+      }
+      [data-animate="delay-1"].is-visible { animation-delay: 0.08s; }
+      [data-animate="delay-2"].is-visible { animation-delay: 0.16s; }
+      [data-animate="delay-3"].is-visible { animation-delay: 0.24s; }
+      [data-animate="delay-4"].is-visible { animation-delay: 0.32s; }
+      [data-animate="delay-5"].is-visible { animation-delay: 0.40s; }
+      [data-animate="delay-6"].is-visible { animation-delay: 0.48s; }
+
+      /* Hover micro-interactions */
+      .hover-lift {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .hover-lift:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-md);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        [data-animate] { opacity: 1; transform: none; }
+        [data-animate].is-visible { animation: none; }
+        .hover-lift:hover { transform: none; }
+      }
     </style>
   </head>
   <body>
     <slot />
+    <script is:inline>
+      (function() {
+        var obs = new IntersectionObserver(
+          function(entries) {
+            entries.forEach(function(e) {
+              if (e.isIntersecting) {
+                e.target.classList.add('is-visible');
+                obs.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+        );
+        function initAnimations() {
+          document.querySelectorAll('[data-animate]').forEach(function(el) {
+            obs.observe(el);
+          });
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initAnimations);
+        } else {
+          initAnimations();
+        }
+      })();
+    </script>
   </body>
 </html>

@@ -4,7 +4,7 @@ import { Play, RotateCcw, ArrowRight } from "lucide-react";
 type Lang = "pt-br" | "en";
 
 const BRAND_COLORS: Record<string, string> = {
-  tangerine: "#ffae03",
+  tangerine: "#FFAE03",
   joy:       "#e7398a",
   grinch:    "#58bd59",
   blue_sky:  "#265ed9",
@@ -17,17 +17,51 @@ const BRAND_LABELS: Record<string, string> = {
   blue_sky:  "Blue Sky",
 };
 
-// Real token resolution path — same for all brands, only final value differs
-const RESOLUTION_STEPS = (finalColor: string) => [
+// Layer colors matching LayerDemo.tsx palette
+const LAYER_COLORS: Record<string, string> = {
+  Foundation: "#ec4899", // pink
+  Semantic:   "#8b5cf6", // purple
+  Surface:    "#10b981", // green
+  Mode:       "#3b82f6", // blue
+  Brand:      "#f97316", // orange
+};
+
+// Full 5-layer resolution chain — same path for all brands, only final value differs
+const RESOLUTION_STEPS = (brandLabel: string, finalColor: string) => [
   {
     layer: "Foundation",
-    token: "--foundation-bg-brand-default",
-    value: "var(--semantic-color-...)",
+    token: "foundation.bg.brand.default",
+    value: "→ semantic.color...",
+    desc_ptbr: "Alias curto para times de produto",
+    desc_en:   "Short alias for product teams",
   },
   {
     layer: "Semantic",
-    token: "--semantic-color-brand-branding-first-default-background",
+    token: "semantic.color.brand.branding\n  .first.default.background",
+    value: "→ surface.color...",
+    desc_ptbr: "Token com propósito — não cor, mas papel",
+    desc_en:   "Purpose token — not a color, but a role",
+  },
+  {
+    layer: "Surface",
+    token: "surface.color.brand.branding\n  .first.default.background",
+    value: "→ mode.interface...",
+    desc_ptbr: "Contexto de superfície: positive / negative",
+    desc_en:   "Surface context: positive / negative",
+  },
+  {
+    layer: "Mode",
+    token: "mode.interface.positive.branding\n  .first.default.background",
+    value: "→ brand.color.palette.500",
+    desc_ptbr: "Contexto de luminosidade: light / dark",
+    desc_en:   "Luminosity context: light / dark",
+  },
+  {
+    layer: "Brand",
+    token: "brand.color.palette.500",
     value: finalColor,
+    desc_ptbr: `Valor primitivo da marca ${brandLabel}`,
+    desc_en:   `Primitive value for ${brandLabel} brand`,
   },
 ];
 
@@ -35,36 +69,30 @@ const translations = {
   "pt-br": {
     title: "O mesmo token. 4 resoluções diferentes.",
     subtitle:
-      "O token --foundation-bg-brand-default sempre aponta para o mesmo slot semântico. O valor final muda conforme a marca ativa — sem alterar nenhum componente.",
-    tracerLabel: "Rastreador de Caminho",
+      "foundation.bg.brand.default aponta sempre para o mesmo caminho. O valor final muda conforme a marca ativa — sem alterar nenhum componente.",
+    tracerLabel: "Cadeia de resolução",
     traceBtn: "Rastrear",
     resetBtn: "Resetar",
-    previewLabel: "Valor Resolvido",
+    previewLabel: "Valor resolvido",
     finalLabel: "Valor final:",
     resolvedText: "Resolvido!",
     resolvingText: "Resolvendo...",
-    steps: [
-      "Foundation alias aponta para o slot semântico",
-      "Semantic token resolve para o valor da marca ativa",
-    ],
     brandLabel: "Marca ativa",
+    descKey: "desc_ptbr" as const,
   },
   en: {
     title: "Same token. 4 different resolutions.",
     subtitle:
-      "The token --foundation-bg-brand-default always points to the same semantic slot. The final value changes with the active brand — without touching any component.",
-    tracerLabel: "Path Tracer",
+      "foundation.bg.brand.default always points to the same path. The final value changes with the active brand — without touching any component.",
+    tracerLabel: "Resolution chain",
     traceBtn: "Trace",
     resetBtn: "Reset",
-    previewLabel: "Resolved Value",
+    previewLabel: "Resolved value",
     finalLabel: "Final value:",
     resolvedText: "Resolved!",
     resolvingText: "Resolving...",
-    steps: [
-      "Foundation alias points to the semantic slot",
-      "Semantic token resolves to the active brand's value",
-    ],
     brandLabel: "Active brand",
+    descKey: "desc_en" as const,
   },
 };
 
@@ -81,7 +109,8 @@ export function TokenResolution({ lang = "pt-br" }: Props) {
   const t = translations[lang];
 
   const finalColor = BRAND_COLORS[activeBrand];
-  const steps = RESOLUTION_STEPS(finalColor);
+  const brandLabel = BRAND_LABELS[activeBrand];
+  const steps = RESOLUTION_STEPS(brandLabel, finalColor);
   const isResolved = currentStep >= steps.length - 1;
   const previewColor = isResolved ? finalColor : UNRESOLVED_COLOR;
 
@@ -97,7 +126,7 @@ export function TokenResolution({ lang = "pt-br" }: Props) {
         clearInterval(interval);
         setIsAnimating(false);
       }
-    }, 900);
+    }, 600);
   };
 
   const resetAnimation = () => {
@@ -217,7 +246,7 @@ export function TokenResolution({ lang = "pt-br" }: Props) {
                   <h3
                     style={{
                       fontWeight: 700,
-                      fontSize: "1rem",
+                      fontSize: "0.9375rem",
                       color: "var(--color-text)",
                       marginBottom: "0.75rem",
                     }}
@@ -255,108 +284,122 @@ export function TokenResolution({ lang = "pt-br" }: Props) {
                 </div>
 
                 {/* Steps */}
-                <div style={{ display: "flex", flexDirection: "column", gap: "0.625rem" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
                   {steps.map((step, idx) => {
                     const isActive = currentStep >= idx;
                     const isFinal = idx === steps.length - 1;
+                    const layerColor = LAYER_COLORS[step.layer];
+                    const desc = step[t.descKey];
                     return (
                       <div
                         key={idx}
                         style={{
                           display: "flex",
-                          alignItems: "center",
-                          gap: "0.875rem",
-                          padding: "0.875rem 1rem",
+                          alignItems: "flex-start",
+                          gap: "0.75rem",
+                          padding: "0.75rem 0.875rem",
                           borderRadius: "var(--radius)",
                           border: isActive
-                            ? `1.5px solid ${finalColor}44`
+                            ? `1.5px solid ${layerColor}44`
                             : "1.5px solid transparent",
-                          background: isActive ? `${finalColor}08` : "var(--color-bg-subtle)",
-                          transition: "all 0.4s ease",
+                          background: isActive ? `${layerColor}08` : "var(--color-bg-subtle)",
+                          transition: "all 0.35s ease",
                         }}
                       >
-                        {/* Step number */}
+                        {/* Layer color dot */}
                         <div
                           style={{
-                            width: "1.875rem",
-                            height: "1.875rem",
+                            width: "1.625rem",
+                            height: "1.625rem",
                             borderRadius: "50%",
-                            background: isActive
-                              ? isFinal ? finalColor : "var(--gradient-primary)"
-                              : "var(--color-border)",
+                            background: isActive ? layerColor : "var(--color-border)",
                             color: isActive ? "#fff" : "var(--color-text-muted)",
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
                             fontWeight: 700,
-                            fontSize: "0.8125rem",
+                            fontSize: "0.6875rem",
                             flexShrink: 0,
-                            transition: "background 0.4s",
+                            marginTop: "0.1rem",
+                            transition: "background 0.35s",
                           }}
                         >
                           {idx + 1}
                         </div>
 
-                        {/* Token path */}
+                        {/* Token path + desc */}
                         <div style={{ flex: 1, minWidth: 0 }}>
+                          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.125rem" }}>
+                            <span
+                              style={{
+                                fontFamily: "var(--font-mono)",
+                                fontSize: "0.6875rem",
+                                fontWeight: 700,
+                                padding: "0.1rem 0.375rem",
+                                borderRadius: "4px",
+                                background: isActive ? `${layerColor}15` : "transparent",
+                                color: isActive ? layerColor : "var(--color-text-muted)",
+                                transition: "all 0.35s",
+                              }}
+                            >
+                              {step.layer}
+                            </span>
+                          </div>
                           <div
                             style={{
                               fontFamily: "var(--font-mono)",
-                              fontSize: "0.75rem",
+                              fontSize: "0.7rem",
                               fontWeight: 600,
                               color: isActive ? "var(--color-text)" : "var(--color-text-muted)",
-                              overflow: "hidden",
-                              textOverflow: "ellipsis",
-                              whiteSpace: "nowrap",
+                              whiteSpace: "pre",
+                              lineHeight: 1.5,
                             }}
                           >
                             {step.token}
                           </div>
                           <div
                             style={{
-                              fontSize: "0.75rem",
+                              fontSize: "0.7rem",
                               color: "var(--color-text-muted)",
-                              marginTop: "0.1rem",
+                              marginTop: "0.125rem",
                             }}
                           >
-                            {t.steps[idx]}
+                            {desc}
                           </div>
                         </div>
 
-                        {/* Arrow */}
-                        <ArrowRight
-                          size={14}
-                          style={{
-                            color: isActive ? finalColor : "var(--color-border)",
-                            transition: "color 0.4s",
-                            flexShrink: 0,
-                          }}
-                        />
-
-                        {/* Value pill */}
-                        <div
-                          style={{
-                            fontFamily: "var(--font-mono)",
-                            fontSize: "0.7rem",
-                            padding: "0.25rem 0.625rem",
-                            borderRadius: "var(--radius-full)",
-                            background: isActive
-                              ? isFinal ? finalColor : `${finalColor}20`
-                              : "var(--color-border)",
-                            color: isActive
-                              ? isFinal ? "#fff" : finalColor
-                              : "var(--color-text-muted)",
-                            flexShrink: 0,
-                            maxWidth: "9rem",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            whiteSpace: "nowrap",
-                            transition: "background 0.4s, color 0.4s",
-                            fontWeight: isFinal && isActive ? 700 : 400,
-                          }}
-                          title={step.value}
-                        >
-                          {step.value}
+                        {/* Arrow + Value */}
+                        <div style={{ flexShrink: 0, display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "0.25rem", paddingTop: "0.25rem" }}>
+                          <ArrowRight
+                            size={13}
+                            style={{
+                              color: isActive ? layerColor : "var(--color-border)",
+                              transition: "color 0.35s",
+                            }}
+                          />
+                          <div
+                            style={{
+                              fontFamily: "var(--font-mono)",
+                              fontSize: "0.65rem",
+                              padding: "0.15rem 0.5rem",
+                              borderRadius: "var(--radius-full)",
+                              background: isActive
+                                ? isFinal ? layerColor : `${layerColor}18`
+                                : "var(--color-border)",
+                              color: isActive
+                                ? isFinal ? "#fff" : layerColor
+                                : "var(--color-text-muted)",
+                              maxWidth: "8rem",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              whiteSpace: "nowrap",
+                              transition: "background 0.35s, color 0.35s",
+                              fontWeight: isFinal && isActive ? 700 : 400,
+                            }}
+                            title={step.value}
+                          >
+                            {step.value}
+                          </div>
                         </div>
                       </div>
                     );

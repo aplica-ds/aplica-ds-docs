@@ -1,5 +1,4 @@
-import { useState, useEffect, useRef } from "react";
-import { Play, RotateCcw } from "lucide-react";
+import { useState, useEffect } from "react";
 
 type Lang     = "pt-br" | "en";
 type Brand    = "tangerine" | "joy" | "grinch" | "blue_sky";
@@ -32,23 +31,6 @@ const TYPO = [
   { cls: "typography-theme_engine-content-label",     label: "LABEL — content-label",          txt: "Interface label / caption",         pgCls: "pg-txt-muted" },
 ] as const;
 
-const TRACE_STEPS = (hex: string, lang: Lang) => [
-  {
-    token: "--foundation-bg-brand-default",
-    value: "var(--semantic-color-...)",
-    desc: lang === "pt-br"
-      ? "Foundation alias aponta para o slot semântico"
-      : "Foundation alias points to the semantic slot",
-  },
-  {
-    token: "--semantic-color-brand-branding-first-default-background",
-    value: hex,
-    desc: lang === "pt-br"
-      ? "Semantic token resolve para o valor da marca ativa"
-      : "Semantic token resolves to the active brand's value",
-  },
-];
-
 const UI = {
   "pt-br": {
     title: "Playground de Temas",
@@ -60,14 +42,6 @@ const UI = {
     typographyTitle: "Tipografia",
     colorsTitle: "Foundation Colors",
     componentsTitle: "Componentes",
-    traceTitle: "Resolução de Token",
-    traceSub: "O mesmo token. 4 resoluções diferentes.",
-    traceBtn: "Rastrear",
-    resetBtn: "Resetar",
-    previewLabel: "Valor Resolvido",
-    finalLabel: "Valor final:",
-    resolvedText: "Resolvido!",
-    resolvingText: "Resolvendo…",
     btnPrimary: "Botão Primário",
     btnOutline: "Botão Outline",
     inputPlaceholder: "Digite algo…",
@@ -85,14 +59,6 @@ const UI = {
     typographyTitle: "Typography",
     colorsTitle: "Foundation Colors",
     componentsTitle: "Components",
-    traceTitle: "Token Resolution",
-    traceSub: "Same token. 4 different resolutions.",
-    traceBtn: "Trace",
-    resetBtn: "Reset",
-    previewLabel: "Resolved Value",
-    finalLabel: "Final value:",
-    resolvedText: "Resolved!",
-    resolvingText: "Resolving…",
     btnPrimary: "Primary Button",
     btnOutline: "Outline Button",
     inputPlaceholder: "Type something…",
@@ -203,11 +169,6 @@ export function ThemePlayground({ lang = "pt-br" }: Props) {
   const [surface, setSurface] = useState<Surface>("positive");
   const [ready,   setReady]   = useState(false);
 
-  // Tracer
-  const [traceStep, setTraceStep] = useState(-1);
-  const [isTracing, setIsTracing] = useState(false);
-  const timer = useRef<ReturnType<typeof setInterval> | null>(null);
-
   const t = UI[lang];
   const ab = BRANDS.find((b) => b.id === brand)!;
 
@@ -220,38 +181,6 @@ export function ThemePlayground({ lang = "pt-br" }: Props) {
     injectPlaygroundLayer();
     setReady(true);
   }, []);
-
-  // ── Auto-trace when brand changes (after first load) ──────────────────
-  useEffect(() => {
-    if (!ready) return;
-    startTrace();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [brand, ready]);
-
-  const steps = TRACE_STEPS(ab.hex, lang);
-  const isResolved = traceStep >= steps.length - 1;
-
-  function startTrace() {
-    if (timer.current) clearInterval(timer.current);
-    setIsTracing(true);
-    setTraceStep(0);
-    let step = 0;
-    timer.current = setInterval(() => {
-      step += 1;
-      setTraceStep(step);
-      if (step >= steps.length - 1) {
-        clearInterval(timer.current!);
-        setIsTracing(false);
-      }
-    }, 900);
-  }
-
-  function resetTrace() {
-    if (timer.current) clearInterval(timer.current);
-    setIsTracing(false);
-    setTraceStep(-1);
-  }
-
 
   // ── Shared pill ───────────────────────────────────────────────────────
   function Pill({ active, color, onClick, children }: {
@@ -513,19 +442,19 @@ export function ThemePlayground({ lang = "pt-br" }: Props) {
                     />
 
                     {/* Card */}
-                    <div className={`${tc} pg-bg-neutral-low`} style={{
+                    <div className={`${tc} pg-bg-primary`} style={{
                       padding: "1.25rem", borderRadius: "0.75rem",
                       border: "1px solid var(--semantic-color-brand-ambient-grayscale-lower-border)",
                       maxWidth: "22rem", transition: "background 0.3s",
                     }}>
-                      <div className={`${tc} pg-txton-neutral-low`} style={{
+                      <div className={`${tc} pg-txton-primary`} style={{
                         fontFamily: "var(--semantic-typography-fontFamilies-main, sans-serif)",
                         fontWeight: 700, fontSize: "1rem",
                         marginBottom: "0.5rem",
                       }}>
                         {t.cardTitle}
                       </div>
-                      <div className={`${tc} pg-txton-neutral-low`} style={{
+                      <div className={`${tc} pg-txton-primary`} style={{
                         fontFamily: "var(--semantic-typography-fontFamilies-content, sans-serif)",
                         fontSize: "0.875rem",
                         lineHeight: 1.6, marginBottom: "1rem",
@@ -548,141 +477,6 @@ export function ThemePlayground({ lang = "pt-br" }: Props) {
               </div>
             </div>
 
-            {/* ── RIGHT: Token resolution tracer ───────────────────────── */}
-            <div style={{
-              background: "linear-gradient(135deg, var(--color-bg-card), var(--color-bg-subtle))",
-              border: "1px solid var(--color-border)",
-              borderRadius: "var(--radius-lg)",
-              padding: "1.5rem",
-              display: "flex", flexDirection: "column" as const, gap: "1.25rem",
-            }}>
-              <div>
-                <h3 style={{ fontWeight: 700, fontSize: "1rem", color: "var(--color-text)",
-                  marginBottom: "0.25rem" }}>
-                  {t.traceTitle}
-                </h3>
-                <p style={{ fontSize: "0.8125rem", color: "var(--color-text-muted)", lineHeight: 1.5 }}>
-                  {t.traceSub}
-                </p>
-              </div>
-
-              {/* Controls */}
-              <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" as const }}>
-                <button
-                  style={{
-                    display: "inline-flex", alignItems: "center", gap: "0.375rem",
-                    padding: "0.5rem 1rem", borderRadius: "var(--radius)", fontWeight: 600,
-                    fontSize: "0.875rem", border: "none",
-                    background: isTracing ? "var(--color-bg-subtle)" : "var(--gradient-primary)",
-                    color: isTracing ? "var(--color-text-muted)" : "#fff",
-                    opacity: isTracing ? 0.6 : 1,
-                    cursor: isTracing ? "not-allowed" : "pointer",
-                  }}
-                  onClick={startTrace}
-                  disabled={isTracing}
-                >
-                  <Play size={13} />{t.traceBtn}
-                </button>
-                <button
-                  style={{
-                    display: "inline-flex", alignItems: "center", gap: "0.375rem",
-                    padding: "0.5rem 1rem", borderRadius: "var(--radius)", fontWeight: 600,
-                    fontSize: "0.875rem", border: "1.5px solid var(--color-border)",
-                    background: "transparent", color: "var(--color-text-muted)", cursor: "pointer",
-                  }}
-                  onClick={resetTrace}
-                >
-                  <RotateCcw size={13} />{t.resetBtn}
-                </button>
-              </div>
-
-              {/* Steps */}
-              <div style={{ display: "flex", flexDirection: "column" as const, gap: "0.625rem" }}>
-                {steps.map((step, idx) => {
-                  const isActive = traceStep >= idx;
-                  const isFinal  = idx === steps.length - 1;
-                  return (
-                    <div key={idx} style={{
-                      padding: "0.875rem 1rem", borderRadius: "var(--radius)",
-                      border: isActive ? `1.5px solid ${ab.hex}44` : "1.5px solid transparent",
-                      background: isActive ? `${ab.hex}08` : "var(--color-bg-subtle)",
-                      transition: "all 0.4s ease",
-                    }}>
-                      <div style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem" }}>
-                        <div style={{
-                          width: "1.75rem", height: "1.75rem", borderRadius: "50%", flexShrink: 0,
-                          background: isActive ? (isFinal ? ab.hex : "var(--gradient-primary)") : "var(--color-border)",
-                          color: isActive ? "#fff" : "var(--color-text-muted)",
-                          display: "flex", alignItems: "center", justifyContent: "center",
-                          fontWeight: 700, fontSize: "0.75rem", transition: "background 0.4s",
-                        }}>
-                          {idx + 1}
-                        </div>
-                        <div style={{ flex: 1, minWidth: 0 }}>
-                          <div style={{
-                            fontFamily: "var(--font-mono)", fontSize: "0.6875rem", fontWeight: 600,
-                            color: isActive ? "var(--color-text)" : "var(--color-text-muted)",
-                            overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" as const,
-                            marginBottom: "0.2rem",
-                          }}>
-                            {step.token}
-                          </div>
-                          <div style={{ fontSize: "0.6875rem", color: "var(--color-text-muted)", lineHeight: 1.4 }}>
-                            {step.desc}
-                          </div>
-                        </div>
-                      </div>
-                      <div style={{ marginTop: "0.625rem", marginLeft: "2.5rem" }}>
-                        <span style={{
-                          fontFamily: "var(--font-mono)", fontSize: "0.6875rem",
-                          padding: "0.2rem 0.5rem", borderRadius: "var(--radius-full)",
-                          background: isActive ? (isFinal ? ab.hex : `${ab.hex}20`) : "var(--color-border)",
-                          color: isActive ? (isFinal ? "#fff" : ab.hex) : "var(--color-text-muted)",
-                          fontWeight: isFinal && isActive ? 700 : 400,
-                          transition: "background 0.4s, color 0.4s",
-                          display: "inline-block", maxWidth: "100%",
-                          overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" as const,
-                        }} title={step.value}>
-                          {step.value}
-                        </span>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* Resolved preview */}
-              <div>
-                <div style={{ fontWeight: 600, fontSize: "0.8125rem", color: "var(--color-text)",
-                  marginBottom: "0.625rem" }}>
-                  {t.previewLabel}
-                </div>
-                <div style={{
-                  height: "5rem", borderRadius: "var(--radius)",
-                  background: isResolved ? ab.hex : "#94a3b8",
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  color: "#fff", fontWeight: 700, fontSize: "0.9375rem",
-                  transition: "background 0.5s ease", marginBottom: "0.75rem",
-                }}>
-                  {isResolved ? t.resolvedText : t.resolvingText}
-                </div>
-                <div style={{
-                  padding: "0.75rem 0.875rem",
-                  background: "var(--color-bg-subtle)", border: "1px solid var(--color-border)",
-                  borderRadius: "var(--radius)",
-                }}>
-                  <div style={{ fontSize: "0.6875rem", color: "var(--color-text-muted)", marginBottom: "0.3rem" }}>
-                    {t.finalLabel}
-                  </div>
-                  <div style={{
-                    fontFamily: "var(--font-mono)", fontSize: "0.9375rem", fontWeight: 700,
-                    color: isResolved ? ab.hex : "var(--color-text-muted)", transition: "color 0.4s",
-                  }}>
-                    {isResolved ? ab.hex : "var(--resolving)"}
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>

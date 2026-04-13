@@ -39,53 +39,65 @@ const translations: Record<Lang, { title: string; subtitle: string; preview: str
     layers: [
       {
         name: "Brand",
-        desc: "Identidade visual — paleta de cores da marca",
-        example: `// aplica-tangerine.config.mjs
-tangerine: {
-  primary: "#ffae03",
-  secondary: "#f8f0d4"
-}`,
+        desc: "Identidade visual — paleta de cores e tipografia da marca",
+        example: `// data/brand/aplica_tangerine/_brand.json
+brand.color.palette.500:              "#FFAE03"
+brand.color.palette.100:              "#FFEC91"
+brand.typography.fontFamilies.main:   "Sansita"
+brand.typography.fontFamilies.mono:   "Roboto Mono"`,
         docsPath: LAYER_DOCS[0],
       },
       {
         name: "Mode",
         desc: "Light / Dark — inversão perceptual via OKLCh",
-        example: `// Algoritmo de inversão (dark mode)
-dark[N] = light[20 - N]
+        example: `// data/mode/light.json
+mode.interface.positive.branding
+  .first.default.background:
+    → brand.color.palette.500
 
-// Exemplo:
-light[09] → oklch(0.52 0.21 60°)
-dark[11]  → oklch(0.48 0.18 60°)`,
+// Algoritmo de inversão (dark):
+dark[N] = light[20 − N]`,
         docsPath: LAYER_DOCS[1],
       },
       {
         name: "Surface",
         desc: "Positive / Negative — contexto de fundo da superfície",
-        example: `// positive  → fundo claro (base de conteúdo)
---semantic-color-brand-ambient-contrast-base-positive-background
+        example: `// data/surface/positive.json
+surface.color.brand.branding
+  .first.default.background:
+    → mode.interface.positive
+        .branding.first.default.background
 
-// negative  → fundo escuro (contraste invertido)
---semantic-color-brand-ambient-contrast-base-negative-background`,
+// negative → inverte o contexto de contraste`,
         docsPath: LAYER_DOCS[2],
       },
       {
         name: "Semantic",
         desc: "Tokens com propósito — não cor, mas papel",
-        example: `// Não "#ffae03", mas o papel deste cor:
---semantic-color-brand-branding-first-default-background: #ffae03;
---semantic-color-brand-branding-first-default-txtOn: #080000;
---semantic-color-brand-branding-first-default-border: #c67900;`,
+        example: `// data/semantic/default.json
+semantic.color.brand.branding
+  .first.default.background:
+    → surface.color.brand.branding
+        .first.default.background
+    // "Fundo primário da marca — CTAs e surfaces"
+
+semantic.color.brand.branding.first.default.txtOn
+semantic.color.brand.branding.first.default.border`,
         docsPath: LAYER_DOCS[3],
       },
       {
         name: "Foundation",
-        desc: "Aliases simples — redução de carga cognitiva para times de produto",
-        example: `/* foundation.css — alias para o Semantic */
---foundation-bg-brand-default:
-  var(--semantic-color-brand-branding-first-default-background);
+        desc: "Aliases curtos — redução de carga cognitiva para times de produto",
+        example: `// data/foundation/engine/default.json
+foundation.bg.brand.default:
+  → semantic.color.brand.branding
+      .first.default.background
 
---foundation-txt-title:
-  var(--semantic-color-brand-ambient-neutral-highest-background);`,
+foundation.txt.title:
+  → semantic.color.text.title
+
+foundation.spacing.medium:
+  → semantic.dimension.spacing.medium`,
         docsPath: LAYER_DOCS[4],
       },
     ],
@@ -99,53 +111,65 @@ dark[11]  → oklch(0.48 0.18 60°)`,
     layers: [
       {
         name: "Brand",
-        desc: "Visual identity — brand color palette",
-        example: `// aplica-tangerine.config.mjs
-tangerine: {
-  primary: "#ffae03",
-  secondary: "#f8f0d4"
-}`,
+        desc: "Visual identity — color palette and typography",
+        example: `// data/brand/aplica_tangerine/_brand.json
+brand.color.palette.500:              "#FFAE03"
+brand.color.palette.100:              "#FFEC91"
+brand.typography.fontFamilies.main:   "Sansita"
+brand.typography.fontFamilies.mono:   "Roboto Mono"`,
         docsPath: LAYER_DOCS[0],
       },
       {
         name: "Mode",
         desc: "Light / Dark — perceptual inversion via OKLCh",
-        example: `// Dark mode inversion algorithm
-dark[N] = light[20 - N]
+        example: `// data/mode/light.json
+mode.interface.positive.branding
+  .first.default.background:
+    → brand.color.palette.500
 
-// Example:
-light[09] → oklch(0.52 0.21 60°)
-dark[11]  → oklch(0.48 0.18 60°)`,
+// Dark mode inversion algorithm:
+dark[N] = light[20 − N]`,
         docsPath: LAYER_DOCS[1],
       },
       {
         name: "Surface",
         desc: "Positive / Negative — surface background context",
-        example: `// positive  → light background (content base)
---semantic-color-brand-ambient-contrast-base-positive-background
+        example: `// data/surface/positive.json
+surface.color.brand.branding
+  .first.default.background:
+    → mode.interface.positive
+        .branding.first.default.background
 
-// negative  → dark background (inverted contrast)
---semantic-color-brand-ambient-contrast-base-negative-background`,
+// negative → inverts the contrast context`,
         docsPath: LAYER_DOCS[2],
       },
       {
         name: "Semantic",
         desc: "Purpose-driven tokens — not a color, but a role",
-        example: `// Not "#ffae03", but the role of this color:
---semantic-color-brand-branding-first-default-background: #ffae03;
---semantic-color-brand-branding-first-default-txtOn: #080000;
---semantic-color-brand-branding-first-default-border: #c67900;`,
+        example: `// data/semantic/default.json
+semantic.color.brand.branding
+  .first.default.background:
+    → surface.color.brand.branding
+        .first.default.background
+    // "Primary brand bg — for CTAs and surfaces"
+
+semantic.color.brand.branding.first.default.txtOn
+semantic.color.brand.branding.first.default.border`,
         docsPath: LAYER_DOCS[3],
       },
       {
         name: "Foundation",
-        desc: "Simple aliases — cognitive load reduction for product teams",
-        example: `/* foundation.css — alias to Semantic */
---foundation-bg-brand-default:
-  var(--semantic-color-brand-branding-first-default-background);
+        desc: "Short aliases — cognitive load reduction for product teams",
+        example: `// data/foundation/engine/default.json
+foundation.bg.brand.default:
+  → semantic.color.brand.branding
+      .first.default.background
 
---foundation-txt-title:
-  var(--semantic-color-brand-ambient-neutral-highest-background);`,
+foundation.txt.title:
+  → semantic.color.text.title
+
+foundation.spacing.medium:
+  → semantic.dimension.spacing.medium`,
         docsPath: LAYER_DOCS[4],
       },
     ],

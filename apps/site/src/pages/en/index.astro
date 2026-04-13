@@ -5,6 +5,7 @@ import Footer from '../../components/Footer.astro';
 import { LayerDemo } from '../../components/LayerDemo';
 import { ThemeGrid } from '../../components/ThemeGrid';
 import { ThemePlayground } from '../../components/ThemePlayground';
+import { TokenResolution } from '../../components/TokenResolution';
 ---
 
 <Base title="Design tokens that scale with your product" lang="en-US" description="5-layer token architecture, dynamic theme generation, dark mode by design, Figma/React/Vue/Flutter support — from a single config file.">
@@ -75,6 +76,9 @@ import { ThemePlayground } from '../../components/ThemePlayground';
 
   <!-- ── 5. Theme Playground — token resolution integrated ────────── -->
   <ThemePlayground lang="en" client:load />
+
+  <!-- ── 5b. Token Resolution — full 5-layer chain ────────────── -->
+  <TokenResolution lang="en" client:load />
 
   <!-- ── 6. How it works ───────────────────────────────────────── -->
   <section id="how-it-works" style="padding: 5rem 0; background: var(--color-bg-subtle);">
