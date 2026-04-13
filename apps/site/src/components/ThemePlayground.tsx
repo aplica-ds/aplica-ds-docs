@@ -158,12 +158,9 @@ function injectPlaygroundLayer() {
     .card-muted { background: var(--semantic-color-interface-function-disabled-normal-background) !important; color: var(--semantic-color-interface-function-disabled-normal-txtOn) !important; }
 
 
-    /* Preview | Token Resolution — coluna do widget mais larga que o antigo 280px */
+    /* Preview 2/3 | Token Resolution widget 1/3 */
     @media (min-width: 760px) {
-      .pg-grid { grid-template-columns: minmax(0, 1fr) minmax(480px, 1.25fr) !important; }
-    }
-    @media (min-width: 1100px) {
-      .pg-grid { grid-template-columns: minmax(0, 1fr) minmax(560px, 1.35fr) !important; }
+      .pg-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 4fr) !important; }
     }
   `;
   document.head.appendChild(s);

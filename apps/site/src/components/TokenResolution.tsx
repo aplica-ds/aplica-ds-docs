@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback, type CSSProperties } from "react";
-import { Play, RotateCcw, ArrowRight } from "lucide-react";
+import { Play, RotateCcw } from "lucide-react";
 
 type Lang = "pt-br" | "en";
 
@@ -294,28 +294,50 @@ export function TokenResolutionWidget({
                     </div>
 
                     <div style={{ flex: "1 1 0%", minWidth: 0, width: "100%" }}>
-                      <div
+                      <span
                         style={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "0.5rem",
-                          marginBottom: "0.25rem",
+                          display: "inline-block",
+                          fontFamily: "var(--font-mono)",
+                          fontSize: "0.6875rem",
+                          fontWeight: 700,
+                          padding: "0.15rem 0.45rem",
+                          borderRadius: "4px",
+                          background: isActive ? `${layerColor}20` : `${layerColor}12`,
+                          color: isActive ? layerColor : "var(--color-text-muted)",
+                          transition: "all 0.35s",
+                          marginBottom: "0.35rem",
                         }}
                       >
-                        <span
-                          style={{
-                            fontFamily: "var(--font-mono)",
-                            fontSize: "0.6875rem",
-                            fontWeight: 700,
-                            padding: "0.15rem 0.45rem",
-                            borderRadius: "4px",
-                            background: isActive ? `${layerColor}20` : `${layerColor}12`,
-                            color: isActive ? layerColor : "var(--color-text-muted)",
-                            transition: "all 0.35s",
-                          }}
-                        >
-                          {step.layer}
-                        </span>
+                        {step.layer}
+                      </span>
+                      <div
+                        style={{
+                          display: "block",
+                          width: "fit-content",
+                          maxWidth: "100%",
+                          fontFamily: "var(--font-mono)",
+                          fontSize: "0.6875rem",
+                          padding: "0.2rem 0.55rem",
+                          borderRadius: "var(--radius-full)",
+                          background: isActive
+                            ? isFinal
+                              ? layerColor
+                              : `${layerColor}22`
+                            : "var(--color-bg-card)",
+                          border: `1px solid ${isActive ? `${layerColor}55` : "var(--color-border)"}`,
+                          color: isActive ? (isFinal ? "#fff" : layerColor) : "var(--color-text-muted)",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                          textAlign: "left",
+                          transition: "background 0.35s, color 0.35s, border-color 0.35s",
+                          fontWeight: isFinal && isActive ? 700 : 500,
+                          boxSizing: "border-box",
+                          marginBottom: "0.5rem",
+                        }}
+                        title={step.value}
+                      >
+                        {step.value}
                       </div>
                       <div
                         style={{
@@ -339,57 +361,6 @@ export function TokenResolutionWidget({
                         }}
                       >
                         {desc}
-                      </div>
-                    </div>
-
-                    <div
-                      style={{
-                        flex: "0 0 auto",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "flex-end",
-                        justifyContent: "flex-start",
-                        gap: "0.35rem",
-                        paddingTop: "0.15rem",
-                        marginLeft: "auto",
-                        minWidth: "min(11rem, 38%)",
-                        maxWidth: "42%",
-                      }}
-                    >
-                      <ArrowRight
-                        size={14}
-                        style={{
-                          color: isActive ? layerColor : "var(--color-border)",
-                          transition: "color 0.35s",
-                          flexShrink: 0,
-                        }}
-                      />
-                      <div
-                        style={{
-                          fontFamily: "var(--font-mono)",
-                          fontSize: "0.6875rem",
-                          padding: "0.2rem 0.55rem",
-                          borderRadius: "var(--radius-full)",
-                          background: isActive
-                            ? isFinal
-                              ? layerColor
-                              : `${layerColor}22`
-                            : "var(--color-bg-card)",
-                          border: `1px solid ${isActive ? `${layerColor}55` : "var(--color-border)"}`,
-                          color: isActive ? (isFinal ? "#fff" : layerColor) : "var(--color-text-muted)",
-                          width: "100%",
-                          maxWidth: "100%",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                          textAlign: "center",
-                          transition: "background 0.35s, color 0.35s, border-color 0.35s",
-                          fontWeight: isFinal && isActive ? 700 : 500,
-                          boxSizing: "border-box",
-                        }}
-                        title={step.value}
-                      >
-                        {step.value}
                       </div>
                     </div>
                   </div>
@@ -475,16 +446,16 @@ export function TokenResolutionWidget({
             width: auto !important;
           }
           .token-resolution-inner .token-resolution-preview-col {
-            width: 240px !important;
-            min-width: 200px !important;
-            max-width: 280px !important;
+            width: min(200px, 100%) !important;
+            min-width: 0 !important;
+            max-width: 220px !important;
             flex-shrink: 0 !important;
           }
         }
         @media (min-width: 960px) {
           .token-resolution-inner .token-resolution-preview-col {
-            width: 260px !important;
-            max-width: 300px !important;
+            width: min(220px, 100%) !important;
+            max-width: 240px !important;
           }
         }
       `}</style>
