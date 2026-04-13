@@ -105,6 +105,22 @@ pnpm build
 
 ---
 
+## AI assistants (Cursor / Claude Code)
+
+This repository includes shared guidance for coding agents:
+
+| Artifact | Purpose |
+|----------|---------|
+| [`docs/ai/aplica-ds-token-playbook.md`](./docs/ai/aplica-ds-token-playbook.md) | Domain playbook (token layers, Theme Engine, topic → doc map, anti-hallucination rules). |
+| [`.cursor/skills/aplica-ds-docs-tokens/SKILL.md`](./.cursor/skills/aplica-ds-docs-tokens/SKILL.md) | Cursor Agent Skill — loads when questions match the skill `description`. |
+| [`.claude/skills/aplica-ds-docs-tokens/SKILL.md`](./.claude/skills/aplica-ds-docs-tokens/SKILL.md) | Claude Code skill (same body as the Cursor skill). |
+| [`CLAUDE.md`](./CLAUDE.md) | Short project onboarding for Claude Code (commands + pointer to playbook and `apps/docs/docs/`). |
+| [`.cursor/rules/aplica-ds-docs.mdc`](./.cursor/rules/aplica-ds-docs.mdc) | Optional Cursor rule scoped to `apps/docs/docs/**` — prefer reading local Markdown before generalizing. |
+
+Conceptual answers should cite files under `apps/docs/docs/` (or the English mirror under `apps/docs/i18n/en-US/docusaurus-plugin-content-docs/current/`).
+
+---
+
 ## Content workflow
 
 The documentation content lives in the `aplica-ds-concept` repository (the authoring source). This repo contains the **published output** — content migrated into the Docusaurus i18n structure.

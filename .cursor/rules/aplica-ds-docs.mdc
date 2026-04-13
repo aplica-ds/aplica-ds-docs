@@ -1,0 +1,11 @@
+---
+description: When editing or discussing Aplica DS documentation Markdown under apps/docs/docs, read the relevant source files before stating definitions, token naming, or Theme Engine behavior. Cite repo-relative paths (and short quotes for canonical rules).
+globs: apps/docs/docs/**/*.md
+alwaysApply: false
+---
+
+# Aplica DS docs (local Markdown)
+
+- Prefer **reading** the `.md` files matched by this rule over generic or remembered token taxonomy.
+- Anchor explanations to **paths from the repo root** (for example `apps/docs/docs/02-token-layers/04-semantic-layer.md`).
+- For end-to-end agent behavior and topic routing, see `docs/ai/aplica-ds-token-playbook.md` and the skill `.cursor/skills/aplica-ds-docs-tokens/SKILL.md`.
