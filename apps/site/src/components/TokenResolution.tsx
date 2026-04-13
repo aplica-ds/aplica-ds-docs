@@ -52,13 +52,13 @@ const RESOLUTION_STEPS = (brandLabel: string, finalColor: string) => [
   {
     layer: "Mode",
     token: "mode.interface.positive.branding\n  .first.default.background",
-    value: "→ brand.color.palette.500",
+    value: "→ theme.color.light.brand.branding.first.lowest.background",
     desc_ptbr: "Contexto de luminosidade: light / dark",
     desc_en: "Luminosity context: light / dark",
   },
   {
     layer: "Brand",
-    token: "brand.color.palette.500",
+    token: "theme.color.light.brand.branding.first.lowest.background",
     value: finalColor,
     desc_ptbr: `Valor primitivo da marca ${brandLabel}`,
     desc_en: `Primitive value for ${brandLabel} brand`,

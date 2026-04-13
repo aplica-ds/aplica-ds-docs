@@ -10,7 +10,7 @@ import { routes } from '../../i18n/routes';
 const r = routes.en;
 ---
 
-<Base title="Design tokens that scale with your product" lang="en-US" description="5-layer token architecture, dynamic theme generation, dark mode by design, Figma/React/Vue/Flutter support — from a single config file.">
+<Base title="Semantic themes for any UI library" lang="en-US" description="The Aplica Theme Engine generates design tokens with a 5-layer semantic structure. Multi-theme, dark mode by design, whitelabel-ready — from a single config file.">
   <Nav lang="en" />
 
   <!-- ── 1. Hero ─────────────────────────────────────────────────── -->
@@ -22,11 +22,11 @@ const r = routes.en;
         Open Source · MIT
       </p>
       <h1 data-animate="delay-1" style="font-family: var(--font-display); font-size: clamp(2.25rem, 5vw, 3.5rem); font-weight: 700; line-height: 1.15; max-width: 760px; margin: 0 auto 1.25rem;">
-        Design tokens that
-        <span class="text-gradient"> scale with your product.</span>
+        Semantic themes for
+        <span class="text-gradient"> any UI library.</span>
       </h1>
       <p data-animate="delay-2" style="font-size: 1.125rem; color: var(--color-text-muted); max-width: 560px; margin: 0 auto 2.5rem; line-height: 1.7;">
-        5-layer architecture, dynamic theme generation, dark mode by design, and support for Figma, React, Vue, Flutter — from a single config file.
+        The Aplica Theme Engine generates design tokens with a 5-layer semantic structure. Multi-theme, dark mode by design, whitelabel-ready and support for Figma, React, Vue, Flutter — from a single config file.
       </p>
       <div data-animate="delay-3" style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
         <a href={r.docsN1} class="btn btn-primary">
@@ -42,8 +42,8 @@ const r = routes.en;
   <!-- ── 2. The problem ──────────────────────────────────────────── -->
   <section id="problem-statement" style="padding: 5rem 0; background: var(--color-bg-subtle);">
     <div class="container">
-      <h2 data-animate style="font-family: var(--font-display); font-size: 1.75rem; font-weight: 700; text-align: center; margin-bottom: 0.75rem;">The problem every team faces</h2>
-      <p data-animate style="text-align: center; color: var(--color-text-muted); max-width: 540px; margin: 0 auto 3rem;">Six recurring pains that grow as the product scales — and that Aplica DS solves structurally.</p>
+      <h2 data-animate style="font-family: var(--font-display); font-size: 1.75rem; font-weight: 700; text-align: center; margin-bottom: 0.75rem;">Why teams lose months on theming</h2>
+      <p data-animate style="text-align: center; color: var(--color-text-muted); max-width: 540px; margin: 0 auto 3rem;">Six recurring pains when shipping multi-theme, whitelabel or dark mode — and how Aplica DS solves them with a single config.</p>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; max-width: 900px; margin: 0 auto;">
 
         <div class="card hover-lift" data-animate="delay-1" style="padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
@@ -51,15 +51,15 @@ const r = routes.en;
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg>
           </div>
           <h3 style="font-weight: 600; font-size: 1rem;">Hardcoded values</h3>
-          <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6;"><code style="font-size: 0.8125rem;">#2563EB</code> repeated across 50+ files. Changing the brand color means a manual find-and-replace throughout the codebase.</p>
+          <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6;"><code style="font-size: 0.8125rem;">#2563EB</code> repeated across 50+ files. Changing the brand color becomes a manual find-and-replace across the entire codebase.</p>
         </div>
 
         <div class="card hover-lift" data-animate="delay-2" style="padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
           <div style="width: 2.5rem; height: 2.5rem; border-radius: 0.625rem; background: rgba(99,102,241,0.1); display: flex; align-items: center; justify-content: center;">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
           </div>
-          <h3 style="font-weight: 600; font-size: 1rem;">Dark mode = 2x the work</h3>
-          <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6;">Every new color requires a handcrafted dark variant. The number of tokens doubles — and so does the risk of inconsistency.</p>
+          <h3 style="font-weight: 600; font-size: 1rem;">Dark mode = redo everything</h3>
+          <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6;">Every new color needs a manual dark variant. Tokens double, bugs too.</p>
         </div>
 
         <div class="card hover-lift" data-animate="delay-3" style="padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
@@ -67,7 +67,7 @@ const r = routes.en;
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>
           </div>
           <h3 style="font-weight: 600; font-size: 1rem;">Platforms diverge</h3>
-          <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6;">CSS, React Native, and Figma each define their own values. Cross-platform divergence is a matter of time, not luck.</p>
+          <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6;">CSS, React Native and Figma live in separate worlds. Divergence is a matter of time.</p>
         </div>
 
         <div class="card hover-lift" data-animate="delay-4" style="padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
@@ -75,7 +75,7 @@ const r = routes.en;
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
           </div>
           <h3 style="font-weight: 600; font-size: 1rem;">No semantic contract</h3>
-          <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6;"><code style="font-size: 0.8125rem;">blue-500</code> is a color, not a role. Engineers guess which token to use in each component — and get it wrong.</p>
+          <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6;"><code style="font-size: 0.8125rem;">blue-500</code> is a color, not a role. Without a decision layer, engineers guess — and get it wrong.</p>
         </div>
 
         <div class="card hover-lift" data-animate="delay-5" style="padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
@@ -83,15 +83,15 @@ const r = routes.en;
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg>
           </div>
           <h3 style="font-weight: 600; font-size: 1rem;">New brand = fork the system</h3>
-          <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6;">Adding a second brand requires duplicating the entire system. Maintenance cost grows exponentially with each new brand.</p>
+          <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6;">Whitelabel without architecture becomes a fork. Each new brand multiplies maintenance cost.</p>
         </div>
 
         <div class="card hover-lift" data-animate="delay-6" style="padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
           <div style="width: 2.5rem; height: 2.5rem; border-radius: 0.625rem; background: rgba(139,92,246,0.1); display: flex; align-items: center; justify-content: center;">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
           </div>
-          <h3 style="font-weight: 600; font-size: 1rem;">Per-component density</h3>
-          <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6;">Creating a compact variant requires overriding each component individually. There is no global density — only local patches.</p>
+          <h3 style="font-weight: 600; font-size: 1rem;">Locked into one component library</h3>
+          <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6;">Switching from Radix to Base UI, or using a proprietary DS, means rebuilding tokens from scratch. Aplica DS is agnostic: the semantic layer connects to any library via integration Skills.</p>
         </div>
 
       </div>
@@ -242,8 +242,8 @@ const r = routes.en;
   <section id="para-quem" style="padding: 5rem 0;">
     <div class="container" style="max-width: 960px;">
       <p data-animate style="font-family: var(--font-mono); font-size: 0.8125rem; color: var(--color-accent); font-weight: 600; margin-bottom: 1rem; text-align: center;">FOR WHOM</p>
-      <h2 data-animate style="font-family: var(--font-display); font-size: 1.75rem; font-weight: 700; text-align: center; margin-bottom: 0.75rem;">Three profiles, one system</h2>
-      <p data-animate style="text-align: center; color: var(--color-text-muted); max-width: 520px; margin: 0 auto 3.5rem; line-height: 1.75;">Each track has 6 progressive tutorials built for your position on the design–engineering spectrum.</p>
+      <h2 data-animate style="font-family: var(--font-display); font-size: 1.75rem; font-weight: 700; text-align: center; margin-bottom: 0.75rem;">Three profiles, one engine</h2>
+      <p data-animate style="text-align: center; color: var(--color-text-muted); max-width: 520px; margin: 0 auto 3.5rem; line-height: 1.75;">Each track has 6 progressive tutorials. From the designer working in Figma to the engineer integrating tokens in Radix, Base UI or any proprietary DS.</p>
 
       <div class="para-quem-grid" style="display: grid; gap: 1.5rem; max-width: 900px; margin: 0 auto;">
 
@@ -256,7 +256,7 @@ const r = routes.en;
             <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: #f97316;">TRACK N1</span>
             <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; margin-top: 0.25rem;">Product Designer</h3>
           </div>
-          <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.65; flex: 1;">Uses the system in Figma without needing to understand the architecture. Learns token vocabulary, built-in accessibility, and automatic dark mode via Tokens Studio.</p>
+          <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.65; flex: 1;">Uses the system in Figma. Learns token vocabulary, built-in accessibility and automatic dark mode via Tokens Studio.</p>
           <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;">
             <span style="background: rgba(249,115,22,0.1); color: #f97316; font-size: 0.75rem; font-weight: 600; padding: 0.2rem 0.625rem; border-radius: 99px;">6 tutorials · ~3h</span>
             <a href={r.docsN1} style="color: #f97316; font-weight: 600; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 0.25rem;" target="_blank" rel="noopener noreferrer">Start N1 →</a>
@@ -272,7 +272,7 @@ const r = routes.en;
             <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: #8b5cf6;">TRACK N2</span>
             <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; margin-top: 0.25rem;">System Designer</h3>
           </div>
-          <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.65; flex: 1;">Configures, extends, and governs the system. Understands the OKLCh pipeline, creates themes, defines responsible overrides, and manages product color entropy.</p>
+          <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.65; flex: 1;">Configures and governs the Theme Engine. Creates themes, manages product colors and defines responsible overrides. Understands the semantic architecture to deliver whitelabel.</p>
           <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;">
             <span style="background: rgba(139,92,246,0.1); color: #8b5cf6; font-size: 0.75rem; font-weight: 600; padding: 0.2rem 0.625rem; border-radius: 99px;">6 tutorials · ~4h · Prereq: N1</span>
             <a href={r.docsN2} style="color: #8b5cf6; font-weight: 600; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 0.25rem;" target="_blank" rel="noopener noreferrer">Start N2 →</a>
@@ -288,7 +288,7 @@ const r = routes.en;
             <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: #10b981;">TRACK N3</span>
             <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; margin-top: 0.25rem;">Design Engineer</h3>
           </div>
-          <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.65; flex: 1;">Implements conformant components, integrates tokens in React, Vue, React Native, and Flutter, and adds new brands to the engine from a single config file.</p>
+          <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.65; flex: 1;">Implements conformant components. Integrates tokens in React, Vue, React Native, Flutter or any component library (Radix, Base UI, proprietary). Adds brands to the engine via a single config file.</p>
           <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;">
             <span style="background: rgba(16,185,129,0.1); color: #10b981; font-size: 0.75rem; font-weight: 600; padding: 0.2rem 0.625rem; border-radius: 99px;">6 tutorials · ~5h · Prereq: N2</span>
             <a href={r.docsN3} style="color: #10b981; font-weight: 600; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 0.25rem;" target="_blank" rel="noopener noreferrer">Start N3 →</a>

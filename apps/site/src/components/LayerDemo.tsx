@@ -41,7 +41,7 @@ const translations: Record<Lang, { title: string; subtitle: string; preview: str
         name: "Brand",
         desc: "Identidade visual — paleta de cores e tipografia da marca",
         example: `// data/brand/aplica_tangerine/_brand.json
-brand.color.palette.500:              "#FFAE03"
+theme.color.light.brand.branding.first.lowest.background:              "#FFAE03"
 brand.color.palette.100:              "#FFEC91"
 brand.typography.fontFamilies.main:   "Sansita"
 brand.typography.fontFamilies.mono:   "Roboto Mono"`,
@@ -53,7 +53,7 @@ brand.typography.fontFamilies.mono:   "Roboto Mono"`,
         example: `// data/mode/light.json
 mode.interface.positive.branding
   .first.default.background:
-    → brand.color.palette.500
+    → theme.color.light.brand.branding.first.lowest.background
 
 // Algoritmo de inversão (dark):
 dark[N] = light[20 − N]`,
@@ -113,7 +113,7 @@ foundation.spacing.medium:
         name: "Brand",
         desc: "Visual identity — color palette and typography",
         example: `// data/brand/aplica_tangerine/_brand.json
-brand.color.palette.500:              "#FFAE03"
+theme.color.light.brand.branding.first.lowest.background:              "#FFAE03"
 brand.color.palette.100:              "#FFEC91"
 brand.typography.fontFamilies.main:   "Sansita"
 brand.typography.fontFamilies.mono:   "Roboto Mono"`,
@@ -125,7 +125,7 @@ brand.typography.fontFamilies.mono:   "Roboto Mono"`,
         example: `// data/mode/light.json
 mode.interface.positive.branding
   .first.default.background:
-    → brand.color.palette.500
+    → theme.color.light.brand.branding.first.lowest.background
 
 // Dark mode inversion algorithm:
 dark[N] = light[20 − N]`,
