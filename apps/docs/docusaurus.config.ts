@@ -46,7 +46,7 @@ const config: Config = {
           // Serve docs at root — /00-overview/01-aplica-ds-vision instead of /docs/...
           routeBasePath: '/',
           sidebarPath: './sidebars.ts',
-          editUrl: 'https://github.com/bellentani/aplica-design-tokens-docs/edit/main/apps/docs/',
+          editUrl: 'https://github.com/aplica-ds/aplica-ds-docs/edit/main/apps/docs/',
         },
         // Blog disabled — changelog lives on the marketing site
         blog: false,
