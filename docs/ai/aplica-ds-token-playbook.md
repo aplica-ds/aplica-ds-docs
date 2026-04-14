@@ -1,99 +1,99 @@
-# Playbook para assistentes de IA — Aplica DS (repositório aplica-ds-docs)
+# AI assistant playbook — Aplica DS (`aplica-ds-docs` repository)
 
-Este arquivo orienta agentes que respondem sobre **Aplica Design System**, **Aplica Tokens Theme Engine** e a **documentação publicada** neste monorepo. **Não substitui** os artigos em `apps/docs/docs/`; use-os como fonte de verdade.
-
----
-
-## O que é este repositório
-
-- **`apps/docs`**: site de documentação (Docusaurus v3). Conteúdo em **`apps/docs/docs/**/*.md`** (locale padrão **pt-BR**).
-- **`apps/site`**: site institucional (Astro).
-- O **código do Theme Engine** (scripts `config/`, `data/`, `dist/`) **não mora aqui**; este repo contém a **especificação e o guia** em Markdown. Explicações técnicas do pipeline devem seguir os artigos listados abaixo.
-
-**Autoria upstream:** o conteúdo costuma ser editado em `aplica-ds-concept` e migrado para cá (ver [README.md](../../README.md) na raiz do repo). Se algo parecer desatualizado, considere que a KB de origem pode ter mudado.
-
-**Sites públicos (complemento):** [docs.aplica.me](https://docs.aplica.me), [aplica.me](https://aplica.me). Preferir **citar arquivos deste repo** para respostas rastreáveis em PR/review.
+This file guides agents that answer questions about **Aplica Design System**, the **Aplica Tokens Theme Engine**, and the **published documentation** in this monorepo. It does **not** replace the source articles in `apps/docs/docs/`; treat those as the source of truth.
 
 ---
 
-## Regras para o agente
+## What this repository is
 
-1. **Perguntas conceituais** (tokens, camadas, Theme Engine, Figma, tutoriais): use a ferramenta de leitura de arquivos para abrir os `.md` listados na [matriz tópico → arquivo](#matriz-tópico--arquivo-interno) **antes** de afirmar definições, regras ou exemplos de naming.
-2. **Não inventar** namespaces, caminhos de token ou detalhes do pipeline que não apareçam na documentação local. Se não houver cobertura no repo, diga explicitamente que falta fonte aqui.
-3. **Resposta:** resumo claro + **caminhos relativos à raiz do repo** (ex.: `apps/docs/docs/02-token-layers/05-foundation-layer.md`). Quando for citação de regra, inclua trecho curto do artigo.
-4. **Inglês:** espelho em `apps/docs/i18n/en-US/docusaurus-plugin-content-docs/current/` com a **mesma árvore de pastas e nome de arquivo** que em `apps/docs/docs/`.
+- **`apps/docs`**: documentation site (Docusaurus v3). Content lives in **`apps/docs/docs/**/*.md`** (default locale: **pt-BR**).
+- **`apps/site`**: institutional/marketing site (Astro).
+- The **Theme Engine implementation code** (`config/`, `data/`, `dist/`) is **not hosted here**; this repository contains the Markdown **specification and guidance**. Technical pipeline explanations should follow the articles listed below.
+
+**Upstream authoring:** content is often authored in `aplica-ds-concept` and migrated here (see [README.md](../../README.md) at repo root). If something looks outdated, the upstream KB may have changed.
+
+**Public sites (complementary):** [docs.aplica.me](https://docs.aplica.me), [aplica.me](https://aplica.me). Prefer citing files in this repository for traceable answers in PR/review workflows.
 
 ---
 
-## Pipeline e papéis (resumo)
+## Agent rules
 
-Arquitetura em camadas (sequencial + Dimension ortogonal) e papel do Theme Engine estão descritos em:
+1. For **conceptual questions** (tokens, layers, Theme Engine, Figma, tutorials), read the relevant `.md` files from the [topic -> file matrix](#topic---internal-file-matrix) **before** asserting definitions, rules, or naming examples.
+2. Do **not invent** namespaces, token paths, or pipeline details that are not present in local docs. If the repository does not cover the point, say so explicitly.
+3. Response format: concise summary + **repo-relative paths** (for example `apps/docs/docs/02-token-layers/05-foundation-layer.md`). Include a short quote only for canonical rules.
+4. **English mirror:** use `apps/docs/i18n/en-US/docusaurus-plugin-content-docs/current/` with the **same folder/file path** as `apps/docs/docs/`.
+
+---
+
+## Pipeline and roles (summary)
+
+Layered architecture (sequential + orthogonal Dimension) and Theme Engine role are documented in:
 
 - [apps/docs/docs/01-design-tokens-fundamentals/01-token-architecture.md](../../apps/docs/docs/01-design-tokens-fundamentals/01-token-architecture.md)
 - [apps/docs/docs/04-theme-engine/01-what-is-theme-engine.md](../../apps/docs/docs/04-theme-engine/01-what-is-theme-engine.md)
 
-Fluxo mental: **Brand → Mode → Surface → Semantic → Foundation**, com **Dimension** alimentando Semantic/Foundation.
+Mental flow: **Brand -> Mode -> Surface -> Semantic -> Foundation**, with **Dimension** feeding Semantic/Foundation.
 
 ---
 
-## Semantic vs Foundation (âncoras)
+## Semantic vs Foundation (anchors)
 
-| Camada | Papel | Audiência típica |
-|--------|--------|------------------|
-| **Semantic** | Taxonomia canônica exportada; nomes longos com propósito (`semantic.color.interface…`). | Engenharia de DS / implementação de componentes. |
-| **Foundation** | Aliases que apontam para Semantic; nomes curtos (`foundation.*`); composites (tipografia, sombra, gradiente) para Figma. | Times de produto / telas; redução de carga cognitiva. |
+| Layer | Purpose | Typical audience |
+|-------|---------|------------------|
+| **Semantic** | Canonical exported taxonomy; long purpose-driven names (`semantic.color.interface...`). | DS engineering / component implementation. |
+| **Foundation** | Aliases that point to Semantic; shorter names (`foundation.*`); composites (typography, shadow, gradient) for Figma usage. | Product teams / screen building; cognitive-load reduction. |
 
-Leitura obrigatória para detalhes e exemplos:
+Required reading for details and examples:
 
 - [apps/docs/docs/02-token-layers/04-semantic-layer.md](../../apps/docs/docs/02-token-layers/04-semantic-layer.md)
 - [apps/docs/docs/02-token-layers/05-foundation-layer.md](../../apps/docs/docs/02-token-layers/05-foundation-layer.md)
 
-Área **`semantic.color.product.*`**: semântica de produto mais flexível; ver o mesmo capítulo Semantic.
+For **`semantic.color.product.*`** (flexible product semantics), refer to the Semantic chapter above.
 
 ---
 
-## Públicos e trilhas
+## Audiences and learning paths
 
-- Trilhas oficiais (Nível 1 Product Designer, Nível 2 System Designer):  
+- Official paths (Level 1 Product Designer, Level 2 System Designer):  
   [apps/docs/docs/00-overview/02-learning-path.md](../../apps/docs/docs/00-overview/02-learning-path.md)
-- Visão e Foundation no produto:  
+- Vision and Foundation-for-product context:  
   [apps/docs/docs/00-overview/01-aplica-ds-vision.md](../../apps/docs/docs/00-overview/01-aplica-ds-vision.md)
-- Glossário:  
+- Glossary:  
   [apps/docs/docs/00-overview/03-glossary.md](../../apps/docs/docs/00-overview/03-glossary.md)
 
-**Pastas de tutoriais:**
+**Tutorial directories:**
 
 - N1 (product designer): `apps/docs/docs/08-tutorials/n1-product-designer/`
 - N2 (system designer): `apps/docs/docs/08-tutorials/n2-system-designer/`
 - N3 (design engineer): `apps/docs/docs/08-tutorials/n3-design-engineer/`
 
-Se o papel do usuário for desconhecido, começar pelo **N1** (Foundation + workflow + cores + dimension) e aprofundar só se pedirem.
+If user role is unknown, start with **N1** (Foundation + workflow + colors + dimension), then deepen as requested.
 
 ---
 
-## Matriz tópico → arquivo interno
+## Topic -> internal file matrix
 
-Use estes caminhos a partir da **raiz do repositório** `aplica-ds-docs/`.
+Use these paths from repository root (`aplica-ds-docs/`).
 
-| Tópico | Arquivo(s) pt-BR |
-|--------|-------------------|
-| Arquitetura de tokens (5 camadas + Dimension) | `apps/docs/docs/01-design-tokens-fundamentals/01-token-architecture.md` |
-| Camadas Brand / Mode / Surface / Dimension | `apps/docs/docs/02-token-layers/01-brand-layer.md`, `02-mode-layer.md`, `03-surface-layer.md`, `06-dimension-layer.md` |
+| Topic | pt-BR source file(s) |
+|------|-----------------------|
+| Token architecture (5 layers + Dimension) | `apps/docs/docs/01-design-tokens-fundamentals/01-token-architecture.md` |
+| Brand / Mode / Surface / Dimension layers | `apps/docs/docs/02-token-layers/01-brand-layer.md`, `02-mode-layer.md`, `03-surface-layer.md`, `06-dimension-layer.md` |
 | Semantic | `apps/docs/docs/02-token-layers/04-semantic-layer.md` |
 | Foundation | `apps/docs/docs/02-token-layers/05-foundation-layer.md` |
-| O que é o Theme Engine + pipeline + outputs | `apps/docs/docs/04-theme-engine/01-what-is-theme-engine.md` |
-| Workflow designer / Figma | `apps/docs/docs/04-theme-engine/02-designer-workflow.md` |
-| Configuração / build / formatos de saída | `apps/docs/docs/04-theme-engine/03-configuration-guide.md`, `04-build-pipeline.md`, `05-output-formats.md` |
-| Fundamentos visuais (cores, tipo, espaço, opacidade, matemática) | `apps/docs/docs/03-visual-foundations/` |
-| Contrato de componentes / dark mode teórico | `apps/docs/docs/05-components-theory/` |
-| História / migração v1–v2 | `apps/docs/docs/06-history/` |
-| Implementação e integração em plataforma | `apps/docs/docs/07-implementation/01-migration-guide.md`, `07-implementation/02-platform-integration.md` |
-| Tutoriais por persona | `apps/docs/docs/08-tutorials/n1-product-designer/`, `n2-system-designer/`, `n3-design-engineer/` |
+| Theme Engine definition + pipeline + outputs | `apps/docs/docs/04-theme-engine/01-what-is-theme-engine.md` |
+| Designer / Figma workflow | `apps/docs/docs/04-theme-engine/02-designer-workflow.md` |
+| Configuration / build / output formats | `apps/docs/docs/04-theme-engine/03-configuration-guide.md`, `04-build-pipeline.md`, `05-output-formats.md` |
+| Visual foundations (color, type, spacing, opacity, math) | `apps/docs/docs/03-visual-foundations/` |
+| Component contract / dark mode theory | `apps/docs/docs/05-components-theory/` |
+| History / v1-v2 migration rationale | `apps/docs/docs/06-history/` |
+| Platform implementation and integration | `apps/docs/docs/07-implementation/01-migration-guide.md`, `07-implementation/02-platform-integration.md` |
+| Tutorials by persona | `apps/docs/docs/08-tutorials/n1-product-designer/`, `n2-system-designer/`, `n3-design-engineer/` |
 
-**Espelho EN:** prefixo `apps/docs/i18n/en-US/docusaurus-plugin-content-docs/current/` + mesmo sufixo de caminho (ex.: `.../current/02-token-layers/05-foundation-layer.md`).
+**EN mirror rule:** prefix with `apps/docs/i18n/en-US/docusaurus-plugin-content-docs/current/` and keep the same suffix path (for example `.../current/02-token-layers/05-foundation-layer.md`).
 
 ---
 
-## Perguntas operacionais (este monorepo)
+## Operational questions (this monorepo)
 
-Comandos e workspaces: ver `CLAUDE.md` na raiz e `package.json` (scripts `dev:docs`, `dev:site`, `build`).
+For commands and workspace operations, see root `CLAUDE.md` and `package.json` scripts (`dev:docs`, `dev:site`, `build`).
