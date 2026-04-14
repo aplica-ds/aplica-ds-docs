@@ -1,10 +1,47 @@
+# Dependencies
 node_modules/
 .pnpm-store/
+
+# Build outputs
 dist/
 build/
+.next/
+out/
+
+# Tool caches
 .docusaurus/
 .astro/
+.cache/
+.turbo/
+*.tsbuildinfo
+
+# Hosting/deploy
 .vercel/
 .netlify/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment/local config
+.env
+.env.*
+!.env.example
 *.local
+
+# OS / editors
 .DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+
+# Agent local-only directories (keep shared config versioned)
+.cursor/local/*
+!.cursor/local/README.md
+.claude/local/*
+!.claude/local/README.md

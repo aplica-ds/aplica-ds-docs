@@ -1,18 +1,33 @@
 # aplica-ds-docs
 
-Monorepo pnpm: `apps/docs` (Docusaurus v3, conteúdo em `apps/docs/docs/`), `apps/site` (Astro). Node ≥ 18, pnpm ≥ 8 (ver `package.json` → `engines`).
+pnpm monorepo: `apps/docs` (Docusaurus v3, content in `apps/docs/docs/`) and `apps/site` (Astro). Node >= 18 and pnpm >= 8 (see `package.json` -> `engines`).
 
-## Comandos (raiz do repositório)
+## Commands (repo root)
 
-- `pnpm install` — dependências de todos os workspaces
-- `pnpm dev:docs` — servidor de documentação (pt-BR padrão; locale EN conforme `apps/docs`)
-- `pnpm dev:site` — site marketing Astro
-- `pnpm build` — build de docs + site
+- `pnpm install` - install dependencies for all workspaces
+- `pnpm dev:docs` - docs dev server (pt-BR default; English locale available)
+- `pnpm dev:site` - Astro marketing site
+- `pnpm build` - build docs + site
 
-Alternativa documentada em `apps/docs`: `cd apps/docs && npm install && npm start` (e `npm start -- --locale en` para EN).
+Alternative in `apps/docs`: `cd apps/docs && npm install && npm start` (use `npm start -- --locale en` for English docs).
 
-## IMPORTANT — perguntas sobre Aplica DS / tokens / conteúdo publicado
+## IMPORTANT — Aplica DS / tokens / published content
 
-Para conceitos (Theme Engine, camadas Semantic/Foundation, trilhas, Figma, tutoriais), use a skill **`aplica-ds-docs-tokens`** em `.claude/skills/aplica-ds-docs-tokens/SKILL.md` e/ou leia `@docs/ai/aplica-ds-token-playbook.md`. As respostas devem **ancorar** nos artigos em `apps/docs/docs/**/*.md` (abra os arquivos com a ferramenta de leitura antes de afirmar regras ou namespaces). Não copie artigos inteiros nas respostas.
+For conceptual topics (Theme Engine, Semantic/Foundation layers, learning paths, Figma, tutorials), use skill **`aplica-ds-docs-tokens`** in `.claude/skills/aplica-ds-docs-tokens/SKILL.md` and/or read `@docs/ai/aplica-ds-token-playbook.md`.
 
-Ver também `@README.md` para estrutura do repo e fluxo de conteúdo a partir de `aplica-ds-concept`.
+Responses must be anchored in `apps/docs/docs/**/*.md` (read source files before stating rules or namespaces). Do not paste whole articles in responses.
+
+## Language and multilingual references
+
+- Always answer in the user's language.
+- If the user writes in Portuguese, answer in pt-BR.
+- If the user asks in English (or requests EN), use the i18n mirror under `apps/docs/i18n/en-US/docusaurus-plugin-content-docs/current/` with the same relative path when relevant.
+
+## Ignore policy for versioning changes
+
+Before proposing or changing `.gitignore`, ask whether files should be shared or local-only.
+
+- Shared team assets (skills, rules, docs) should stay versioned.
+- Local/personal artifacts should go under `.cursor/local/` or `.claude/local/` (ignored by git).
+
+See also `@README.md` for repository structure and `aplica-ds-concept` content flow.

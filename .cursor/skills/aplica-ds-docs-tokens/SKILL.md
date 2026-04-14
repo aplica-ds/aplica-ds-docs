@@ -30,3 +30,15 @@ description: >-
 ## Monorepo operations
 
 Commands (`pnpm dev:docs`, `dev:site`, `build`) live at the root in [`CLAUDE.md`](../../../CLAUDE.md) and [`package.json`](../../../package.json); do not duplicate long command lists here.
+
+## Versioning and ignore policy (ask-first)
+
+Before suggesting `.gitignore` updates or proposing to ignore files, ask one explicit question:
+
+- "Should this file/folder be shared by the team (versioned) or local-only (ignored)?"
+
+Rules:
+
+- Keep shared assets versioned: docs, project skills, project rules, templates.
+- Put personal/local files under `.cursor/local/` or `.claude/local/` (ignored by git in this repo).
+- Do not silently suggest ignoring files that may be required by CI, docs build, or team workflows.
