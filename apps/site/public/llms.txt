@@ -1,0 +1,31 @@
+# Aplica DS
+
+> Open-source design token system with a semantic 5-layer architecture and CLI-driven theme engine.
+
+Aplica DS generates consistent, accessible design tokens for any platform from a single configuration file. Tokens carry semantic meaning — `action.bg.danger.default` communicates intent natively, without extra documentation. This makes the system readable by designers, engineers, and AI agents alike. Unlimited brands, modes, and surfaces share the same semantic contract — adding a new brand means configuring, not refactoring.
+
+## Get Started
+
+- [Quick Start (NPM)](https://docs.aplica.me/npm/configuracao): Install and configure @aplica/aplica-theme-engine
+- [Understanding the System](https://docs.aplica.me/sistema): 5-layer mental model and architecture
+- [Overview](https://docs.aplica.me/overview/aplica-ds-vision): Full vision and design principles
+
+## Tutorials
+
+- [N1 · Product Designer](https://docs.aplica.me/tutorials/n1-product-designer/N1-01): Token fundamentals for designers
+- [N2 · System Designer](https://docs.aplica.me/tutorials/n2-system-designer/N2-01): System architecture and theme configuration
+- [N3 · Design Engineer](https://docs.aplica.me/tutorials/n3-design-engineer/N3-01): Implementation and platform integration
+
+## NPM Packages
+
+- [@aplica/aplica-theme-engine](https://www.npmjs.com/package/@aplica/aplica-theme-engine): Main CLI and token generation engine
+- [@aplica/tokens-themes-sample](https://www.npmjs.com/package/@aplica/tokens-themes-sample): Sample project with multiple themes and Tokens Studio integration
+
+## Sample Repository
+
+- [aplica-tokens-themes-sample](https://github.com/aplica-ds/aplica-tokens-themes-sample): Example configuration with multiple themes and Figma/Tokens Studio structure
+
+## Optional
+
+- [Full documentation](https://docs.aplica.me): Complete reference at docs.aplica.me
+- [Marketing site](https://aplica.me): aplica.me

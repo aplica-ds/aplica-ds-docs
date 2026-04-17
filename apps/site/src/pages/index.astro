@@ -10,7 +10,24 @@ import { routes } from '../i18n/routes';
 const r = routes['pt-br'];
 ---
 
-<Base title="Temas semânticos para qualquer UI library" lang="pt-BR" description="O Aplica Theme Engine gera design tokens com uma estrutura semântica de 5 camadas. Multi-tema, dark mode por construção, whitelabel pronto — a partir de um único arquivo de configuração.">
+<Base
+  title="Temas semânticos para qualquer UI library"
+  lang="pt-BR"
+  description="O Aplica Theme Engine gera design tokens com uma estrutura semântica de 5 camadas. Multi-tema, dark mode por construção, whitelabel pronto — a partir de um único arquivo de configuração."
+  altHref="https://aplica.me/en/"
+  jsonLd={[{
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'Aplica Theme Engine',
+    applicationCategory: 'DeveloperApplication',
+    operatingSystem: 'Any',
+    description: 'CLI-driven design token engine that generates semantic tokens for any platform from a single config file.',
+    url: 'https://aplica.me',
+    downloadUrl: 'https://www.npmjs.com/package/@aplica/aplica-theme-engine',
+    license: 'https://opensource.org/licenses/MIT',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  }]}
+>
   <Nav lang="pt-br" />
 
   <!-- ── 1. Hero ─────────────────────────────────────────────────── -->

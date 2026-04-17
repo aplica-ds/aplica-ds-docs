@@ -3,13 +3,39 @@ interface Props {
   title: string;
   description?: string;
   lang?: string;
+  image?: string;
+  altHref?: string;
+  jsonLd?: object[];
 }
 
 const {
   title,
   description = 'Design tokens que escalam com o produto. Sistema de tokens semântico com arquitetura de 5 camadas, geração dinâmica de temas e suporte multi-plataforma.',
   lang = 'pt-BR',
+  image = 'https://aplica.me/og-image.png',
+  altHref,
+  jsonLd = [],
 } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, 'https://aplica.me').href;
+const ogTitle = `${title} — Aplica DS`;
+const ogLocale = lang === 'pt-BR' ? 'pt_BR' : 'en_US';
+const altLang = lang === 'pt-BR' ? 'en' : 'pt-BR';
+
+const organizationLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Aplica DS',
+  url: 'https://aplica.me',
+  logo: 'https://aplica.me/favicon.svg',
+  description: 'Open-source design token system with a semantic 5-layer architecture and CLI-driven theme engine.',
+  sameAs: [
+    'https://github.com/aplica-ds',
+    'https://www.npmjs.com/package/@aplica/aplica-theme-engine',
+  ],
+};
+
+const allJsonLd = [organizationLd, ...jsonLd];
 ---
 
 <!doctype html>
@@ -20,6 +46,38 @@ const {
     <meta name="description" content={description} />
     <title>{title} — Aplica DS</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Canonical -->
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- hreflang (i18n) -->
+    {altHref && (
+      <>
+        <link rel="alternate" hreflang={altLang} href={altHref} />
+        <link rel="alternate" hreflang={lang} href={canonicalURL} />
+        <link rel="alternate" hreflang="x-default" href={lang === 'pt-BR' ? canonicalURL : altHref} />
+      </>
+    )}
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:site_name" content="Aplica DS" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={ogTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+
+    <!-- JSON-LD -->
+    {allJsonLd.map((schema) => (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    ))}
     <!-- Dark mode: apply class before first paint to avoid flash -->
     <script is:inline>
       (function() {
