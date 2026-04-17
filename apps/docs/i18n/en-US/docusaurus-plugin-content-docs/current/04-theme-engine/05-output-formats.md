@@ -26,7 +26,7 @@ dist/
 ├── esm/                           ← ES Modules (modern JavaScript)
 │   ├── aplica_joy-light-positive-semantic.mjs
 │   └── ...
-├── cjs/                           ← CommonJS (Node.js, legacy bundlers)
+├── js/                            ← CommonJS (Node.js, legacy bundlers)
 │   ├── aplica_joy-light-positive-semantic.js
 │   └── ...
 └── dts/                           ← TypeScript declarations
@@ -187,16 +187,14 @@ export const semantic = {
 - **Aliases (default):** Foundation exposes references to Semantic (`foundation.bg.primary` → `{semantic.color.*}`)
 - **Raw:** All tokens resolved to final values — useful for consumers that do not support W3C references
 
-```bash
-# Build in raw mode (all final values, no references)
-node dynamic-themes/scripts/generate-all-themes.mjs --mode=raw
-```
+The engine generates alias tokens by default. Final value resolution happens at Style Dictionary build time (`tokens:build:all`), so the ESM output you consume from `dist/` always contains resolved values.
 
 ---
 
 ## CJS Format — for Node.js and legacy bundlers
 
 **Unit:** `px`  
+**Directory:** `dist/js/`  
 **Use:** Node.js, Webpack, projects that do not support native ESM
 
 ```javascript
@@ -243,7 +241,7 @@ export declare const semantic: {
 Usage with autocomplete:
 
 ```typescript
-import { semantic } from '@aplica/tokens/semantic/aplica_joy-light-positive-semantic';
+import { semantic } from './dist/esm/aplica_joy-light-positive-semantic.mjs';
 
 const color = semantic.color.interface.function.primary.normal.background; // #C40145
 ```
@@ -299,7 +297,7 @@ foundation.bg.primary
 To revert CSS to `px` (e.g., environments without rem support):
 
 ```json
-// config/global/themes.config.json
+// theme-engine/config/global/themes.config.json
 {
   "global": {
     "dimension": {
@@ -329,7 +327,6 @@ To use a different base than `16px` (e.g., 62.5% strategy with `10px` root):
 ## References
 
 - Build pipeline: [04-build-pipeline.md](./04-build-pipeline.md)
-- Output units in detail: 05-output-units.md
-- Token usage in components: token-usage-for-components-and-figma.md
-- Naming contract: canonical-taxonomy-and-naming-contract.md
 - Designer workflow (Figma): [02-designer-workflow.md](./02-designer-workflow.md)
+- Consuming dist/ tokens: [07-implementation/03-consuming-dist-tokens.md](../07-implementation/03-consuming-dist-tokens.md)
+- Transformers configuration (output directories): [09-engineering/04-transformers-configuration.md](../09-engineering/04-transformers-configuration.md)

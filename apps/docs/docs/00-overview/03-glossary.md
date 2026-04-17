@@ -88,8 +88,9 @@ Estes são termos cunhados — nomes de paradigmas, produtos ou personas do Apli
 | Camada Brand | Brand layer | Inicial maiúscula quando refere à camada específica |
 | Camada Mode | Mode layer | Idem |
 | Camada Surface | Surface layer | Idem |
-| Camada Semântica | Semantic layer | Idem |
-| Camada Foundation | Foundation layer | Idem |
+| Camada Primitiva | Primitive layer | O nível mais baixo: valores brutos e paleta core |
+| Camada Semântica | Semantic layer | O cérebro do sistema: fonte da verdade técnica e exaustiva |
+| Camada Foundation | Foundation layer | O nível de consumo: atalhos cognitivos para velocidade de design |
 | Camada Dimension | Dimension layer | Idem |
 | as cinco camadas | the five layers | Minúsculo quando genérico |
 | pipeline de cinco camadas | five-layer pipeline | — |
@@ -264,14 +265,13 @@ O Aplica DS usa metáforas específicas para explicar conceitos. Estas metáfora
 | Metáfora pt-BR | Metáfora en-US | Onde aparece |
 |---------------|---------------|-------------|
 | "a tinta" (pigmento puro) | "the paint" (raw pigment) | N2-01, token-architecture |
-| "a luz ambiente" (mode) | "the ambient light" | N2-01 |
-| "negativo fotográfico" (surface) | "photographic negative" | N2-01, surface-layer |
 | "o propósito" (semantic) | "the purpose" | N2-01 |
 | "o vocabulário simplificado" (foundation) | "the simplified vocabulary" | N2-01 |
-| "pigmentos sem contexto" | "pigments without context" | N1-01 |
+| "O Dicionário" (semantic) | "The Dictionary" | N1-01, N1-02 |
+| "O Atalho" (foundation) | "The Shortcut" | N1-01, N1-02 |
+| "Bolo de Camadas" (arquitetura) | "Layer Cake" | S-N1-01 |
 | "Config-First: o Figma como consumidor" | "Config-First: Figma as a consumer" | N2-03 |
-| "crescimento responsável" | "responsible growth" | N2-05 |
-| "sobreposições responsáveis" | "responsible overrides" | N2-06 |
+| "fazer design, não digitação" | "designing, not data-entry" | S-N2-03 |
 
 ---
 

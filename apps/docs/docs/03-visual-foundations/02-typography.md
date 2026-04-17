@@ -105,10 +105,10 @@ A V2 expandiu os pontos nas extremidades (introduzindo os gigantes `exa` e `zett
 
 ## Referências
 
-- Script de geração: typography-generator.mjs
-- Escala derivada por Dimension: typography-scale-from-dimension.mjs
-- Spec técnica: TYPOGRAPHY-SPEC.md
-- Detalhe da escala: 02-typography-scale.md
-- Line heights: 03-line-height-scale.md
+- Script de geração: [typography-generator.mjs](../../references/aplica-tokens-theme-engine/dynamic-themes/scripts/typography-generator.mjs)
+- Escala derivada por Dimension: [typography-scale-from-dimension.mjs](../../references/aplica-tokens-theme-engine/dynamic-themes/scripts/typography-scale-from-dimension.mjs)
+- Spec técnica: [TYPOGRAPHY-SPEC.md](../../references/aplica-tokens-theme-engine/docs/context/dynamic-themes-reference/TYPOGRAPHY-SPEC.md)
+- Detalhe da escala: [02-typography-scale.md](../../references/aplica-tokens-theme-engine/docs/context/dimension/02-typography-scale.md)
+- Line heights: [03-line-height-scale.md](../../references/aplica-tokens-theme-engine/docs/context/dimension/03-line-height-scale.md)
 - Matemática e algoritmos: [06-mathematics-and-algorithms.md](./06-mathematics-and-algorithms.md)
 - Camada Dimension: [06-dimension-layer.md](../02-token-layers/06-dimension-layer.md)

@@ -394,4 +394,4 @@ Todos os caminhos acima são prefixados com `semantic.color.interface.`.
 - Sistema de cores: [01-colors.md](../03-visual-foundations/01-colors.md)
 - Sistema de dimensão: [03-spacing-sizing.md](../03-visual-foundations/03-spacing-sizing.md)
 - Opacidade: [05-opacity.md](../03-visual-foundations/05-opacity.md)
-- Tokens semânticos (fonte): default.json
+- Tokens semânticos (fonte): [default.json](../../references/aplica-tokens-theme-engine/data/semantic/default.json)

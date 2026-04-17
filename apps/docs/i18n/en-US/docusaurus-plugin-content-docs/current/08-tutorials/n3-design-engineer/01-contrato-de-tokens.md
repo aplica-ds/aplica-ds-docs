@@ -172,5 +172,5 @@ You know which tokens to use and that the contract is stable. Now let's build a 
 ## References
 
 - Full token contract: [01-component-token-contract.md](../../05-components-theory/01-component-token-contract.md)
-- Taxonomy and naming contract: canonical-taxonomy-and-naming-contract.md
+- Taxonomy and naming contract: [canonical-taxonomy-and-naming-contract.md](../../../references/aplica-tokens-theme-engine/docs/context/tokens/canonical-taxonomy-and-naming-contract.md)
 - Output formats (where dist/ lives): [05-output-formats.md](../../04-theme-engine/05-output-formats.md)

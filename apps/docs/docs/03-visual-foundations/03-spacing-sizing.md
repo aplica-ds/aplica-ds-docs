@@ -115,9 +115,9 @@ Para a engenharia e consumo de propriedades CSS e Componentes Diários, a notaç
 
 ## Referências
 
-- Script de geração da escala: dimension-scale.mjs
-- Spec técnica de saída de unidades: 05-output-units.md
-- Visão geral da Dimension: 00-overview.md
-- Sistema espacial detalhado: 01-spatial-system.md
+- Script de geração da escala: [dimension-scale.mjs](../../references/aplica-tokens-theme-engine/dynamic-themes/scripts/dimension-scale.mjs)
+- Spec técnica de saída de unidades: [05-output-units.md](../../references/aplica-tokens-theme-engine/docs/context/dimension/05-output-units.md)
+- Visão geral da Dimension: [00-overview.md](../../references/aplica-tokens-theme-engine/docs/context/dimension/00-overview.md)
+- Sistema espacial detalhado: [01-spatial-system.md](../../references/aplica-tokens-theme-engine/docs/context/dimension/01-spatial-system.md)
 - Camada Dimension (conceito): [06-dimension-layer.md](../02-token-layers/06-dimension-layer.md)
 - Matemática e algoritmos: [06-mathematics-and-algorithms.md](./06-mathematics-and-algorithms.md)

@@ -7,9 +7,9 @@ lang: pt-BR
 
 ## Definição
 
-O **Aplica Tokens Theme Engine** é o sistema de geração dinâmica de Design Tokens do Aplica DS. Funciona como uma **fábrica de temas**: dado um conjunto de configurações (cores de marca, tipografia, dimensões), o engine produz automaticamente todos os tokens semânticos e de fundação para cada combinação possível de brand × mode × surface × dimension.
+O **Aplica Tokens Theme Engine** é o sistema de geração de design tokens do Aplica DS. Funciona como uma **fábrica de temas**: dado um conjunto de configurações (cores de marca, tipografia, dimensões), o engine produz automaticamente todos os tokens semânticos e de foundation para cada combinação possível de brand × mode × surface × dimension.
 
-É open-source, construído sobre **Style Dictionary** e compatível com **Tokens Studio**, e age como a única fonte de verdade para design tokens — garantindo que Web, Mobile e Figma interpretem os mesmos tokens da mesma forma.
+É distribuído como um **pacote NPM** (`@aplica/aplica-theme-engine`), construído sobre **Style Dictionary** e compatível com **Tokens Studio**. Age como a única fonte de verdade para design tokens — garantindo que Web, Mobile e Figma interpretem os mesmos tokens da mesma forma.
 
 ---
 
@@ -19,137 +19,150 @@ O problema que o engine resolve é **escala com coerência**.
 
 Sem um engine centralizado, cada novo tema — ou qualquer mudança de cor — exige atualização manual em dezenas de arquivos. Com 4 brands × 2 modos × 2 superfícies × 3 dimensões = **48 variantes de tema**, a manutenção manual é inviável.
 
-O engine resolve isso com uma inversão de responsabilidade:
+O engine inverte essa responsabilidade:
 
 ```
 SEM engine:
 Designer define cor → Desenvolvedor copia para CSS → Repete para cada variante
 
 COM engine:
-System Designer configura color em *.config.mjs → Engine gera todas as variantes → 
-Consumidores usam o output (dist/)
+System Designer configura *.config.mjs → Engine gera todas as variantes →
+Consumidores importam de dist/
 ```
 
 **Benefícios diretos:**
-- Adicionar 1 brand gera automaticamente todas as 12 variantes (modos × superfícies × dimensões)
-- Mudança de cor em um lugar propaga para todos os outputs e plataformas
+- Adicionar 1 marca gera automaticamente todas as 12 variantes (modos × superfícies × dimensões)
+- Mudança de cor em um lugar se propaga para todos os outputs e plataformas
 - Acessibilidade (WCAG) calculada automaticamente — não é um checklist manual
 - O contrato de naming garante que Web, Mobile e Figma sejam sempre consistentes
 
 ---
 
-## O Pipeline em Execução
+## O Modelo de Pacote
+
+O engine é distribuído como um único pacote NPM que seu projeto instala. Seu projeto é dono da configuração; o pacote é dono da lógica de geração e build.
+
+```
+Seu projeto                           @aplica/aplica-theme-engine
+─────────────────────────────────     ──────────────────────────────
+theme-engine/config/  ──────────→     Engine de decomposição de cores
+  minha-marca.config.mjs              Geração de paleta OKLCh
+  global/themes.config.json           Sincronização de arquitetura
+                                      Transforms do Style Dictionary
+data/  ←────────────────────────      Comandos CLI
+dist/  ←────────────────────────
+```
+
+**Você é dono de:** configuração, dados gerados, outputs gerados.
+**O pacote é dono de:** lógica de geração, orquestração de build, schemas, CLI.
+
+Isso significa:
+- Cada projeto tem seu próprio conjunto de tokens com versionamento independente
+- O engine atualiza sem exigir mudanças na sua configuração
+- Múltiplos projetos podem compartilhar o mesmo engine, mas produzem outputs diferentes
+
+---
+
+## O Pipeline de Geração
 
 O engine executa o pipeline de 5 camadas do Aplica DS de forma sequencial:
 
 ```
-config/*.config.mjs
-        │
-        ▼
-[ color-decomposer.mjs ]      ← Decompõe cores em paletas OKLCh (19+15+6 níveis)
-[ typography-generator.mjs ]  ← Gera escala tipográfica e line-heights
-[ dimension-scale.mjs ]       ← Gera escala espacial por variante (minor/normal/major)
-        │
-        ▼
-data/brand/<theme>/           ← Camada 1: tokens de marca (cores, tipografia, gradientes)
-data/mode/<light|dark>.json  ← Camada 2: modulação por luminosidade
+theme-engine/config/
+  minha-marca.config.mjs
+  global/themes.config.json
+          │
+          ▼
+[ Decomposição de cores ]   ← Decompõe cores de marca em paletas OKLCh (19+15+6 níveis)
+[ Geração tipográfica ]     ← Gera escala tipográfica e line-heights
+[ Escala dimensional ]      ← Gera escala espacial por variante (minor/normal/major)
+          │
+          ▼
+data/brand/<marca>/           ← Camada 1: tokens de marca (cores, tipografia, gradientes)
+data/mode/<light|dark>.json  ← Camada 2: modulação de luminosidade
 data/surface/<pos|neg>.json  ← Camada 3: contexto de superfície
-data/dimension/<variant>.json ← Camada ortogonal: escala espacial e tipográfica
-        │
-        ▼ sync-architecture.mjs (propaga referências entre camadas)
-        │
-data/semantic/default.json    ← Camada 4: tokens com propósito
-data/foundation/<name>/       ← Camada 5: aliases simplificados
-        │
-        ▼ Style Dictionary (build)
-        │
+data/dimension/<variante>.json ← Camada ortogonal: escala espacial e tipográfica
+          │
+          ▼ sync:architecture (propaga referências entre camadas)
+          │
+data/semantic/default.json    ← Camada 4: tokens com propósito definido
+data/foundation/<nome>/       ← Camada 5: aliases simplificados
+          │
+          ▼ Style Dictionary (build)
+          │
 dist/
-├── json/                     ← JSON com px (Figma, Tokens Studio)
-├── css/                      ← CSS custom properties com rem (Web)
-├── esm/                      ← ES Modules com px (JavaScript)
-├── cjs/                      ← CommonJS com px (Node.js)
-└── dts/                      ← TypeScript declarations
+├── json/    ← JSON com px (Figma, Tokens Studio)
+├── css/     ← CSS custom properties com rem (Web)
+├── esm/     ← ES Modules com px (JavaScript)
+├── js/      ← CommonJS com px (Node.js)
+└── dts/     ← Declarações TypeScript
 ```
 
-**Regra crítica:** Os arquivos em `data/` são **gerados** — nunca edite manualmente. Toda alteração começa no `config/` ou nos scripts do engine.
+**Regra crítica:** Arquivos em `data/` são **gerados** — nunca os edite manualmente. Toda mudança começa em `theme-engine/config/`.
 
 ---
 
-## O que o Engine entrega
+## O que o Engine Entrega
 
-### Tokens
+### Camadas de token
 
-| Categoria | Namespace | Exemplo |
-|-----------|-----------|---------|
-| Cores | `semantic.color.*` | `semantic.color.interface.function.primary.normal.background` |
-| Tipografia | `semantic.typography.*` | `semantic.typography.fontSizes.medium` |
-| Espaçamento | `semantic.dimension.spacing.*` | `semantic.dimension.spacing.large` |
-| Bordas | `semantic.border.*` | `semantic.border.radius.medium` |
-| Elevação | `semantic.depth.*` | `semantic.depth.level_two` |
-| Opacidade | `semantic.opacity.*` | `semantic.opacity.subtle` |
-| Foundation | `foundation.*` | `foundation.bg.primary`, `foundation.text.body` |
+| Camada | Namespace | Papel |
+|--------|-----------|-------|
+| Brand | `brand.*` | Valores primitivos — apenas interno |
+| Mode | `mode.*` | Modulação light/dark — apenas interno |
+| Surface | `surface.*` | Contexto de superfície — apenas interno |
+| Semantic | `semantic.*` | Tokens com propósito — use em componentes |
+| Foundation | `foundation.*` | Aliases simplificados — use em times de produto |
+
+**Consumidores devem usar apenas `semantic.*` e `foundation.*`.** Brand, Mode e Surface são camadas internas do pipeline.
 
 ### Formatos de output
 
-| Formato | Diretório | Unidades | Para quem |
-|---------|-----------|----------|-----------|
+| Formato | Diretório | Unidade | Para quem |
+|---------|-----------|---------|-----------|
 | JSON | `dist/json/` | `px` | Figma, Tokens Studio |
 | CSS | `dist/css/` | `rem` | Web (CSS custom properties) |
 | ESM | `dist/esm/` | `px` | JavaScript moderno |
-| CJS | `dist/cjs/` | `px` | Node.js / bundlers legados |
-| TypeScript | `dist/dts/` | — | Type-safe consumption |
-
-### Contrato de naming
-
-O engine produz um **contrato canônico de nomenclatura** que garante que todos os consumidores interpretem os tokens da mesma forma:
-
-- **`semantic.*`** — Sempre use para estilização. É a camada canônica exposta para componentes.
-- **`foundation.*`** — Use quando um alias adequado existe. Não substitui o Semantic como fonte de verdade.
-- **`component.*`** — Tokens escopados a componentes específicos (quando presentes no build).
-
-**Nunca use diretamente:** `theme.*`, `brand.*`, `mode.*`, `surface.*` — essas são camadas internas.
+| CJS | `dist/js/` | `px` | Node.js / bundlers legados |
+| TypeScript | `dist/dts/` | — | Consumo com type safety |
 
 ---
 
 ## Para quem
 
-| Perfil | O que consome | Ponto de entrada |
-|--------|--------------|-----------------|
-| **System Designer** | Configura o engine | `config/*.config.mjs` |
-| **Engenheiro front-end** | CSS custom properties, JSON, ESM | `dist/` |
-| **Product Designer (Figma)** | Tokens Studio → Figma Variables | JSON exportado |
-| **Biblioteca de componentes** | `semantic.*` e `foundation.*` | `dist/json/` ou pacote npm |
-| **Plataforma Mobile** | JSON ou ESM | `dist/json/` |
+| Perfil | O que faz |
+|--------|----------|
+| **System Designer (N2)** | Configura cores de marca, tipografia e modos em `*.config.mjs`. Executa `tokens:build`. |
+| **Design Engineer (N3)** | Instala o pacote, monta o workspace, mantém o pipeline de build. |
+| **Engenheiro front-end** | Importa de `dist/` (CSS vars, ESM, JSON). Nunca roda o engine. |
+| **Product Designer (N1)** | Trabalha no Figma usando o JSON de tokens publicado. Nunca toca no engine. |
 
-O engine **não** impõe framework. React, Vue, Flutter, CSS-only — todos são consumidores válidos do mesmo output.
+O engine **não** impõe um framework. React, Vue, Flutter, CSS puro — todos consomem o mesmo output de `dist/`.
 
 ---
 
-## O que o engine NÃO faz
+## O que o Engine NÃO faz
 
-- **Não implementa componentes.** Botões, inputs, modais — isso fica na biblioteca de componentes do consumidor.
-- **Não define comportamento.** Hover states, animações, lógica de UI — o engine apenas produz os tokens que esses comportamentos usam.
-- **Não substitui um Design System completo.** É a **fundação** sobre a qual um DS completo é construído.
-- **Não deve ser rodado pelo consumidor.** Consumidores usam o `dist/` gerado; apenas quem contribui para o engine precisa rodar os scripts de geração.
+- **Não implementa componentes.** Botões, inputs, modais — esses pertencem à biblioteca de componentes do consumidor.
+- **Não define comportamento.** Estados de hover, animações, lógica de UI — o engine produz apenas os tokens que esses comportamentos usam.
+- **Não substitui um Design System completo.** É a fundação de tokens sobre a qual um DS completo é construído.
 
 ---
 
 ## Versionamento e Contrato
 
 O engine segue **Semantic Versioning**:
-- **Patch:** Correções que não afetam tokens existentes
-- **Minor:** Novos tokens adicionados (retrocompatível)
-- **Major:** Tokens renomeados ou removidos — breaking change; documentado em CHANGELOG
+- **Patch:** Correções que não afetam tokens existentes ou contratos de config
+- **Minor:** Novos tokens ou novas opções de config (backward-compatible)
+- **Major:** Tokens renomeados ou removidos, ou mudanças no contrato de config — documentado no CHANGELOG
 
-Renomear ou remover um token é tratado como breaking change porque quebra o código de todos os consumidores que usam aquele token.
+Renomear ou remover um token é uma mudança breaking porque quebra todo consumidor que referencia aquele token pelo nome.
 
 ---
 
 ## Referências
 
-- Workflow do designer: [02-designer-workflow.md](./02-designer-workflow.md)
-- Guia de configuração: [03-configuration-guide.md](./03-configuration-guide.md)
-- Arquitetura de tokens (5 camadas): [01-token-architecture.md](../01-design-tokens-fundamentals/01-token-architecture.md)
-- Contrato de naming canônico: canonical-taxonomy-and-naming-contract.md
-- Fluxo Surface → Mode → Theme: SURFACE-MODE-THEME-FLOW.md
-- Visão do engine (referência): WHAT_IS_THEME_ENGINE.md
+- Setup de engenharia: [09-engineering/01-quick-start.pt-br.md](../09-engineering/01-quick-start.pt-br.md)
+- Guia de configuração: [03-configuration-guide.pt-br.md](./03-configuration-guide.pt-br.md)
+- Arquitetura de tokens (5 camadas): [01-token-architecture.pt-br.md](../01-design-tokens-fundamentals/01-token-architecture.pt-br.md)
+- Workflow do designer: [02-designer-workflow.pt-br.md](./02-designer-workflow.pt-br.md)

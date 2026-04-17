@@ -26,7 +26,7 @@ dist/
 ├── esm/                           ← ES Modules (JavaScript moderno)
 │   ├── aplica_joy-light-positive-semantic.mjs
 │   └── ...
-├── cjs/                           ← CommonJS (Node.js, bundlers legados)
+├── js/                            ← CommonJS (Node.js, bundlers legados)
 │   ├── aplica_joy-light-positive-semantic.js
 │   └── ...
 └── dts/                           ← TypeScript declarations
@@ -187,16 +187,14 @@ export const semantic = {
 - **Aliases (padrão):** Foundation expõe referências ao Semantic (`foundation.bg.primary` → `{semantic.color.*}`)
 - **Raw:** Todos os tokens resolvidos para valores finais — útil para consumidores que não suportam referências W3C
 
-```bash
-# Build em modo raw (todos os valores finais, sem referências)
-node dynamic-themes/scripts/generate-all-themes.mjs --mode=raw
-```
+O engine gera tokens alias por padrão. A resolução de valores finais acontece durante o build do Style Dictionary (`tokens:build:all`), então o output ESM que você consome em `dist/` sempre contém valores resolvidos.
 
 ---
 
 ## Formato CJS — para Node.js e bundlers legados
 
 **Unidade:** `px`  
+**Diretório:** `dist/js/`  
 **Uso:** Node.js, Webpack, projetos que não suportam ESM nativo
 
 ```javascript
@@ -243,7 +241,7 @@ export declare const semantic: {
 Uso com autocompletar:
 
 ```typescript
-import { semantic } from '@aplica/tokens/semantic/aplica_joy-light-positive-semantic';
+import { semantic } from './dist/esm/aplica_joy-light-positive-semantic.mjs';
 
 const color = semantic.color.interface.function.primary.normal.background; // #C40145
 ```
@@ -299,7 +297,7 @@ foundation.bg.primary
 Para reverter o CSS para `px` (ex.: ambientes sem suporte a rem):
 
 ```json
-// config/global/themes.config.json
+// theme-engine/config/global/themes.config.json
 {
   "global": {
     "dimension": {
@@ -328,8 +326,7 @@ Para usar uma base diferente de `16px` (ex.: estratégia 62.5% com `10px` root):
 
 ## Referências
 
-- Pipeline de build: [04-build-pipeline.md](./04-build-pipeline.md)
-- Unidades de output em detalhe: 05-output-units.md
-- Uso de tokens em componentes: token-usage-for-components-and-figma.md
-- Contrato de naming: canonical-taxonomy-and-naming-contract.md
-- Workflow do designer (Figma): [02-designer-workflow.md](./02-designer-workflow.md)
+- Pipeline de build: [04-build-pipeline.pt-br.md](./04-build-pipeline.pt-br.md)
+- Workflow do designer (Figma): [02-designer-workflow.pt-br.md](./02-designer-workflow.pt-br.md)
+- Consumindo tokens de dist/: [07-implementation/03-consuming-dist-tokens.pt-br.md](../07-implementation/03-consuming-dist-tokens.pt-br.md)
+- Configuração de transformers (diretórios de output): [09-engineering/04-transformers-configuration.pt-br.md](../09-engineering/04-transformers-configuration.pt-br.md)

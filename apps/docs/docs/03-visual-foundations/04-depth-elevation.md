@@ -113,4 +113,4 @@ Isso garante separação estrutural e previne interfaces bidimensionais estátic
 - [Opacidade — Stubs de Superfície que alimentam a Luminosity](./05-opacity.md)
 - [Cores — Grayscale e regras de sombras acromáticas](./01-colors.md)
 - [Matemática e Algoritmos — Seção 7: Depth / Elevation](./06-mathematics-and-algorithms.md)
-- Implementação no engine: sync-architecture.mjs
+- Implementação no engine: [sync-architecture.mjs](../../references/aplica-tokens-theme-engine/dynamic-themes/scripts/sync-architecture.mjs)

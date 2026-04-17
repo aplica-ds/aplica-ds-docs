@@ -116,10 +116,19 @@ const config: Config = {
           ],
         },
         {
+          title: 'NPM Package',
+          items: [
+            { label: 'Quick Start',       to: '/npm/configuracao' },
+            { label: 'Consumindo tokens', to: '/npm/consumo' },
+            { label: 'Referência CLI',    to: '/09-engineering/05-cli-reference' },
+            { label: 'npmjs.com', href: 'https://www.npmjs.com/package/@aplica/aplica-theme-engine' },
+          ],
+        },
+        {
           title: 'Projeto',
           items: [
-            { label: 'Site',   href: 'https://aplica.me' },
-            { label: 'GitHub', href: 'https://github.com/bellentani/aplica-design-tokens' },
+            { label: 'Site',                href: 'https://aplica.me' },
+            { label: 'Exemplo no GitHub',   href: 'https://github.com/bellentani/aplica-design-tokens' },
           ],
         },
       ],

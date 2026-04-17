@@ -16,15 +16,15 @@ Entender o pipeline é essencial para quem mantém temas, adiciona novas cores o
 ## Visão Geral do Fluxo
 
 ```
-config/*.config.mjs
+theme-engine/config/*.config.mjs
         │
         ▼
 [ Etapa 1: Geração de Dados ]
         │
-        ├─ themes:generate    → data/brand/{tema}/
+        ├─ themes:generate    → data/brand/<tema>/
         ├─ dimension:generate → data/dimension/normal.json
         ├─ sync:architecture  → data/mode/, data/surface/, data/semantic/, data/foundation/
-        └─ foundations:generate → data/foundation/{nome}/styles/
+        └─ foundations:generate → data/foundation/<nome>/styles/
         │
         ▼
 [ data/ ] ← NUNCA editar manualmente
@@ -32,14 +32,14 @@ config/*.config.mjs
         ▼
 [ Etapa 2: Build Style Dictionary ]
         │
-        npm run build
+        npm run tokens:build:all
         │
         ▼
 [ dist/ ]
   ├── json/      ← JSON com px (Figma, Tokens Studio)
   ├── css/       ← CSS custom properties com rem
   ├── esm/       ← ES Modules com px
-  ├── cjs/       ← CommonJS com px
+  ├── js/        ← CommonJS com px
   └── dts/       ← TypeScript declarations
 ```
 
@@ -49,19 +49,19 @@ config/*.config.mjs
 
 ### `themes:generate` — Decomposição de Cores
 
-O script principal da etapa de dados. Para cada `*.config.mjs` em `dynamic-themes/themes/config/`:
+O script principal da etapa de dados. Para cada `*.config.mjs` em `theme-engine/config/`:
 
 1. Lê `colors` e `mapping` do config
 2. Para cada cor declarada, chama `ColorDecomposer` que:
    - Converte hex → OKLCh
-   - Interpola luminosidade para 19 níveis de palette (10–190)
+   - Interpola luminosidade para 19 níveis de paleta (10–190)
    - Gera 15 níveis de neutrals (5–140) com croma reduzido a 10%
    - Calcula `txtOn` (WCAG AA/AAA) e `border` para cada nível
    - Inverte a escala para dark mode (level N → level 200-N)
 3. Gera `_typography.json` via `TypographyGenerator`
 4. Gera `_borders.json` com referências à escala dimensional
 
-**Arquivos produzidos por tema em `data/brand/{tema}/`:**
+**Arquivos produzidos por tema em `data/brand/<tema>/`:**
 
 | Arquivo | Conteúdo |
 |---------|----------|
@@ -74,7 +74,7 @@ O script principal da etapa de dados. Para cada `*.config.mjs` em `dynamic-theme
 
 ### `sync:architecture` — Propagação de Referências
 
-O script mais crítico e menos óbvio do pipeline. Lê o **schema de arquitetura** e propaga as referências corretas para todas as camadas intermediárias.
+O script mais crítico e menos óbvio do pipeline. Lê o **schema de arquitetura** — gerenciado pelo pacote — e propaga as referências corretas para todas as camadas intermediárias.
 
 **O que ele escreve (sobrescrevendo qualquer edição manual):**
 
@@ -98,7 +98,7 @@ data/surface/positive.json
 data/mode/light.json  ←─── (ou dark.json, dependendo do bundle)
         │ referencia
         ▼
-data/brand/{tema}/_brand.json
+data/brand/<tema>/_brand.json
 ```
 
 A surface não sabe se é light ou dark — ela referencia o mode. O mode seleciona qual arquivo de brand usar. A escolha light/dark acontece na hora do build, quando o `$themes.json` define qual combinação de arquivos é merged.
@@ -108,7 +108,7 @@ A surface não sabe se é light ou dark — ela referencia o mode. O mode seleci
 Gera os arquivos de estilo compostos — typography styles e elevation styles — que não são tokens primitivos, mas classes CSS pré-compostas consumíveis diretamente no Figma e no código:
 
 ```
-data/foundation/{nome}/
+data/foundation/<nome>/
 ├── default.json                ← tokens alias (foundation.bg.primary → semantic.color.*)
 └── styles/
     ├── typography_styles.json  ← estilos tipográficos compostos (.typography-heading-title_1)
@@ -129,15 +129,15 @@ Define quais combinações de arquivos de token são merged para gerar cada vari
 {
   "aplica_joy-light-positive": {
     "selectedTokenSets": {
-      "brand/aplica_joy/_brand": "enabled",
-      "brand/aplica_joy/_typography": "enabled",
-      "brand/aplica_joy/_grayscale": "enabled",
-      "brand/aplica_joy/_borders": "enabled",
-      "mode/light": "enabled",
-      "surface/positive": "enabled",
-      "semantic/default": "enabled",
-      "foundation/engine/default": "enabled",
-      "dimension/normal": "source"
+      "brand/aplica_joy/_brand":       "enabled",
+      "brand/aplica_joy/_typography":  "enabled",
+      "brand/aplica_joy/_grayscale":   "enabled",
+      "brand/aplica_joy/_borders":     "enabled",
+      "mode/light":                    "enabled",
+      "surface/positive":              "enabled",
+      "semantic/default":              "enabled",
+      "foundation/engine/default":     "enabled",
+      "dimension/normal":              "source"
     }
   },
   "aplica_joy-dark-positive": { /* mesma estrutura, mode/dark */ }
@@ -168,31 +168,33 @@ Cada plataforma aplica transformações específicas antes de escrever:
 | `json` | Resolve referências, mantém estrutura nested | `px` |
 | `css` | Gera `--semantic-*` e `--foundation-*`, converte dimensões | `rem` |
 | `esm` | Gera módulo ES com objeto exportado | `px` |
-| `cjs` | Gera módulo CommonJS | `px` |
+| `js` | Gera módulo CommonJS | `px` |
 | `dts` | Gera declarações TypeScript | — |
 
-**Exceção importante:** Tokens com `$type: "number"` (como `semantic.depth.spread`) **nunca** são convertidos para rem — permanecem em px em todas as plataformas. Veja [05-output-formats.md](./05-output-formats.md) para a lista completa de exceções.
+**Exceção importante:** Tokens com `$type: "number"` (como `semantic.depth.spread`) **nunca** são convertidos para rem — permanecem em px em todas as plataformas. Veja [05-output-formats.pt-br.md](./05-output-formats.pt-br.md) para a lista completa de exceções.
 
 ---
 
 ## O Schema de Arquitetura
 
-O schema (`dynamic-themes/themes/schemas/architecture-schema.mjs`) é o **ponto de verdade único para a estrutura de tokens**. Ele define:
+O schema de arquitetura é o **ponto de verdade único para a estrutura de tokens**. Ele define:
 
 - Quais tipos de feedback existem (`info`, `success`, `warning`, `danger`)
 - Quais variantes cada feedback tem (`default`, `secondary`)
 - Quais itens de product existem (`promo`, `cashback`, `premium`)
 - Quais níveis de intensidade a camada semântica expõe (`lowest`, `default`, `highest`)
 
-Quando o schema muda (ex.: adicionar um novo feedback), o `sync:architecture` propaga essa mudança para todas as camadas. Temas que não declararem a nova cor no `mapping` receberão um aviso no build.
+O schema é de propriedade do pacote. Consumidores podem inspecionar o schema ativo e sobrescrever partes específicas colocando arquivos de schema em `theme-engine/schemas/`.
 
 ```bash
 # Ver o schema atual
-npm run sync:architecture:schema
+aplica-theme-engine sync:architecture:schema
 
 # Verificar impacto sem gravar
-npm run sync:architecture:test
+aplica-theme-engine sync:architecture:test
 ```
+
+Quando o schema muda (ex.: adicionar um novo item de feedback), o `sync:architecture` propaga essa mudança para todas as camadas. Temas que não declararem a nova cor no `mapping` receberão um aviso no build.
 
 ---
 
@@ -201,7 +203,7 @@ npm run sync:architecture:test
 ### Pipeline completo — use após clone ou mudanças amplas
 
 ```bash
-npm run build:themes
+npm run tokens:build
 ```
 
 Executa em ordem:
@@ -210,31 +212,31 @@ Executa em ordem:
 3. `themes:generate` — decompõe cores de todos os temas
 4. `sync:architecture` — propaga referências entre camadas
 5. `foundations:generate` — gera estilos de foundation
-6. `build` — Style Dictionary → `dist/`
+6. `build:all` — Style Dictionary → `dist/`
 
 ### Builds incrementais — use para mudanças pontuais
 
 | Mudança | Comandos necessários |
 |---------|---------------------|
-| Alterar cor de um tema | `themes:generate` → `build` |
-| Alterar escala dimensional | `dimension:generate` → `build` |
-| Alterar schema (adicionar feedback/product) | `sync:architecture` → `themes:generate` → `build` |
-| Alterar foundation | `foundations:generate` → `build` |
-| Apenas rebuild (data/ intacto) | `build` |
+| Alterar cor de um tema | `tokens:themes` → `tokens:build:all` |
+| Alterar escala dimensional | `tokens:dimension` → `tokens:build:all` |
+| Alterar schema (adicionar feedback/product) | `tokens:sync` → `tokens:themes` → `tokens:build:all` |
+| Alterar foundation | `tokens:foundations` → `tokens:build:all` |
+| Apenas rebuild (`data/` intacto) | `tokens:build:all` |
 
 ### A armadilha dos gradientes
 
 Gradientes exigem atenção especial à ordem:
 
 ```
-themes:generate  → gera _brand.json COM gradiente
+themes:generate   → gera _brand.json COM gradiente
        ↓
 sync:architecture → propaga gradiente até semantic.color.gradient
        ↓
-build            → emite variáveis CSS de gradiente
+build:all         → emite variáveis CSS de gradiente
 ```
 
-Se `sync:architecture` não rodar após `themes:generate`, a seção `semantic.color.gradient` não existe e o `build` avisa (sem falhar) e omite os gradientes do output. Solução: sempre usar `build:themes` ou rodar o sync manualmente antes do build.
+Se `sync:architecture` não rodar após `themes:generate`, a seção `semantic.color.gradient` não existe e o `build:all` avisa (sem falhar) e omite os gradientes do output. Solução: sempre usar `tokens:build` (pipeline completo) ou rodar o sync manualmente antes do build.
 
 ---
 
@@ -243,8 +245,9 @@ Se `sync:architecture` não rodar após `themes:generate`, a seção `semantic.c
 O pipeline inclui verificações automáticas:
 
 - **Referências quebradas:** Se um token referencia outro que não existe, o build falha com erro de resolução
-- **Contraste WCAG:** Se `options.strictValidation: true`, pares surface/txtOn que não passam o nível configurado (AA ou AAA) falham o build
+- **Contraste WCAG:** O engine reporta falhas AA/AAA como avisos durante `themes:generate`. Configure `accessibilityLevel` e `acceptAALevelFallback` nas `options` do tema para controlar o comportamento.
 - **Estrutura de schema:** O `sync:architecture:test` valida se os configs dos temas alinham com o schema sem gravar nada
+- **Integridade de dados:** Execute `aplica-theme-engine validate:data` antes de publicar para detectar incompatibilidades de schema cedo
 
 ---
 
@@ -252,21 +255,19 @@ O pipeline inclui verificações automáticas:
 
 | Sintoma | Causa provável | Solução |
 |---------|---------------|---------|
-| Gradiente não aparece no CSS | `sync:architecture` não rodou após `themes:generate` | `npm run sync:architecture` + `npm run build` |
+| Gradiente não aparece no CSS | `sync:architecture` não rodou após `themes:generate` | `npm run tokens:sync` + `npm run tokens:build:all` |
 | Token novo não aparece no dist/ | Tema não registrado em `themes.config.json` | Adicionar entrada no `themes` do config global |
 | Cor diferente do esperado | Override em `overrides.*` sobrescrevendo o gerado | Verificar se há override configurado para aquela cor |
-| Build falha com "reference not found" | `data/` desatualizado em relação aos configs | `npm run build:themes` (rebuild completo) |
+| Build falha com "reference not found" | `data/` desatualizado em relação aos configs | `npm run tokens:build` (rebuild completo) |
 | txtOn é preto/branco quando esperava cor de marca | `txtOnStrategy: 'high-contrast'` é o padrão | Mudar para `'brand-tint'` nas options do tema |
 
 ---
 
 ## Referências
 
-- Guia de configuração: [03-configuration-guide.md](./03-configuration-guide.md)
-- Formatos de output em detalhe: [05-output-formats.md](./05-output-formats.md)
-- Fluxo Surface → Mode → Theme: SURFACE-MODE-THEME-FLOW.md
-- Schema de arquitetura: `references/aplica-tokens-theme-engine/dynamic-themes/themes/schemas/architecture-schema.mjs`
-- Script de decomposição de cores: color-decomposer.mjs
-- Script de sync: `references/aplica-tokens-theme-engine/dynamic-themes/scripts/sync-architecture.mjs`
-- Dynamic themes (referência): DYNAMIC_THEMES.md
-- Matemática e algoritmos: [06-mathematics-and-algorithms.md](../03-visual-foundations/06-mathematics-and-algorithms.md)
+- Guia de configuração: [03-configuration-guide.pt-br.md](./03-configuration-guide.pt-br.md)
+- Formatos de output em detalhe: [05-output-formats.pt-br.md](./05-output-formats.pt-br.md)
+- Referência de CLI: [09-engineering/05-cli-reference.pt-br.md](../09-engineering/05-cli-reference.pt-br.md)
+- Build e integração CI: [09-engineering/06-build-and-ci.pt-br.md](../09-engineering/06-build-and-ci.pt-br.md)
+- Diagnóstico de problemas: [09-engineering/07-troubleshooting.pt-br.md](../09-engineering/07-troubleshooting.pt-br.md)
+- Matemática e algoritmos: [06-mathematics-and-algorithms.pt-br.md](../03-visual-foundations/06-mathematics-and-algorithms.pt-br.md)

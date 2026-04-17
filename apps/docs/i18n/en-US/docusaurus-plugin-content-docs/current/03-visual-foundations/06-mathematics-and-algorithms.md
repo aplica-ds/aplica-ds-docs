@@ -217,9 +217,9 @@ The separation between calculation unit (pt) and output unit (rem/px) ensures th
 
 ## References
 
-- Dimensions script: dimension-scale.mjs
-- Colors script: color-decomposer.mjs
-- Sync script: sync-architecture.mjs
-- Color decomposition spec: COLOR-DECOMPOSITION-SPEC.md
-- Contrast verification: verify-aa-compliance.mjs
-- Global configuration: themes.config.json
+- Dimensions script: [dimension-scale.mjs](../../references/aplica-tokens-theme-engine/dynamic-themes/scripts/dimension-scale.mjs)
+- Colors script: [color-decomposer.mjs](../../references/aplica-tokens-theme-engine/dynamic-themes/scripts/color-decomposer.mjs)
+- Sync script: [sync-architecture.mjs](../../references/aplica-tokens-theme-engine/dynamic-themes/scripts/sync-architecture.mjs)
+- Color decomposition spec: [COLOR-DECOMPOSITION-SPEC.md](../../references/aplica-tokens-theme-engine/docs/context/dynamic-themes-reference/COLOR-DECOMPOSITION-SPEC.md)
+- Contrast verification: [verify-aa-compliance.mjs](../../references/aplica-tokens-theme-engine/dynamic-themes/scripts/verify-aa-compliance.mjs)
+- Global configuration: [themes.config.json](../../references/aplica-tokens-theme-engine/config/global/themes.config.json)

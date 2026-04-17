@@ -195,4 +195,4 @@ If you want to advance to technical construction in code, start N3 with [N3-01 Â
 
 - Override philosophy: [01-aplica-ds-vision.md](../../00-overview/01-aplica-ds-vision.md)
 - Override configuration: [03-configuration-guide.md](../../04-theme-engine/03-configuration-guide.md#overrides)
-- Override best practices: OVERRIDE-BEST-PRACTICES.md
+- Override best practices: [OVERRIDE-BEST-PRACTICES.md](../../../references/aplica-tokens-theme-engine/docs/context/dynamic-themes-reference/OVERRIDE-BEST-PRACTICES.md)

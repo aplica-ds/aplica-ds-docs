@@ -7,10 +7,119 @@ lang: en
 
 ## Premise
 
-This guide covers two distinct migration scenarios:
+This guide covers three distinct migration scenarios:
 
-1. **Engine version update** — how to update a project using the Aplica Tokens Theme Engine to a newer version, without losing configurations and without breaking existing themes.
-2. **Structural migration** — how to move projects with the legacy structure (config in `dynamic-themes/themes/config/`) to the current centralized structure (config at the project root in `config/`).
+1. **Monolithic to NPM package** — how to migrate a project that embedded the engine source directly to the new `@aplica/aplica-theme-engine` NPM package model.
+2. **Engine version update** — how to update a project using the NPM package to a newer version, without losing configurations and without breaking existing themes.
+3. **Legacy structural migration** — how to move projects with the old config structure (config in `dynamic-themes/themes/config/`) to the current consumer workspace model.
+
+---
+
+## Monolithic to NPM Package Migration
+
+If your project contains the engine source code directly (a copy of the engine repo or a git subtree), the `migrate:legacy-consumer` command automates the conversion to the NPM package consumer model.
+
+### When this applies
+
+Your project has any of:
+- A `dynamic-themes/` directory at the project root
+- Engine scripts directly in your repo (`lib/`, `transformers/`, `schemas/`)
+- `npm run build:themes` in `package.json` pointing to a local script path
+
+### Migration process
+
+#### Step 1 — Install the package
+
+```bash
+npm install @aplica/aplica-theme-engine
+```
+
+#### Step 2 — Analyze the current workspace
+
+Run the analyzer first to understand what will be migrated:
+
+```bash
+aplica-theme-engine migrate:legacy-consumer analyze --source=./dynamic-themes
+```
+
+The analyzer reports:
+- Which config files were found and where they will land in the new structure
+- Which schema overrides exist (will move to `theme-engine/schemas/`)
+- Whether any custom scripts override default engine behavior (must be handled manually)
+
+#### Step 3 — Run the migration
+
+```bash
+# Dry run — preview all changes without writing
+aplica-theme-engine migrate:legacy-consumer run --source=./dynamic-themes --dry-run
+
+# Run the migration
+aplica-theme-engine migrate:legacy-consumer run --source=./dynamic-themes
+```
+
+The migration:
+- Creates `theme-engine/config/` with your brand configs and global config
+- Creates `aplica-theme-engine.config.mjs` at the project root
+- Creates `theme-engine/transformers.config.mjs` from your existing transformer settings
+- Creates `theme-engine/schemas/` if you had schema overrides
+- Does **not** delete the old structure (cleanup is manual, after verification)
+
+#### Step 4 — Verify parity
+
+The migration is successful when both the before and after builds produce identical `dist/` output. The `compare` sub-command checks this:
+
+```bash
+# Build with the new package model
+npm run tokens:build
+
+# Compare new output against the legacy output
+aplica-theme-engine migrate:legacy-consumer compare
+```
+
+The compare command diffs `dist/` file-by-file and reports any discrepancies. Parity means the migration is complete.
+
+#### Step 5 — Update package.json scripts
+
+Replace old build scripts with the new consumer scripts:
+
+```json
+{
+  "scripts": {
+    "tokens:build":       "aplica-theme-engine build",
+    "tokens:build:all":   "aplica-theme-engine build:all",
+    "tokens:themes":      "aplica-theme-engine themes:generate",
+    "tokens:sync":        "aplica-theme-engine sync:architecture",
+    "tokens:foundations": "aplica-theme-engine foundations:generate",
+    "tokens:validate":    "aplica-theme-engine validate:data"
+  }
+}
+```
+
+#### Step 6 — Cleanup (after parity confirmed)
+
+```bash
+# Remove the embedded engine source
+rm -rf dynamic-themes/
+rm -rf lib/
+rm -rf transformers/
+```
+
+Update `.gitignore` to exclude generated directories:
+
+```gitignore
+/data/
+/dist/
+```
+
+#### Migration flags
+
+| Flag | Description |
+|------|-------------|
+| `--source=<path>` | Path to the legacy engine directory (default: `./dynamic-themes`) |
+| `--force` | Overwrite existing files in the target consumer workspace |
+| `--profile=<name>` | Use a specific migration profile for non-standard layouts |
+
+---
 
 ---
 
@@ -299,10 +408,8 @@ grep "semantic-color-new-path" dist/css/*.css
 
 ## References
 
-- Build pipeline: [04-build-pipeline.md](../04-theme-engine/04-build-pipeline.md)
-- Configuration guide: [03-configuration-guide.md](../04-theme-engine/03-configuration-guide.md)
-- Naming and versioning contract: canonical-taxonomy-and-naming-contract.md
-- Migration to centralized structure (technical): MIGRATE_TO_CENTRALIZED_THEMES.md
-- Engine changelog: `references/aplica-tokens-theme-engine/CHANGELOG.md`
-- Files by version: RELEASE_FILES.md
+- Build pipeline: [04-theme-engine/04-build-pipeline.md](../04-theme-engine/04-build-pipeline.md)
+- Configuration guide: [04-theme-engine/03-configuration-guide.md](../04-theme-engine/03-configuration-guide.md)
+- CLI reference (migrate:legacy-consumer): [09-engineering/05-cli-reference.md](../09-engineering/05-cli-reference.md)
+- Engineering quick start: [09-engineering/01-quick-start.md](../09-engineering/01-quick-start.md)
 - Platform integration: [02-platform-integration.md](./02-platform-integration.md)

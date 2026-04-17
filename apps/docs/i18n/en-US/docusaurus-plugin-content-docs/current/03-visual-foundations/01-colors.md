@@ -412,8 +412,8 @@ The shift to OKLCh was the largest technical break between V1 and V2. In OKLCh s
 
 ## References
 
-- Decomposition script: color-decomposer.mjs
-- Technical spec: COLOR-DECOMPOSITION-SPEC.md
-- Config example: aplica-joy.config.mjs
-- Contrast verification: verify-aa-compliance.mjs
+- Decomposition script: [color-decomposer.mjs](../../references/aplica-tokens-theme-engine/dynamic-themes/scripts/color-decomposer.mjs)
+- Technical spec: [COLOR-DECOMPOSITION-SPEC.md](../../references/aplica-tokens-theme-engine/docs/context/dynamic-themes-reference/COLOR-DECOMPOSITION-SPEC.md)
+- Config example: [aplica-joy.config.mjs](../../references/aplica-tokens-theme-engine/config/aplica-joy.config.mjs)
+- Contrast verification: [verify-aa-compliance.mjs](../../references/aplica-tokens-theme-engine/dynamic-themes/scripts/verify-aa-compliance.mjs)
 - Alpha→V2 mapping: [04-v1-to-v2-rationals-mapping.md](../06-history/04-v1-to-v2-rationals-mapping.md)

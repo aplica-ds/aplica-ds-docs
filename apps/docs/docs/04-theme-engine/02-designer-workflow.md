@@ -21,11 +21,11 @@ Diferente de sistemas de design tradicionais onde o designer cria estilos no Fig
 ## Fluxo de Trabalho Passo-a-Passo
 
 ### 1. Preparação (System Designer / Dev)
-O responsável pelo motor executa o comando de build para gerar os artefatos de saída:
+O responsável pelo engine executa o comando de build para gerar os artefatos de saída:
 ```bash
-npm run build
+npm run tokens:build
 ```
-Isso gera arquivos JSON na pasta `dist/` ou `tokens/`, organizados por tema (ex: `aplica_joy-light-positive.json`).
+Isso gera arquivos JSON na pasta `dist/` do projeto consumidor, organizados por tema (ex: `aplica_joy-light-positive.json`). A configuração fica em `theme-engine/config/` — não no próprio pacote do engine.
 
 ### 2. Importação no Figma (Product Designer)
 O designer utiliza o plugin **Tokens Studio for Figma** para ler esses arquivos:
@@ -76,8 +76,8 @@ Com as variáveis sincronizadas, o designer pode:
 
 ## Referências
 
-- O que é o Theme Engine: [01-what-is-theme-engine.md](./01-what-is-theme-engine.md)
-- Guia de configuração: [03-configuration-guide.md](./03-configuration-guide.md)
-- Camada Foundation (por que Figma consome Foundation): [05-foundation-layer.md](../02-token-layers/05-foundation-layer.md)
-- Contrato de naming: canonical-taxonomy-and-naming-contract.md
-- Uso de tokens em componentes e Figma: token-usage-for-components-and-figma.md
+- O que é o Theme Engine: [01-what-is-theme-engine.pt-br.md](./01-what-is-theme-engine.pt-br.md)
+- Guia de configuração: [03-configuration-guide.pt-br.md](./03-configuration-guide.pt-br.md)
+- Formatos de output: [05-output-formats.pt-br.md](./05-output-formats.pt-br.md)
+- Camada Foundation (por que Figma consome Foundation): [05-foundation-layer.pt-br.md](../02-token-layers/05-foundation-layer.pt-br.md)
+- Quick start de engenharia: [09-engineering/01-quick-start.pt-br.md](../09-engineering/01-quick-start.pt-br.md)

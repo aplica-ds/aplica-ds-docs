@@ -193,6 +193,6 @@ Se quiser avançar para construção técnica em código, comece o N3 por [N3-01
 
 ## Referências
 
-- Filosofia de overrides: [01-aplica-ds-vision.md](../../00-overview/01-aplica-ds-vision.md)
+- Filosofia de overrides: [01-aplica-ds-vision.md](../../00-overview/01-aplica-ds-vision.md#filosofia-de-overrides)
 - Configuração de overrides: [03-configuration-guide.md](../../04-theme-engine/03-configuration-guide.md#sobreposições-overrides)
-- Boas práticas de overrides: OVERRIDE-BEST-PRACTICES.md
+- Boas práticas de overrides: [OVERRIDE-BEST-PRACTICES.md](../../../references/aplica-tokens-theme-engine/docs/context/dynamic-themes-reference/OVERRIDE-BEST-PRACTICES.md)

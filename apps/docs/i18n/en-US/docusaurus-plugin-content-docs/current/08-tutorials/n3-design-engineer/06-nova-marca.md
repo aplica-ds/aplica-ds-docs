@@ -374,8 +374,8 @@ You have completed N3. You know how to build conforming components, integrate to
 The next level is **large-scale governance**: multiple teams consuming the same system, update cycles, breaking changes, and migration strategies. Those topics are covered in:
 
 - [Migration guide](../../07-implementation/01-migration-guide.md)
-- Override best practices
-- Canonical naming contract
+- [Override best practices](../../../references/aplica-tokens-theme-engine/docs/context/dynamic-themes-reference/OVERRIDE-BEST-PRACTICES.md)
+- [Canonical naming contract](../../../references/aplica-tokens-theme-engine/docs/context/tokens/canonical-taxonomy-and-naming-contract.md)
 
 ---
 

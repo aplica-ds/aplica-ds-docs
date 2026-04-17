@@ -105,10 +105,10 @@ V2 expanded points at the extremes (introducing the giant `exa` and `zetta`, and
 
 ## References
 
-- Generation script: typography-generator.mjs
-- Dimension-derived scale: typography-scale-from-dimension.mjs
-- Technical spec: TYPOGRAPHY-SPEC.md
-- Scale detail: 02-typography-scale.md
-- Line heights: 03-line-height-scale.md
+- Generation script: [typography-generator.mjs](../../references/aplica-tokens-theme-engine/dynamic-themes/scripts/typography-generator.mjs)
+- Dimension-derived scale: [typography-scale-from-dimension.mjs](../../references/aplica-tokens-theme-engine/dynamic-themes/scripts/typography-scale-from-dimension.mjs)
+- Technical spec: [TYPOGRAPHY-SPEC.md](../../references/aplica-tokens-theme-engine/docs/context/dynamic-themes-reference/TYPOGRAPHY-SPEC.md)
+- Scale detail: [02-typography-scale.md](../../references/aplica-tokens-theme-engine/docs/context/dimension/02-typography-scale.md)
+- Line heights: [03-line-height-scale.md](../../references/aplica-tokens-theme-engine/docs/context/dimension/03-line-height-scale.md)
 - Mathematics and algorithms: [06-mathematics-and-algorithms.md](./06-mathematics-and-algorithms.md)
 - Dimension layer: [06-dimension-layer.md](../02-token-layers/06-dimension-layer.md)

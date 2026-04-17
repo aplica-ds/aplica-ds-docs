@@ -115,9 +115,9 @@ For engineering and daily CSS property and component consumption, the numeric pr
 
 ## References
 
-- Scale generation script: dimension-scale.mjs
-- Unit output technical spec: 05-output-units.md
-- Dimension overview: 00-overview.md
-- Detailed spatial system: 01-spatial-system.md
+- Scale generation script: [dimension-scale.mjs](../../references/aplica-tokens-theme-engine/dynamic-themes/scripts/dimension-scale.mjs)
+- Unit output technical spec: [05-output-units.md](../../references/aplica-tokens-theme-engine/docs/context/dimension/05-output-units.md)
+- Dimension overview: [00-overview.md](../../references/aplica-tokens-theme-engine/docs/context/dimension/00-overview.md)
+- Detailed spatial system: [01-spatial-system.md](../../references/aplica-tokens-theme-engine/docs/context/dimension/01-spatial-system.md)
 - Dimension layer (concept): [06-dimension-layer.md](../02-token-layers/06-dimension-layer.md)
 - Mathematics and algorithms: [06-mathematics-and-algorithms.md](./06-mathematics-and-algorithms.md)

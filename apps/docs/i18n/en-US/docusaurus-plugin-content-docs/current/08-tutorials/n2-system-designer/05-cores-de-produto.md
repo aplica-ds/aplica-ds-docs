@@ -165,6 +165,6 @@ Even with a well-designed system, there will be cases where the default behavior
 
 ## References
 
-- Semantic layer — Product section: [04-semantic-layer.md](../../02-token-layers/04-semantic-layer.md)
+- Semantic layer — Product section: [04-semantic-layer.md](../../02-token-layers/04-semantic-layer.md#product)
 - Exponential cost: [01-aplica-ds-vision.md](../../00-overview/01-aplica-ds-vision.md)
 - Product color configuration: [03-configuration-guide.md](../../04-theme-engine/03-configuration-guide.md#product-colors)

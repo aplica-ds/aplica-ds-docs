@@ -378,8 +378,8 @@ Changes are documented in the engine's `CHANGELOG.md`, which specifies: old path
 
 - Semantic layer in detail: [04-semantic-layer.md](../02-token-layers/04-semantic-layer.md)
 - Foundation layer: [05-foundation-layer.md](../02-token-layers/05-foundation-layer.md)
-- Canonical taxonomy and naming: canonical-taxonomy-and-naming-contract.md
-- Token usage for components and Figma: token-usage-for-components-and-figma.md
+- Canonical taxonomy and naming: [canonical-taxonomy-and-naming-contract.md](../../references/aplica-tokens-theme-engine/docs/context/tokens/canonical-taxonomy-and-naming-contract.md)
+- Token usage for components and Figma: [token-usage-for-components-and-figma.md](../../references/aplica-tokens-theme-engine/docs/context/tokens/token-usage-for-components-and-figma.md)
 - Output formats and CSS variables: [05-output-formats.md](../04-theme-engine/05-output-formats.md)
 - Component variants and states: [02-component-variants.md](./02-component-variants.md)
 - Dark mode patterns: [03-dark-mode-patterns.md](./03-dark-mode-patterns.md)

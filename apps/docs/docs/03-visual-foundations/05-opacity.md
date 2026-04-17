@@ -89,5 +89,5 @@ surface.opacity.color.light.<key>   → rgba(255, 255, 255, <alpha>)
 
 - [Depth & Elevation — Luminosity e composição de sombras](./04-depth-elevation.md)
 - [Matemática e Algoritmos — Seção 5: Opacidade](./06-mathematics-and-algorithms.md)
-- Script de Sincronização e Regras: sync-architecture.mjs
-- Mapeador de Geradores de UI: ui-generator.mjs
+- Script de Sincronização e Regras: [sync-architecture.mjs](../../references/aplica-tokens-theme-engine/dynamic-themes/scripts/sync-architecture.mjs)
+- Mapeador de Geradores de UI: [ui-generator.mjs](../../references/aplica-tokens-theme-engine/dynamic-themes/scripts/ui-generator.mjs)

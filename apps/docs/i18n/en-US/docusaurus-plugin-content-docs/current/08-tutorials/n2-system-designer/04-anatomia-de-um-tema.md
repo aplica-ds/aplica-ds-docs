@@ -417,4 +417,4 @@ You know how to write a complete config. The next step is to understand its most
 - Full configuration guide: [03-configuration-guide.md](../../04-theme-engine/03-configuration-guide.md)
 - The Config-First paradigm: [N2-03 · The Config-First paradigm](./03-paradigma-config-first.md)
 - Responsible overrides: [N2-06 · Responsible overrides](./06-overrides-responsaveis.md)
-- Real config example: aplica-joy.config.mjs
+- Real config example: [aplica-joy.config.mjs](../../../references/aplica-tokens-theme-engine/config/aplica-joy.config.mjs)

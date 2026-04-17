@@ -113,4 +113,4 @@ This ensures structural separation and prevents static, hard-to-scan two-dimensi
 - [Opacity — Surface Stubs that feed Luminosity](./05-opacity.md)
 - [Colors — Grayscale and achromatic shadow rules](./01-colors.md)
 - [Mathematics and Algorithms — Section 7: Depth / Elevation](./06-mathematics-and-algorithms.md)
-- Engine implementation: sync-architecture.mjs
+- Engine implementation: [sync-architecture.mjs](../../references/aplica-tokens-theme-engine/dynamic-themes/scripts/sync-architecture.mjs)

@@ -23,9 +23,9 @@ Unlike traditional design systems where the designer creates styles in Figma and
 ### 1. Preparation (System Designer / Dev)
 The person responsible for the engine runs the build command to generate output artifacts:
 ```bash
-npm run build
+npm run tokens:build
 ```
-This generates JSON files in the `dist/` or `tokens/` folder, organized by theme (e.g., `aplica_joy-light-positive.json`).
+This generates JSON files in the consumer project's `dist/` folder, organized by theme (e.g., `aplica_joy-light-positive.json`). Config lives in `theme-engine/config/` — not in the engine package itself.
 
 ### 2. Import into Figma (Product Designer)
 The designer uses the **Tokens Studio for Figma** plugin to read those files:
@@ -78,6 +78,6 @@ With variables synchronized, the designer can:
 
 - What is the Theme Engine: [01-what-is-theme-engine.md](./01-what-is-theme-engine.md)
 - Configuration guide: [03-configuration-guide.md](./03-configuration-guide.md)
+- Output formats: [05-output-formats.md](./05-output-formats.md)
 - Foundation layer (why Figma consumes Foundation): [05-foundation-layer.md](../02-token-layers/05-foundation-layer.md)
-- Naming contract: canonical-taxonomy-and-naming-contract.md
-- Token usage in components and Figma: token-usage-for-components-and-figma.md
+- Engineering quick start: [09-engineering/01-quick-start.md](../09-engineering/01-quick-start.md)

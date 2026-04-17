@@ -165,6 +165,6 @@ Mesmo com um sistema bem projetado, haverá casos em que o comportamento padrão
 
 ## Referências
 
-- Camada Semantic — seção Product: [04-semantic-layer.md](../../02-token-layers/04-semantic-layer.md)
+- Camada Semantic — seção Product: [04-semantic-layer.md](../../02-token-layers/04-semantic-layer.md#product)
 - Custo exponencial: [01-aplica-ds-vision.md](../../00-overview/01-aplica-ds-vision.md)
 - Configuração de cores de produto: [03-configuration-guide.md](../../04-theme-engine/03-configuration-guide.md#cores-de-product)

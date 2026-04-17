@@ -2,7 +2,6 @@
 id: aplica-ds-vision
 title: "Aplica Design System — Vision"
 description: "What Aplica DS is, what it delivers, and the principles behind its architecture."
-slug: /
 lang: en
 ---
 
@@ -134,18 +133,32 @@ For the complete layer architecture, see [01-token-architecture.md](../01-design
 
 ---
 
-## Current status (V2)
+## Three Knowledge Domains
 
-Aplica DS is on its second conceptual version, with the **Aplica Tokens Theme Engine** as the reference implementation.
+Aplica DS knowledge is organized across three domains, each serving a distinct audience:
+
+| Domain | Audience | Core question |
+|--------|----------|---------------|
+| **Racional** | Everyone | Why does this architecture exist? How does it work? |
+| **Consumo** | Devs using tokens | Which tokens do I use, and how do I import them? |
+| **Engenharia** | Devs running the engine | How do I install, configure, and build? |
+
+The engineering domain is covered in the [09-engineering](../09-engineering/) section. The consumption domain is in [07-implementation](../07-implementation/). The conceptual foundation is in sections 01–04.
+
+---
+
+## Current status
+
+Aplica DS is in active production, with the **Aplica Tokens Theme Engine** published as an NPM package (`@aplica/aplica-theme-engine`).
 
 | Component | Status |
 |-----------|--------|
 | Token architecture (5+1 layers) | Stable, documented |
-| Theme Engine (dynamic generator) | Production — v2.25.0 |
+| Theme Engine NPM package (`@aplica/aplica-theme-engine`) | Production |
 | OKLCh color pipeline | Production |
 | Dimension system (minor/normal/major) | Production |
 | Scalable typography system | Production |
 | Dynamic gradients | Production |
+| Engineering documentation (Domain 3) | Complete |
 | Component library | Planned |
-| Documentation site | Planned |
-| Public npm package | Planned |
+| Documentation site | In progress |

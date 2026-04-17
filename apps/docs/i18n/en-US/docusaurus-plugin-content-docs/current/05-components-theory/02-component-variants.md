@@ -394,4 +394,4 @@ All paths above are prefixed with `semantic.color.interface.`.
 - Color system: [01-colors.md](../03-visual-foundations/01-colors.md)
 - Dimension system: [03-spacing-sizing.md](../03-visual-foundations/03-spacing-sizing.md)
 - Opacity: [05-opacity.md](../03-visual-foundations/05-opacity.md)
-- Semantic tokens (source): default.json
+- Semantic tokens (source): [default.json](../../references/aplica-tokens-theme-engine/data/semantic/default.json)

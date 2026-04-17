@@ -16,15 +16,15 @@ Understanding the pipeline is essential for those who maintain themes, add new c
 ## Flow Overview
 
 ```
-config/*.config.mjs
+theme-engine/config/*.config.mjs
         │
         ▼
 [ Stage 1: Data Generation ]
         │
-        ├─ themes:generate    → data/brand/{theme}/
+        ├─ themes:generate    → data/brand/<theme>/
         ├─ dimension:generate → data/dimension/normal.json
         ├─ sync:architecture  → data/mode/, data/surface/, data/semantic/, data/foundation/
-        └─ foundations:generate → data/foundation/{name}/styles/
+        └─ foundations:generate → data/foundation/<name>/styles/
         │
         ▼
 [ data/ ] ← NEVER edit manually
@@ -32,14 +32,14 @@ config/*.config.mjs
         ▼
 [ Stage 2: Style Dictionary Build ]
         │
-        npm run build
+        npm run tokens:build:all
         │
         ▼
 [ dist/ ]
   ├── json/      ← JSON with px (Figma, Tokens Studio)
   ├── css/       ← CSS custom properties with rem
   ├── esm/       ← ES Modules with px
-  ├── cjs/       ← CommonJS with px
+  ├── js/        ← CommonJS with px
   └── dts/       ← TypeScript declarations
 ```
 
@@ -49,7 +49,7 @@ config/*.config.mjs
 
 ### `themes:generate` — Color Decomposition
 
-The main script for the data stage. For each `*.config.mjs` in `dynamic-themes/themes/config/`:
+The main script for the data stage. For each `*.config.mjs` in `theme-engine/config/`:
 
 1. Reads `colors` and `mapping` from the config
 2. For each declared color, calls `ColorDecomposer` which:
@@ -61,7 +61,7 @@ The main script for the data stage. For each `*.config.mjs` in `dynamic-themes/t
 3. Generates `_typography.json` via `TypographyGenerator`
 4. Generates `_borders.json` with references to the dimensional scale
 
-**Files produced per theme in `data/brand/{theme}/`:**
+**Files produced per theme in `data/brand/<theme>/`:**
 
 | File | Contents |
 |------|----------|
@@ -74,7 +74,7 @@ The main script for the data stage. For each `*.config.mjs` in `dynamic-themes/t
 
 ### `sync:architecture` — Reference Propagation
 
-The most critical and least obvious script in the pipeline. Reads the **architecture schema** and propagates the correct references to all intermediate layers.
+The most critical and least obvious script in the pipeline. Reads the **architecture schema** — managed by the package — and propagates the correct references to all intermediate layers.
 
 **What it writes (overwriting any manual edits):**
 
@@ -98,7 +98,7 @@ data/surface/positive.json
 data/mode/light.json  ←─── (or dark.json, depending on the bundle)
         │ references
         ▼
-data/brand/{theme}/_brand.json
+data/brand/<theme>/_brand.json
 ```
 
 The surface does not know whether it is light or dark — it references the mode. The mode selects which brand file to use. The light/dark choice happens at build time, when `$themes.json` defines which combination of files is merged.
@@ -108,7 +108,7 @@ The surface does not know whether it is light or dark — it references the mode
 Generates the composed style files — typography styles and elevation styles — which are not primitive tokens, but pre-composed CSS classes directly consumable in Figma and code:
 
 ```
-data/foundation/{name}/
+data/foundation/<name>/
 ├── default.json                ← alias tokens (foundation.bg.primary → semantic.color.*)
 └── styles/
     ├── typography_styles.json  ← composed typographic styles (.typography-heading-title_1)
@@ -168,7 +168,7 @@ Each platform applies specific transformations before writing:
 | `json` | Resolves references, maintains nested structure | `px` |
 | `css` | Generates `--semantic-*` and `--foundation-*`, converts dimensions | `rem` |
 | `esm` | Generates ES module with exported object | `px` |
-| `cjs` | Generates CommonJS module | `px` |
+| `js` | Generates CommonJS module | `px` |
 | `dts` | Generates TypeScript declarations | — |
 
 **Important exception:** Tokens with `$type: "number"` (e.g., `semantic.depth.spread`) are **never** converted to rem — they remain in px on all platforms. See [05-output-formats.md](./05-output-formats.md) for the full list of exceptions.
@@ -177,22 +177,24 @@ Each platform applies specific transformations before writing:
 
 ## The Architecture Schema
 
-The schema (`dynamic-themes/themes/schemas/architecture-schema.mjs`) is the **single source of truth for token structure**. It defines:
+The architecture schema is the **single source of truth for token structure**. It defines:
 
 - Which feedback types exist (`info`, `success`, `warning`, `danger`)
 - Which variants each feedback has (`default`, `secondary`)
 - Which product items exist (`promo`, `cashback`, `premium`)
 - Which intensity levels the semantic layer exposes (`lowest`, `default`, `highest`)
 
-When the schema changes (e.g., adding a new feedback), `sync:architecture` propagates that change to all layers. Themes that do not declare the new color in `mapping` will receive a warning during the build.
+The schema is owned by the package. Consumers can inspect the active schema and override specific parts by placing schema files in `theme-engine/schemas/`.
 
 ```bash
 # View current schema
-npm run sync:architecture:schema
+aplica-theme-engine sync:architecture:schema
 
 # Verify impact without writing
-npm run sync:architecture:test
+aplica-theme-engine sync:architecture:test
 ```
+
+When the schema changes (e.g., adding a new feedback item), `sync:architecture` propagates that change to all layers. Themes that do not declare the new color in `mapping` will receive a warning during the build.
 
 ---
 
@@ -201,7 +203,7 @@ npm run sync:architecture:test
 ### Full pipeline — use after clone or broad changes
 
 ```bash
-npm run build:themes
+npm run tokens:build
 ```
 
 Runs in order:
@@ -210,17 +212,17 @@ Runs in order:
 3. `themes:generate` — decomposes colors for all themes
 4. `sync:architecture` — propagates references between layers
 5. `foundations:generate` — generates foundation styles
-6. `build` — Style Dictionary → `dist/`
+6. `build:all` — Style Dictionary → `dist/`
 
 ### Incremental builds — use for targeted changes
 
 | Change | Required commands |
 |--------|-------------------|
-| Change a theme's color | `themes:generate` → `build` |
-| Change dimensional scale | `dimension:generate` → `build` |
-| Change schema (add feedback/product) | `sync:architecture` → `themes:generate` → `build` |
-| Change foundation | `foundations:generate` → `build` |
-| Rebuild only (data/ intact) | `build` |
+| Change a theme's color | `tokens:themes` → `tokens:build:all` |
+| Change dimensional scale | `tokens:dimension` → `tokens:build:all` |
+| Change schema (add feedback/product) | `tokens:sync` → `tokens:themes` → `tokens:build:all` |
+| Change foundation | `tokens:foundations` → `tokens:build:all` |
+| Rebuild only (data/ intact) | `tokens:build:all` |
 
 ### The gradients trap
 
@@ -231,10 +233,10 @@ themes:generate  → generates _brand.json WITH gradient
        ↓
 sync:architecture → propagates gradient up to semantic.color.gradient
        ↓
-build            → emits CSS gradient variables
+build:all         → emits CSS gradient variables
 ```
 
-If `sync:architecture` does not run after `themes:generate`, the `semantic.color.gradient` section does not exist and `build` warns (without failing) and omits gradients from the output. Solution: always use `build:themes` or run sync manually before the build.
+If `sync:architecture` does not run after `themes:generate`, the `semantic.color.gradient` section does not exist and `build:all` warns (without failing) and omits gradients from the output. Solution: always use `tokens:build` (full pipeline) or run sync manually before the build.
 
 ---
 
@@ -243,8 +245,9 @@ If `sync:architecture` does not run after `themes:generate`, the `semantic.color
 The pipeline includes automatic checks:
 
 - **Broken references:** If a token references another that does not exist, the build fails with a resolution error
-- **WCAG contrast:** If `options.strictValidation: true`, surface/txtOn pairs that do not pass the configured level (AA or AAA) fail the build
+- **WCAG contrast:** The engine reports AA/AAA failures as warnings during `themes:generate`. Configure `accessibilityLevel` and `acceptAALevelFallback` in the theme `options` to control behavior.
 - **Schema structure:** `sync:architecture:test` validates whether theme configs align with the schema without writing anything
+- **Data integrity:** Run `aplica-theme-engine validate:data` before publishing to catch schema mismatches early
 
 ---
 
@@ -252,10 +255,10 @@ The pipeline includes automatic checks:
 
 | Symptom | Likely cause | Solution |
 |---------|-------------|---------|
-| Gradient doesn't appear in CSS | `sync:architecture` did not run after `themes:generate` | `npm run sync:architecture` + `npm run build` |
-| New token doesn't appear in dist/ | Theme not registered in `themes.config.json` | Add entry to the global config `themes` |
+| Gradient doesn't appear in CSS | `sync:architecture` did not run after `themes:generate` | `npm run tokens:sync` + `npm run tokens:build:all` |
+| New token doesn't appear in dist/ | Theme not registered in `themes.config.json` | Add entry to the global `themes` config |
 | Color different from expected | Override in `overrides.*` overwriting the generated value | Check whether an override is configured for that color |
-| Build fails with "reference not found" | `data/` out of sync with configs | `npm run build:themes` (full rebuild) |
+| Build fails with "reference not found" | `data/` out of sync with configs | `npm run tokens:build` (full rebuild) |
 | txtOn is black/white when brand color was expected | `txtOnStrategy: 'high-contrast'` is the default | Change to `'brand-tint'` in the theme options |
 
 ---
@@ -264,9 +267,7 @@ The pipeline includes automatic checks:
 
 - Configuration guide: [03-configuration-guide.md](./03-configuration-guide.md)
 - Output formats in detail: [05-output-formats.md](./05-output-formats.md)
-- Surface → Mode → Theme flow: SURFACE-MODE-THEME-FLOW.md
-- Architecture schema: `references/aplica-tokens-theme-engine/dynamic-themes/themes/schemas/architecture-schema.mjs`
-- Color decomposition script: color-decomposer.mjs
-- Sync script: `references/aplica-tokens-theme-engine/dynamic-themes/scripts/sync-architecture.mjs`
-- Dynamic themes (reference): DYNAMIC_THEMES.md
+- CLI reference: [09-engineering/05-cli-reference.md](../09-engineering/05-cli-reference.md)
+- Build and CI integration: [09-engineering/06-build-and-ci.md](../09-engineering/06-build-and-ci.md)
+- Troubleshooting: [09-engineering/07-troubleshooting.md](../09-engineering/07-troubleshooting.md)
 - Mathematics and algorithms: [06-mathematics-and-algorithms.md](../03-visual-foundations/06-mathematics-and-algorithms.md)

@@ -7,9 +7,9 @@ lang: en
 
 ## Premise
 
-In the Aplica Tokens Theme Engine, **every visual decision starts in code**. Each theme is defined in a configuration file (`*.config.mjs`) — not in Figma, not in manual JSON. The engine reads this configuration and automatically generates all tokens for every combination of mode, surface, and dimension.
+In Aplica DS, **every visual decision starts in configuration**. Each brand is defined in a `.config.mjs` file — not in Figma, not in manual JSON. The engine reads this configuration and automatically generates all tokens for every combination of mode, surface, and dimension.
 
-This guide covers how to create and configure themes and foundations from scratch.
+This guide covers how to create and configure brand themes and foundations using the `@aplica/aplica-theme-engine` package.
 
 ---
 
@@ -19,20 +19,22 @@ These two concepts have distinct responsibilities and complement each other:
 
 | Concept | What it defines | Where it lives | What it generates |
 |---------|----------------|----------------|-------------------|
-| **Theme** | Visual identity: colors, typography, gradients | `dynamic-themes/themes/config/{name}.config.mjs` | `data/brand/{name}/` with decomposed palettes |
-| **Foundation** | Aliases for semantic tokens | `dynamic-themes/themes/config/foundations/{name}.config.mjs` | `data/foundation/{name}/` with consumption tokens |
+| **Theme** | Visual identity: colors, typography, gradients | `theme-engine/config/<name>.config.mjs` | `data/brand/<name>/` with decomposed palettes |
+| **Foundation** | Aliases for semantic tokens | `theme-engine/config/foundations/<name>.config.mjs` | `data/foundation/<name>/` with consumption tokens |
 
-A theme can have multiple foundations, but each theme is linked to **one foundation** in the build. The foundation exposes tokens with simple names (`foundation.bg.primary`, `foundation.spacing.medium`) that point to the configured theme's Semantic.
+A theme can have multiple foundations, but each theme is linked to **one foundation** in the build. The foundation exposes tokens with simple names (`foundation.bg.primary`, `foundation.spacing.medium`) that point to the configured theme's semantic layer.
 
 ---
 
 ## Theme Config Structure
 
-The theme configuration file has this structure:
+Brand config files use `defineThemeEngineConfig` from the package:
 
 ```javascript
-// dynamic-themes/themes/config/my-brand.config.mjs
-export default {
+// theme-engine/config/my-brand.config.mjs
+import { defineThemeEngineConfig } from '@aplica/aplica-theme-engine/config';
+
+export default defineThemeEngineConfig({
   // ─────────── REQUIRED ───────────
   name: 'my_brand',             // Theme ID; defines the folder name in data/brand/
 
@@ -94,7 +96,7 @@ export default {
   // ─────────── OPTIONAL ───────────
   options:   { /* see options section */ },
   gradients: { /* see gradients section */ }
-}
+});
 ```
 
 ---
@@ -202,8 +204,9 @@ options: {
 |----------|---------|-------------|
 | `darkModeChroma` | `0.85` | Saturation factor in dark mode (0.7 = softer, 1.0 = same as light) |
 | `accessibilityLevel` | `'AA'` | Minimum WCAG level: `'AA'` (4.5:1) or `'AAA'` (7:1) |
-| `strictValidation` | `false` | If `true`, fails the build when contrast does not pass |
+| `acceptAALevelFallback` | `true` | When targeting AAA, accept AA (4.5:1) if AAA cannot be achieved |
 | `includePrimitives` | `true` | Generates `_primitive_theme.json` — disabling reduces Figma memory usage |
+| `uiTokens` | `false` | Generates `_ui.json` with component-scoped UI tokens |
 | `borderOffset.palette` | `10` | Border distance from surface (scale 10–190) |
 | `borderOffset.neutrals` | `1` | Distance steps on the neutrals scale |
 
@@ -235,7 +238,7 @@ overrides: {
 }
 ```
 
-> **Rule:** Overrides are the last resort after exhausting the default semantic options. Read the best practices guide before using: OVERRIDE-BEST-PRACTICES.md.
+> **Rule:** Overrides are the last resort after exhausting the default semantic options. Validate with `aplica-theme-engine sync:architecture:test` after applying overrides to catch reference mismatches before a full build.
 
 ---
 
@@ -262,16 +265,16 @@ gradients: {
 
 When omitted, the engine uses a solid gradient as a stub. To disable gradients for the entire project, configure `global.gradients: false` in `themes.config.json`.
 
-> **Attention to build order with gradients:** Gradients only appear in the final output when `data/semantic/default.json` has the `semantic.color.gradient` section — created by `sync:architecture`, not by `build`. Always run `npm run sync:architecture` (or `npm run build:themes`) before the build when gradients are enabled.
+> **Build order with gradients:** Gradients only appear in the final output when `data/semantic/default.json` has the `semantic.color.gradient` section — created by `sync:architecture`. Always run `npm run tokens:build` (full pipeline) rather than `tokens:build:all` alone when gradients are enabled.
 
 ---
 
 ## Register the Theme in the Build
 
-After creating the `.config.mjs`, register the theme in the central file:
+After creating the `.config.mjs`, register the theme in the central config file:
 
 ```json
-// dynamic-themes/themes/config/global/themes.config.json
+// theme-engine/config/global/themes.config.json
 {
   "themes": {
     "my_brand": {
@@ -298,27 +301,27 @@ After creating the `.config.mjs`, register the theme in the central file:
 ### Full pipeline (recommended)
 
 ```bash
-npm run build:themes
+npm run tokens:build
 ```
 
 Runs automatically in the correct order:
-1. `ensure:data` — ensures `data/` structure
+1. `ensure:data` — ensures `data/` structure exists
 2. `dimension:generate` — generates dimensional scale
-3. `themes:generate` — decomposes colors and generates `data/brand/{theme}/`
+3. `themes:generate` — decomposes colors and generates `data/brand/<theme>/`
 4. `sync:architecture` — propagates references to mode, surface, semantic, and foundation
 5. `foundations:generate` — generates Foundation aliases
-6. `build` — Style Dictionary → `dist/` (JSON, CSS, ESM, CJS, TypeScript)
+6. `build:all` — Style Dictionary → `dist/` (JSON, CSS, ESM, CJS, TypeScript)
 
 ### Useful individual commands
 
 | Command | When to use |
 |---------|-------------|
-| `npm run themes:generate` | After changing colors or mapping for a theme |
-| `npm run themes:single --config=my-brand` | Generate only a specific theme |
-| `npm run sync:architecture` | After changing the architecture schema |
-| `npm run foundations:generate` | After changing a foundation config |
-| `npm run foundations:validate data/foundation/engine/default.json` | Verify foundation integrity |
-| `npm run build` | Only the Style Dictionary build (when `data/` is already up to date) |
+| `npm run tokens:themes` | After changing colors or mapping for a theme |
+| `aplica-theme-engine themes:single --config=my-brand` | Generate only a specific theme |
+| `npm run tokens:sync` | After changing the architecture schema |
+| `npm run tokens:foundations` | After changing a foundation config |
+| `npm run tokens:build:all` | Only the Style Dictionary build (when `data/` is already up to date) |
+| `aplica-theme-engine validate:data` | Verify data/ integrity before building |
 
 ### When to run `sync:architecture`
 
@@ -336,9 +339,9 @@ The sync propagates references between layers. Run when:
 
 When the default alias set is insufficient for a specific consumer:
 
-1. Create `dynamic-themes/themes/config/foundations/my-foundation.config.mjs` (based on `engine.config.mjs`)
+1. Create `theme-engine/config/foundations/my-foundation.config.mjs` (based on `engine.config.mjs`)
 2. Define `name`, `outputPath`, `structure` (sections and items), and `references` (mapping to Semantic)
-3. Run `npm run foundations:generate`
+3. Run `npm run tokens:foundations`
 4. Link to the theme in `themes.config.json`: `"foundation": { "brand": "my-foundation", ... }`
 
 ---
@@ -347,13 +350,13 @@ When the default alias set is insufficient for a specific consumer:
 
 | Task | Action |
 |------|--------|
-| Create new theme | Add `.config.mjs` in `themes/config/` + register in `themes.config.json` + `npm run build:themes` |
-| Change a theme's colors | Edit the theme's `.config.mjs` + `npm run themes:generate` + `npm run build` |
-| Change foundation | Edit `.config.mjs` in `foundations/` + `npm run foundations:generate` + `npm run build` |
-| Change schema (feedback/product) | Edit `architecture-schema.mjs` + `npm run sync:architecture` + rebuild |
-| Gradients don't appear in output | Run `npm run sync:architecture` before `build` |
-| Verify without writing | `npm run sync:architecture:test` |
-| View current schema | `npm run sync:architecture:schema` |
+| Create new theme | Add `.config.mjs` in `theme-engine/config/` + register in `themes.config.json` + `npm run tokens:build` |
+| Change a theme's colors | Edit the theme's `.config.mjs` + `npm run tokens:themes` + `npm run tokens:build:all` |
+| Change foundation | Edit `.config.mjs` in `theme-engine/config/foundations/` + `npm run tokens:foundations` + `npm run tokens:build:all` |
+| Change schema (feedback/product) | Edit schema override in `theme-engine/schemas/` + `npm run tokens:sync` + rebuild |
+| Gradients don't appear in output | Run `npm run tokens:sync` before `tokens:build:all` |
+| Verify without writing | `aplica-theme-engine sync:architecture:test` |
+| View current schema | `aplica-theme-engine sync:architecture:schema` |
 
 ---
 
@@ -362,8 +365,9 @@ When the default alias set is insufficient for a specific consumer:
 - What is the Theme Engine: [01-what-is-theme-engine.md](./01-what-is-theme-engine.md)
 - Detailed build pipeline: [04-build-pipeline.md](./04-build-pipeline.md)
 - Output formats: [05-output-formats.md](./05-output-formats.md)
-- Full config reference: THEME_CONFIG_REFERENCE.md
-- Override best practices: OVERRIDE-BEST-PRACTICES.md
-- Example config: aplica-joy.config.mjs
+- Engineering quick start: [09-engineering/01-quick-start.md](../09-engineering/01-quick-start.md)
+- Workspace structure: [09-engineering/02-workspace-structure.md](../09-engineering/02-workspace-structure.md)
+- Full theme configuration reference: [09-engineering/03-theme-configuration.md](../09-engineering/03-theme-configuration.md)
+- CLI reference: [09-engineering/05-cli-reference.md](../09-engineering/05-cli-reference.md)
 - Color system: [01-colors.md](../03-visual-foundations/01-colors.md)
 - Foundation layer: [05-foundation-layer.md](../02-token-layers/05-foundation-layer.md)

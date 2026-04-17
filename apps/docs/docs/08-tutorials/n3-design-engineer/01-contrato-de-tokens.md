@@ -172,5 +172,5 @@ Você sabe quais tokens usar e que o contrato é estável. Agora vamos construir
 ## Referências
 
 - Contrato canônico completo: [01-component-token-contract.md](../../05-components-theory/01-component-token-contract.md)
-- Taxonomia e naming contract: canonical-taxonomy-and-naming-contract.md
+- Taxonomia e naming contract: [canonical-taxonomy-and-naming-contract.md](../../../references/aplica-tokens-theme-engine/docs/context/tokens/canonical-taxonomy-and-naming-contract.md)
 - Formatos de output (onde fica o dist/): [05-output-formats.md](../../04-theme-engine/05-output-formats.md)

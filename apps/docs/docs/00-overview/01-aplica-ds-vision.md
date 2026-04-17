@@ -1,6 +1,5 @@
 ---
 title: "Aplica Design System — Visão Geral"
-slug: /
 lang: pt-BR
 ---
 
@@ -132,28 +131,33 @@ Para a arquitetura completa das camadas, veja [01-token-architecture.md](../01-d
 
 ---
 
-## Status Atual (V2)
+## Três Domínios de Conhecimento
 
-O Aplica DS está em sua segunda versão conceitual, com o **Aplica Tokens Theme Engine** como implementação de referência.
+O conhecimento do Aplica DS está organizado em três domínios, cada um servindo a um público distinto:
+
+| Domínio | Público | Pergunta central |
+|---------|---------|-----------------|
+| **Racional** | Todos | Por que essa arquitetura existe? Como funciona? |
+| **Consumo** | Devs usando tokens | Quais tokens uso e como os importo? |
+| **Engenharia** | Devs rodando o engine | Como instalo, configuro e faço o build? |
+
+O domínio de engenharia está em [09-engineering](../09-engineering/). O domínio de consumo está em [07-implementation](../07-implementation/). A fundação conceitual está nas seções 01–04.
+
+---
+
+## Status Atual
+
+O Aplica DS está em produção ativa, com o **Aplica Tokens Theme Engine** publicado como pacote NPM (`@aplica/aplica-theme-engine`).
 
 | Componente | Status |
 |-----------|--------|
 | Arquitetura de tokens (5+1 camadas) | Estável, documentada |
-| Theme Engine (gerador dinâmico) | Produção — v2.25.0 |
+| Pacote NPM do Theme Engine (`@aplica/aplica-theme-engine`) | Produção |
 | Pipeline de cores OKLCh | Produção |
 | Sistema de Dimensão (minor/normal/major) | Produção |
 | Sistema de Tipografia escalável | Produção |
 | Gradientes dinâmicos | Produção |
+| Documentação de engenharia (Domínio 3) | Completa |
 | Biblioteca de componentes | Planejado |
-| Site de documentação | Planejado |
-| Pacote npm público | Planejado |
+| Site de documentação | Em desenvolvimento |
 
----
-
-## Repositório de Referência
-
-O **Aplica Tokens Theme Engine V2** (`references/aplica-tokens-theme-engine/`) é a implementação de referência do Aplica DS. Toda documentação técnica detalhada está em:
-
-- `docs/en/` — documentação em inglês
-- `docs/pt-br/` — documentação em português
-- `docs/context/` — documentação técnica para agentes e desenvolvedores

@@ -3,52 +3,60 @@
     "message": "Current",
     "description": "The label for version current"
   },
-  "sidebar.mainSidebar.category.00 · Visão Geral": {
-    "message": "00 · Overview",
-    "description": "The label for category '00 · Visão Geral' in sidebar 'mainSidebar'"
+  "sidebar.mainSidebar.category.Visão Geral": {
+    "message": "Overview",
+    "description": "The label for category 'Visão Geral' in sidebar mainSidebar"
   },
-  "sidebar.mainSidebar.category.01 · Fundamentos de Tokens": {
-    "message": "01 · Token Fundamentals",
-    "description": "The label for category '01 · Fundamentos de Tokens' in sidebar 'mainSidebar'"
+  "sidebar.mainSidebar.category.Usar o Pacote NPM": {
+    "message": "Use the NPM Package",
+    "description": "The label for category 'Usar o Pacote NPM' in sidebar mainSidebar"
   },
-  "sidebar.mainSidebar.category.02 · Camadas de Tokens": {
-    "message": "02 · Token Layers",
-    "description": "The label for category '02 · Camadas de Tokens' in sidebar 'mainSidebar'"
+  "sidebar.mainSidebar.category.Quick Start & Configuração": {
+    "message": "Quick Start & Configuration",
+    "description": "The label for category 'Quick Start & Configuração' in sidebar mainSidebar"
   },
-  "sidebar.mainSidebar.category.03 · Fundações Visuais": {
-    "message": "03 · Visual Foundations",
-    "description": "The label for category '03 · Fundações Visuais' in sidebar 'mainSidebar'"
+  "sidebar.mainSidebar.category.Consumo e Integração": {
+    "message": "Consumption & Integration",
+    "description": "The label for category 'Consumo e Integração' in sidebar mainSidebar"
   },
-  "sidebar.mainSidebar.category.04 · Theme Engine": {
-    "message": "04 · Theme Engine",
-    "description": "The label for category '04 · Theme Engine' in sidebar 'mainSidebar'"
+  "sidebar.mainSidebar.category.Entender o Sistema": {
+    "message": "Understand the System",
+    "description": "The label for category 'Entender o Sistema' in sidebar mainSidebar"
   },
-  "sidebar.mainSidebar.category.05 · Teoria de Componentes": {
-    "message": "05 · Component Theory",
-    "description": "The label for category '05 · Teoria de Componentes' in sidebar 'mainSidebar'"
+  "sidebar.mainSidebar.category.Camadas de Tokens": {
+    "message": "Token Layers",
+    "description": "The label for category 'Camadas de Tokens' in sidebar mainSidebar"
   },
-  "sidebar.mainSidebar.category.06 · Histórico": {
-    "message": "06 · History",
-    "description": "The label for category '06 · Histórico' in sidebar 'mainSidebar'"
+  "sidebar.mainSidebar.category.Fundações Visuais": {
+    "message": "Visual Foundations",
+    "description": "The label for category 'Fundações Visuais' in sidebar mainSidebar"
   },
-  "sidebar.mainSidebar.category.07 · Implementação": {
-    "message": "07 · Implementation",
-    "description": "The label for category '07 · Implementação' in sidebar 'mainSidebar'"
+  "sidebar.mainSidebar.category.Theme Engine": {
+    "message": "Theme Engine",
+    "description": "The label for category 'Theme Engine' in sidebar mainSidebar"
   },
-  "sidebar.mainSidebar.category.08 · Tutoriais": {
-    "message": "08 · Tutorials",
-    "description": "The label for category '08 · Tutoriais' in sidebar 'mainSidebar'"
+  "sidebar.mainSidebar.category.Teoria de Componentes": {
+    "message": "Component Theory",
+    "description": "The label for category 'Teoria de Componentes' in sidebar mainSidebar"
+  },
+  "sidebar.mainSidebar.category.Histórico": {
+    "message": "History",
+    "description": "The label for category 'Histórico' in sidebar mainSidebar"
+  },
+  "sidebar.mainSidebar.category.Tutoriais": {
+    "message": "Tutorials",
+    "description": "The label for category 'Tutoriais' in sidebar mainSidebar"
   },
   "sidebar.mainSidebar.category.N1 · Product Designer": {
     "message": "N1 · Product Designer",
-    "description": "The label for category 'N1 · Product Designer' in sidebar 'mainSidebar'"
+    "description": "The label for category 'N1 · Product Designer' in sidebar mainSidebar"
   },
   "sidebar.mainSidebar.category.N2 · System Designer": {
     "message": "N2 · System Designer",
-    "description": "The label for category 'N2 · System Designer' in sidebar 'mainSidebar'"
+    "description": "The label for category 'N2 · System Designer' in sidebar mainSidebar"
   },
   "sidebar.mainSidebar.category.N3 · Design Engineer": {
     "message": "N3 · Design Engineer",
-    "description": "The label for category 'N3 · Design Engineer' in sidebar 'mainSidebar'"
+    "description": "The label for category 'N3 · Design Engineer' in sidebar mainSidebar"
   }
 }

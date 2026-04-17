@@ -155,6 +155,6 @@ You use the correct tokens, contrast is guaranteed. Now: what happens when the u
 
 ## References
 
-- Token contract and the bg+txtOn pair: [01-component-token-contract.md](../../05-components-theory/01-component-token-contract.md#the-background--txton-pair)
+- Token contract and the bg+txtOn pair: [01-component-token-contract.md](../../05-components-theory/01-component-token-contract.md#o-par-background--txton)
 - Color system and accessibility: [01-colors.md](../../03-visual-foundations/01-colors.md)
 - Opacity system: [05-opacity.md](../../03-visual-foundations/05-opacity.md)
