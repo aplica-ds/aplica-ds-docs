@@ -20,6 +20,7 @@ Este artigo cobre os scripts recomendados de `package.json`, estratégias de bui
     "tokens:dimension":   "aplica-theme-engine dimension:generate",
     "tokens:sync":        "aplica-theme-engine sync:architecture",
     "tokens:foundations": "aplica-theme-engine foundations:generate",
+    "tokens:figma":       "aplica-theme-engine figma:generate",
     "tokens:validate":    "aplica-theme-engine validate:data"
   }
 }

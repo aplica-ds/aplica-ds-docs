@@ -24,7 +24,8 @@ theme-engine/config/*.config.mjs
         ├─ themes:generate    → data/brand/<tema>/
         ├─ dimension:generate → data/dimension/normal.json
         ├─ sync:architecture  → data/mode/, data/surface/, data/semantic/, data/foundation/
-        └─ foundations:generate → data/foundation/<nome>/styles/
+        ├─ foundations:generate → data/foundation/<nome>/styles/
+        └─ figma:generate     → data/$themes.json, data/$metadata.json, data/$themes.engine.json.template
         │
         ▼
 [ data/ ] ← NUNCA editar manualmente
@@ -115,6 +116,26 @@ data/foundation/<nome>/
     └── elevation_styles.json   ← classes de sombra por nível (.elevation-level_two)
 ```
 
+### `figma:generate` — Scaffolding Figma e Tokens Studio
+
+Gera (ou mescla) os três arquivos que o Tokens Studio lê para entender quais token sets pertencem a qual variante de tema:
+
+| Arquivo | Finalidade |
+|---------|------------|
+| `data/$themes.json` | Entradas de tema ativas importadas pelo Tokens Studio. Preserva campos de propriedade do Figma (`id`, `$figmaStyleReferences`, IDs de variáveis) na mesclagem. |
+| `data/$themes.engine.json.template` | Template canônico do engine — mesma estrutura que `$themes.json` com campos Figma vazios. Usado como referência de reset. |
+| `data/$metadata.json` | Ordem de carregamento dos token sets para o workspace ativo. |
+
+O gerador reconstrói as entradas estruturais (`selectedTokenSets`, `name`, `group`) a partir da configuração ativa do workspace. Quando `data/$themes.json` já existe, preserva qualquer IDs e referências de estilo atribuídas pelo Figma para que as sincronizações com o Figma sobrevivam à regeração.
+
+**Não delete esses arquivos.** Se `data/$themes.json` for deletado, todas as referências de estilo do Figma armazenadas nele são perdidas e precisam ser re-sincronizadas do Figma.
+
+Este comando é executado automaticamente como parte de `aplica-theme-engine build`. Execute standalone quando você só alterou a estrutura do workspace (adicionou ou renomeou um tema, surface ou mode) sem alterar valores de tokens:
+
+```bash
+aplica-theme-engine figma:generate
+```
+
 ---
 
 ## Etapa 2 — Build Style Dictionary
@@ -144,7 +165,7 @@ Define quais combinações de arquivos de token são merged para gerar cada vari
 }
 ```
 
-Cada entrada em `$themes.json` = um arquivo de output em `dist/`. Este arquivo é **gerado pelo pipeline de temas** — não edite manualmente.
+Cada entrada em `$themes.json` = um arquivo de output em `dist/`. Este arquivo é **gerado pelo `figma:generate`** — não edite manualmente.
 
 ### Resolução de Referências
 
@@ -212,7 +233,8 @@ Executa em ordem:
 3. `themes:generate` — decompõe cores de todos os temas
 4. `sync:architecture` — propaga referências entre camadas
 5. `foundations:generate` — gera estilos de foundation
-6. `build:all` — Style Dictionary → `dist/`
+6. `figma:generate` — gera arquivos de scaffolding Tokens Studio / Figma
+7. `build:all` — Style Dictionary → `dist/`
 
 ### Builds incrementais — use para mudanças pontuais
 
@@ -222,6 +244,7 @@ Executa em ordem:
 | Alterar escala dimensional | `tokens:dimension` → `tokens:build:all` |
 | Alterar schema (adicionar feedback/product) | `tokens:sync` → `tokens:themes` → `tokens:build:all` |
 | Alterar foundation | `tokens:foundations` → `tokens:build:all` |
+| Adicionar / renomear tema, surface ou mode | `tokens:figma` |
 | Apenas rebuild (`data/` intacto) | `tokens:build:all` |
 
 ### A armadilha dos gradientes

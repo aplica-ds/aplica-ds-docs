@@ -20,6 +20,7 @@ This article covers the recommended `package.json` scripts, build strategies for
     "tokens:dimension":   "aplica-theme-engine dimension:generate",
     "tokens:sync":        "aplica-theme-engine sync:architecture",
     "tokens:foundations": "aplica-theme-engine foundations:generate",
+    "tokens:figma":       "aplica-theme-engine figma:generate",
     "tokens:validate":    "aplica-theme-engine validate:data"
   }
 }

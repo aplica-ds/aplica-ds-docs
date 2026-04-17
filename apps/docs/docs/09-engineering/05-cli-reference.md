@@ -48,7 +48,8 @@ aplica-theme-engine build
 3. `dimension:generate` — gera a escala espacial (minor / normal / major)
 4. `sync:architecture` — propaga referências de tokens entre todas as camadas
 5. `foundations:generate` — gera aliases de Foundation a partir dos tokens Semantic
-6. `build:all` — transforma `data/` em `dist/` via Style Dictionary
+6. `figma:generate` — gera arquivos de scaffolding Tokens Studio / Figma
+7. `build:all` — transforma `data/` em `dist/` via Style Dictionary
 
 > `build` e `build:themes` são aliases do mesmo comando.
 
@@ -137,6 +138,28 @@ Gera aliases de token Foundation a partir da camada Semantic. Grava em `data/fou
 ```bash
 aplica-theme-engine foundations:generate
 ```
+
+---
+
+### `figma:generate`
+
+Gera (ou mescla) os três arquivos que o Tokens Studio precisa para entender quais token sets pertencem a cada variante de tema. Grava em `data/`.
+
+```bash
+aplica-theme-engine figma:generate
+```
+
+**Arquivos produzidos:**
+
+| Arquivo | Finalidade |
+|---------|------------|
+| `data/$themes.json` | Entradas de tema ativas importadas pelo Tokens Studio. Preserva campos de propriedade do Figma na mesclagem (`id`, `$figmaStyleReferences`, IDs de variáveis). |
+| `data/$themes.engine.json.template` | Template do engine com a mesma estrutura e campos Figma vazios. Use como referência de reset. |
+| `data/$metadata.json` | Ordem de carregamento dos token sets para o workspace ativo. |
+
+Use este comando standalone quando você adicionou ou renomeou um tema, surface ou mode e quer atualizar os arquivos do Tokens Studio sem rodar um build completo. Em um build completo (`aplica-theme-engine build`), esta etapa é executada automaticamente entre `foundations:generate` e `build:all`.
+
+> Não delete `data/$themes.json`. Se for deletado, as referências de estilo do Figma armazenadas nele são perdidas.
 
 ---
 
