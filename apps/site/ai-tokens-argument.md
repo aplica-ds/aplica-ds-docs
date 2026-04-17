@@ -55,4 +55,4 @@ A arquitetura de 5 camadas (Palette → Mode → Surface → Semantic → Founda
 
 ---
 
-_Aplica DS · MIT License · [github.com/bellentani/aplica-design-tokens](https://github.com/bellentani/aplica-design-tokens)_
+_Aplica DS · MIT License · [github.com/aplica-ds/aplica-tokens-themes-sample](https://github.com/aplica-ds/aplica-tokens-themes-sample)_

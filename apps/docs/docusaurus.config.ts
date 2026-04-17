@@ -90,7 +90,7 @@ const config: Config = {
           position: 'right',
         },
         {
-          href: 'https://github.com/bellentani/aplica-design-tokens',
+          href: 'https://github.com/aplica-ds/aplica-tokens-themes-sample',
           label: 'GitHub',
           position: 'right',
         },
@@ -128,7 +128,8 @@ const config: Config = {
           title: 'Projeto',
           items: [
             { label: 'Site',                href: 'https://aplica.me' },
-            { label: 'Exemplo no GitHub',   href: 'https://github.com/bellentani/aplica-design-tokens' },
+            { label: 'Exemplo no GitHub',   href: 'https://github.com/aplica-ds/aplica-tokens-themes-sample' },
+            { label: 'Testar via npm',      href: 'https://www.npmjs.com/package/@aplica/tokens-themes-sample' },
           ],
         },
       ],
