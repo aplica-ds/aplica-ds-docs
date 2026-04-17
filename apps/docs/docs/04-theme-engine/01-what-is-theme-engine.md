@@ -162,7 +162,7 @@ Renomear ou remover um token é uma mudança breaking porque quebra todo consumi
 
 ## Referências
 
-- Setup de engenharia: [09-engineering/01-quick-start.pt-br.md](../09-engineering/01-quick-start.pt-br.md)
-- Guia de configuração: [03-configuration-guide.pt-br.md](./03-configuration-guide.pt-br.md)
-- Arquitetura de tokens (5 camadas): [01-token-architecture.pt-br.md](../01-design-tokens-fundamentals/01-token-architecture.pt-br.md)
-- Workflow do designer: [02-designer-workflow.pt-br.md](./02-designer-workflow.pt-br.md)
+- Setup de engenharia: [09-engineering/01-quick-start.md](../09-engineering/01-quick-start.md)
+- Guia de configuração: [03-configuration-guide.md](./03-configuration-guide.md)
+- Arquitetura de tokens (5 camadas): [01-token-architecture.md](../01-design-tokens-fundamentals/01-token-architecture.md)
+- Workflow do designer: [02-designer-workflow.md](./02-designer-workflow.md)

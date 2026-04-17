@@ -326,7 +326,7 @@ Para usar uma base diferente de `16px` (ex.: estratégia 62.5% com `10px` root):
 
 ## Referências
 
-- Pipeline de build: [04-build-pipeline.pt-br.md](./04-build-pipeline.pt-br.md)
-- Workflow do designer (Figma): [02-designer-workflow.pt-br.md](./02-designer-workflow.pt-br.md)
-- Consumindo tokens de dist/: [07-implementation/03-consuming-dist-tokens.pt-br.md](../07-implementation/03-consuming-dist-tokens.pt-br.md)
-- Configuração de transformers (diretórios de output): [09-engineering/04-transformers-configuration.pt-br.md](../09-engineering/04-transformers-configuration.pt-br.md)
+- Pipeline de build: [04-build-pipeline.md](./04-build-pipeline.md)
+- Workflow do designer (Figma): [02-designer-workflow.md](./02-designer-workflow.md)
+- Consumindo tokens de dist/: [07-implementation/03-consuming-dist-tokens.md](../07-implementation/03-consuming-dist-tokens.md)
+- Configuração de transformers (diretórios de output): [09-engineering/04-transformers-configuration.md](../09-engineering/04-transformers-configuration.md)

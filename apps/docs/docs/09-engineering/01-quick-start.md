@@ -163,9 +163,9 @@ Essas mensagens aparecem em toda build e não são erros:
 
 | Objetivo | Artigo |
 |----------|--------|
-| Entender a estrutura de arquivos do workspace | [02-workspace-structure.pt-br.md](./02-workspace-structure.pt-br.md) |
-| Personalizar cores de marca, tipografia e modos | [03-theme-configuration.pt-br.md](./03-theme-configuration.pt-br.md) |
-| Controlar quais plataformas e formatos são gerados | [04-transformers-configuration.pt-br.md](./04-transformers-configuration.pt-br.md) |
-| Ver todos os comandos CLI | [05-cli-reference.pt-br.md](./05-cli-reference.pt-br.md) |
-| Integrar builds no CI/CD | [06-build-and-ci.pt-br.md](./06-build-and-ci.pt-br.md) |
-| Diagnosticar erros de build | [07-troubleshooting.pt-br.md](./07-troubleshooting.pt-br.md) |
+| Entender a estrutura de arquivos do workspace | [02-workspace-structure.md](./02-workspace-structure.md) |
+| Personalizar cores de marca, tipografia e modos | [03-theme-configuration.md](./03-theme-configuration.md) |
+| Controlar quais plataformas e formatos são gerados | [04-transformers-configuration.md](./04-transformers-configuration.md) |
+| Ver todos os comandos CLI | [05-cli-reference.md](./05-cli-reference.md) |
+| Integrar builds no CI/CD | [06-build-and-ci.md](./06-build-and-ci.md) |
+| Diagnosticar erros de build | [07-troubleshooting.md](./07-troubleshooting.md) |

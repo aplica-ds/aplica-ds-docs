@@ -143,7 +143,7 @@ Aplica DS knowledge is organized across three domains, each serving a distinct a
 | **Consumo** | Devs using tokens | Which tokens do I use, and how do I import them? |
 | **Engenharia** | Devs running the engine | How do I install, configure, and build? |
 
-The engineering domain is covered in the [09-engineering](../09-engineering/) section. The consumption domain is in [07-implementation](../07-implementation/). The conceptual foundation is in sections 01–04.
+The engineering domain is covered in [Engineering Quick Start](../09-engineering/01-quick-start.md). The consumption domain is in [Implementation Guide](../07-implementation/01-migration-guide.md). The conceptual foundation is in sections 01–04.
 
 ---
 

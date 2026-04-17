@@ -236,8 +236,8 @@ aplica-theme-engine validate:data
 
 ## Referências
 
-- Consumindo tokens: [03-consuming-dist-tokens.pt-br.md](./03-consuming-dist-tokens.pt-br.md)
-- Formatos de output: [04-theme-engine/05-output-formats.pt-br.md](../04-theme-engine/05-output-formats.pt-br.md)
-- Conceito da camada Semantic: [02-token-layers/04-semantic-layer.pt-br.md](../02-token-layers/04-semantic-layer.pt-br.md)
-- Conceito da camada Foundation: [02-token-layers/05-foundation-layer.pt-br.md](../02-token-layers/05-foundation-layer.pt-br.md)
-- Arquitetura de tokens (5 camadas): [01-design-tokens-fundamentals/01-token-architecture.pt-br.md](../01-design-tokens-fundamentals/01-token-architecture.pt-br.md)
+- Consumindo tokens: [03-consuming-dist-tokens.md](./03-consuming-dist-tokens.md)
+- Formatos de output: [04-theme-engine/05-output-formats.md](../04-theme-engine/05-output-formats.md)
+- Conceito da camada Semantic: [02-token-layers/04-semantic-layer.md](../02-token-layers/04-semantic-layer.md)
+- Conceito da camada Foundation: [02-token-layers/05-foundation-layer.md](../02-token-layers/05-foundation-layer.md)
+- Arquitetura de tokens (5 camadas): [01-design-tokens-fundamentals/01-token-architecture.md](../01-design-tokens-fundamentals/01-token-architecture.md)

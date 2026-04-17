@@ -408,8 +408,8 @@ grep "semantic-color-new-path" dist/css/*.css
 
 ## Referências
 
-- Pipeline de build: [04-theme-engine/04-build-pipeline.pt-br.md](../04-theme-engine/04-build-pipeline.pt-br.md)
-- Guia de configuração: [04-theme-engine/03-configuration-guide.pt-br.md](../04-theme-engine/03-configuration-guide.pt-br.md)
-- Referência de CLI (migrate:legacy-consumer): [09-engineering/05-cli-reference.pt-br.md](../09-engineering/05-cli-reference.pt-br.md)
-- Quick start de engenharia: [09-engineering/01-quick-start.pt-br.md](../09-engineering/01-quick-start.pt-br.md)
+- Pipeline de build: [04-theme-engine/04-build-pipeline.md](../04-theme-engine/04-build-pipeline.md)
+- Guia de configuração: [04-theme-engine/03-configuration-guide.md](../04-theme-engine/03-configuration-guide.md)
+- Referência de CLI (migrate:legacy-consumer): [09-engineering/05-cli-reference.md](../09-engineering/05-cli-reference.md)
+- Quick start de engenharia: [09-engineering/01-quick-start.md](../09-engineering/01-quick-start.md)
 - Integração em plataformas: [02-platform-integration.md](./02-platform-integration.md)
