@@ -35,9 +35,10 @@ const r = routes['pt-br'];
     <div style="position: absolute; inset: 0; background: var(--gradient-hero-overlay); pointer-events: none;" aria-hidden="true"></div>
 
     <div class="container" style="position: relative;">
-      <p data-animate class="badge" style="margin-bottom: 1.5rem;">
-        Open Source · MIT
-      </p>
+      <div data-animate style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem;">
+        <p class="badge" style="margin: 0;">Open Source · MIT</p>
+        <p class="badge" style="margin: 0; background: rgba(99,102,241,0.08); border-color: rgba(99,102,241,0.25); color: #6366f1;">✦ AI Skills · em breve</p>
+      </div>
       <h1 data-animate="delay-1" style="font-family: var(--font-display); font-size: clamp(2.25rem, 5vw, 3.5rem); font-weight: 700; line-height: 1.15; max-width: 760px; margin: 0 auto 1.25rem;">
         Temas semânticos para
         <span class="text-gradient"> qualquer UI library.</span>
@@ -183,6 +184,18 @@ const r = routes['pt-br'];
           </div>
           <h3 style="font-weight: 600; font-size: 1rem;">Um contrato para humanos, engenheiros e agentes</h3>
           <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6;">Designer, dev e LLM leem o mesmo token e chegam à mesma conclusão. Semântica elimina a tradução entre disciplinas — e entre ciclos de produto.</p>
+        </div>
+
+        <!-- AI Skills — coming soon card -->
+        <div style="background: rgba(99,102,241,0.04); border: 1.5px dashed rgba(99,102,241,0.3); border-radius: 1rem; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="width: 2.5rem; height: 2.5rem; border-radius: 0.625rem; background: rgba(99,102,241,0.1); display: flex; align-items: center; justify-content: center; opacity: 0.7;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a8 8 0 0 0-8 8c0 3.4 2.1 6.3 5 7.4V20a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-2.6c2.9-1.1 5-4 5-7.4a8 8 0 0 0-8-8z"/><line x1="9" y1="22" x2="15" y2="22"/></svg>
+            </div>
+            <span style="font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700; color: #6366f1; background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.2); border-radius: 9999px; padding: 0.25rem 0.625rem; letter-spacing: 0.05em;">EM BREVE</span>
+          </div>
+          <h3 style="font-weight: 600; font-size: 1rem; color: var(--color-text); opacity: 0.75;">AI Skills — descritivos funcionais</h3>
+          <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6; opacity: 0.8;">Arquivos que ensinam agentes a usar tokens no nível de componente: estados, camadas de bg, uso de <code>txtOn</code>, e como navegam inversões de surface positive/negative.</p>
         </div>
 
       </div>
