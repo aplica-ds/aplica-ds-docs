@@ -102,7 +102,7 @@ const config: Config = {
         {
           title: 'Fundamentos',
           items: [
-            { label: 'Visão geral',          to: '/' },
+            { label: 'Visão geral',          to: '/overview/aplica-ds-vision' },
             { label: 'Trilha de aprendizado', to: '/overview/learning-path' },
             { label: 'Glossário',             to: '/overview/glossary' },
           ],
@@ -110,7 +110,7 @@ const config: Config = {
         {
           title: 'Tutoriais',
           items: [
-            { label: 'N1 · Product Designer',  to: '/08-tutorials/N1-01' },
+            { label: 'N1 · Product Designer',  to: '/tutorials/n1-product-designer/N1-01' },
             { label: 'N2 · System Designer',   to: '/tutorials/n2-system-designer/N2-01' },
             { label: 'N3 · Design Engineer',   to: '/tutorials/n3-design-engineer/N3-01' },
           ],
@@ -120,7 +120,7 @@ const config: Config = {
           items: [
             { label: 'Quick Start',       to: '/npm/configuracao' },
             { label: 'Consumindo tokens', to: '/npm/consumo' },
-            { label: 'Referência CLI',    to: '/09-engineering/05-cli-reference' },
+            { label: 'Referência CLI',    to: '/engineering/cli-reference' },
             { label: 'npmjs.com', href: 'https://www.npmjs.com/package/@aplica/aplica-theme-engine' },
           ],
         },
