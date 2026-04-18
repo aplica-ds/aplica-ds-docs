@@ -21,6 +21,7 @@ export const routes = {
     docsEngineWhat:'https://docs.aplica.me/04-theme-engine/01-what-is-theme-engine',
     docsEngineConf:'https://docs.aplica.me/04-theme-engine/03-configuration-guide',
     docsN2_03:     'https://docs.aplica.me/08-tutorials/n2-system-designer/03-paradigma-config-first',
+    pro:           '/pro',
     langSwitch:    BASE_EN,
   },
   en: {
@@ -41,6 +42,7 @@ export const routes = {
     docsEngineWhat:'https://docs.aplica.me/en-US/04-theme-engine/01-what-is-theme-engine',
     docsEngineConf:'https://docs.aplica.me/en-US/04-theme-engine/03-configuration-guide',
     docsN2_03:     'https://docs.aplica.me/en-US/08-tutorials/n2-system-designer/03-paradigma-config-first',
+    pro:           `${BASE_EN}/pro`,
     langSwitch:    '/',
   },
 } as const satisfies Record<Lang, Record<string, string>>;

@@ -1,0 +1,739 @@
+---
+import Base from '../../layouts/Base.astro';
+import { DarkModeToggle } from '../../components/DarkModeToggle';
+---
+
+<Base
+  title="Aplica Design Pro — Tokenized Design System Consulting"
+  description="Tokenized Design System for your team. A definitive bridge between Figma and code with positive ROI in 4-6 months. Discovery Week: BRL 3,500."
+  lang="en"
+  altHref="https://aplica.me/pro"
+>
+
+  <!-- ── ProNav ──────────────────────────────────────────────────── -->
+  <header id="pro-nav">
+    <div class="pro-container" style="display: flex; align-items: center; justify-content: space-between; height: 64px;">
+      <a href="#hero" class="pro-logo">Aplica.Design Pro</a>
+
+      <nav id="pro-desktop-nav">
+        <a href="#sumario">Objectives</a>
+        <a href="#escopo">Scope</a>
+        <a href="#cronograma">Timeline</a>
+        <a href="#investimento">Investment</a>
+        <a href="#casos-sucesso">Results</a>
+        <a href="#proximos-passos">Contact</a>
+      </nav>
+
+      <div id="pro-nav-right" style="display: flex; align-items: center; gap: 0.75rem;">
+        <a href="/pro" class="pro-lang-toggle">PT</a>
+        <DarkModeToggle client:load />
+        <button id="pro-menu-btn" aria-label="Menu" aria-expanded="false" class="pro-hamburger">
+          <svg id="pro-icon-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          <svg id="pro-icon-close" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div id="pro-mobile-menu">
+      <a href="#sumario">Objectives</a>
+      <a href="#escopo">Scope</a>
+      <a href="#cronograma">Timeline</a>
+      <a href="#investimento">Investment</a>
+      <a href="#casos-sucesso">Results</a>
+      <a href="#proximos-passos">Contact</a>
+      <div style="display:flex; justify-content:space-between; align-items:center; padding-top:0.75rem; border-top: 1px solid var(--color-border);">
+        <a href="/pro" class="pro-lang-toggle">PT</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ── Hero ───────────────────────────────────────────────────── -->
+    <section id="hero" class="pro-section-alt">
+      <div class="pro-container">
+        <div style="max-width: 900px;">
+          <p class="pro-label">Design System Ops · Consulting</p>
+          <h1 class="pro-h1">
+            Design System<br/>
+            <span style="font-weight: 300;">Tokenized</span>
+          </h1>
+          <p style="font-size: 1.125rem; color: var(--color-text-muted); max-width: 600px; line-height: 1.75; margin-bottom: 2.5rem;">
+            Establish a definitive bridge between design and development, eliminating inconsistencies and drastically accelerating digital product delivery.
+          </p>
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 4rem;">
+            <a href="#proximos-passos" class="pro-btn">Start Discovery</a>
+            <a href="#sumario" class="pro-btn-outline">View Details</a>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 2rem; max-width: 560px; border-top: 2px solid var(--color-text); padding-top: 2rem;">
+            <div>
+              <div style="font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; line-height: 1;">70%</div>
+              <div style="font-size: 0.8125rem; color: var(--color-text-muted); font-family: var(--font-mono); margin-top: 0.25rem;">Time reduction</div>
+            </div>
+            <div>
+              <div style="font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; line-height: 1;">4-6</div>
+              <div style="font-size: 0.8125rem; color: var(--color-text-muted); font-family: var(--font-mono); margin-top: 0.25rem;">Months to ROI</div>
+            </div>
+            <div>
+              <div style="font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; line-height: 1;">95%</div>
+              <div style="font-size: 0.8125rem; color: var(--color-text-muted); font-family: var(--font-mono); margin-top: 0.25rem;">Consistency</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Objectives ─────────────────────────────────────────────── -->
+    <section id="sumario" class="pro-section">
+      <div class="pro-container">
+        <div style="margin-bottom: 4rem;">
+          <h2 class="pro-h2">Objectives</h2>
+          <p style="color: var(--color-text-muted); font-size: 1.0625rem; margin-top: 0.75rem;">These are the main objectives of this proposal</p>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+          <div class="pro-card">
+            <p class="pro-label">OBJECTIVE 01</p>
+            <h3 style="font-size: 1.25rem; font-weight: 700; margin: 0.5rem 0 0.5rem;">Single Source of Truth</h3>
+            <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6;">Create definitive connection between Figma and code</p>
+          </div>
+          <div class="pro-card">
+            <p class="pro-label">OBJECTIVE 02</p>
+            <h3 style="font-size: 1.25rem; font-weight: 700; margin: 0.5rem 0 0.5rem;">70% time reduction</h3>
+            <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6;">Drastically accelerate interface implementation</p>
+          </div>
+          <div class="pro-card">
+            <p class="pro-label">OBJECTIVE 03</p>
+            <h3 style="font-size: 1.25rem; font-weight: 700; margin: 0.5rem 0 0.5rem;">Complete automation</h3>
+            <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6;">Automatic propagation of design changes</p>
+          </div>
+          <div class="pro-card">
+            <p class="pro-label">OBJECTIVE 04</p>
+            <h3 style="font-size: 1.25rem; font-weight: 700; margin: 0.5rem 0 0.5rem;">AI-ready</h3>
+            <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6;">Infrastructure for advanced automations</p>
+          </div>
+        </div>
+        <div style="border: 2px solid var(--color-text); padding: 2rem; border-radius: var(--radius); display: flex; gap: 1rem; align-items: flex-start; background: var(--color-bg-subtle);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:2px;"><polyline points="20 6 9 17 4 12"/></svg>
+          <div>
+            <p style="font-weight: 700; margin-bottom: 0.375rem;">Expected Result</p>
+            <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6;">Positive ROI in 3-6 months through time savings and rework reduction, with a system prepared to scale indefinitely.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Scope ───────────────────────────────────────────────────── -->
+    <section id="escopo" class="pro-section-alt">
+      <div class="pro-container">
+        <div style="margin-bottom: 4rem;">
+          <h2 class="pro-h2">Scope</h2>
+          <p style="color: var(--color-text-muted); font-size: 1.0625rem; margin-top: 0.75rem;">Three structured phases to ensure complete implementation</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 0;">
+
+          <details class="pro-accordion" open>
+            <summary>
+              <div>
+                <p class="pro-label" style="margin-bottom: 0.375rem;">4-6 WEEKS</p>
+                <h3 class="pro-accordion-title">Phase 1: Foundation and Architecture</h3>
+              </div>
+              <svg class="pro-accordion-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <ul class="pro-deliverables">
+              <li>Complete Design Token architecture (primitives, semantics, components)</li>
+              <li>Migration of existing styles to structured tokens</li>
+              <li>Tokens Studio setup in Figma</li>
+              <li>Synchronization with Git repository (GitHub/GitLab)</li>
+              <li>Base theme system (light/dark + structure for multiple brands)</li>
+              <li>Architecture and decisions documentation</li>
+            </ul>
+          </details>
+
+          <details class="pro-accordion">
+            <summary>
+              <div>
+                <p class="pro-label" style="margin-bottom: 0.375rem;">3-4 WEEKS</p>
+                <h3 class="pro-accordion-title">Phase 2: Development Integration</h3>
+              </div>
+              <svg class="pro-accordion-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <ul class="pro-deliverables">
+              <li>Style Dictionary setup with custom transformers</li>
+              <li>Automated build pipeline (CI/CD)</li>
+              <li>Token generation for multiple platforms (Web/Mobile)</li>
+              <li>Integration with existing codebase</li>
+              <li>Example tokenized components</li>
+              <li>Automated consistency tests</li>
+            </ul>
+          </details>
+
+          <details class="pro-accordion">
+            <summary>
+              <div>
+                <p class="pro-label" style="margin-bottom: 0.375rem;">2-3 WEEKS</p>
+                <h3 class="pro-accordion-title">Phase 3: Training and Handoff</h3>
+              </div>
+              <svg class="pro-accordion-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <ul class="pro-deliverables">
+              <li>Complete training for design team</li>
+              <li>Technical training for developers</li>
+              <li>Custom usage documentation</li>
+              <li>Maintenance playbooks</li>
+              <li>Governance and process setup</li>
+              <li>Support for initial implementations</li>
+            </ul>
+          </details>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Timeline ────────────────────────────────────────────────── -->
+    <section id="cronograma" class="pro-section">
+      <div class="pro-container">
+        <div style="margin-bottom: 4rem;">
+          <h2 class="pro-h2">Timeline</h2>
+          <p style="color: var(--color-text-muted); font-size: 1.0625rem; margin-top: 0.75rem;">Estimated timeline of 10 to 13 weeks divided into quarterly stages</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 0; max-width: 640px;">
+          <div class="pro-milestone">
+            <p class="pro-label">Q1</p>
+            <h3 style="font-size: 1.125rem; font-weight: 700; margin: 0.25rem 0 0.25rem;">Discovery and Planning</h3>
+            <p style="color: var(--color-text-muted); font-size: 0.9375rem;">Complete mapping and architecture definition</p>
+          </div>
+          <div class="pro-milestone">
+            <p class="pro-label">Q2</p>
+            <h3 style="font-size: 1.125rem; font-weight: 700; margin: 0.25rem 0 0.25rem;">Foundation and Architecture</h3>
+            <p style="color: var(--color-text-muted); font-size: 0.9375rem;">Architecture approved and first tokens created</p>
+          </div>
+          <div class="pro-milestone">
+            <p class="pro-label">Q2 / Q3</p>
+            <h3 style="font-size: 1.125rem; font-weight: 700; margin: 0.25rem 0 0.25rem;">Figma System Live</h3>
+            <p style="color: var(--color-text-muted); font-size: 0.9375rem;">Working with complete Git sync</p>
+          </div>
+          <div class="pro-milestone">
+            <p class="pro-label">Q3</p>
+            <h3 style="font-size: 1.125rem; font-weight: 700; margin: 0.25rem 0 0.25rem;">Complete Pipeline</h3>
+            <p style="color: var(--color-text-muted); font-size: 0.9375rem;">Tokens in production and integrated</p>
+          </div>
+          <div class="pro-milestone" style="border-bottom: none;">
+            <p class="pro-label">Q4</p>
+            <h3 style="font-size: 1.125rem; font-weight: 700; margin: 0.25rem 0 0.25rem;">Team Enabled</h3>
+            <p style="color: var(--color-text-muted); font-size: 0.9375rem;">System operational and team trained</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Investment ──────────────────────────────────────────────── -->
+    <section id="investimento" class="pro-section-alt">
+      <div class="pro-container">
+        <div style="margin-bottom: 4rem;">
+          <h2 class="pro-h2">Investment</h2>
+          <p style="color: var(--color-text-muted); font-size: 1.0625rem; margin-top: 0.75rem;">Structured process starting with Discovery to define precise scope and value</p>
+        </div>
+
+        <!-- Discovery card -->
+        <div class="pro-card" style="margin-bottom: 3rem; padding: 2.5rem;">
+          <p class="pro-label" style="margin-bottom: 0.75rem;">FIRST STEP</p>
+          <h3 style="font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 800; text-transform: uppercase; margin-bottom: 0.5rem;">Discovery Week</h3>
+          <div style="font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; margin-bottom: 1.25rem;">BRL 3,500</div>
+          <p style="color: var(--color-text-muted); font-size: 1rem; line-height: 1.7; max-width: 680px; margin-bottom: 2rem;">
+            A week of complete immersion to map your design system's current state, understand specific challenges, co-create the ideal solution and define the detailed project scope.
+          </p>
+
+          <div style="border-top: 2px solid var(--color-text); padding-top: 2rem; margin-bottom: 2rem;">
+            <h4 style="font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1.25rem;">What happens in Discovery:</h4>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 0.875rem;">
+              {[
+                'Complete audit of the current design system',
+                'Mapping of team processes and pain points',
+                'Definition of objectives and success metrics',
+                'Precise effort and timeline estimation',
+                'Final value proposal based on real scope',
+                'Detailed implementation roadmap',
+              ].map(item => (
+                <div style="display:flex; gap:0.625rem; align-items:flex-start;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:3px;"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.5;">{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div style="background: var(--color-text); color: var(--color-bg); padding: 1.75rem; border-radius: var(--radius);">
+            <p style="font-weight: 700; font-size: 1rem; margin-bottom: 0.875rem;">After Discovery, you will receive a detailed commercial proposal with:</p>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem;">
+              <li style="opacity: 0.9;">· Complete scope customized to your needs</li>
+              <li style="opacity: 0.9;">· Total project value based on real complexity</li>
+              <li style="opacity: 0.9;">· Detailed timeline with milestones and deliverables</li>
+              <li style="opacity: 0.9;">· Contracting model options (Complete or By Phases)</li>
+            </ul>
+            <p style="font-size: 0.8125rem; opacity: 0.6; margin-top: 1rem;">* Discovery value is deducted from total project if approved</p>
+          </div>
+        </div>
+
+        <!-- Contracting models -->
+        <h3 style="font-size: 1.5rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem;">Contracting Models</h3>
+        <p style="color: var(--color-text-muted); font-size: 0.9375rem; margin-bottom: 2.5rem; line-height: 1.6;">After Discovery, you can choose between two contracting models. The final value will be defined based on the raised scope.</p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 3rem;">
+          <div>
+            <div style="border-bottom: 2px solid var(--color-text); padding-bottom: 1.25rem; margin-bottom: 1.5rem;">
+              <p class="pro-label" style="margin-bottom: 0.375rem;">Model A</p>
+              <h4 style="font-size: 1.5rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.375rem;">Complete Project</h4>
+              <p style="color: var(--color-text-muted); font-size: 0.9375rem;">All phases included in final scope</p>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem;">
+              <div style="display:flex; gap:0.625rem; align-items:flex-start;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:2px;"><polyline points="20 6 9 17 4 12"/></svg><span style="font-size:0.9375rem;">All deliverables listed in agreed scope</span></div>
+              <div style="display:flex; gap:0.625rem; align-items:flex-start;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:2px;"><polyline points="20 6 9 17 4 12"/></svg><span style="font-size:0.9375rem;">3 months post-implementation support</span></div>
+              <div style="display:flex; gap:0.625rem; align-items:flex-start;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:2px;"><polyline points="20 6 9 17 4 12"/></svg><span style="font-size:0.9375rem;">Adjustments and refinements throughout the project</span></div>
+              <div style="display:flex; gap:0.625rem; align-items:flex-start;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:2px;"><polyline points="20 6 9 17 4 12"/></svg><span style="font-size:0.9375rem;">Satisfaction guarantee</span></div>
+            </div>
+            <div style="border-top: 1px solid var(--color-border); padding-top: 1rem;">
+              <p class="pro-label" style="margin-bottom: 0.375rem;">Payment Method</p>
+              <p style="color: var(--color-text-muted); font-size: 0.875rem;">40% on signing · 30% at Phase 2 · 30% on completion</p>
+            </div>
+          </div>
+
+          <div>
+            <div style="border-bottom: 2px solid var(--color-text); padding-bottom: 1.25rem; margin-bottom: 1.5rem;">
+              <p class="pro-label" style="margin-bottom: 0.375rem;">Model B</p>
+              <h4 style="font-size: 1.5rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.375rem;">By Phases</h4>
+              <p style="color: var(--color-text-muted); font-size: 0.9375rem;">Phase-by-phase contracting according to scope</p>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem;">
+              <div style="display:flex; gap:0.625rem; align-items:flex-start;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:2px;"><polyline points="20 6 9 17 4 12"/></svg><span style="font-size:0.9375rem;">Greater continuity flexibility</span></div>
+              <div style="display:flex; gap:0.625rem; align-items:flex-start;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:2px;"><polyline points="20 6 9 17 4 12"/></svg><span style="font-size:0.9375rem;">Decision to continue after each phase</span></div>
+              <div style="display:flex; gap:0.625rem; align-items:flex-start; opacity:0.6;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:2px;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><span style="font-size:0.9375rem; color: var(--color-text-muted);">10-15% higher total investment</span></div>
+            </div>
+            <div style="border-top: 1px solid var(--color-border); padding-top: 1rem;">
+              <p class="pro-label" style="margin-bottom: 0.375rem;">Payment Method</p>
+              <p style="color: var(--color-text-muted); font-size: 0.875rem;">Payment at the start of each phase</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Results ────────────────────────────────────────────────── -->
+    <section id="casos-sucesso" class="pro-section">
+      <div class="pro-container">
+        <div style="margin-bottom: 4rem;">
+          <h2 class="pro-h2">Results</h2>
+          <p style="color: var(--color-text-muted); font-size: 1.0625rem; margin-top: 0.75rem;">Success cases and typical results</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0; margin-bottom: 4rem;">
+          <div class="pro-metric">
+            <div class="pro-metric-value">70%</div>
+            <p style="font-size: 0.8125rem; color: var(--color-text-muted); font-family: var(--font-mono);">Reduction in creation time</p>
+          </div>
+          <div class="pro-metric">
+            <div class="pro-metric-value">95%</div>
+            <p style="font-size: 0.8125rem; color: var(--color-text-muted); font-family: var(--font-mono);">Design-code consistency</p>
+          </div>
+          <div class="pro-metric">
+            <div class="pro-metric-value">4-6m</div>
+            <p style="font-size: 0.8125rem; color: var(--color-text-muted); font-family: var(--font-mono);">ROI through productivity</p>
+          </div>
+          <div class="pro-metric">
+            <div class="pro-metric-value">50%</div>
+            <p style="font-size: 0.8125rem; color: var(--color-text-muted); font-family: var(--font-mono);">Fewer UI bugs</p>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 4rem;">
+          <div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; text-transform: uppercase; margin-bottom: 1.25rem;">About Poe Bellentani</h3>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem;">
+              {[
+                'Design System Ops at companies like Zé Delivery and Captalys',
+                'Expert in Tokens Studio, Style Dictionary and automations',
+                'Speaker at the Figma community on Design Systems',
+                'Open-source projects and technical articles on Medium',
+                'Frontend developer focused on Design Token implementation',
+                'Over 10 years of experience in Design and Development',
+              ].map(item => (
+                <li style="display:flex; gap:0.75rem; align-items:flex-start; color:var(--color-text-muted); font-size:0.9375rem; line-height:1.5;">
+                  <span style="color:var(--color-text); flex-shrink:0; font-weight:700;">·</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; text-transform: uppercase; margin-bottom: 1.25rem;">Technology Stack</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.625rem;">
+              {['Figma', 'Tokens Studio', 'Style Dictionary', 'GitHub', 'JavaScript', 'React', 'Design Tokens', 'CI/CD'].map(tech => (
+                <span style="border: 2px solid var(--color-text); padding: 0.375rem 0.875rem; border-radius: var(--radius-sm); font-size: 0.8125rem; font-weight: 600; font-family: var(--font-mono);">{tech}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Next Steps ──────────────────────────────────────────────── -->
+    <section id="proximos-passos" class="pro-section-alt">
+      <div class="pro-container">
+        <div style="margin-bottom: 4rem;">
+          <h2 class="pro-h2">Next Steps</h2>
+          <p style="color: var(--color-text-muted); font-size: 1.0625rem; margin-top: 0.75rem; max-width: 560px; line-height: 1.7;">
+            Let's talk about how Aplica.Design Pro can transform the way your team creates digital products.
+          </p>
+        </div>
+
+        <!-- 4 steps -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; margin-bottom: 4rem;">
+          {[
+            { label: 'STEP 01', title: 'Schedule initial meeting', desc: '30 minutes to understand your needs and align expectations about Discovery' },
+            { label: 'STEP 02', title: 'Discovery Week — BRL 3,500', desc: '5 days of immersion to map complete scope and create personalized value proposal' },
+            { label: 'STEP 03', title: 'Detailed commercial proposal', desc: 'You receive complete scope, timeline and final project value based on your needs' },
+            { label: 'STEP 04', title: 'Project kick-off', desc: 'After proposal approval, immediate mobilization and start of activities' },
+          ].map(step => (
+            <div style="border-left: 2px solid var(--color-text); padding-left: 1.25rem;">
+              <p class="pro-label" style="margin-bottom:0.375rem;">{step.label}</p>
+              <h4 style="font-size:1rem; font-weight:700; margin-bottom:0.375rem;">{step.title}</h4>
+              <p style="color:var(--color-text-muted); font-size:0.875rem; line-height:1.6;">{step.desc}</p>
+            </div>
+          ))}
+        </div>
+
+        <!-- CTA block -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 3rem; align-items: start;">
+          <div>
+            <button id="btn-calendly" class="pro-btn" style="width: 100%; justify-content: center; margin-bottom: 1.25rem; font-size: 1.0625rem; padding: 1rem 1.5rem;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              Schedule a Call
+            </button>
+            <p style="text-align:center; color:var(--color-text-muted); font-size:0.875rem; margin-bottom:0.875rem;">or</p>
+            <a href="mailto:hello@poebellentani.me" style="display:block; text-align:center; color:var(--color-text); font-weight:600; font-size:0.9375rem; text-decoration:underline;">
+              hello@poebellentani.me
+            </a>
+            <p style="text-align:center; color:var(--color-text-muted); font-size:0.8125rem; margin-top:1.5rem; font-family:var(--font-mono);">Proposal validity: 30 days</p>
+          </div>
+          <div class="pro-card" style="padding: 1.75rem;">
+            <p class="pro-label" style="margin-bottom:0.5rem;">START HERE</p>
+            <h4 style="font-size:1.25rem; font-weight:700; margin-bottom:0.5rem;">Discovery Week</h4>
+            <p style="color:var(--color-text-muted); font-size:0.9375rem; line-height:1.6; margin-bottom:1rem;">An intensive week of immersion in your product, team and processes. At the end, you will have a complete roadmap and detailed project pricing.</p>
+            <div style="display:flex; align-items:baseline; gap:0.5rem;">
+              <span style="font-size:1.75rem; font-weight:800;">BRL 3,500</span>
+              <span style="color:var(--color-text-muted); font-size:0.875rem;">Initial investment</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Calendly widget (hidden by default) -->
+        <div id="calendly-container" style="display:none; margin-top:2.5rem;">
+          <div class="calendly-inline-widget" data-url="https://calendly.com/bellentani/design-system-scope" style="min-width:320px; height:700px;"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── ProFooter ───────────────────────────────────────────────── -->
+  <footer style="border-top: 2px solid var(--color-text); padding: 3rem 0;">
+    <div class="pro-container" style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1.5rem;">
+      <div>
+        <p style="font-size:0.9375rem; color:var(--color-text-muted); max-width:480px; line-height:1.7; margin-bottom:1rem; font-style:italic;">
+          "Transforming how teams create digital products through intelligent Design Systems."
+        </p>
+        <p style="font-weight:700;">Poe Bellentani</p>
+        <p style="font-size:0.8125rem; color:var(--color-text-muted); font-family:var(--font-mono);">Staff Design · Design System Ops</p>
+      </div>
+      <div style="display:flex; gap:1.25rem; align-items:center;">
+        <a href="mailto:hello@poebellentani.me" style="color:var(--color-text-muted); font-size:0.875rem; text-decoration:underline;">hello@poebellentani.me</a>
+        <a href="https://linkedin.com/in/bellentani" target="_blank" rel="noopener noreferrer" style="color:var(--color-text-muted); font-size:0.875rem; text-decoration:underline;">LinkedIn</a>
+        <a href="/en/" style="color:var(--color-text-muted); font-size:0.8125rem;">← Aplica DS</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Calendly -->
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet"/>
+  <script is:inline src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript"></script>
+  <script is:inline>
+    (function() {
+      var btn = document.getElementById('btn-calendly');
+      var container = document.getElementById('calendly-container');
+      if (!btn || !container) return;
+      btn.addEventListener('click', function() {
+        var isOpen = container.style.display !== 'none';
+        container.style.display = isOpen ? 'none' : 'block';
+        btn.textContent = isOpen ? '📅 Schedule a Call' : '✕ Close calendar';
+        if (!isOpen) {
+          container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+
+      document.querySelectorAll('#pro-nav a[href^="#"], .pro-btn[href^="#"], .pro-btn-outline[href^="#"]').forEach(function(a) {
+        a.addEventListener('click', function(e) {
+          var href = a.getAttribute('href');
+          var target = document.querySelector(href);
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            var menu = document.getElementById('pro-mobile-menu');
+            if (menu) menu.style.display = 'none';
+          }
+        });
+      });
+
+      var menuBtn = document.getElementById('pro-menu-btn');
+      var mobileMenu = document.getElementById('pro-mobile-menu');
+      var iconOpen = document.getElementById('pro-icon-open');
+      var iconClose = document.getElementById('pro-icon-close');
+      if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener('click', function() {
+          var isOpen = mobileMenu.style.display === 'flex';
+          mobileMenu.style.display = isOpen ? 'none' : 'flex';
+          if (iconOpen) iconOpen.style.display = isOpen ? '' : 'none';
+          if (iconClose) iconClose.style.display = isOpen ? 'none' : '';
+          menuBtn.setAttribute('aria-expanded', (!isOpen).toString());
+        });
+      }
+
+      var nav = document.getElementById('pro-nav');
+      if (nav) {
+        window.addEventListener('scroll', function() {
+          nav.classList.toggle('scrolled', window.scrollY > 16);
+        });
+      }
+    })();
+  </script>
+
+  <style>
+    .pro-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    .pro-section      { padding: 6rem 0; background: var(--color-bg); }
+    .pro-section-alt  { padding: 6rem 0; background: var(--color-bg-subtle); }
+
+    .pro-h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: -0.03em;
+      line-height: 1.0;
+      margin-bottom: 1.5rem;
+    }
+    .pro-h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+    .pro-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-text-muted);
+      margin: 0;
+    }
+
+    .pro-card {
+      border: 2px solid var(--color-text);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+
+    .pro-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--color-text);
+      color: var(--color-bg);
+      font-weight: 700;
+      font-size: 0.9375rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius);
+      border: 2px solid var(--color-text);
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity 0.15s;
+      white-space: nowrap;
+    }
+    .pro-btn:hover { opacity: 0.8; text-decoration: none; }
+    .pro-btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      color: var(--color-text);
+      font-weight: 700;
+      font-size: 0.9375rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius);
+      border: 2px solid var(--color-text);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s, color 0.15s;
+      white-space: nowrap;
+    }
+    .pro-btn-outline:hover { background: var(--color-text); color: var(--color-bg); text-decoration: none; }
+
+    .pro-metric {
+      border-left: 2px solid var(--color-text);
+      padding: 1.5rem 1.5rem 1.5rem 1.25rem;
+    }
+    .pro-metric-value {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 0.375rem;
+    }
+
+    .pro-milestone {
+      border-left: 2px solid var(--color-text);
+      padding: 1.25rem 0 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    #pro-nav {
+      border-bottom: 1px solid var(--color-border);
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 100;
+      transition: border-color 0.15s;
+    }
+    #pro-nav.scrolled { border-bottom-color: var(--color-text); }
+    html.dark #pro-nav,
+    html.dark #pro-nav.scrolled { background: rgba(15,23,42,0.9); }
+    @media (prefers-color-scheme: dark) {
+      html:not(.light) #pro-nav { background: rgba(15,23,42,0.9); }
+    }
+
+    .pro-logo {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--color-text);
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .pro-logo:hover { text-decoration: none; }
+
+    #pro-desktop-nav {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    #pro-desktop-nav a {
+      color: var(--color-text-muted);
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    #pro-desktop-nav a:hover { color: var(--color-text); text-decoration: none; }
+
+    .pro-lang-toggle {
+      font-size: 0.8125rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .pro-lang-toggle:hover { color: var(--color-text); text-decoration: none; }
+
+    .pro-hamburger {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 2.25rem;
+      height: 2.25rem;
+      border: 1.5px solid var(--color-border);
+      border-radius: 0.5rem;
+      background: transparent;
+      cursor: pointer;
+      color: var(--color-text-muted);
+    }
+
+    #pro-mobile-menu {
+      display: none;
+      border-top: 1px solid var(--color-border);
+      padding: 1rem 1.5rem 1.25rem;
+      flex-direction: column;
+      gap: 0;
+    }
+    #pro-mobile-menu a {
+      color: var(--color-text-muted);
+      font-weight: 500;
+      font-size: 0.9375rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--color-border);
+      text-decoration: none;
+      display: block;
+    }
+    #pro-mobile-menu a:hover { color: var(--color-text); text-decoration: none; }
+
+    .pro-accordion {
+      border-bottom: 2px solid var(--color-text);
+    }
+    .pro-accordion summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2rem 0;
+      cursor: pointer;
+      list-style: none;
+      gap: 1rem;
+    }
+    .pro-accordion summary::-webkit-details-marker { display: none; }
+    .pro-accordion-title {
+      font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin: 0;
+    }
+    .pro-accordion-chevron { flex-shrink: 0; transition: transform 0.2s; }
+    .pro-accordion[open] .pro-accordion-chevron { transform: rotate(180deg); }
+    .pro-deliverables {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      padding: 0 0 2rem 1.5rem;
+    }
+    .pro-deliverables li {
+      color: var(--color-text-muted);
+      font-size: 0.9375rem;
+      line-height: 1.6;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+    .pro-deliverables li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--color-text);
+      font-weight: 700;
+    }
+
+    @media (max-width: 768px) {
+      #pro-desktop-nav { display: none !important; }
+      .pro-hamburger { display: flex !important; }
+      .pro-section, .pro-section-alt { padding: 4rem 0; }
+    }
+    @media (max-width: 480px) {
+      .pro-section, .pro-section-alt { padding: 3rem 0; }
+    }
+  </style>
+
+</Base>
