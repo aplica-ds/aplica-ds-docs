@@ -240,7 +240,17 @@ Contributions are welcome. Please read the guidelines below before opening a PR.
 
 ## License
 
-MIT — see [LICENSE](./LICENSE).
+Apache-2.0 — see [LICENSE](./LICENSE).
+
+---
+
+## Support / Apoio
+
+[![Ko-fi](https://img.shields.io/badge/Ko--fi-support-FF5E5B?logo=ko-fi&logoColor=white)](https://ko-fi.com/aplicadesign)
+
+If this project helped you, consider supporting it on Ko-fi. Donations sustain the open-source tooling and the YouTube channel — they do not imply commercial support.
+
+<https://ko-fi.com/aplicadesign>
 
 ---
 

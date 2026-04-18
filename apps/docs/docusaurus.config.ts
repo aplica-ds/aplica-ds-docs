@@ -130,10 +130,11 @@ const config: Config = {
             { label: 'Site',                href: 'https://aplica.me' },
             { label: 'Exemplo no GitHub',   href: 'https://github.com/aplica-ds/aplica-tokens-themes-sample' },
             { label: 'Testar via npm',      href: 'https://www.npmjs.com/package/@aplica/tokens-themes-sample' },
+            { label: 'Apoiar via Ko-fi',    href: 'https://ko-fi.com/aplicadesign' },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Aplica DS. Open source sob licença MIT.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Aplica DS. Open source sob licença Apache-2.0.`,
     },
     prism: {
       theme: prismThemes.github,
