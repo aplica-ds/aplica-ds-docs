@@ -24,7 +24,7 @@ const r = routes.en;
     description: 'CLI-driven design token engine that generates semantic tokens for any platform from a single config file.',
     url: 'https://aplica.me',
     downloadUrl: 'https://www.npmjs.com/package/@aplica/aplica-theme-engine',
-    license: 'https://opensource.org/licenses/MIT',
+    license: 'https://opensource.org/licenses/Apache-2.0',
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
   }]}
 >
@@ -36,7 +36,7 @@ const r = routes.en;
 
     <div class="container" style="position: relative;">
       <div data-animate style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem;">
-        <p class="badge" style="margin: 0;">Open Source · MIT</p>
+        <p class="badge" style="margin: 0;">Open Source · Apache-2.0</p>
         <p class="badge" style="margin: 0; background: rgba(99,102,241,0.08); border-color: rgba(99,102,241,0.25); color: #6366f1;">✦ AI Skills · coming soon</p>
       </div>
       <h1 data-animate="delay-1" style="font-family: var(--font-display); font-size: clamp(2.25rem, 5vw, 3.5rem); font-weight: 700; line-height: 1.15; max-width: 760px; margin: 0 auto 1.25rem;">
@@ -390,10 +390,17 @@ const r = routes.en;
   <section id="open-source" style="padding: 5rem 0; background: var(--color-bg-subtle);">
     <div class="container" style="text-align: center;">
       <h2 data-animate style="font-family: var(--font-display); font-size: 1.75rem; font-weight: 700; margin-bottom: 0.75rem;">100% open source</h2>
-      <p data-animate style="color: var(--color-text-muted); max-width: 480px; margin: 0 auto 2rem; line-height: 1.7;">MIT license. No vendor lock-in. Contributions via PR. The git history is the documentation.</p>
+      <p data-animate style="color: var(--color-text-muted); max-width: 520px; margin: 0 auto 0.75rem; line-height: 1.7;">Apache-2.0 license. No vendor lock-in. Contributions via PR. The git history is the documentation.</p>
+      <p data-animate style="color: var(--color-text-muted); font-size: 0.875rem; max-width: 520px; margin: 0 auto 2rem; line-height: 1.6;">
+        The GitHub repository contains a <strong style="color: var(--color-text);">sample project with generated tokens</strong> — to inspect engine output. To <strong style="color: var(--color-text);">use and configure</strong> the engine, install the npm package.
+      </p>
       <div data-animate style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-        <a href="https://github.com/aplica-ds/aplica-tokens-themes-sample" class="btn btn-primary" target="_blank" rel="noopener noreferrer">View repository</a>
-        <a href={r.docs} class="btn btn-outline" target="_blank" rel="noopener noreferrer">Read documentation</a>
+        <a href="https://www.npmjs.com/package/@aplica/aplica-theme-engine" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+          Install via npm ↗
+        </a>
+        <a href="https://github.com/aplica-ds/aplica-tokens-themes-sample" class="btn btn-outline" target="_blank" rel="noopener noreferrer">
+          View sample tokens · GitHub ↗
+        </a>
       </div>
     </div>
   </section>
