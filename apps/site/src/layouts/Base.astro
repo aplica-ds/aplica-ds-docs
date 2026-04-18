@@ -347,6 +347,42 @@ const allJsonLd = [organizationLd, ...jsonLd];
   </head>
   <body>
     <slot />
+
+    <!-- Ko-fi floating button -->
+    <a
+      href="https://ko-fi.com/aplicadesign"
+      target="_blank"
+      rel="noopener noreferrer"
+      id="kofi-float"
+      aria-label={lang === 'pt-BR' ? 'Apoiar via Ko-fi' : 'Support on Ko-fi'}
+      style="
+        position: fixed;
+        bottom: 1.5rem;
+        right: 1.5rem;
+        z-index: 9999;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.625rem 1rem;
+        background: #FF5E5B;
+        color: #fff;
+        border-radius: 9999px;
+        font-family: var(--font-sans);
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-decoration: none;
+        box-shadow: 0 4px 14px rgba(255,94,91,0.4);
+        transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+        white-space: nowrap;
+      "
+      onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(255,94,91,0.5)'"
+      onmouseout="this.style.transform='';this.style.boxShadow='0 4px 14px rgba(255,94,91,0.4)'"
+    >
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M23.881 8.948c-.773-4.085-4.859-4.593-4.859-4.593H.767l.006.3c-.03 1.247.56 5.433 2.597 8.032 1.232 1.56 2.646 2.187 3.978 2.45 1.878.383 3.466-.002 3.466-.002L10.807 24l5.765-9.21c.065.01.13.02.2.024 2.603.3 6.634-.494 7.109-5.866zM14.16 13.81c-1.8.3-3.12-.21-3.12-.21l-.81 4.38-2.91-8.19s.6-.03 1.47-.03h9c.03 0 2.91.51 2.31 3.24-.6 2.7-4.14 3.21-5.94 2.81z" fill="currentColor"/>
+      </svg>
+      {lang === 'pt-BR' ? 'Gostou? Apoie com um café' : 'Support with a coffee'}
+    </a>
     <script is:inline>
       (function() {
         var obs = new IntersectionObserver(
