@@ -16,6 +16,7 @@ const {
   image = 'https://aplica.me/og-image.png',
   altHref,
   jsonLd = [],
+  noindex = false,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, 'https://aplica.me').href;
@@ -45,6 +46,7 @@ const allJsonLd = [organizationLd, ...jsonLd];
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <title>{title} — Aplica DS</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
