@@ -20,7 +20,7 @@ const r = routes.en;
         Aplica DS was not designed all at once — it was distilled from years of experience with production design systems, three phases of evolution, and many reversed decisions.
       </p>
 
-      <div style="margin-bottom: 3rem; padding: 1.5rem 2rem; background: var(--color-bg-subtle); border-radius: var(--radius); border: 1px solid var(--color-border); display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;">
+      <div class="kofi-support-box" style="margin-bottom: 3rem; padding: 1.5rem 2rem; background: var(--color-bg-subtle); border-radius: var(--radius); border: 1px solid var(--color-border); display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;">
         <div>
           <p style="font-weight: 600; font-size: 0.9375rem; margin-bottom: 0.25rem;">Did it help? Support the project with a coffee.</p>
           <p style="color: var(--color-text-muted); font-size: 0.875rem; line-height: 1.6;">Donations sustain the tooling, documentation, and YouTube channel — without implying commercial support.</p>
@@ -104,3 +104,10 @@ const r = routes.en;
 
   <Footer lang="en" />
 </Base>
+
+<style is:global>
+  @media (max-width: 560px) {
+    .kofi-support-box { flex-direction: column; align-items: flex-start !important; }
+    .kofi-support-box a { width: 100%; justify-content: center; }
+  }
+</style>

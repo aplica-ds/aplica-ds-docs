@@ -343,6 +343,17 @@ const allJsonLd = [organizationLd, ...jsonLd];
         [data-animate].is-visible { animation: none; }
         .hover-lift:hover { transform: none; }
       }
+
+      /* ── Mobile ──────────────────────────────────────────────────── */
+      @media (max-width: 640px) {
+        .section, .section-subtle, .island-section, .island-section-subtle { padding: 2.5rem 0; }
+        .btn { white-space: normal; padding: 0.5rem 1rem; font-size: 0.875rem; }
+        #kofi-float { bottom: 1rem; right: 1rem; font-size: 0.8125rem; padding: 0.5rem 0.875rem; }
+      }
+      @media (max-width: 480px) {
+        .container { padding: 0 1rem; }
+        #kofi-float { display: none; }
+      }
     </style>
   </head>
   <body>

@@ -102,7 +102,7 @@ export function ThemeGrid({ lang = "pt-br" }: Props) {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
+            gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
             gap: "0.875rem",
             maxWidth: "960px",
             margin: "0 auto",

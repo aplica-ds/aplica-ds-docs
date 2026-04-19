@@ -182,6 +182,7 @@ interface Props {
 
 export function LayerDemo({ lang = "pt-br" }: Props) {
   const [activeLayer, setActiveLayer] = useState(0);
+  const [mobileOpen, setMobileOpen] = useState<number | null>(0);
   const t = translations[lang];
   const active = t.layers[activeLayer];
   const color = LAYER_COLORS[activeLayer];
@@ -210,12 +211,14 @@ export function LayerDemo({ lang = "pt-br" }: Props) {
       display: "grid",
       gap: "2rem",
       maxWidth: "960px",
+      width: "100%",
       margin: "0 auto",
     } as React.CSSProperties,
     layerList: {
       display: "flex",
       flexDirection: "column" as const,
       gap: "0.75rem",
+      minWidth: 0,
     } as React.CSSProperties,
     layerCard: (isActive: boolean): React.CSSProperties => ({
       display: "flex",
@@ -277,6 +280,7 @@ export function LayerDemo({ lang = "pt-br" }: Props) {
       boxShadow: "var(--shadow-sm)",
       display: "flex",
       flexDirection: "column" as const,
+      minWidth: 0,
     } as React.CSSProperties,
     previewHeader: {
       display: "flex",
@@ -309,8 +313,10 @@ export function LayerDemo({ lang = "pt-br" }: Props) {
       color: "#cdd6f4",
       lineHeight: 1.65,
       overflowX: "auto" as const,
+      maxWidth: "100%",
       marginBottom: "1rem",
-      whiteSpace: "pre",
+      whiteSpace: "pre-wrap",
+      wordBreak: "break-all",
       flex: 1,
     } as React.CSSProperties,
   };
@@ -323,7 +329,7 @@ export function LayerDemo({ lang = "pt-br" }: Props) {
           <p style={s.subtitle}>{t.subtitle}</p>
         </div>
 
-        <div className="layer-demo-grid" style={s.grid}>
+        <div className="layer-demo-grid layer-demo-desktop" style={s.grid}>
           {/* Layer list */}
           <div style={s.layerList}>
             {t.layers.map((layer, idx) => (
@@ -401,13 +407,59 @@ export function LayerDemo({ lang = "pt-br" }: Props) {
             </a>
           </div>
         </div>
-      </div>
+
+        {/* Mobile accordion — hidden on desktop */}
+        <div className="layer-demo-mobile" style={{ display: "none", flexDirection: "column" }}>
+          {t.layers.map((layer, idx) => {
+            const isOpen = mobileOpen === idx;
+            const c = LAYER_COLORS[idx];
+            const grad = `linear-gradient(135deg, ${c.from}, ${c.to})`;
+            const url = `${docsBase}/${layer.docsPath}`;
+            return (
+              <div key={layer.name} style={{ borderBottom: "1px solid var(--color-border)" }}>
+                <button
+                  onClick={() => setMobileOpen(isOpen ? null : idx)}
+                  style={{ width: "100%", display: "flex", alignItems: "center", gap: "0.875rem", padding: "1rem 0", background: "transparent", border: "none", cursor: "pointer", textAlign: "left" }}
+                >
+                  <div style={{ width: "2rem", height: "2rem", borderRadius: "0.5rem", background: isOpen ? grad : "var(--color-bg-subtle)", color: isOpen ? "#fff" : "var(--color-text-muted)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: "0.8125rem", flexShrink: 0, transition: "background 0.2s" }}>
+                    {idx + 1}
+                  </div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontWeight: 600, fontSize: "0.9375rem", color: "var(--color-text)" }}>{layer.name}</div>
+                    <div style={{ fontSize: "0.8125rem", color: "var(--color-text-muted)", marginTop: "0.1rem" }}>{layer.desc}</div>
+                  </div>
+                  <svg style={{ width: "1.125rem", height: "1.125rem", color: isOpen ? c.from : "var(--color-text-muted)", transition: "transform 0.2s", transform: isOpen ? "rotate(90deg)" : "rotate(0deg)", flexShrink: 0 }} viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clipRule="evenodd" />
+                  </svg>
+                </button>
+                {isOpen && (
+                  <div style={{ paddingBottom: "1.25rem" }}>
+                    <div style={{ width: "100%", height: "3.5rem", borderRadius: "var(--radius)", background: grad, display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: 700, fontSize: "1rem", marginBottom: "0.875rem" }}>
+                      {layer.name}
+                    </div>
+                    <div style={{ background: "#1e1e2e", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "var(--radius-sm)", padding: "0.75rem 0.875rem", fontFamily: "var(--font-mono)", fontSize: "0.6875rem", color: "#cdd6f4", lineHeight: 1.65, overflowX: "auto", maxWidth: "100%", marginBottom: "0.875rem", whiteSpace: "pre-wrap", wordBreak: "break-all" }}>
+                      {layer.example}
+                    </div>
+                    <a href={url} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "0.375rem", width: "100%", padding: "0.5rem 1rem", borderRadius: "var(--radius)", border: `1.5px solid ${c.from}44`, background: `${c.from}08`, color: c.from, fontWeight: 600, fontSize: "0.875rem", textDecoration: "none" }}>
+                      {t.explore} {layer.name}
+                      <ExternalLink size={13} />
+                    </a>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>  {/* end .container */}
 
       <style>{`
         @media (min-width: 768px) {
-          .layer-demo-grid {
-            grid-template-columns: 1fr 1fr !important;
-          }
+          .layer-demo-grid { grid-template-columns: 1fr 1fr !important; }
+          .layer-demo-mobile { display: none !important; }
+        }
+        @media (max-width: 767px) {
+          .layer-demo-desktop { display: none !important; }
+          .layer-demo-mobile { display: flex !important; flex-direction: column; }
         }
       `}</style>
     </section>

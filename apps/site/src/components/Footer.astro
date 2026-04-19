@@ -36,7 +36,7 @@ const ft = {
 
 <footer id="footer"  style="border-top: 1px solid var(--color-border); margin-top: 2rem; padding: 3.5rem 0 2.5rem;">
   <div class="container">
-    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem;">
+    <div class="footer-grid" style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem;">
       <!-- Brand column -->
       <div>
         <p style="font-family: var(--font-display); font-weight: 800; font-size: 1.125rem; margin-bottom: 0.75rem; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: inline-block;">
@@ -85,9 +85,9 @@ const ft = {
 
 <style>
   @media (max-width: 640px) {
-    footer > div > div:first-child {
+    .footer-grid {
       grid-template-columns: 1fr !important;
-      gap: 2rem !important;
+      gap: 1.5rem !important;
     }
     /* Bottom bar stacks on mobile */
     footer > div > div:last-child {
