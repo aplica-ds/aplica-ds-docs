@@ -14,7 +14,7 @@ const r = routes['pt-br'];
     <div class="container" style="max-width: 720px;">
       <p style="font-family: var(--font-mono); font-size: 0.8125rem; color: var(--color-accent); font-weight: 600; margin-bottom: 1rem;">SOBRE</p>
       <h1 style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; line-height: 1.2; margin-bottom: 1.25rem;">
-        Três fases. Uma filosofia.
+        Uma filosofia. Três fases.
       </h1>
       <p style="font-size: 1.0625rem; color: var(--color-text-muted); line-height: 1.75; margin-bottom: 2rem;">
         O Aplica DS não foi projetado de uma vez — foi destilado de anos de experiência com design systems em produção, três fases de evolução e muitas decisões reversadas.
@@ -39,6 +39,24 @@ const r = routes['pt-br'];
       </div>
 
       <div style="display: flex; flex-direction: column; gap: 2.5rem;">
+
+        <div style="padding: 1.5rem; background: var(--color-bg-subtle); border-radius: var(--radius); border: 1px solid var(--color-border);">
+          <h2 style="font-weight: 700; font-size: 1rem; margin-bottom: 0.75rem;">Filosofia</h2>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem;">
+            {[
+              '"Menos é mais" — cada token extra custa ~30 variáveis por tema.',
+              '"Foundation não é simplificação técnica — é uma decisão de produto."',
+              '"Overrides são permitidos — mas são a última alternativa."',
+              '"Dark mode por construção, não por override."',
+              '"O sistema deve ser compreensível por designers, não apenas por engenheiros."',
+            ].map(quote => (
+              <li style="color: var(--color-text-muted); font-size: 0.9375rem; display: flex; gap: 0.5rem;">
+                <span style="color: var(--color-accent); flex-shrink: 0;">—</span>
+                <span>{quote}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
 
         <div>
           <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
@@ -68,24 +86,6 @@ const r = routes['pt-br'];
           <p style="color: var(--color-text-muted); line-height: 1.75;">
             O V2 resolveu os limites do V1 com oito inovações: gerador dinâmico, pipeline OKLCh, camada Dimension, nomenclatura canônica, Foundation como estilos compostos, gradientes, bundles de migração e outputs multi-plataforma. O sistema tornou-se determinístico — dada a mesma config, o output é sempre o mesmo.
           </p>
-        </div>
-
-        <div style="padding: 1.5rem; background: var(--color-bg-subtle); border-radius: var(--radius); border: 1px solid var(--color-border);">
-          <h2 style="font-weight: 700; font-size: 1rem; margin-bottom: 0.75rem;">Filosofia</h2>
-          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem;">
-            {[
-              '"Menos é mais" — cada token extra custa ~30 variáveis por tema.',
-              '"Foundation não é simplificação técnica — é uma decisão de produto."',
-              '"Overrides são permitidos — mas são a última alternativa."',
-              '"Dark mode por construção, não por override."',
-              '"O sistema deve ser compreensível por designers, não apenas por engenheiros."',
-            ].map(quote => (
-              <li style="color: var(--color-text-muted); font-size: 0.9375rem; display: flex; gap: 0.5rem;">
-                <span style="color: var(--color-accent); flex-shrink: 0;">—</span>
-                <span>{quote}</span>
-              </li>
-            ))}
-          </ul>
         </div>
 
       </div>
