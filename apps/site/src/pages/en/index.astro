@@ -288,36 +288,42 @@ const r = routes.en;
           <div style="background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm);">
             <div style="padding: 1rem 1.25rem 0;">
               <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: var(--color-accent);">01 · Config</span>
-              <p style="color: var(--color-text-muted); font-size: 0.875rem; line-height: 1.55; margin: 0.375rem 0 0.875rem;">Define your brand colors in a <code>.config.mjs</code> file.</p>
+              <p style="color: var(--color-text-muted); font-size: 0.875rem; line-height: 1.55; margin: 0.375rem 0 0.875rem;">Configure the engine in <code>aplica-theme-engine.config.mjs</code>.</p>
             </div>
-            <pre style="margin: 0; border-radius: 0; font-size: 0.8125rem;">export default &#123;
-  name: 'my-brand',
-  colors: &#123;
-    brand_blue: '#2563EB',
+            <pre style="margin: 0; border-radius: 0; font-size: 0.8125rem;">import &#123; defineThemeEngineConfig &#125;
+  from '@aplica/aplica-theme-engine/config';
+
+export default defineThemeEngineConfig(&#123;
+  paths: &#123;
+    configDir: './theme-engine/config',
+    dataDir:   './data',
+    distDir:   './dist'
   &#125;
-&#125;</pre>
+&#125;);</pre>
           </div>
           <div style="background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm);">
             <div style="padding: 1rem 1.25rem 0;">
               <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: var(--color-accent);">02 · Build</span>
               <p style="color: var(--color-text-muted); font-size: 0.875rem; line-height: 1.55; margin: 0.375rem 0 0.875rem;">One command runs the full pipeline.</p>
             </div>
-            <pre style="margin: 0; border-radius: 0; font-size: 0.8125rem;">npm run tokens:build
+            <pre style="margin: 0; border-radius: 0; font-size: 0.8125rem;"># run directly after npm install
+npx aplica-theme-engine build
 
-✓ palette decomposed
-✓ 4 themes written
-✓ outputs ready</pre>
+# or via package.json script
+npm run tokens:build</pre>
           </div>
           <div style="background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm);">
             <div style="padding: 1rem 1.25rem 0;">
               <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: var(--color-accent);">03 · Usage</span>
               <p style="color: var(--color-text-muted); font-size: 0.875rem; line-height: 1.55; margin: 0.375rem 0 0.875rem;">Foundation tokens ready for any platform.</p>
             </div>
-            <pre style="margin: 0; border-radius: 0; font-size: 0.8125rem;">.btn &#123;
-  background:
-    foundation.bg.brand.default;
-  color:
-    foundation.txt.on-brand;
+            <pre style="margin: 0; border-radius: 0; font-size: 0.8125rem;">@import './dist/css/foundation/engine/
+         foundation.css';
+
+.btn &#123;
+  background: var(--foundation-bg-brand-default);
+  color:      var(--foundation-txt-title);
+  padding:    var(--foundation-spacing-medium);
 &#125;</pre>
           </div>
         </div>
