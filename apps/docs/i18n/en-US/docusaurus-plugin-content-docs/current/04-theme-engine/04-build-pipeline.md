@@ -283,6 +283,8 @@ The pipeline includes automatic checks:
 | Color different from expected | Override in `overrides.*` overwriting the generated value | Check whether an override is configured for that color |
 | Build fails with "reference not found" | `data/` out of sync with configs | `npm run tokens:build` (full rebuild) |
 | txtOn is black/white when brand color was expected | `txtOnStrategy: 'high-contrast'` is the default | Change to `'brand-tint'` in the theme options |
+| New theme not visible in Tokens Studio | `figma:generate` not run since adding the theme | `npm run tokens:figma` or `npm run tokens:build` |
+| Figma style references lost after regeneration | `data/$themes.json` was deleted | Re-sync from Figma; do not delete this file |
 
 ---
 

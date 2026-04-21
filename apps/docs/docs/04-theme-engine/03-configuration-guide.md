@@ -169,7 +169,7 @@ mapping: {
 }
 ```
 
-> **Lembre-se do custo:** Cada item de product gera dezenas de tokens por camada por tema. Antes de adicionar um item novo, verifique se feedback ou brand existentes não resolvem o caso. Veja [01-colors.md](../03-visual-foundations/01-colors.md#product) para o racional completo.
+> **Lembre-se do custo:** Cada item de product gera dezenas de tokens por camada por tema. Antes de adicionar um item novo, verifique se feedback ou brand existentes não resolvem o caso. Veja [01-colors.pt-br.md](../03-visual-foundations/01-colors.pt-br.md#product) para o racional completo.
 
 ---
 
@@ -362,12 +362,12 @@ Quando o conjunto padrão de aliases não é suficiente para um consumidor espec
 
 ## Referências
 
-- O que é o Theme Engine: [01-what-is-theme-engine.md](./01-what-is-theme-engine.md)
-- Pipeline de build detalhado: [04-build-pipeline.md](./04-build-pipeline.md)
-- Formatos de output: [05-output-formats.md](./05-output-formats.md)
-- Quick start de engenharia: [09-engineering/01-quick-start.md](../09-engineering/01-quick-start.md)
-- Estrutura do workspace: [09-engineering/02-workspace-structure.md](../09-engineering/02-workspace-structure.md)
-- Referência completa de configuração: [09-engineering/03-theme-configuration.md](../09-engineering/03-theme-configuration.md)
-- Referência de CLI: [09-engineering/05-cli-reference.md](../09-engineering/05-cli-reference.md)
-- Sistema de cores: [01-colors.md](../03-visual-foundations/01-colors.md)
-- Camada Foundation: [05-foundation-layer.md](../02-token-layers/05-foundation-layer.md)
+- O que é o Theme Engine: [01-what-is-theme-engine.pt-br.md](./01-what-is-theme-engine.pt-br.md)
+- Pipeline de build detalhado: [04-build-pipeline.pt-br.md](./04-build-pipeline.pt-br.md)
+- Formatos de output: [05-output-formats.pt-br.md](./05-output-formats.pt-br.md)
+- Quick start de engenharia: [09-engineering/01-quick-start.pt-br.md](../09-engineering/01-quick-start.pt-br.md)
+- Estrutura do workspace: [09-engineering/02-workspace-structure.pt-br.md](../09-engineering/02-workspace-structure.pt-br.md)
+- Referência completa de configuração: [09-engineering/03-theme-configuration.pt-br.md](../09-engineering/03-theme-configuration.pt-br.md)
+- Referência de CLI: [09-engineering/05-cli-reference.pt-br.md](../09-engineering/05-cli-reference.pt-br.md)
+- Sistema de cores: [01-colors.pt-br.md](../03-visual-foundations/01-colors.pt-br.md)
+- Camada Foundation: [05-foundation-layer.pt-br.md](../02-token-layers/05-foundation-layer.pt-br.md)

@@ -141,7 +141,7 @@ O conhecimento do Aplica DS está organizado em três domínios, cada um servind
 | **Consumo** | Devs usando tokens | Quais tokens uso e como os importo? |
 | **Engenharia** | Devs rodando o engine | Como instalo, configuro e faço o build? |
 
-O domínio de engenharia está em [Quick Start de Engenharia](../09-engineering/01-quick-start.md). O domínio de consumo está em [Guia de Implementação](../07-implementation/01-migration-guide.md). A fundação conceitual está nas seções 01–04.
+O domínio de engenharia está em [09-engineering](../09-engineering/). O domínio de consumo está em [07-implementation](../07-implementation/). A fundação conceitual está nas seções 01–04.
 
 ---
 

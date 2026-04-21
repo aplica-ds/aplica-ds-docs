@@ -27,7 +27,7 @@ If you build screens, flows, and prototypes, your goal is to understand **how to
 4. [Spacing and sizing](../03-visual-foundations/03-spacing-sizing.md) — Using the `minor/normal/major` scale.
 
 **Or start with the tutorials:**
-→ [N1-01 · What are design tokens](../08-tutorials/n1-product-designer/01-o-que-sao-tokens.md)
+→ [N1-01 · What are design tokens](../08-tutorials/N1-01.md)
 
 ---
 
@@ -43,7 +43,7 @@ If you are responsible for creating new themes, maintaining the component librar
 4. [Override philosophy](../00-overview/01-aplica-ds-vision.md#override-philosophy) — How to evolve the system without breaking it.
 
 **Or start with the tutorials:**
-→ [N2-01 · The five-layer mental model](../08-tutorials/n2-system-designer/01-modelo-mental-5-camadas.md)
+→ [N2-01 · The five-layer mental model](../tutorials/n2-system-designer/N2-01.md)
 
 ---
 
@@ -59,7 +59,7 @@ If you write the code that consumes tokens — components, integrations, platfor
 4. [Component variants and states](../05-components-theory/02-component-variants.md) — Mapping every variant × state × property to the correct token.
 
 **Or start with the tutorials:**
-→ [N3-01 · The token contract](../08-tutorials/n3-design-engineer/01-contrato-de-tokens.md)
+→ [N3-01 · The token contract](../tutorials/n3-design-engineer/N3-01.md)
 
 ---
 

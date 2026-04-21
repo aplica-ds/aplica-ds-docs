@@ -28,6 +28,7 @@ After installation, the CLI is available as `aplica-theme-engine` (or via `npx a
 | [Architecture](#architecture-commands) | Sync token references across layers |
 | [Validate](#validate-commands) | Validate `data/` contract before build |
 | [Setup](#setup-commands) | Scaffold consumer workspace and schemas |
+| [AI Skills](#ai-skills-commands) | Inject AI editor integrations into consumer workspace |
 | [Migration](#migration-commands) | Migrate monolithic projects to package model |
 
 ---
@@ -262,6 +263,31 @@ The helper asks about:
 
 ---
 
+## AI Skills commands
+
+### `ai:init`
+
+Injects AI editor integration files into the consumer workspace. Run once after installing or upgrading the package to give your AI coding assistant (Cursor, Claude Code, GitHub Copilot) structured knowledge of the token contract.
+
+```bash
+aplica-theme-engine ai:init
+```
+
+**Files injected:**
+
+| Destination | Purpose |
+|-------------|---------|
+| `docs/context/aplica-ui-integration.md` | Agnostic UI integration guide for any AI surface |
+| `.cursor/rules/aplica-ui-integration.mdc` | Cursor-specific rule activating token-aware code generation |
+| `.claude/skills/aplica-ui-integration/SKILL.md` | Claude Code skill for sanctioned token consumption patterns |
+| `.github/instructions/aplica-ui.instructions.md` | GitHub Copilot instructions for token-aware completions |
+
+All files are copied from the package's versioned `templates/ai-skills/` directory. Re-running the command overwrites existing files — safe to run after every package upgrade to keep AI guidance in sync with the current token contract.
+
+> `ai:init`, `ai:setup`, `skills`, and `skills:init` are all aliases for the same command.
+
+---
+
 ## Migration commands
 
 ### `migrate:legacy-consumer`
@@ -343,6 +369,14 @@ npm run tokens:build    # full pipeline — always safe
 ```bash
 npm run tokens:build:all
 ```
+
+### Regenerate Figma scaffolding only
+
+```bash
+npm run tokens:figma
+```
+
+Use after adding or renaming a theme, surface, or mode when token values have not changed.
 
 ### Validate before publishing
 

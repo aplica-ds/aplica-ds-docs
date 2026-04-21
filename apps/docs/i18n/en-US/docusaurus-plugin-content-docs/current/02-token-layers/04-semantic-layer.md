@@ -46,8 +46,10 @@ From the operational standpoint of the Semantic layer's engine, the Theme Engine
    Maps intentional use. The interaction functions (Primary, Secondary, Link, Disabled) now reside here in their complete behavioral variants:
    - `normal`
    - `action` (hover)
-   - `active` (pressed or selected)
-   - `focus` (keyboard focus indicator)
+   - `active` (pressed — darker than action)
+   - `focus` (keyboard focus indicator — lighter, uses the ring/outline appearance)
+
+   > **Breaking change (2.24.0):** Before this version, `active` carried the keyboard focus appearance. As of 2.24.0, `focus` is a dedicated state for keyboard focus (uses the palette level that `active` previously mapped to), and `active` now maps to a **darker** palette step representing the pressed/selected state. Migrate: replace `active` usage in focus rings with `focus`; retain `active` for press/select visual feedback.
 
 3. **Typography, Dimension, Opacity**
    Following the same unique-name premises, the parameters for space, typography, and opacity take their final positions without improper ties to dark modes that do not affect these orthogonal fields.

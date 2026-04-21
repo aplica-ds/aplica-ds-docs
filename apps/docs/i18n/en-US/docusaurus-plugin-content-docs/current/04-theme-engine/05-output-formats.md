@@ -23,6 +23,10 @@ dist/
 ├── css/                           ← CSS custom properties (Web)
 │   ├── aplica_joy-light-positive.css
 │   └── ...
+│   └── foundation/                ← Foundation Styles CSS classes
+│       └── {brand}/
+│           ├── typography.css     ← Composite typography classes
+│           └── elevation.css      ← Composite elevation classes
 ├── esm/                           ← ES Modules (modern JavaScript)
 │   ├── aplica_joy-light-positive-semantic.mjs
 │   └── ...
@@ -34,7 +38,9 @@ dist/
     └── ...
 ```
 
-Each file name follows the pattern: `{brand}-{mode}-{surface}-{type}.{ext}`
+Each token file name follows the pattern: `{brand}-{mode}-{surface}-{type}.{ext}`
+
+Foundation Styles files follow: `dist/css/foundation/{brand}/typography.css` and `elevation.css`
 
 ---
 
@@ -321,6 +327,57 @@ To use a different base than `16px` (e.g., 62.5% strategy with `10px` root):
   }
 }
 ```
+
+---
+
+## Foundation Styles — composite CSS class output
+
+In addition to per-token CSS custom properties, the engine generates composite CSS class files under `dist/css/foundation/{brand}/`. These files are generated from the Foundation Styles data (`data/foundation/{brand}/styles/typography_styles.json` and `elevation_styles.json`) during the `foundations:generate` step.
+
+### Typography classes
+
+```css
+/* dist/css/foundation/engine/typography.css */
+.typography-engine-heading-title_1 {
+  font-family:     var(--semantic-typography-fontFamilies-main);
+  font-weight:     var(--semantic-typography-fontWeights-main-semibold-normal);
+  font-size:       var(--semantic-typography-fontSizes-medium);
+  line-height:     var(--semantic-typography-lineHeights-close-medium);
+  letter-spacing:  var(--semantic-typography-letterSpacings-regular);
+  text-transform:  var(--semantic-typography-textCase-uppercase);
+  text-decoration: var(--semantic-typography-textDecoration-default);
+}
+
+.typography-engine-action-strong-tight-medium { ... }
+.typography-engine-body-regular-loose-medium { ... }
+```
+
+### Elevation classes
+
+```css
+/* dist/css/foundation/engine/elevation.css */
+.elevation-level_zero      { box-shadow: ... }
+.elevation-level_one       { box-shadow: ... }
+.elevation-level_two       { box-shadow: ... }
+.elevation-level_three     { box-shadow: ... }
+.elevation-level_four      { box-shadow: ... }
+.elevation-level_five      { box-shadow: ... }
+```
+
+Each class composes depth, spread, and opacity semantic tokens. The values resolve from the active theme at runtime — theme switching updates them automatically.
+
+### Loading order
+
+```html
+<!-- Theme file must load first (provides --semantic-* custom properties) -->
+<link rel="stylesheet" href="/dist/css/aplica_joy-light-positive.css" />
+
+<!-- Foundation Styles consume the custom properties defined above -->
+<link rel="stylesheet" href="/dist/css/foundation/engine/typography.css" />
+<link rel="stylesheet" href="/dist/css/foundation/engine/elevation.css" />
+```
+
+See [06-foundation-styles.md](./06-foundation-styles.md) for the full guide on Foundation Styles.
 
 ---
 

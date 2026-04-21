@@ -42,12 +42,14 @@ Do ponto de vista do funcionamento do motor da camada Semântica, o Theme Engine
    - `border`
    *(Ex: `semantic.color.brand.branding.first.default.txtOn`)*
 
-2. **Interface (Function & Feedback)**  
+2. **Interface (Function & Feedback)**
    Mapeia o uso intencional. As funções de Interação (Primary, Secondary, Link, Disabled) agora habitam aqui em suas vertentes comportamentais completas:
    - `normal`
    - `action` (hover)
-   - `active` (pressed ou selected)
-   - `focus` (keyboard focus indicator)
+   - `active` (pressionado — mais escuro que action)
+   - `focus` (indicador de foco de teclado — mais claro, aparência de anel/outline)
+
+   > **Breaking change (2.24.0):** Antes desta versão, `active` carregava a aparência de foco de teclado. A partir de 2.24.0, `focus` é um estado dedicado para foco de teclado (usa o nível de paleta que `active` mapeava anteriormente), e `active` agora mapeia para um step de paleta **mais escuro** representando o estado pressed/selected. Migração: substituir uso de `active` em rings de foco por `focus`; manter `active` para feedback visual de press/select.
    
 3. **Typography, Dimension, Opacity**  
    Seguindo as mesmas premissas de nome único, os parâmetros de espaço, tipografia e opacidade ganham suas posições finais sem atrelações indevidas a modos escuros que não afetam esses campos ortogonais.

@@ -192,7 +192,7 @@ Cada plataforma aplica transformações específicas antes de escrever:
 | `js` | Gera módulo CommonJS | `px` |
 | `dts` | Gera declarações TypeScript | — |
 
-**Exceção importante:** Tokens com `$type: "number"` (como `semantic.depth.spread`) **nunca** são convertidos para rem — permanecem em px em todas as plataformas. Veja [05-output-formats.md](./05-output-formats.md) para a lista completa de exceções.
+**Exceção importante:** Tokens com `$type: "number"` (como `semantic.depth.spread`) **nunca** são convertidos para rem — permanecem em px em todas as plataformas. Veja [05-output-formats.pt-br.md](./05-output-formats.pt-br.md) para a lista completa de exceções.
 
 ---
 
@@ -288,9 +288,9 @@ O pipeline inclui verificações automáticas:
 
 ## Referências
 
-- Guia de configuração: [03-configuration-guide.md](./03-configuration-guide.md)
-- Formatos de output em detalhe: [05-output-formats.md](./05-output-formats.md)
-- Referência de CLI: [09-engineering/05-cli-reference.md](../09-engineering/05-cli-reference.md)
-- Build e integração CI: [09-engineering/06-build-and-ci.md](../09-engineering/06-build-and-ci.md)
-- Diagnóstico de problemas: [09-engineering/07-troubleshooting.md](../09-engineering/07-troubleshooting.md)
-- Matemática e algoritmos: [06-mathematics-and-algorithms.md](../03-visual-foundations/06-mathematics-and-algorithms.md)
+- Guia de configuração: [03-configuration-guide.pt-br.md](./03-configuration-guide.pt-br.md)
+- Formatos de output em detalhe: [05-output-formats.pt-br.md](./05-output-formats.pt-br.md)
+- Referência de CLI: [09-engineering/05-cli-reference.pt-br.md](../09-engineering/05-cli-reference.pt-br.md)
+- Build e integração CI: [09-engineering/06-build-and-ci.pt-br.md](../09-engineering/06-build-and-ci.pt-br.md)
+- Diagnóstico de problemas: [09-engineering/07-troubleshooting.pt-br.md](../09-engineering/07-troubleshooting.pt-br.md)
+- Matemática e algoritmos: [06-mathematics-and-algorithms.pt-br.md](../03-visual-foundations/06-mathematics-and-algorithms.pt-br.md)

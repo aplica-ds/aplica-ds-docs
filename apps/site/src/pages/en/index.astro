@@ -37,7 +37,7 @@ const r = routes.en;
     <div class="container" style="position: relative;">
       <div data-animate style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem;">
         <p class="badge" style="margin: 0;">Open Source · Apache-2.0</p>
-        <p class="badge" style="margin: 0; background: rgba(99,102,241,0.08); border-color: rgba(99,102,241,0.25); color: #6366f1;">✦ AI Skills · coming soon</p>
+        <p class="badge" style="margin: 0; background: rgba(22,163,74,0.08); border-color: rgba(22,163,74,0.3); color: #16a34a;">✦ AI Skills · active</p>
       </div>
       <h1 data-animate="delay-1" style="font-family: var(--font-display); font-size: clamp(2.25rem, 5vw, 3.5rem); font-weight: 700; line-height: 1.15; max-width: 760px; margin: 0 auto 1.25rem;">
         Semantic themes for
@@ -75,8 +75,8 @@ const r = routes.en;
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a8 8 0 0 0-8 8c0 3.4 2.1 6.3 5 7.4V20a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-2.6c2.9-1.1 5-4 5-7.4a8 8 0 0 0-8-8z"/><line x1="9" y1="22" x2="15" y2="22"/></svg>
           </div>
           <div>
-            <p style="font-weight: 600; font-size: 0.9375rem; margin-bottom: 0.25rem;">Compressed context for AI agents <span style="font-family: var(--font-mono); font-size: 0.6rem; font-weight: 700; color: #8b5cf6; background: rgba(139,92,246,0.1); border: 1px solid rgba(139,92,246,0.2); border-radius: 9999px; padding: 0.15rem 0.5rem; vertical-align: middle;">COMING SOON</span></p>
-            <p style="color: var(--color-text-muted); font-size: 0.875rem; line-height: 1.55;">Semantic structure works as a compressed prompt — fewer AI tokens, more precise outputs.</p>
+            <p style="font-weight: 600; font-size: 0.9375rem; margin-bottom: 0.25rem;">AI Skills for Cursor, Claude Code and Copilot</p>
+            <p style="color: var(--color-text-muted); font-size: 0.875rem; line-height: 1.55;">One command injects integration skills into the workspace — agents use correct tokens by component type without guessing or hardcoding.</p>
           </div>
         </div>
       </div>
@@ -215,7 +215,7 @@ const r = routes.en;
         A semantic token doesn't store a color. It stores a <em>meaning</em>. That changes what tools, engineers, and AI agents can do with it.
       </p>
 
-      <div data-animate style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+      <div data-animate style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 3rem;">
 
         <div style="background: var(--color-bg); border: 1px solid var(--color-border); border-radius: 1rem; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
           <div style="width: 2.5rem; height: 2.5rem; border-radius: 0.625rem; background: rgba(99,102,241,0.1); display: flex; align-items: center; justify-content: center;">
@@ -241,24 +241,24 @@ const r = routes.en;
           <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6;">Designer, dev, and LLM read the same token and reach the same conclusion. Semantics removes the translation layer between disciplines — and between product cycles.</p>
         </div>
 
-        <!-- AI Skills — coming soon card -->
-        <div style="background: rgba(99,102,241,0.04); border: 1.5px dashed rgba(99,102,241,0.3); border-radius: 1rem; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
+        <!-- AI Skills card -->
+        <div style="background: var(--color-bg-subtle); border: 1px solid var(--color-border); border-radius: 1rem; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
           <div style="display: flex; align-items: center; justify-content: space-between;">
-            <div style="width: 2.5rem; height: 2.5rem; border-radius: 0.625rem; background: rgba(99,102,241,0.1); display: flex; align-items: center; justify-content: center; opacity: 0.7;">
+            <div style="width: 2.5rem; height: 2.5rem; border-radius: 0.625rem; background: rgba(99,102,241,0.1); display: flex; align-items: center; justify-content: center;">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a8 8 0 0 0-8 8c0 3.4 2.1 6.3 5 7.4V20a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-2.6c2.9-1.1 5-4 5-7.4a8 8 0 0 0-8-8z"/><line x1="9" y1="22" x2="15" y2="22"/></svg>
             </div>
-            <span style="font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700; color: #6366f1; background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.2); border-radius: 9999px; padding: 0.25rem 0.625rem; letter-spacing: 0.05em;">COMING SOON</span>
+            <span style="font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700; color: #16a34a; background: rgba(22,163,74,0.08); border: 1px solid rgba(22,163,74,0.25); border-radius: 9999px; padding: 0.25rem 0.625rem; letter-spacing: 0.05em;">NEW · v3.5</span>
           </div>
-          <h3 style="font-weight: 600; font-size: 1rem; color: var(--color-text); opacity: 0.75;">AI Skills — functional descriptors</h3>
-          <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6; opacity: 0.8;">Files that teach agents to use tokens at the component level: states, bg layers, <code>txtOn</code> usage, and how to navigate positive/negative surface inversions.</p>
+          <h3 style="font-weight: 600; font-size: 1rem; color: var(--color-text);">AI Skills — Cursor, Claude Code & Copilot</h3>
+          <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6;"><code>aplica-theme-engine ai:init</code> injects integration skills into the workspace. Agents understand layers, states, <code>txtOn</code>, and component archetypes — no hardcoding, no guessing variable names.</p>
         </div>
 
       </div>
 
-      <p data-animate style="text-align: center; color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.7;">
-        See it in practice — the same token resolving differently across each brand:
-      </p>
     </div>
+    <p data-animate style="text-align: center; color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.7; margin: 0 auto 1.5rem; padding: 0 1.5rem; max-width: 600px;">
+      See it in practice — the same token resolving differently across each brand:
+    </p>
     <ThemePlayground lang="en" client:load />
   </section>
 
@@ -336,7 +336,7 @@ const r = routes.en;
       <!-- Tier B: 3-card code summary -->
       <div data-animate style="margin-top: 1rem;">
         <p style="text-align: center; font-weight: 600; font-size: 0.875rem; margin-bottom: 1.5rem; color: var(--color-text-muted);">The result in code</p>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem;">
+        <div style="display: grid; grid-template-columns: 1fr; gap: 1.25rem; max-width: 640px; margin: 0 auto;">
           <div style="background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); min-width: 0;">
             <div style="padding: 1rem 1.25rem 0;">
               <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: var(--color-accent);">01 · Config</span>

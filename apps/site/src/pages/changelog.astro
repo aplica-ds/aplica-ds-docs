@@ -8,9 +8,34 @@ const r = routes['pt-br'];
 
 const releases = [
   {
-    version: 'v3.4.0',
+    version: 'v3.5.2',
     date: 'Abril 2026',
     status: 'latest',
+    changes: [
+      'AI UI Integration Program — contrato formal de consumo de tokens por agentes de IA (Cursor, Claude Code, GitHub Copilot)',
+      'ai:init — injeta arquivos de integração de editor no workspace do consumidor (.cursor/rules/, .claude/skills/, .github/instructions/, docs/context/)',
+      'Archetypes de componente: Button, Dialog, Input, Badge, Select, Card, Tabs — modelos de decisão de tokens canonicalizados',
+      'Foundation Styles como caminho de consumo preferido para IA — classes typography.css e elevation.css sancionadas',
+      'Portal rule para headless UI (Base UI, Radix) — aplica classe de tema ao document.body',
+      'Sandbox de validação Base UI + Radix parity sandbox',
+    ],
+  },
+  {
+    version: 'v2.26.0',
+    date: 'Abril 2026',
+    status: 'stable',
+    changes: [
+      'Foundation Styles Generation — gera typography_styles.json e elevation_styles.json por foundation brand',
+      'Classes CSS compostas em dist/css/foundation/{brand}/typography.css e elevation.css',
+      'Tipografia como estilo composto: sete propriedades em uma classe, referenciando tokens semânticos',
+      'Elevação como estilo composto: box-shadow por nível (level_minus_one até level_five)',
+      'Valores resolvem em runtime pelo arquivo de tema ativo — troca de tema atualiza automaticamente',
+    ],
+  },
+  {
+    version: 'v3.4.0',
+    date: 'Abril 2026',
+    status: 'stable',
     changes: [
       'Novo comando figma:generate — gera e mantém os três arquivos que o Tokens Studio precisa ($themes.json, $themes.engine.json.template, $metadata.json)',
       'Merge inteligente: campos de propriedade do Figma (id, $figmaStyleReferences, variableIDs) são preservados; estrutura regenerada a cada execução',

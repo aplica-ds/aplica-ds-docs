@@ -166,7 +166,7 @@ Ou, se commitando `dist/`:
 
 ## Ambientes Windows
 
-A CLI funciona no Windows sem configuração adicional. Se você encontrar problemas de resolução de caminho no Windows, consulte [07-troubleshooting.md](./07-troubleshooting.md).
+A CLI funciona no Windows sem configuração adicional. Se você encontrar problemas de resolução de caminho no Windows, consulte [07-troubleshooting.pt-br.md](./07-troubleshooting.pt-br.md).
 
 ---
 
@@ -193,4 +193,4 @@ Use um range de patch (`~3.3.0`) para updates automáticos de patch apenas. Evit
 3. **Build termina com código não-zero sem mensagem de erro** — verifique a versão do Node.js (requer ≥ 18.0.0).
 4. **Fontes não copiadas** — diretório `assets/fonts/` não existe. Crie-o ou defina `copyFonts: false` em `transformers.config.mjs`.
 
-Para mais detalhes, consulte [07-troubleshooting.md](./07-troubleshooting.md).
+Para mais detalhes, consulte [07-troubleshooting.pt-br.md](./07-troubleshooting.pt-br.md).

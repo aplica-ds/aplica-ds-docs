@@ -173,6 +173,25 @@ Dimension is stored in **px** but the output depends on the platform:
 
 ---
 
+## Raw scale structure and step rule
+
+The scale is stored as a flat key-value map inside `data/dimension/<variant>.json`. Each key is an integer step number; the value is the pixel dimension for that step given the variant's `LayoutUnit`.
+
+**Step rule (as of 2.22.4):**
+
+| Range | Step |
+|-------|------|
+| 0 – 100 | Variable (0, 6, 12, 25, 50, 75, 100) |
+| above 100 | **25** (100, 125, 150, 175, 200, 225, 250, 275 … 800) |
+
+> **Breaking change (2.22.4):** Before this version, keys above 100 used **step 5** (100, 105, 110, … 800). Steps 105, 110, 115, … 795 no longer exist. Consumers that reference `dimension.scale.105`, `dimension.scale.110`, etc. explicitly must migrate to the nearest step in the new series.
+
+The step-25 rule ensures that above 100, every scale value is always a multiple of 4px (with `LayoutUnit = 4`), eliminating non-round values (17px, 18px, 19px) and key collisions.
+
+**`semantic.giga` change (2.22.4):** Moved from `dimension.scale.200` (was 32px in Normal) to `dimension.scale.275` (44px in Normal), aligning with the expected semantic sizing. Consumers using `semantic.giga` are unaffected; consumers referencing the raw `dimension.scale.200` key must update to `dimension.scale.275` if they intended `giga`.
+
+---
+
 ## File generated per variant
 
 Each variant generates a file in `data/dimension/<variant>.json` with two sections:
@@ -180,7 +199,7 @@ Each variant generates a file in `data/dimension/<variant>.json` with two sectio
 ```json
 {
   "dimension": {
-    "scale": { ... },     ← raw numerical scale (keys: 0, 25, 50, 75, 100, ...)
+    "scale": { ... },     ← raw numerical scale (keys: 0, 25, 50, 75, 100, 125, 150, ...)
     "semantic": {
       "sizing": { ... },  ← semantic sizing aliases
       "spacing": { ... }  ← semantic spacing aliases

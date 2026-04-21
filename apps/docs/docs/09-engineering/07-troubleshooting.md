@@ -22,7 +22,7 @@ Este artigo cobre os erros mais comuns e como resolvê-los, organizados pela eta
 npx aplica-theme-engine init
 ```
 
-Ou crie `aplica-theme-engine.config.mjs` manualmente. Veja [01-quick-start.md](./01-quick-start.md).
+Ou crie `aplica-theme-engine.config.mjs` manualmente. Veja [01-quick-start.pt-br.md](./01-quick-start.pt-br.md).
 
 ---
 

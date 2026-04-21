@@ -28,6 +28,7 @@ Após a instalação, a CLI fica disponível como `aplica-theme-engine` (ou via 
 | [Architecture](#comandos-de-arquitetura) | Sincroniza referências de tokens entre camadas |
 | [Validate](#comandos-de-validação) | Valida o contrato de `data/` antes do build |
 | [Setup](#comandos-de-setup) | Monta o workspace de consumidor e schemas |
+| [AI Skills](#comandos-de-ai-skills) | Injeta integrações de editor de IA no workspace do consumidor |
 | [Migration](#comandos-de-migração) | Migra projetos monolíticos para o modelo de pacote |
 
 ---
@@ -259,6 +260,31 @@ O helper pergunta sobre:
 - Nomes de gradiente
 
 > `schemas:helper` e `schemas:init` são aliases.
+
+---
+
+## Comandos de AI Skills
+
+### `ai:init`
+
+Injeta arquivos de integração de editor de IA no workspace do consumidor. Execute uma vez após instalar ou atualizar o pacote para dar ao seu assistente de código de IA (Cursor, Claude Code, GitHub Copilot) conhecimento estruturado do contrato de tokens.
+
+```bash
+aplica-theme-engine ai:init
+```
+
+**Arquivos injetados:**
+
+| Destino | Finalidade |
+|---------|-----------|
+| `docs/context/aplica-ui-integration.md` | Guia de integração de UI agnóstico para qualquer surface de IA |
+| `.cursor/rules/aplica-ui-integration.mdc` | Regra específica para Cursor que ativa geração de código ciente de tokens |
+| `.claude/skills/aplica-ui-integration/SKILL.md` | Skill do Claude Code para padrões sancionados de consumo de tokens |
+| `.github/instructions/aplica-ui.instructions.md` | Instruções do GitHub Copilot para completions cientes de tokens |
+
+Todos os arquivos são copiados do diretório versionado `templates/ai-skills/` do pacote. Re-executar o comando sobrescreve os arquivos existentes — seguro de executar após cada atualização do pacote para manter a guidance de IA sincronizada com o contrato de tokens atual.
+
+> `ai:init`, `ai:setup`, `skills` e `skills:init` são todos aliases do mesmo comando.
 
 ---
 

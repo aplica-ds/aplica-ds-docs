@@ -173,6 +173,25 @@ Dimension é armazenado em **px** mas o output depende da plataforma:
 
 ---
 
+## Estrutura da escala bruta e regra de step
+
+A escala é armazenada como um mapa chave-valor plano dentro de `data/dimension/<variant>.json`. Cada chave é um número inteiro de step; o valor é a dimensão em pixels para aquele step dado o `LayoutUnit` da variante.
+
+**Regra de step (a partir de 2.22.4):**
+
+| Intervalo | Step |
+|-----------|------|
+| 0 – 100 | Variável (0, 6, 12, 25, 50, 75, 100) |
+| acima de 100 | **25** (100, 125, 150, 175, 200, 225, 250, 275 … 800) |
+
+> **Breaking change (2.22.4):** Antes desta versão, keys acima de 100 usavam **step 5** (100, 105, 110, … 800). Os steps 105, 110, 115, … 795 deixam de existir. Consumidores que referenciem `dimension.scale.105`, `dimension.scale.110`, etc. explicitamente devem migrar para o step mais próximo da nova série.
+
+A regra de step 25 garante que, acima de 100, todo valor da escala seja sempre múltiplo de 4px (com `LayoutUnit = 4`), eliminando valores não inteiros (17px, 18px, 19px) e colisões de keys.
+
+**Mudança de `semantic.giga` (2.22.4):** Movido de `dimension.scale.200` (era 32px em Normal) para `dimension.scale.275` (44px em Normal), alinhado aos valores esperados da escala semântica. Consumidores que usam `semantic.giga` não são afetados; consumidores que referenciam a key bruta `dimension.scale.200` devem atualizar para `dimension.scale.275` se pretendiam `giga`.
+
+---
+
 ## Arquivo gerado por variante
 
 Cada variante gera um arquivo em `data/dimension/<variant>.json` com duas seções:
@@ -180,7 +199,7 @@ Cada variante gera um arquivo em `data/dimension/<variant>.json` com duas seçõ
 ```json
 {
   "dimension": {
-    "scale": { ... },     ← escala numérica bruta (keys: 0, 25, 50, 75, 100, ...)
+    "scale": { ... },     ← escala numérica bruta (keys: 0, 25, 50, 75, 100, 125, 150, ...)
     "semantic": {
       "sizing": { ... },  ← aliases semânticos de sizing
       "spacing": { ... }  ← aliases semânticos de spacing

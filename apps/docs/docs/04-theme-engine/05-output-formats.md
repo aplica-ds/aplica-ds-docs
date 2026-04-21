@@ -23,6 +23,10 @@ dist/
 ├── css/                           ← CSS custom properties (Web)
 │   ├── aplica_joy-light-positive.css
 │   └── ...
+│   └── foundation/                ← Classes CSS de Foundation Styles
+│       └── {brand}/
+│           ├── typography.css     ← Classes compostas de tipografia
+│           └── elevation.css      ← Classes compostas de elevação
 ├── esm/                           ← ES Modules (JavaScript moderno)
 │   ├── aplica_joy-light-positive-semantic.mjs
 │   └── ...
@@ -34,7 +38,9 @@ dist/
     └── ...
 ```
 
-O nome de cada arquivo segue o padrão: `{brand}-{mode}-{surface}-{tipo}.{ext}`
+O nome de cada arquivo de tokens segue o padrão: `{brand}-{mode}-{surface}-{tipo}.{ext}`
+
+Foundation Styles seguem: `dist/css/foundation/{brand}/typography.css` e `elevation.css`
 
 ---
 
@@ -324,9 +330,60 @@ Para usar uma base diferente de `16px` (ex.: estratégia 62.5% com `10px` root):
 
 ---
 
+## Foundation Styles — output de classes CSS compostas
+
+Além das CSS custom properties por token, o engine gera arquivos de classes CSS compostas em `dist/css/foundation/{brand}/`. Esses arquivos são gerados a partir dos dados de Foundation Styles (`data/foundation/{brand}/styles/typography_styles.json` e `elevation_styles.json`) durante o step `foundations:generate`.
+
+### Classes de tipografia
+
+```css
+/* dist/css/foundation/engine/typography.css */
+.typography-engine-heading-title_1 {
+  font-family:     var(--semantic-typography-fontFamilies-main);
+  font-weight:     var(--semantic-typography-fontWeights-main-semibold-normal);
+  font-size:       var(--semantic-typography-fontSizes-medium);
+  line-height:     var(--semantic-typography-lineHeights-close-medium);
+  letter-spacing:  var(--semantic-typography-letterSpacings-regular);
+  text-transform:  var(--semantic-typography-textCase-uppercase);
+  text-decoration: var(--semantic-typography-textDecoration-default);
+}
+
+.typography-engine-action-strong-tight-medium { ... }
+.typography-engine-body-regular-loose-medium { ... }
+```
+
+### Classes de elevação
+
+```css
+/* dist/css/foundation/engine/elevation.css */
+.elevation-level_zero      { box-shadow: ... }
+.elevation-level_one       { box-shadow: ... }
+.elevation-level_two       { box-shadow: ... }
+.elevation-level_three     { box-shadow: ... }
+.elevation-level_four      { box-shadow: ... }
+.elevation-level_five      { box-shadow: ... }
+```
+
+Cada classe compõe tokens semânticos de depth, spread e opacidade. Os valores resolvem a partir do tema ativo em runtime — a troca de tema os atualiza automaticamente.
+
+### Ordem de carregamento
+
+```html
+<!-- Arquivo de tema deve carregar primeiro (fornece as --semantic-* custom properties) -->
+<link rel="stylesheet" href="/dist/css/aplica_joy-light-positive.css" />
+
+<!-- Foundation Styles consomem as custom properties definidas acima -->
+<link rel="stylesheet" href="/dist/css/foundation/engine/typography.css" />
+<link rel="stylesheet" href="/dist/css/foundation/engine/elevation.css" />
+```
+
+Veja [06-foundation-styles.md](./06-foundation-styles.md) para o guia completo sobre Foundation Styles.
+
+---
+
 ## Referências
 
-- Pipeline de build: [04-build-pipeline.md](./04-build-pipeline.md)
-- Workflow do designer (Figma): [02-designer-workflow.md](./02-designer-workflow.md)
-- Consumindo tokens de dist/: [07-implementation/03-consuming-dist-tokens.md](../07-implementation/03-consuming-dist-tokens.md)
-- Configuração de transformers (diretórios de output): [09-engineering/04-transformers-configuration.md](../09-engineering/04-transformers-configuration.md)
+- Pipeline de build: [04-build-pipeline.pt-br.md](./04-build-pipeline.pt-br.md)
+- Workflow do designer (Figma): [02-designer-workflow.pt-br.md](./02-designer-workflow.pt-br.md)
+- Consumindo tokens de dist/: [07-implementation/03-consuming-dist-tokens.pt-br.md](../07-implementation/03-consuming-dist-tokens.pt-br.md)
+- Configuração de transformers (diretórios de output): [09-engineering/04-transformers-configuration.pt-br.md](../09-engineering/04-transformers-configuration.pt-br.md)

@@ -288,7 +288,7 @@ Quando não existir um alias Foundation para o seu caso, use Semantic diretament
 
 ## Referências
 
-- Formatos de output explicados: [04-theme-engine/05-output-formats.md](../04-theme-engine/05-output-formats.md)
-- Entendendo os tokens gerados: [04-understanding-generated-tokens.md](./04-understanding-generated-tokens.md)
-- Camada Foundation (conceito): [02-token-layers/05-foundation-layer.md](../02-token-layers/05-foundation-layer.md)
-- Camada Semantic (conceito): [02-token-layers/04-semantic-layer.md](../02-token-layers/04-semantic-layer.md)
+- Formatos de output explicados: [04-theme-engine/05-output-formats.pt-br.md](../04-theme-engine/05-output-formats.pt-br.md)
+- Entendendo os tokens gerados: [04-understanding-generated-tokens.pt-br.md](./04-understanding-generated-tokens.pt-br.md)
+- Camada Foundation (conceito): [02-token-layers/05-foundation-layer.pt-br.md](../02-token-layers/05-foundation-layer.pt-br.md)
+- Camada Semantic (conceito): [02-token-layers/04-semantic-layer.pt-br.md](../02-token-layers/04-semantic-layer.pt-br.md)
