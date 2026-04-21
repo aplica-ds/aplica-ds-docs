@@ -7,17 +7,17 @@ import { routes } from '../../i18n/routes';
 const r = routes.en;
 ---
 
-<Base title="About" lang="en-US" description="The story of Aplica DS — from Alpha, V1, and V2 phases to the open source token system that exists today.">
+<Base title="About" lang="en-US" description="The story of Aplica DS — from Alpha, V1, V2, and V3 phases to the open source token system distributed as an npm package that exists today.">
   <Nav lang="en" />
 
   <section style="padding: 5rem 0;">
     <div class="container" style="max-width: 720px;">
       <p style="font-family: var(--font-mono); font-size: 0.8125rem; color: var(--color-accent); font-weight: 600; margin-bottom: 1rem;">ABOUT</p>
       <h1 style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; line-height: 1.2; margin-bottom: 1.25rem;">
-        One philosophy. Three phases.
+        One philosophy. Four phases.
       </h1>
       <p style="font-size: 1.0625rem; color: var(--color-text-muted); line-height: 1.75; margin-bottom: 2rem;">
-        Aplica DS was not designed all at once — it was distilled from years of experience with production design systems, three phases of evolution, and many reversed decisions.
+        Aplica DS was not designed all at once — it was distilled from years of experience with production design systems, four phases of evolution, and many reversed decisions.
       </p>
 
       <div class="kofi-support-box" style="margin-bottom: 3rem; padding: 1.5rem 2rem; background: var(--color-bg-subtle); border-radius: var(--radius); border: 1px solid var(--color-border); display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;">
@@ -81,10 +81,20 @@ const r = routes.en;
         <div>
           <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
             <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; background: var(--color-bg-subtle); border: 1px solid var(--color-border); padding: 0.2rem 0.6rem; border-radius: 4px;">V2</span>
-            <h2 style="font-weight: 700; font-size: 1.1875rem;">Decoupling (2023–present)</h2>
+            <h2 style="font-weight: 700; font-size: 1.1875rem;">Evolved Concept (2023–2024)</h2>
           </div>
           <p style="color: var(--color-text-muted); line-height: 1.75;">
             V2 resolved V1's limits with eight innovations: dynamic generator, OKLCh pipeline, Dimension layer, canonical naming, Foundation as composed styles, gradients, migration bundles, and multi-platform outputs. The system became deterministic — given the same config, the output is always the same.
+          </p>
+        </div>
+
+        <div>
+          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+            <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; background: var(--color-bg-subtle); border: 1px solid var(--color-border); padding: 0.2rem 0.6rem; border-radius: 4px;">V3</span>
+            <h2 style="font-weight: 700; font-size: 1.1875rem;">Distribution (2024–present)</h2>
+          </div>
+          <p style="color: var(--color-text-muted); line-height: 1.75;">
+            V3 made the system consumable by any project. <code>@aplica/aplica-theme-engine</code> is published as a standalone npm package — configuration and data live in the consumer project, not the package. The architecture supports any component library and any token pipeline, connected via AIs, parsers, and tools. The AI Skills Injection Program (<code>ai:init</code>) distributes contextual guidance directly to Cursor, Claude Code, and GitHub Copilot.
           </p>
         </div>
 
