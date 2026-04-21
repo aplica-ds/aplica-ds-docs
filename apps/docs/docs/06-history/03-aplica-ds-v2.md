@@ -7,7 +7,7 @@ lang: pt-BR
 
 ## Contexto
 
-A V2 é o estado atual do Aplica DS. Ela representa a síntese de tudo que foi aprendido no Alpha e na V1, reescrita com dois objetivos que mudam a natureza do projeto:
+A V2 é a fase de conceito evoluído do Aplica DS (2023–2024). Ela representa a síntese de tudo que foi aprendido no Alpha e na V1, reescrita com dois objetivos que mudam a natureza do projeto:
 
 1. **Desacoplamento** — o sistema de tokens foi completamente separado de qualquer produto específico, tornando-se independente e reutilizável
 2. **Open source** — a arquitetura passou a ser desenvolvida como um bem público, não como um produto interno
@@ -136,27 +136,18 @@ bundles/from-2.24.0-to-2.25.0/
 
 ---
 
-## Versão atual: 2.25.0
+## Versões de marco da V2
 
-Marcos recentes:
+- **2.26.0** — Foundation Styles Generation (typography.css, elevation.css por brand)
 - **2.25.0** — Output CSS em `rem` (acessibilidade, WCAG 1.4.4)
 - **2.24.0** — Token `focus` distinto de `active` (breaking change)
+- **2.23.0** — Opção `txtOnStrategy: 'custom-tint'`
+- **2.22.4** — Step 25 acima de 100px na camada Dimension (era step 5), semantic.giga movido para scale.275
 - **2.22.0** — Escala tipográfica de 13 tamanhos (nano → zetta)
 - **2.19.0** — Elevation configurável por tema
 - **2.18.0** — Config e schemas centralizados na raiz do projeto
 
----
-
-## O que vem a seguir (roadmap)
-
-| Área | Status |
-|------|--------|
-| Biblioteca de componentes (React/Vue) | Planejado |
-| Suporte Flutter (Dart classes) | Planejado |
-| Pacote npm público | Planejado |
-| Site de documentação | Planejado |
-| Validação automática de WCAG na build | Planejado |
-| Seleção de método de decomposição (LCH/OKLCH/Linear) | Planejado |
+A V2 encerrou na 2.26.x. Os itens planejados na V2 (pacote npm público, site de documentação, biblioteca de componentes) foram entregues na V3.
 
 ---
 

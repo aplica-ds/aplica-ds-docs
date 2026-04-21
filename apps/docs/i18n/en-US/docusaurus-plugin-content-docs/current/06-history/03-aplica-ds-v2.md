@@ -7,7 +7,7 @@ lang: en
 
 ## Context
 
-V2 is the current state of Aplica DS. It represents the synthesis of everything learned in the Alpha and V1, rewritten with two objectives that change the nature of the project:
+V2 is the concept-evolved phase of Aplica DS (2023–2024). It represents the synthesis of everything learned in the Alpha and V1, rewritten with two objectives that change the nature of the project:
 
 1. **Decoupling** — the token system was completely separated from any specific product, becoming independent and reusable
 2. **Open source** — the architecture began to be developed as a public good, not as an internal product
@@ -136,27 +136,18 @@ bundles/from-2.24.0-to-2.25.0/
 
 ---
 
-## Current version: 2.25.0
+## V2 milestone versions
 
-Recent milestones:
+- **2.26.0** — Foundation Styles Generation (typography.css, elevation.css per brand)
 - **2.25.0** — CSS output in `rem` (accessibility, WCAG 1.4.4)
 - **2.24.0** — Distinct `focus` token separate from `active` (breaking change)
+- **2.23.0** — `txtOnStrategy: 'custom-tint'` option
+- **2.22.4** — Dimension step 25 above 100px (was step 5), semantic.giga moved to scale.275
 - **2.22.0** — Typographic scale of 13 sizes (nano → zetta)
 - **2.19.0** — Elevation configurable per theme
 - **2.18.0** — Config and schemas centralized at the project root
 
----
-
-## What Comes Next (roadmap)
-
-| Area | Status |
-|------|--------|
-| Component library (React/Vue) | Planned |
-| Flutter support (Dart classes) | Planned |
-| Public npm package | Planned |
-| Documentation site | Planned |
-| Automatic WCAG validation in build | Planned |
-| Decomposition method selection (LCH/OKLCH/Linear) | Planned |
+V2 closed at 2.26.x. The items planned in V2 (public npm package, documentation site, component library) were delivered in V3.
 
 ---
 
