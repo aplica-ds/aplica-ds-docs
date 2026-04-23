@@ -205,10 +205,52 @@ options: {
 | `darkModeChroma` | `0.85` | Fator de saturação no dark mode (0.7 = mais suave, 1.0 = igual ao light) |
 | `accessibilityLevel` | `'AA'` | Nível WCAG mínimo: `'AA'` (4.5:1) ou `'AAA'` (7:1) |
 | `acceptAALevelFallback` | `true` | Ao visar AAA, aceita AA (4.5:1) se AAA não puder ser atingido |
-| `includePrimitives` | `true` | Gera `_primitive_theme.json` — desabilitar reduz memória no Figma |
+| `includePrimitives` | `false` | Gera `_primitive_theme.json` — desabilitado por padrão desde 3.6.3; habilitando adiciona variáveis primitivas do Figma |
 | `uiTokens` | `false` | Gera `_ui.json` com tokens UI com escopo de componente |
 | `borderOffset.palette` | `10` | Distância da borda em relação ao surface (escala 10–190) |
 | `borderOffset.neutrals` | `1` | Passos de distância na escala de neutrals |
+| `txtBaseColorLevel` | padrão do workspace | Nível de paleta inicial para busca do token `txt` neste tema (sobrescreve `generation.colorText.txtBaseColorLevel` do workspace) |
+
+---
+
+## Workspace Config: generation.colorText (desde 3.6.0)
+
+A geração do token `txt` e dos aliases de texto legível é controlada no **nível do workspace** em `aplica-theme-engine.config.mjs`, não por tema. Isso garante que todos os temas compartilhem o mesmo contrato de texto:
+
+```javascript
+import { defineThemeEngineConfig } from '@aplica/aplica-theme-engine/config';
+
+export default defineThemeEngineConfig({
+  generation: {
+    colorText: {
+      generateTxt: true,                  // Habilita a propriedade txt (default: false para compatibilidade)
+      txtBaseColorLevel: 140,             // Nível de paleta inicial para txt (sobe se necessário para WCAG)
+      fallbackBaseColorLevel: 160,        // Nível de fallback secundário
+      textExposure: ['feedback'],         // Quais famílias recebem aliases foundation.txt.*
+                                          // Opções: 'feedback', 'interfaceFunction', 'product'
+    }
+  },
+  paths: {
+    configDir:       './theme-engine/config',
+    globalConfigDir: './theme-engine/config/global',
+    foundationsDir:  './theme-engine/config/foundations',
+    dataDir:         './data',
+    distDir:         './dist'
+  }
+});
+```
+
+### Valores de textExposure
+
+| Valor | Aliases de foundation gerados |
+|-------|-------------------------------|
+| `'feedback'` | `foundation.txt.info`, `.success`, `.warning`, `.danger` (padrão) |
+| `'interfaceFunction'` | `foundation.txt.primary`, `.secondary`, `.link` |
+| `'product'` | Itens de product por tema: `foundation.txt.promo`, `.cashback`, etc. |
+
+> **Breaking change (3.6.0 → 3.6.1):** Na 3.6.0, algumas opções relacionadas a `txt` ficavam por tema. Na 3.6.1, foram movidas para `generation.colorText` no workspace config. Se estiver atualizando da 3.6.0, mova `generateTxt`, `txtBaseColorLevel`, `fallbackBaseColorLevel` e `textExposure` dos configs de tema individuais para o workspace config.
+
+Veja [07-txt-token.md](../02-token-layers/07-txt-token.md) para a documentação completa do contrato txt.
 
 ---
 

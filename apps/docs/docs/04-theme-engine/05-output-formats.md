@@ -59,7 +59,8 @@ Foundation Styles seguem: `dist/css/foundation/{brand}/typography.css` e `elevat
             "normal": {
               "background": { "$value": "#C40145", "$type": "color" },
               "txtOn":       { "$value": "#ffffff", "$type": "color" },
-              "border":      { "$value": "#9c0136", "$type": "color" }
+              "border":      { "$value": "#9c0136", "$type": "color" },
+              "txt":         { "$value": "#7a0128", "$type": "color" }
             }
           }
         }

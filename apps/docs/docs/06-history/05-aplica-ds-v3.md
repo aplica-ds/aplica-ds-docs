@@ -128,6 +128,9 @@ Sete archetypes de componente (Button, Dialog, Input, Badge, Select, Card, Tabs)
 
 ## Versões de marco da V3
 
+- **3.6.3** — `includePrimitives: false` como padrão no scaffold do `init`, banner de onboarding no CLI, cobertura de smoke para `ai:init`
+- **3.6.1** — Workspace config `generation.colorText` (breaking: consolidação de config de por-tema para workspace)
+- **3.6.0** — Contrato de cor de 4 partes: token `txt` adicionado ao lado de `background`/`txtOn`/`border`; `txtBaseColorLevel`; text states (`normal`/`action`/`active`/`focus`) em todas as camadas; breaking: aliases de texto não mais herdam de `surface.*`
 - **3.5.2** — AI UI Integration Program — archetypes, portal rule para headless UI (Base UI, Radix)
 - **3.5.0** — Comando `ai:init` — AI Skills Injection no workspace consumidor
 - **3.4.0** — Comando `figma:generate` — scaffolding do Tokens Studio com IDs estáveis via SHA1

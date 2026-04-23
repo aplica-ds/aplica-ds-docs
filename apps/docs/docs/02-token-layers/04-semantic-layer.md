@@ -36,11 +36,14 @@ Qualquer um desses prefixos é reservado e rigidamente controlado pelo engine ce
 Do ponto de vista do funcionamento do motor da camada Semântica, o Theme Engine aplica a seguinte estrutura (baseada em seu schema central):
 
 1. **Brand (Branding & Ambient)**  
-   Expõe os tons primitivos `first`, `second`, e `third` (e cores Neutras/Cinza), porém já atrelados às 3 chaves funcionais base necessárias para renderização de qualquer interface:
+   Expõe os tons primitivos `first`, `second`, e `third` (e cores Neutras/Cinza), porém já atrelados às chaves funcionais necessárias para renderização de qualquer interface:
    - `background`
    - `txtOn` (cor do texto perfeitamente contrastada para aplicar sobre o background da mesma string)
    - `border`
+   - `txt` *(desde 3.6.0)* — texto legível em fluxo de conteúdo no canvas atual, referenciando esta família de cor
    *(Ex: `semantic.color.brand.branding.first.default.txtOn`)*
+
+   > **Contrato de cor de 4 partes (3.6.0):** A partir da versão 3.6.0, todo bloco de cor expõe uma quarta propriedade `txt` ao lado de `background`, `txtOn` e `border`. Diferente de `txtOn` (texto sobre fundo colorido), `txt` é texto sobre canvas — um tom escuro da mesma família de paleta, acessível em WCAG sobre o background ambiente. Veja [07-txt-token.md](./07-txt-token.md) para o contrato completo e a configuração.
 
 2. **Interface (Function & Feedback)**
    Mapeia o uso intencional. As funções de Interação (Primary, Secondary, Link, Disabled) agora habitam aqui em suas vertentes comportamentais completas:
@@ -48,6 +51,9 @@ Do ponto de vista do funcionamento do motor da camada Semântica, o Theme Engine
    - `action` (hover)
    - `active` (pressionado — mais escuro que action)
    - `focus` (indicador de foco de teclado — mais claro, aparência de anel/outline)
+
+   Cada um desses estados expõe o quarteto completo de cor: `background`, `txtOn`, `border` e `txt` (desde 3.6.0).
+   Exemplo: `semantic.color.interface.function.primary.action.txt`
 
    > **Breaking change (2.24.0):** Antes desta versão, `active` carregava a aparência de foco de teclado. A partir de 2.24.0, `focus` é um estado dedicado para foco de teclado (usa o nível de paleta que `active` mapeava anteriormente), e `active` agora mapeia para um step de paleta **mais escuro** representando o estado pressed/selected. Migração: substituir uso de `active` em rings de foco por `focus`; manter `active` para feedback visual de press/select.
    

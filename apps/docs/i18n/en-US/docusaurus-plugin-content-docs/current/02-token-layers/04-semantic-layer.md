@@ -36,11 +36,14 @@ Any of these prefixes is reserved and rigorously controlled by the central engin
 From the operational standpoint of the Semantic layer's engine, the Theme Engine applies the following structure (based on its central schema):
 
 1. **Brand (Branding & Ambient)**
-   Exposes the primitive tones `first`, `second`, and `third` (and Neutral/Gray colors), but already tied to the 3 base functional keys required to render any interface:
+   Exposes the primitive tones `first`, `second`, and `third` (and Neutral/Gray colors), but already tied to the functional keys required to render any interface:
    - `background`
    - `txtOn` (perfectly contrasted text color to apply on top of the same string's background)
    - `border`
+   - `txt` *(since 3.6.0)* — readable text in a content flow on the current canvas, referencing this color family
    *(Example: `semantic.color.brand.branding.first.default.txtOn`)*
+
+   > **Four-part color contract (3.6.0):** As of version 3.6.0, every color block exposes a fourth property `txt` alongside `background`, `txtOn`, and `border`. Unlike `txtOn` (text on a colored background), `txt` is text on canvas — a dark tone from the same palette family that is WCAG-accessible over the ambient background. See [07-txt-token.md](./07-txt-token.md) for the full contract and configuration.
 
 2. **Interface (Function & Feedback)**
    Maps intentional use. The interaction functions (Primary, Secondary, Link, Disabled) now reside here in their complete behavioral variants:
@@ -48,6 +51,9 @@ From the operational standpoint of the Semantic layer's engine, the Theme Engine
    - `action` (hover)
    - `active` (pressed — darker than action)
    - `focus` (keyboard focus indicator — lighter, uses the ring/outline appearance)
+
+   Each of these states exposes the full color quartet: `background`, `txtOn`, `border`, and `txt` (since 3.6.0).
+   Example: `semantic.color.interface.function.primary.action.txt`
 
    > **Breaking change (2.24.0):** Before this version, `active` carried the keyboard focus appearance. As of 2.24.0, `focus` is a dedicated state for keyboard focus (uses the palette level that `active` previously mapped to), and `active` now maps to a **darker** palette step representing the pressed/selected state. Migrate: replace `active` usage in focus rings with `focus`; retain `active` for press/select visual feedback.
 

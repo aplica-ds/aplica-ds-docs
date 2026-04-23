@@ -8,9 +8,42 @@ const r = routes.en;
 
 const releases = [
   {
-    version: 'v3.5.2',
+    version: 'v3.6.3',
     date: 'April 2026',
     status: 'latest',
+    changes: [
+      'init scaffold now defaults to includePrimitives: false — leaner out-of-the-box consumer workspace',
+      'ASCII onboarding banner in CLI init — displays version, license, docs, and support link',
+      'Smoke coverage for ai:init in published package validation flow',
+    ],
+  },
+  {
+    version: 'v3.6.1',
+    date: 'April 2026',
+    status: 'stable',
+    changes: [
+      'generation.colorText in workspace config — generateTxt, txtBaseColorLevel, fallbackBaseColorLevel, and textExposure now live in aplica-theme-engine.config.mjs, not per-theme',
+      'Centralized control ensures uniform text contract across all themes in the workspace',
+    ],
+  },
+  {
+    version: 'v3.6.0',
+    date: 'April 2026',
+    status: 'stable',
+    changes: [
+      'txt token — color contract expanded from 3 to 4 parts: background / txtOn / border / txt',
+      'txt represents readable text on canvas (not on a colored background); always WCAG-accessible against the ambient background',
+      'txtBaseColorLevel — controls the starting palette level for txt lookup (default: 140)',
+      'Structured text states (normal / action / active / focus) propagate txt through all layers',
+      'Foundation flat aliases: foundation.txt.info, foundation.txt.primary, foundation.txt.promo',
+      'textExposure — controls which families get foundation.txt.* aliases (default: feedback only)',
+      'Breaking: text aliases no longer source from surface.* — unified generation from palette',
+    ],
+  },
+  {
+    version: 'v3.5.2',
+    date: 'April 2026',
+    status: 'stable',
     changes: [
       'AI UI Integration Program — formal contract for AI agent token consumption (Cursor, Claude Code, GitHub Copilot)',
       'ai:init command — injects editor integration files into consumer workspace (.cursor/rules/, .claude/skills/, .github/instructions/, docs/context/)',
