@@ -56,7 +56,7 @@ The hex is converted from RGB to the OKLCh color space. Here, the color has thre
 
 The engine fixes the hue (`h`) and varies `L` in 19 uniform steps, from lightest (level 10) to darkest (level 190). Level 100 is the original color — it is not altered.
 
-Each level has three properties: `surface` (the background), `txtOn` (the accessible text color over that background), and `border` (the derived border color).
+Each level has three properties: `surface` (the background), `txtOn` (the accessible text color over that background), and `border` (the derived border color). Since 3.6.0, the engine also generates a fourth property `txt` per level — readable text color for content on canvas (not on the element's own background). See [txt token](../../02-token-layers/07-txt-token.md).
 
 **Step 3 — Neutrals generation (15 levels)**
 

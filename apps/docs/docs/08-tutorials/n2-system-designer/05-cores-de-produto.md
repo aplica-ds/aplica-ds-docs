@@ -38,26 +38,26 @@ Aqui está o que acontece quando você adiciona um item de produto — por exemp
 ```
 promo_extended
   ├── default
-  │   ├── lowest  → background + txtOn + border  (3 tokens)
-  │   ├── low     → background + txtOn + border  (3 tokens)
-  │   ├── default → background + txtOn + border  (3 tokens)
-  │   ├── high    → background + txtOn + border  (3 tokens)
-  │   └── highest → background + txtOn + border  (3 tokens)
+  │   ├── lowest  → background + txtOn + border + txt  (4 tokens desde 3.6.0)
+  │   ├── low     → background + txtOn + border + txt  (4 tokens desde 3.6.0)
+  │   ├── default → background + txtOn + border + txt  (4 tokens desde 3.6.0)
+  │   ├── high    → background + txtOn + border + txt  (4 tokens desde 3.6.0)
+  │   └── highest → background + txtOn + border + txt  (4 tokens desde 3.6.0)
   └── secondary
-      ├── lowest  → background + txtOn + border  (3 tokens)
-      ├── low     → background + txtOn + border  (3 tokens)
-      ├── default → background + txtOn + border  (3 tokens)
-      ├── high    → background + txtOn + border  (3 tokens)
-      └── highest → background + txtOn + border  (3 tokens)
+      ├── lowest  → background + txtOn + border + txt  (4 tokens desde 3.6.0)
+      ├── low     → background + txtOn + border + txt  (4 tokens desde 3.6.0)
+      ├── default → background + txtOn + border + txt  (4 tokens desde 3.6.0)
+      ├── high    → background + txtOn + border + txt  (4 tokens desde 3.6.0)
+      └── highest → background + txtOn + border + txt  (4 tokens desde 3.6.0)
 ```
 
-**30 tokens por item.** E esses 30 tokens existem em cada tema do sistema.
+**40 tokens por item** (desde 3.6.0 — eram 30 antes de `txt` ser adicionado). E esses 40 tokens existem em cada tema do sistema.
 
 | Sistema com | 1 item Product | +1 item | +5 itens |
 |-------------|---------------|---------|---------|
-| 2 temas | 60 tokens | 120 tokens | 300 tokens |
-| 4 temas | 120 tokens | 240 tokens | 600 tokens |
-| 8 temas | 240 tokens | 480 tokens | 1200 tokens |
+| 2 temas | 80 tokens | 160 tokens | 400 tokens |
+| 4 temas | 160 tokens | 320 tokens | 800 tokens |
+| 8 temas | 320 tokens | 640 tokens | 1600 tokens |
 
 E isso é só para a camada Semantic. Cada token propaga por Mode, Surface, e Foundation — multiplicando o impacto.
 

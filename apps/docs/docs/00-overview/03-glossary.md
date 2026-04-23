@@ -30,8 +30,14 @@ São nomes de código. Aparecem exatamente assim em pt-BR e em en-US.
 | Termo | Tipo | Exemplo de uso |
 |-------|------|---------------|
 | `txtOn` | Nome de token | "o `txtOn` garante contraste WCAG" |
+| `txt` | Nome de token | "o `txt` é texto legível sobre canvas (não sobre brand background) — desde 3.6.0" |
 | `darkModeChroma` | Parâmetro de config | "`darkModeChroma: 0.85`" |
 | `txtOnStrategy` | Parâmetro de config | "`txtOnStrategy: 'brand-tint'`" |
+| `txtBaseColorLevel` | Parâmetro de config | "`txtBaseColorLevel: 140`" |
+| `fallbackBaseColorLevel` | Parâmetro de config | "`fallbackBaseColorLevel: 160`" |
+| `textExposure` | Parâmetro de config | "`textExposure: ['feedback']`" |
+| `generateTxt` | Parâmetro de config | "`generateTxt: true`" |
+| `generation.colorText` | Chave de config | "seção `generation.colorText` no workspace config (desde 3.6.1)" |
 | `accessibilityLevel` | Parâmetro de config | "`accessibilityLevel: 'AA'`" |
 | `includePrimitives` | Parâmetro de config | "`includePrimitives: true`" |
 | `borderOffset` | Parâmetro de config | "`borderOffset.palette: 10`" |
@@ -131,7 +137,9 @@ Estes são termos cunhados — nomes de paradigmas, produtos ou personas do Apli
 | Nível mais escuro | Darkest level | — |
 | Decomposição de cor | Color decomposition | — |
 | Contraste | Contrast | — |
-| Par de cor | Color pair | "background + txtOn pair" é a forma canônica |
+| Par de cor | Color pair | "background + txtOn pair" é a forma canônica para o par de contraste WCAG |
+| Contrato de cor expandido | Four-part color contract | Contrato de 4 partes: `background / txtOn / border / txt` — introduzido em 3.6.0 |
+| Texto sobre canvas | Text on canvas | Texto em fluxo de conteúdo sobre o fundo da página — use `txt`, nunca `txtOn` |
 | Estratégia de texto | Text strategy | Referindo-se a `txtOnStrategy` |
 | Tom de marca | Brand tint | — |
 | Override de cinza | Grayscale override | — |
@@ -279,4 +287,5 @@ O Aplica DS usa metáforas específicas para explicar conceitos. Estas metáfora
 
 | Data | Mudança |
 |------|---------|
+| 2026-04-23 | Adicionados termos 3.6.x: `txt`, `txtBaseColorLevel`, `fallbackBaseColorLevel`, `textExposure`, `generateTxt`, `generation.colorText`; vocabulário de contrato expandido |
 | 2026-04-10 | Versão inicial — criado antes da primeira tradução |

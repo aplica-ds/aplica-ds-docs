@@ -31,7 +31,7 @@ semantic.color.interface.function.{variante}.{estado}.{propriedade}
 |------|---------|
 | **Variante** | `primary`, `secondary`, `link`, `active`, `disabled` |
 | **Estado** | `normal`, `action`, `active` |
-| **Propriedade** | `background`, `txtOn`, `border` |
+| **Propriedade** | `background`, `txtOn`, `border`, `txt` (desde 3.6.0 — para texto de conteúdo sobre canvas) |
 
 Para componentes de feedback, o modelo é ligeiramente diferente:
 

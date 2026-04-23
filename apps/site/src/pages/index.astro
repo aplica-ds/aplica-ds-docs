@@ -250,7 +250,19 @@ const r = routes['pt-br'];
             <span style="font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700; color: #16a34a; background: rgba(22,163,74,0.08); border: 1px solid rgba(22,163,74,0.25); border-radius: 9999px; padding: 0.25rem 0.625rem; letter-spacing: 0.05em;">NOVO · v3.5</span>
           </div>
           <h3 style="font-weight: 600; font-size: 1rem; color: var(--color-text);">AI Skills — Cursor, Claude Code e Copilot</h3>
-          <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6;"><code>aplica-theme-engine ai:init</code> injeta skills de integração no workspace. Agentes entendem camadas, estados, <code>txtOn</code> e archetypes de componente — sem hardcode, sem adivinhação de nomes de variável.</p>
+          <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6;"><code>aplica-theme-engine ai:init</code> injeta skills de integração no workspace. Agentes entendem camadas, estados, <code>txtOn</code>, <code>txt</code> e archetypes de componente — sem hardcode, sem adivinhação de nomes de variável.</p>
+        </div>
+
+        <!-- txt token card -->
+        <div style="background: var(--color-bg-subtle); border: 1px solid var(--color-border); border-radius: 1rem; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="width: 2.5rem; height: 2.5rem; border-radius: 0.625rem; background: rgba(220,38,38,0.1); display: flex; align-items: center; justify-content: center;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
+            </div>
+            <span style="font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700; color: #16a34a; background: rgba(22,163,74,0.08); border: 1px solid rgba(22,163,74,0.25); border-radius: 9999px; padding: 0.25rem 0.625rem; letter-spacing: 0.05em;">NOVO · v3.6</span>
+          </div>
+          <h3 style="font-weight: 600; font-size: 1rem; color: var(--color-text);">Contrato de cor expandido — token <code>txt</code></h3>
+          <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.6;">O contrato de cor passou de 3 para 4 partes: <code>background / txtOn / border / txt</code>. O token <code>txt</code> é a cor legível de texto sobre canvas — diferente de <code>txtOn</code>, que é texto sobre o próprio background colorido. Aliases planos em <code>foundation.txt.*</code>.</p>
         </div>
 
       </div>

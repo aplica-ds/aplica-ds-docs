@@ -203,6 +203,7 @@ Font files must be present in `assets/fonts/` if you enable `copyFonts` in the t
 | Option | Default | Description |
 |--------|---------|-------------|
 | `txtOnStrategy` | `'brand-tint'` | How text-on-color is calculated. `'brand-tint'` uses the closest passing palette color. `'high-contrast'` always uses pure black or white. |
+| `txtBaseColorLevel` | `140` | Palette level used as starting point for `txt` color generation (since 3.6.0). Lower = lighter text. |
 | `accessibilityLevel` | `'AAA'` | WCAG target. `'AAA'` = 7:1 ratio, `'AA'` = 4.5:1 ratio. |
 | `acceptAALevelFallback` | `true` | When `true`, the engine automatically accepts AA when AAA fails instead of blocking. |
 | `darkModeChroma` | `0.85` | Saturation factor for dark mode palette. `1.0` = same saturation as light. `0.85` = 15% more muted. |
@@ -220,6 +221,43 @@ gradientColors: {
   third:  { lowest: '#1e40af', default: '#1E3A8A', highest: '#172554' }
 }
 ```
+
+---
+
+## Workspace config — `aplica-theme-engine.config.mjs`
+
+Workspace-level generation behavior lives in `aplica-theme-engine.config.mjs` at the project root, separate from per-brand configs.
+
+### `generation.colorText` (since 3.6.0)
+
+Controls `txt` token generation — the fourth property in the color contract (`background / txtOn / border / txt`):
+
+```javascript
+import { defineThemeEngineConfig } from '@aplica/aplica-theme-engine/config';
+
+export default defineThemeEngineConfig({
+  generation: {
+    colorText: {
+      generateTxt: true,
+      txtBaseColorLevel: 140,
+      fallbackBaseColorLevel: 160,
+      textExposure: ['feedback'],
+    }
+  },
+  paths: { /* your existing paths */ }
+});
+```
+
+| Field | Default | Description |
+|-------|---------|-------------|
+| `generateTxt` | `false` | Enable `txt` generation across all color layers |
+| `txtBaseColorLevel` | `140` | Palette level to start looking for an accessible `txt` color |
+| `fallbackBaseColorLevel` | `160` | Level to fall back to when `txtBaseColorLevel` does not pass contrast |
+| `textExposure` | `['feedback']` | Which families get `foundation.txt.*` flat aliases. Add `'interfaceFunction'` or `'product'` as needed |
+
+> `txtBaseColorLevel` can also be overridden per brand in `options.txtBaseColorLevel`.
+
+See [configuration guide](../04-theme-engine/03-configuration-guide.md) and [txt token](../02-token-layers/07-txt-token.md) for the full contract.
 
 ---
 

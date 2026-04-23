@@ -56,7 +56,7 @@ O hex é convertido de RGB para o espaço OKLCh. Aqui, a cor tem três dimensõe
 
 O engine fixa o matiz (`h`) e varia o `L` em 19 passos uniformes, do mais claro (nível 10) ao mais escuro (nível 190). O nível 100 é a cor original — ela não é alterada.
 
-Cada nível tem três propriedades: `surface` (o fundo), `txtOn` (o texto acessível sobre aquele fundo) e `border` (a borda derivada).
+Cada nível tem três propriedades: `surface` (o fundo), `txtOn` (o texto acessível sobre aquele fundo) e `border` (a borda derivada). Desde a 3.6.0, o engine também gera uma quarta propriedade `txt` por nível — cor de texto legível sobre canvas (não sobre o próprio fundo colorido do elemento). Veja [token txt](../../02-token-layers/07-txt-token.md).
 
 **Passo 3 — Geração dos neutrals (15 níveis)**
 

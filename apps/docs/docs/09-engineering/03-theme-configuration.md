@@ -203,6 +203,7 @@ Os arquivos de fonte precisam estar em `assets/fonts/` se você ativar `copyFont
 | Opção | Padrão | Descrição |
 |-------|--------|-----------|
 | `txtOnStrategy` | `'brand-tint'` | Como o texto-sobre-cor é calculado. `'brand-tint'` usa a cor de paleta mais próxima que passa. `'high-contrast'` sempre usa preto ou branco puro. |
+| `txtBaseColorLevel` | `140` | Nível de paleta usado como ponto de partida para geração da cor `txt` (desde 3.6.0). Valores menores = texto mais claro. |
 | `accessibilityLevel` | `'AAA'` | Alvo WCAG. `'AAA'` = proporção 7:1, `'AA'` = proporção 4.5:1. |
 | `acceptAALevelFallback` | `true` | Quando `true`, o engine aceita automaticamente AA quando AAA falha em vez de bloquear. |
 | `darkModeChroma` | `0.85` | Fator de saturação para a paleta dark mode. `1.0` = mesma saturação que light. `0.85` = 15% mais suave. |
@@ -220,6 +221,43 @@ gradientColors: {
   third:  { lowest: '#1e40af', default: '#1E3A8A', highest: '#172554' }
 }
 ```
+
+---
+
+## Workspace config — `aplica-theme-engine.config.mjs`
+
+O comportamento de geração em nível de workspace fica em `aplica-theme-engine.config.mjs` na raiz do projeto, separado das configs por marca.
+
+### `generation.colorText` (desde 3.6.0)
+
+Controla a geração do token `txt` — a quarta propriedade no contrato de cor (`background / txtOn / border / txt`):
+
+```javascript
+import { defineThemeEngineConfig } from '@aplica/aplica-theme-engine/config';
+
+export default defineThemeEngineConfig({
+  generation: {
+    colorText: {
+      generateTxt: true,
+      txtBaseColorLevel: 140,
+      fallbackBaseColorLevel: 160,
+      textExposure: ['feedback'],
+    }
+  },
+  paths: { /* seus paths existentes */ }
+});
+```
+
+| Campo | Padrão | Descrição |
+|-------|--------|-----------|
+| `generateTxt` | `false` | Ativa geração de `txt` em todas as camadas de cor |
+| `txtBaseColorLevel` | `140` | Nível de paleta para começar a procurar uma cor `txt` acessível |
+| `fallbackBaseColorLevel` | `160` | Nível de fallback quando `txtBaseColorLevel` não passa no contraste |
+| `textExposure` | `['feedback']` | Quais famílias recebem aliases planos `foundation.txt.*`. Adicione `'interfaceFunction'` ou `'product'` conforme necessário |
+
+> `txtBaseColorLevel` também pode ser sobrescrito por marca em `options.txtBaseColorLevel`.
+
+Veja o [guia de configuração](../04-theme-engine/03-configuration-guide.pt-br.md) e o [token txt](../02-token-layers/07-txt-token.md) para o contrato completo.
 
 ---
 

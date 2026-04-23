@@ -38,26 +38,26 @@ Here is what happens when you add a product item — for example, `promo_extende
 ```
 promo_extended
   ├── default
-  │   ├── lowest  → background + txtOn + border  (3 tokens)
-  │   ├── low     → background + txtOn + border  (3 tokens)
-  │   ├── default → background + txtOn + border  (3 tokens)
-  │   ├── high    → background + txtOn + border  (3 tokens)
-  │   └── highest → background + txtOn + border  (3 tokens)
+  │   ├── lowest  → background + txtOn + border + txt  (4 tokens since 3.6.0)
+  │   ├── low     → background + txtOn + border + txt  (4 tokens since 3.6.0)
+  │   ├── default → background + txtOn + border + txt  (4 tokens since 3.6.0)
+  │   ├── high    → background + txtOn + border + txt  (4 tokens since 3.6.0)
+  │   └── highest → background + txtOn + border + txt  (4 tokens since 3.6.0)
   └── secondary
-      ├── lowest  → background + txtOn + border  (3 tokens)
-      ├── low     → background + txtOn + border  (3 tokens)
-      ├── default → background + txtOn + border  (3 tokens)
-      ├── high    → background + txtOn + border  (3 tokens)
-      └── highest → background + txtOn + border  (3 tokens)
+      ├── lowest  → background + txtOn + border + txt  (4 tokens since 3.6.0)
+      ├── low     → background + txtOn + border + txt  (4 tokens since 3.6.0)
+      ├── default → background + txtOn + border + txt  (4 tokens since 3.6.0)
+      ├── high    → background + txtOn + border + txt  (4 tokens since 3.6.0)
+      └── highest → background + txtOn + border + txt  (4 tokens since 3.6.0)
 ```
 
-**30 tokens per item.** And those 30 tokens exist in every theme in the system.
+**40 tokens per item** (since 3.6.0 — was 30 before `txt` was added). And those 40 tokens exist in every theme in the system.
 
 | System with | 1 Product item | +1 item | +5 items |
 |-------------|---------------|---------|---------|
-| 2 themes | 60 tokens | 120 tokens | 300 tokens |
-| 4 themes | 120 tokens | 240 tokens | 600 tokens |
-| 8 themes | 240 tokens | 480 tokens | 1,200 tokens |
+| 2 themes | 80 tokens | 160 tokens | 400 tokens |
+| 4 themes | 160 tokens | 320 tokens | 800 tokens |
+| 8 themes | 320 tokens | 640 tokens | 1,600 tokens |
 
 And this is just for the Semantic layer. Each token propagates through Mode, Surface, and Foundation — multiplying the impact.
 
