@@ -160,8 +160,28 @@ This preference exists because Foundation Styles encode validated, authored comp
 
 ---
 
+## Foundation txt aliases (since 3.6.0)
+
+In addition to typography and elevation style classes, the foundation layer exposes **readable text color aliases** under `foundation.txt.*`. These are flat aliases — one token per semantic concept — that provide the correct canvas-readable text color for each color family.
+
+```
+foundation.txt.info      → var(--foundation-txt-info)
+foundation.txt.success   → var(--foundation-txt-success)
+foundation.txt.warning   → var(--foundation-txt-warning)
+foundation.txt.danger    → var(--foundation-txt-danger)
+foundation.txt.primary   → var(--foundation-txt-primary)   (if textExposure includes 'interfaceFunction')
+foundation.txt.promo     → var(--foundation-txt-promo)     (if textExposure includes 'product')
+```
+
+These are distinct from `txtOn` tokens (text on colored backgrounds). `foundation.txt.*` aliases are for **text in content flow on canvas** — paragraphs, labels, and headings that carry the semantic color of a family without being placed on a colored surface.
+
+Which families are exposed is controlled by `generation.colorText.textExposure` in the workspace config. Default is `['feedback']` only. See [07-txt-token.md](../02-token-layers/07-txt-token.md) for the full contract.
+
+---
+
 ## References
 
 - Build pipeline: [04-build-pipeline.md](./04-build-pipeline.md)
 - Output formats: [05-output-formats.md](./05-output-formats.md)
 - AI Skills Injection: [07-ai-skills-injection.md](./07-ai-skills-injection.md)
+- txt token contract: [../02-token-layers/07-txt-token.md](../02-token-layers/07-txt-token.md)

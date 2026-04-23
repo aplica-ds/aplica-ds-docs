@@ -51,6 +51,20 @@ Typography involves seven properties. Elevation involves multiple shadow paramet
 
 **Apply `elevation-*` classes** for shadows. Never hardcode `box-shadow` values.
 
+### txt token for content text (since 3.6.0)
+
+When a component needs a **text color for content flow** (not text on a colored background), use `foundation.txt.*` or `semantic.color.*.txt.normal`:
+
+```css
+/* Text on canvas referencing the info color family */
+color: var(--foundation-txt-info);
+
+/* Or directly via semantic */
+color: var(--semantic-color-interface-feedback-info_default-normal-txt);
+```
+
+Do **not** use `txtOn` tokens for canvas text — `txtOn` is designed for text placed on top of a colored `background` token of the same block. Using it on white canvas will produce incorrect contrast.
+
 ---
 
 ## Component archetypes

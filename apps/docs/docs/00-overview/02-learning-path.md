@@ -35,7 +35,8 @@ Se você é responsável por criar novos temas, manter a biblioteca de component
 1.  [Arquitetura de Tokens](../01-design-tokens-fundamentals/01-token-architecture.md): O pipeline de 5 camadas em profundidade.
 2.  [O que é o Theme Engine](../04-theme-engine/01-what-is-theme-engine.md): O racional técnico do gerador.
 3.  [Matemática e Algoritmos](../03-visual-foundations/06-mathematics-and-algorithms.md): Racionais de OKLCh e Escalas Fibonacci.
-4.  [Filosofia de Overrides](../00-overview/01-aplica-ds-vision.md#filosofia-de-overrides-sobreposições): Como evoluir o sistema sem quebrá-lo.
+4.  [O token txt — contrato de cor expandido](../02-token-layers/07-txt-token.md): Contrato de 4 partes (background / txtOn / border / txt) introduzido na 3.6.0.
+5.  [Filosofia de Overrides](../00-overview/01-aplica-ds-vision.md#filosofia-de-overrides-sobreposições): Como evoluir o sistema sem quebrá-lo.
 
 ---
 

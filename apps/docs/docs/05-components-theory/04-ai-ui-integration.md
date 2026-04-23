@@ -51,6 +51,20 @@ Tipografia envolve sete propriedades. Elevação envolve múltiplos parâmetros 
 
 **Aplique classes `elevation-*`** para sombras. Nunca hardcode valores de `box-shadow`.
 
+### Token txt para texto em conteúdo (desde 3.6.0)
+
+Quando um componente precisa de uma **cor de texto em fluxo de conteúdo** (não texto sobre fundo colorido), use `foundation.txt.*` ou `semantic.color.*.txt.normal`:
+
+```css
+/* Texto sobre canvas referenciando a família de cor info */
+color: var(--foundation-txt-info);
+
+/* Ou diretamente via semantic */
+color: var(--semantic-color-interface-feedback-info_default-normal-txt);
+```
+
+**Não** use tokens `txtOn` para texto sobre canvas — `txtOn` é desenhado para texto colocado sobre o `background` colorido do mesmo bloco. Usá-lo sobre canvas branco produzirá contraste incorreto.
+
 ---
 
 ## Archetypes de componente

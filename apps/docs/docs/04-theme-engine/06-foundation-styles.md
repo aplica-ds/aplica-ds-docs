@@ -160,8 +160,28 @@ Essa preferência existe porque Foundation Styles codificam composições valida
 
 ---
 
+## Aliases foundation.txt (desde 3.6.0)
+
+Além das classes de typography e elevation, a camada foundation expõe **aliases de cor de texto legível** sob `foundation.txt.*`. São aliases planos — um token por conceito semântico — que fornecem a cor de texto correta, legível sobre canvas, para cada família de cor.
+
+```
+foundation.txt.info      → var(--foundation-txt-info)
+foundation.txt.success   → var(--foundation-txt-success)
+foundation.txt.warning   → var(--foundation-txt-warning)
+foundation.txt.danger    → var(--foundation-txt-danger)
+foundation.txt.primary   → var(--foundation-txt-primary)   (se textExposure incluir 'interfaceFunction')
+foundation.txt.promo     → var(--foundation-txt-promo)     (se textExposure incluir 'product')
+```
+
+Esses aliases são distintos dos tokens `txtOn` (texto sobre fundos coloridos). Os aliases `foundation.txt.*` são para **texto em fluxo de conteúdo sobre canvas** — parágrafos, labels e headings que carregam a cor semântica de uma família sem estarem sobre uma superfície colorida.
+
+Quais famílias são expostas é controlado por `generation.colorText.textExposure` no workspace config. O padrão é `['feedback']` apenas. Veja [07-txt-token.md](../02-token-layers/07-txt-token.md) para o contrato completo.
+
+---
+
 ## Referências
 
 - Pipeline de build: [04-build-pipeline.md](./04-build-pipeline.md)
 - Formatos de output: [05-output-formats.md](./05-output-formats.md)
 - AI Skills Injection: [07-ai-skills-injection.md](./07-ai-skills-injection.md)
+- Contrato do token txt: [../02-token-layers/07-txt-token.md](../02-token-layers/07-txt-token.md)

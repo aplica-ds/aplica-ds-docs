@@ -40,7 +40,8 @@ If you are responsible for creating new themes, maintaining the component librar
 1. [Token architecture](../01-design-tokens-fundamentals/01-token-architecture.md) — The 5-layer pipeline in depth.
 2. [What is the Theme Engine](../04-theme-engine/01-what-is-theme-engine.md) — The technical rationale of the generator.
 3. [Mathematics and algorithms](../03-visual-foundations/06-mathematics-and-algorithms.md) — OKLCh and scale rationals.
-4. [Override philosophy](../00-overview/01-aplica-ds-vision.md#override-philosophy) — How to evolve the system without breaking it.
+4. [The txt token — expanded color contract](../02-token-layers/07-txt-token.md) — Four-part color contract (background / txtOn / border / txt) introduced in 3.6.0.
+5. [Override philosophy](../00-overview/01-aplica-ds-vision.md#override-philosophy) — How to evolve the system without breaking it.
 
 **Or start with the tutorials:**
 → [N2-01 · The five-layer mental model](../tutorials/n2-system-designer/N2-01.md)
@@ -81,5 +82,6 @@ The Learning Spiral encourages a Product Designer to, over time, go deeper into 
 | "Why can't I just use the Brand color directly?" | N2-01 · Five-layer model |
 | "How do I create a new theme from scratch?" | N2-04 · Theme anatomy |
 | "What is a breaking change in this system?" | N3-01 · Token contract |
+| "What is the txt token and when do I use it vs txtOn?" | [07-txt-token](../02-token-layers/07-txt-token.md) |
 | "How do I set up tokens in a React project?" | N3-05 · Integrating tokens |
 | "How do I add a new brand to the engine?" | N3-06 · Adding a new brand |

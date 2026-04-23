@@ -383,6 +383,93 @@ grep "semantic-color-new-path" dist/css/*.css
 
 ---
 
+## Migration to 3.6.x — Four-part color contract
+
+Version 3.6.0 introduced a breaking change: the color property contract expanded from three parts (`background`, `txtOn`, `border`) to four (`background`, `txtOn`, `border`, `txt`). Version 3.6.1 consolidated text-generation controls into a workspace-level config key.
+
+### What changed
+
+| Area | Before (3.5.x) | After (3.6.x) |
+|------|---------------|---------------|
+| Color block properties | `background`, `txtOn`, `border` | + `txt` |
+| Text alias sources | Borrowed from `surface.*` | Generated from palette directly |
+| Text config location | Per-theme `options.*` fields | `generation.colorText` in workspace config |
+| `includePrimitives` default | `true` | `false` (since 3.6.3) |
+
+### Step 1 — Update the package
+
+```bash
+npm install @aplica/aplica-theme-engine@^3.6.3
+```
+
+### Step 2 — Enable txt generation in workspace config
+
+Add `generation.colorText` to `aplica-theme-engine.config.mjs`:
+
+```javascript
+import { defineThemeEngineConfig } from '@aplica/aplica-theme-engine/config';
+
+export default defineThemeEngineConfig({
+  generation: {
+    colorText: {
+      generateTxt: true,
+      txtBaseColorLevel: 140,
+      fallbackBaseColorLevel: 160,
+      textExposure: ['feedback'],     // add 'interfaceFunction' or 'product' as needed
+    }
+  },
+  paths: { /* your existing paths */ }
+});
+```
+
+> **If upgrading from 3.6.0 specifically:** Remove any `generateTxt`, `txtBaseColorLevel`, `fallbackBaseColorLevel`, or `textExposure` fields from individual theme configs — these moved to the workspace config in 3.6.1.
+
+### Step 3 — Rebuild
+
+```bash
+aplica-theme-engine build
+```
+
+The build will generate `txt` properties in all color blocks across `data/` and `dist/`.
+
+### Step 4 — Review text color usage in components
+
+Search for any places where `surface.*` values were used as text colors:
+
+```bash
+grep -r "surface.*txt\|txtOn.*canvas\|surface.*color" src/
+```
+
+Migrate to the new `txt` aliases:
+
+| Old pattern | New pattern |
+|-------------|-------------|
+| `var(--semantic-color-interface-feedback-info-normal-surface)` as text | `var(--foundation-txt-info)` |
+| `var(--semantic-color-interface-function-primary-normal-txtOn)` on canvas | `var(--semantic-color-interface-function-primary-normal-txt)` |
+
+### Step 5 — Check includePrimitives
+
+If your project's Figma setup depends on `_primitive_theme.json`, explicitly set `includePrimitives: true` in your theme options — the default changed to `false` in 3.6.3:
+
+```javascript
+// In theme config
+options: {
+  includePrimitives: true,
+}
+```
+
+### Checklist for 3.5.x → 3.6.x
+
+- [ ] Update package to 3.6.3
+- [ ] Add `generation.colorText` to workspace config with `generateTxt: true`
+- [ ] Remove any txt-related fields from per-theme configs (3.6.0 → 3.6.1 change)
+- [ ] Run `aplica-theme-engine build`
+- [ ] Review components using `surface.*` values as text colors → migrate to `foundation.txt.*` or `*.txt.normal`
+- [ ] Verify `includePrimitives` setting if Figma primitives are required
+- [ ] Confirm `dist/` output contains `txt` properties in color tokens
+
+---
+
 ## Quick Migration Checklist
 
 **For minor/patch:**
