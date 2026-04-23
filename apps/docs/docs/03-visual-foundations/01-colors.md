@@ -128,14 +128,14 @@ Cada cor de produto percorre exatamente o mesmo pipeline que Brand e Interface:
 │  (light = positive, dark = inverted + chroma × 0.85)               │
 │                                                                     │
 │  ▼ Surface Layer (positive.json / negative.json)                    │
-│  surface.color.product.promo.default.{lowest→highest}.{bg/txtOn/b} │
-│                                                                     │
-│  ▼ Semantic Layer (default.json)                                    │
-│  semantic.color.product.promo.default.{lowest→highest}.{bg/txtOn/b}│
+│  surface.color.product.promo.default.{lowest→highest}.{bg/txtOn/b/txt} │
+│                                                                        │
+│  ▼ Semantic Layer (default.json)                                       │
+│  semantic.color.product.promo.default.{lowest→highest}.{bg/txtOn/b/txt}│
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
-Cada item produz **5 intensidades** (`lowest`, `low`, `default`, `high`, `highest`) × **3 propriedades** (`background`, `txtOn`, `border`) = **15 tokens** por variante. Com `default` + `secondary`, são **30 tokens por item de Product**.
+Cada item produz **5 intensidades** (`lowest`, `low`, `default`, `high`, `highest`) × **4 propriedades** (`background`, `txtOn`, `border`, `txt`) = **20 tokens** por variante (desde 3.6.0). Com `default` + `secondary`, são **40 tokens por item de Product**.
 
 > [!CAUTION]
 > **O custo de cada cor é exponencial. Menos é mais.**
@@ -144,11 +144,11 @@ Cada item produz **5 intensidades** (`lowest`, `low`, `default`, `high`, `highes
 >
 > | Ação | Tokens gerados |
 > |------|---------------|
-> | 1 item (2 variantes) | **30 tokens** na camada Semantic |
-> | × 4 camadas (Brand, Mode, Surface, Semantic) | **~120 tokens** por tema |
-> | × N temas (ex: 4 marcas) | **~480 tokens** no sistema total |
+> | 1 item (2 variantes) | **40 tokens** na camada Semantic (desde 3.6.0) |
+> | × 4 camadas (Brand, Mode, Surface, Semantic) | **~160 tokens** por tema |
+> | × N temas (ex: 4 marcas) | **~640 tokens** no sistema total |
 >
-> Os 3 itens padrão (`promo`, `cashback`, `premium`) já representam **~360 tokens por tema**. Cada item adicional acelera o crescimento.
+> Os 3 itens padrão (`promo`, `cashback`, `premium`) já representam **~480 tokens por tema**. Cada item adicional acelera o crescimento.
 >
 > **Mais tokens = mais caos:** perda de performance (arquivos CSS/nativos maiores, builds mais lentos), aumento de complexidade (mais decisões para designers, mais propriedades para engenheiros), e entropia (tokens subutilizados geram confusão e dívida técnica).
 >

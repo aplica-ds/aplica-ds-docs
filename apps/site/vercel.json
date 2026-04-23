@@ -2,5 +2,12 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "installCommand": "npm install",
-  "framework": "astro"
+  "framework": "astro",
+  "redirects": [
+    { "source": "/en/about",         "destination": "/en/sobre",           "permanent": true },
+    { "source": "/en/how-it-works",  "destination": "/en/#como-funciona",  "permanent": true },
+    { "source": "/en/como-funciona", "destination": "/en/#como-funciona",  "permanent": true },
+    { "source": "/en/for-whom",      "destination": "/en/#para-quem",      "permanent": true },
+    { "source": "/en/para-quem",     "destination": "/en/#para-quem",      "permanent": true }
+  ]
 }

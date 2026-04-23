@@ -155,13 +155,14 @@ foundation.bg.primary
 
 ### Propriedades de cor por token
 
-Cada token de cor expõe três propriedades:
+Cada token de cor expõe quatro propriedades (desde 3.6.0 — eram três antes):
 
 | Propriedade | Descrição |
 |-------------|-----------|
 | `background` | Cor de preenchimento (surfaces, badges, botões) |
 | `txtOn` | Cor de texto/ícone que passa WCAG sobre `background` |
 | `border` | Cor de borda com contraste adequado em relação à surface |
+| `txt` | Cor de texto legível sobre canvas — para fluxo de conteúdo, não sobre backgrounds coloridos. Veja [07-txt-token](../02-token-layers/07-txt-token.md). |
 
 Exemplo: `semantic.color.interface.function.primary.normal.background` → `#C40145`
 

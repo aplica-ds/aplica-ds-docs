@@ -25,7 +25,7 @@ semantic.color.interface.function.{variant}.{state}.{property}
 |------|-----------------|
 | **Variant** | `primary`, `secondary`, `link`, `active`, `disabled` |
 | **State** | `normal`, `action`, `active` (`disabled` only has `normal`) |
-| **Property** | `background`, `txtOn`, `border` |
+| **Property** | `background`, `txtOn`, `border`, `txt` (since 3.6.0) |
 
 These three axes form the **functional token grid**. For any combination of variant and state, the corresponding token already exists in the build.
 

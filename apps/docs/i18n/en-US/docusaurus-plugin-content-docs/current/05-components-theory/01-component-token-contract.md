@@ -85,7 +85,7 @@ Primary brand identity. Use in hero areas, brand CTAs, and highlights.
 |---------|--------|
 | `{role}` | `first`, `second`, `third` |
 | `{intensity}` | `lowest`, `low`, `default`, `high`, `highest` |
-| `{property}` | `background`, `txtOn`, `border` |
+| `{property}` | `background`, `txtOn`, `border`, `txt` (since 3.6.0) |
 
 ```css
 /* Brand hero button, normal state */
@@ -217,12 +217,12 @@ Product-specific colors — promotions, cashback, tiers, categorizations. The **
 | `{item}` | `promo`, `cashback`, `premium` — or any free name defined in the config |
 | `{variant}` | `default`, `secondary` |
 | `{intensity}` | `lowest`, `low`, `default`, `high`, `highest` |
-| `{property}` | `background`, `txtOn`, `border` |
+| `{property}` | `background`, `txtOn`, `border`, `txt` (since 3.6.0) |
 
 Plain text tokens also available at `semantic.color.text.{item}` and `semantic.color.text.{item}_secondary`.
 
 > [!CAUTION]
-> **Exponential cost.** Each new item in `product` generates at minimum 30 tokens that propagate through all layers and all themes. In a system with 4 themes, a single item represents +120 tokens. Before adding, ask: _"Can this be resolved with existing feedback or brand tokens?"_ See [04-semantic-layer.md](../02-token-layers/04-semantic-layer.md) for the full rationale.
+> **Exponential cost.** Each new item in `product` generates at minimum 40 tokens (since 3.6.0) that propagate through all layers and all themes. In a system with 4 themes, a single item represents +160 tokens. Before adding, ask: _"Can this be resolved with existing feedback or brand tokens?"_ See [04-semantic-layer.md](../02-token-layers/04-semantic-layer.md) for the full rationale.
 
 ---
 

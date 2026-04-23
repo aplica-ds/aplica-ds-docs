@@ -25,7 +25,7 @@ semantic.color.interface.function.{variante}.{estado}.{propriedade}
 |------|---------------------|
 | **Variante** | `primary`, `secondary`, `link`, `active`, `disabled` |
 | **Estado** | `normal`, `action`, `active` (`disabled` só tem `normal`) |
-| **Propriedade** | `background`, `txtOn`, `border` |
+| **Propriedade** | `background`, `txtOn`, `border`, `txt` (desde 3.6.0) |
 
 Esses três eixos formam a **grade de tokens funcionais**. Para qualquer combinação de variante e estado, o token correspondente já existe no build.
 
