@@ -5,7 +5,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'Aplica DS',
   tagline: 'Design tokens que escalam com o produto.',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/favicon.svg',
 
   future: {
     v4: true,
@@ -68,7 +68,7 @@ const config: Config = {
       respectPrefersColorScheme: true,
     },
     navbar: {
-      title: 'Aplica DS',
+      title: '',
       logo: {
         alt: 'Aplica DS',
         src: 'img/logo.svg',
