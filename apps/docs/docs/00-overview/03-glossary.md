@@ -38,6 +38,8 @@ São nomes de código. Aparecem exatamente assim em pt-BR e em en-US.
 | `textExposure` | Parâmetro de config | "`textExposure: ['feedback']`" |
 | `generateTxt` | Parâmetro de config | "`generateTxt: true`" |
 | `generation.colorText` | Chave de config | "seção `generation.colorText` no workspace config (desde 3.6.1)" |
+| `jsonTyped` | Nome de plataforma de output | "habilite `jsonTyped` em `platforms` para metadata tipada — desde 3.7.0" |
+| `formatOptions.jsonTyped` | Chave de config | "`formatOptions.jsonTyped` em `transformers.config.mjs` — campos `type`, `value`, `description`, `path`" |
 | `accessibilityLevel` | Parâmetro de config | "`accessibilityLevel: 'AA'`" |
 | `includePrimitives` | Parâmetro de config | "`includePrimitives: true`" |
 | `borderOffset` | Parâmetro de config | "`borderOffset.palette: 10`" |
