@@ -128,6 +128,10 @@ Seven component archetypes (Button, Dialog, Input, Badge, Select, Card, Tabs) de
 
 ## V3 milestone versions
 
+Current version: **3.7.0** (2026-04-24)
+
+- **3.7.0** — `jsonTyped` output platform — first extensible output delivery with typed metadata (`type`, `value`, `description`, `path`); configurable via `formatOptions.jsonTyped` in `transformers.config.mjs`; backward compatible, existing `json` contract unchanged
+- **3.6.4** — Migration fix: `generate-foundation.mjs` now correctly preserves `txt.base.items` in workspaces with custom product text families (e.g., Brewer-style themes with `tada`, `ze`)
 - **3.6.3** — `includePrimitives: false` default in `init` scaffold, CLI onboarding banner, smoke coverage for `ai:init`
 - **3.6.1** — `generation.colorText` workspace config (breaking config consolidation from per-theme to workspace)
 - **3.6.0** — Four-part color contract: `txt` token added alongside `background`/`txtOn`/`border`; `txtBaseColorLevel`; text states (`normal`/`action`/`active`/`focus`) in all layers; breaking: text aliases no longer source from `surface.*`

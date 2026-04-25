@@ -89,6 +89,74 @@ The JSON maintains the full hierarchical structure (`semantic.color.interface...
 
 ---
 
+## Typed JSON output — `jsonTyped` (since 3.7.0)
+
+**Use:** Tooling that needs structured metadata per token beyond the resolved value — AI-assisted component generation, code generators, design linters
+
+`jsonTyped` is the first output platform with configurable metadata. Where the standard `json` output emits `{ "$value": ..., "$type": ... }`, `jsonTyped` emits objects with named fields you control: `type`, `value`, `description`, and `path`.
+
+### Output structure
+
+```json
+{
+  "semantic": {
+    "color": {
+      "interface": {
+        "function": {
+          "primary": {
+            "normal": {
+              "background": {
+                "type":        "color",
+                "value":       "#C40145",
+                "description": "Primary action background — normal intensity",
+                "path":        "semantic.color.interface.function.primary.normal.background"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+### How to enable
+
+Add `jsonTyped` to the layer's `platforms` list and add `formatOptions.jsonTyped` to `transformers.config.mjs`:
+
+```js
+export default defineTransformersConfig({
+  layers: {
+    semantic: { enabled: true, platforms: ['json', 'jsonTyped', 'css', 'esm'] },
+    // ...
+  },
+  formatOptions: {
+    jsonTyped: {
+      type:        'type',
+      value:       'value',
+      description: 'description', // omit this key to exclude description from output
+      path:        'path',
+    }
+  }
+});
+```
+
+### `json` vs `jsonTyped`
+
+| | `json` | `jsonTyped` |
+|---|---|---|
+| Value field | `$value` | configurable (default: `value`) |
+| Type field | `$type` | configurable (default: `type`) |
+| Description | not emitted | configurable (omit key to skip) |
+| Path | not emitted | configurable (default: `path`) |
+| Backward compatible | — | yes — existing `json` contract unchanged |
+
+`jsonTyped` is additive: existing `json` consumers are not affected. Enable both platforms in the same layer if you need both.
+
+See [`formatOptions.jsonTyped`](../09-engineering/04-transformers-configuration.md) for the full field reference.
+
+---
+
 ## CSS Format — for Web
 
 **Unit:** `rem` for dimensional tokens (sizes, spacings, radii, typography)  
@@ -292,6 +360,7 @@ foundation.bg.primary
 | Format | Unit | Structure | References | Main use |
 |--------|------|-----------|------------|----------|
 | **JSON** | `px` | Nested with `$value`/`$type` | Maintained (`{semantic.*}`) | Figma, Tokens Studio |
+| **jsonTyped** | `px` | Nested objects with named fields | Resolved | Tooling, AI-assisted generation |
 | **CSS** | `rem` (dimensions) | Flat `--var-name: value` | Resolved | Web — `:root` or `[data-theme]` |
 | **ESM** | `px` | Nested JS object | Aliases (default) or raw | React, Vue, Vite |
 | **CJS** | `px` | Nested JS object | Aliases (default) or raw | Node.js, Webpack |

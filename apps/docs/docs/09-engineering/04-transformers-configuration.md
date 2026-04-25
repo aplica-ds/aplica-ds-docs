@@ -70,6 +70,16 @@ export default defineTransformersConfig({
   assets: {
     copyFonts:             true,
     generateFontsManifest: true
+  },
+
+  // ── Opções de formato (desde 3.7.0) ───────────────────────────────────
+  formatOptions: {
+    jsonTyped: {
+      type:        'type',
+      value:       'value',
+      description: 'description', // omitir para excluir do output
+      path:        'path',
+    }
   }
 
 });
@@ -145,6 +155,47 @@ Esses caminhos são intencionalmente estáveis — consumidores downstream podem
 | `generateFontsManifest` | `true` | Gerar um `fonts-manifest.json` listando todos os arquivos de fonte |
 
 Se `copyFonts` for `true` mas `assets/fonts/` não existir, o build avisa e continua. Nenhuma fonte é copiada; todos os outros outputs são gerados normalmente.
+
+---
+
+## `formatOptions` (desde 3.7.0)
+
+Controla o comportamento de formato de output para plataformas que suportam customização de metadata.
+
+### `formatOptions.jsonTyped`
+
+Configura a plataforma de output `jsonTyped` — JSON com campos de metadata nomeados por token. Só ativo quando `jsonTyped` está listado em `platforms` de uma camada.
+
+```js
+formatOptions: {
+  jsonTyped: {
+    type:        'type',           // nome da chave para o tipo do token
+    value:       'value',          // nome da chave para o valor resolvido
+    description: 'description',    // nome da chave para descrição (omitir exclui o campo)
+    path:        'path',           // nome da chave para o caminho completo do token
+  }
+}
+```
+
+| Campo | Padrão | Descrição |
+|-------|--------|-----------|
+| `type` | `'type'` | Nome da chave que carrega o tipo do token (ex.: `"color"`, `"spacing"`) |
+| `value` | `'value'` | Nome da chave que carrega o valor resolvido |
+| `description` | `'description'` | Nome da chave para descrição do token — omitir a chave exclui o campo do output |
+| `path` | `'path'` | Nome da chave para o caminho completo do token separado por pontos |
+
+Para renomear campos para um toolchain específico (ex.: para coincidir com um schema existente):
+
+```js
+formatOptions: {
+  jsonTyped: {
+    type:  '__type',
+    value: '__value',
+    path:  '__path',
+    // description omitido → campo excluído do output
+  }
+}
+```
 
 ---
 

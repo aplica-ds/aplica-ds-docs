@@ -89,6 +89,74 @@ O JSON mantém a estrutura hierárquica completa (`semantic.color.interface...`)
 
 ---
 
+## Output JSON tipado — `jsonTyped` (desde 3.7.0)
+
+**Uso:** Tooling que precisa de metadata estruturada por token além do valor resolvido — geração AI-assistida de componentes, code generators, design linters
+
+`jsonTyped` é a primeira plataforma de output com metadata configurável. Onde o `json` padrão emite `{ "$value": ..., "$type": ... }`, o `jsonTyped` emite objetos com campos nomeados que você controla: `type`, `value`, `description` e `path`.
+
+### Estrutura do output
+
+```json
+{
+  "semantic": {
+    "color": {
+      "interface": {
+        "function": {
+          "primary": {
+            "normal": {
+              "background": {
+                "type":        "color",
+                "value":       "#C40145",
+                "description": "Primary action background — normal intensity",
+                "path":        "semantic.color.interface.function.primary.normal.background"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+### Como ativar
+
+Adicione `jsonTyped` à lista `platforms` da camada e inclua `formatOptions.jsonTyped` em `transformers.config.mjs`:
+
+```js
+export default defineTransformersConfig({
+  layers: {
+    semantic: { enabled: true, platforms: ['json', 'jsonTyped', 'css', 'esm'] },
+    // ...
+  },
+  formatOptions: {
+    jsonTyped: {
+      type:        'type',
+      value:       'value',
+      description: 'description', // omitir esta chave exclui description do output
+      path:        'path',
+    }
+  }
+});
+```
+
+### `json` vs `jsonTyped`
+
+| | `json` | `jsonTyped` |
+|---|---|---|
+| Campo de valor | `$value` | configurável (padrão: `value`) |
+| Campo de tipo | `$type` | configurável (padrão: `type`) |
+| Descrição | não emitido | configurável (omitir chave para excluir) |
+| Caminho | não emitido | configurável (padrão: `path`) |
+| Backward compatible | — | sim — contrato `json` existente não muda |
+
+`jsonTyped` é aditivo: consumidores `json` existentes não são afetados. Habilite ambas as plataformas na mesma camada se precisar das duas.
+
+Veja [`formatOptions.jsonTyped`](../09-engineering/04-transformers-configuration.pt-br.md) para a referência completa de campos.
+
+---
+
 ## Formato CSS — para Web
 
 **Unidade:** `rem` em tokens dimensionais (tamanhos, espaçamentos, raios, tipografia)  
@@ -292,6 +360,7 @@ foundation.bg.primary
 | Formato | Unidade | Estrutura | Referências | Uso principal |
 |---------|---------|-----------|-------------|--------------|
 | **JSON** | `px` | Nested com `$value`/`$type` | Mantidas (`{semantic.*}`) | Figma, Tokens Studio |
+| **jsonTyped** | `px` | Nested objects com campos nomeados | Resolvidas | Tooling, geração AI-assistida |
 | **CSS** | `rem` (dimensões) | Flat `--var-name: value` | Resolvidas | Web — `:root` ou `[data-theme]` |
 | **ESM** | `px` | Nested JS object | Aliases (padrão) ou raw | React, Vue, Vite |
 | **CJS** | `px` | Nested JS object | Aliases (padrão) ou raw | Node.js, Webpack |

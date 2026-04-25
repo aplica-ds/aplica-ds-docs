@@ -70,6 +70,16 @@ export default defineTransformersConfig({
   assets: {
     copyFonts:             true,
     generateFontsManifest: true
+  },
+
+  // ── Format options (since 3.7.0) ──────────────────────────────────────
+  formatOptions: {
+    jsonTyped: {
+      type:        'type',
+      value:       'value',
+      description: 'description', // omit to exclude from output
+      path:        'path',
+    }
   }
 
 });
@@ -145,6 +155,47 @@ These paths are intentionally stable — downstream consumers can rely on them n
 | `generateFontsManifest` | `true` | Generate a `fonts-manifest.json` listing all font files |
 
 If `copyFonts` is `true` but `assets/fonts/` does not exist, the build warns and continues. No fonts are copied; all other outputs are generated normally.
+
+---
+
+## `formatOptions` (since 3.7.0)
+
+Controls output format behavior for platforms that support metadata customization.
+
+### `formatOptions.jsonTyped`
+
+Configures the `jsonTyped` output platform — JSON with named metadata fields per token. Only active when `jsonTyped` is listed in a layer's `platforms`.
+
+```js
+formatOptions: {
+  jsonTyped: {
+    type:        'type',           // key name for the token's type
+    value:       'value',          // key name for the resolved value
+    description: 'description',    // key name for description (omit to exclude field)
+    path:        'path',           // key name for the full token path
+  }
+}
+```
+
+| Field | Default | Description |
+|-------|---------|-------------|
+| `type` | `'type'` | Key name that carries the token type (e.g. `"color"`, `"spacing"`) |
+| `value` | `'value'` | Key name that carries the resolved token value |
+| `description` | `'description'` | Key name for token description — omit the key entirely to exclude description from output |
+| `path` | `'path'` | Key name for the full dot-separated token path |
+
+To rename fields for a specific toolchain (e.g., to match an existing schema):
+
+```js
+formatOptions: {
+  jsonTyped: {
+    type:  '__type',
+    value: '__value',
+    path:  '__path',
+    // description omitted → field excluded from output
+  }
+}
+```
 
 ---
 

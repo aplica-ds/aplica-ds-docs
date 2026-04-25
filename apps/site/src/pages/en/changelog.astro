@@ -8,9 +8,29 @@ const r = routes.en;
 
 const releases = [
   {
-    version: 'v3.6.3',
+    version: 'v3.7.0',
     date: 'April 2026',
     status: 'latest',
+    changes: [
+      'jsonTyped output platform — first extensible output delivery with typed metadata per token',
+      'Configurable fields: type, value, description, path — key names adjustable via formatOptions.jsonTyped in transformers.config.mjs',
+      'description can be excluded from output by omitting its key from the config',
+      'Backward compatible — existing json contract unchanged; enable both platforms in the same layer if you need both',
+    ],
+  },
+  {
+    version: 'v3.6.4',
+    date: 'April 2026',
+    status: 'stable',
+    changes: [
+      'Migration fix: generate-foundation.mjs now correctly preserves txt.base.items in workspaces with custom product text families',
+      'Brewer-style themes with custom families (e.g., tada, ze) no longer lose txt data after generate-foundation',
+    ],
+  },
+  {
+    version: 'v3.6.3',
+    date: 'April 2026',
+    status: 'stable',
     changes: [
       'init scaffold now defaults to includePrimitives: false — leaner out-of-the-box consumer workspace',
       'ASCII onboarding banner in CLI init — displays version, license, docs, and support link',
