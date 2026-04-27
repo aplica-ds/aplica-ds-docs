@@ -1,0 +1,39 @@
+/* TEAM */
+Creator & Author: Poe Bellentani
+Contact: hello [at] poebellentani.me
+Location: Brazil
+
+/* THANKS */
+
+This project stands on the shoulders of giants.
+
+Tokens Studio — for bridging design tokens and Figma in a way that changed
+the entire field. Jan Six's brilliant idea, carried forward by everyone at Hyma.
+https://tokens.studio
+
+W3C Design Tokens Community Group — for formalizing what was previously
+convention and giving the ecosystem a shared language.
+https://design-tokens.github.io/community-group
+
+Brad Frost — for teaching the community to think in systems before thinking
+in components. Since 2013, those ideas never stopped echoing.
+https://bradfrost.com
+
+Nathan Curtis — for articulating with precision that handoff is far more than
+a visual artifact. It is the integration between design intent and product
+construction.
+https://nathanacurtis.medium.com
+
+Rafael Sanches & Gabriel Esnacke — for understanding and supporting the
+technical evolution of Aplica in a way few would.
+
+Lucas Figueiredo — for diving into this madness as a genuinely critical and
+engaged collaborator. Two years of surgical questions made this better.
+
+/* SITE */
+Language: Portuguese (BR) / English
+Standards: HTML5, CSS3
+Components: Astro, TypeScript
+Software: Aplica Tokens Theme Engine
+License: Apache-2.0
+Last update: 2026/04
