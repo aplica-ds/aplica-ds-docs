@@ -45,7 +45,7 @@ O pacote expõe:
 ### 2. Scaffolding do workspace consumidor
 
 ```bash
-npx aplica-theme-engine init
+npx theme-engine init
 ```
 
 Wizard interativo que cria:
@@ -58,7 +58,7 @@ Alternativamente, `--template <starter>` pula o wizard.
 ### 3. Migração automatizada da V2
 
 ```bash
-npx aplica-theme-engine migrate:legacy-consumer
+npx theme-engine migrate:legacy-consumer
 ```
 
 Três subcomandos para migração segura de projetos monolíticos pré-V3:
@@ -72,7 +72,7 @@ Três subcomandos para migração segura de projetos monolíticos pré-V3:
 ### 4. Integração com Figma via `figma:generate`
 
 ```bash
-npx aplica-theme-engine figma:generate
+npx theme-engine figma:generate
 ```
 
 Gera e mantém os três arquivos que o Tokens Studio precisa:
@@ -100,7 +100,7 @@ Cada classe é um composto: classes de tipografia agrupam 7 propriedades CSS ref
 ### 6. AI Skills Injection Program
 
 ```bash
-npx aplica-theme-engine ai:init
+npx theme-engine ai:init
 ```
 
 Injeta arquivos de contexto específicos de editor no workspace do consumidor:
@@ -113,6 +113,20 @@ Injeta arquivos de contexto específicos de editor no workspace do consumidor:
 | `.github/instructions/` | GitHub Copilot |
 
 Os arquivos injetados ensinam agentes qual camada de token ler, como mapear intenção para tokens semânticos, e quando preferir Foundation Styles em vez de montagem de tokens atômicos.
+
+### 8. `theme-engine` — alias CLI preferido (desde 3.8.0)
+
+```bash
+npx theme-engine init
+npx theme-engine ai:init
+npx theme-engine build:all
+```
+
+`theme-engine` é agora o nome de comando preferido para workspaces consumidores. O nome legado `aplica-theme-engine` é preservado como fallback de compatibilidade — scripts existentes continuam funcionando sem alterações.
+
+Toda a documentação ativa, fluxos de onboarding e guias de consumidor padronizam em `theme-engine` primeiro. O nome do pacote (`@aplica/aplica-theme-engine`) e os nomes de arquivo de config (`aplica-theme-engine.config.mjs`) não mudam.
+
+---
 
 ### 7. AI UI Integration Program
 
@@ -128,8 +142,14 @@ Sete archetypes de componente (Button, Dialog, Input, Badge, Select, Card, Tabs)
 
 ## Versões de marco da V3
 
-Versão atual: **3.7.0** (2026-04-24)
+Versão atual: **3.8.1** (2026-04-27)
 
+- **3.8.1** — Correção de acessibilidade do `txt` ambiente: `brand.ambient.neutral.*.txt` e `brand.ambient.grayscale.*.txt` agora validam contra o `contrast.base.{positive|negative}.background` declarado em vez do background do nível; cobertura de regressão estendida em `test:txt-inversion`
+- **3.8.0** — Alias CLI preferido `theme-engine` — comando mais curto para workspaces consumidores; `aplica-theme-engine` preservado como fallback de compatibilidade; toda a documentação ativa padroniza em `theme-engine` primeiro
+- **3.7.5** — Fix Tokens Studio-safe: branches de texto legível de produto desabilitadas não emitem mais nós `txt: null` inválidos quando `generateTxt: true` e `textExposure.product: false`
+- **3.7.4** — Inversão de texto legível para superfícies negativas: `brand.text.negative.*` agora resolve corretamente; `txt` de produto removido das camadas públicas quando texto legível de produto está desabilitado; migrador legado infere exposição de texto de feedback a partir de aliases planos
+- **3.7.2** — Propagação de `brand.branding` corrigida através de `mode` antes de chegar a `surface` e outputs semânticos; migrador legado agora preserva o contrato `generation.colorText` automaticamente
+- **3.7.1** — Fix de inversão do `txt` ambiente na camada de tema: `brand.ambient` agora resolve texto legível contra os contextos corretos de background positive/negative
 - **3.7.0** — Plataforma de output `jsonTyped` — primeiro delivery de output extensível com metadata tipada (`type`, `value`, `description`, `path`); configurável via `formatOptions.jsonTyped` em `transformers.config.mjs`; backward compatible, contrato `json` existente não muda
 - **3.6.4** — Fix de migração: `generate-foundation.mjs` agora preserva corretamente `txt.base.items` em workspaces com product text families customizados (ex.: temas estilo Brewer com `tada`, `ze`)
 - **3.6.3** — `includePrimitives: false` como padrão no scaffold do `init`, banner de onboarding no CLI, cobertura de smoke para `ai:init`

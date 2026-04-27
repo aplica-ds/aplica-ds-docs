@@ -270,7 +270,7 @@ O pipeline inclui verificações automáticas:
 - **Referências quebradas:** Se um token referencia outro que não existe, o build falha com erro de resolução
 - **Contraste WCAG:** O engine reporta falhas AA/AAA como avisos durante `themes:generate`. Configure `accessibilityLevel` e `acceptAALevelFallback` nas `options` do tema para controlar o comportamento.
 - **Estrutura de schema:** O `sync:architecture:test` valida se os configs dos temas alinham com o schema sem gravar nada
-- **Integridade de dados:** Execute `aplica-theme-engine validate:data` antes de publicar para detectar incompatibilidades de schema cedo
+- **Integridade de dados:** Execute `theme-engine validate:data` antes de publicar para detectar incompatibilidades de schema cedo
 
 ---
 

@@ -164,7 +164,7 @@ Typical overrides:
 To generate a starting scaffold interactively:
 
 ```bash
-npx aplica-theme-engine schemas:helper
+npx theme-engine schemas:helper
 ```
 
 ---

@@ -32,7 +32,7 @@ The package installs the engine, its CLI, and all generation logic. Your project
 Run the init command in your project root:
 
 ```bash
-npx aplica-theme-engine init
+npx theme-engine init
 ```
 
 The CLI offers two onboarding paths:

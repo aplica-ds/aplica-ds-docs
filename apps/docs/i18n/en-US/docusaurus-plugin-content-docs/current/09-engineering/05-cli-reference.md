@@ -15,7 +15,7 @@ The `aplica-theme-engine` CLI is the primary interface for generating and buildi
 npm install @aplica/aplica-theme-engine
 ```
 
-After installation, the CLI is available as `aplica-theme-engine` (or via `npx aplica-theme-engine`).
+After installation, the CLI is available as `aplica-theme-engine` (or via `npx theme-engine`).
 
 ---
 
@@ -345,7 +345,7 @@ Migration artifacts are written to `temp/outputs/legacy-migration/` — source f
 
 ```bash
 npm install @aplica/aplica-theme-engine
-npx aplica-theme-engine init
+npx theme-engine init
 npm run tokens:build
 ```
 
@@ -381,5 +381,5 @@ Use after adding or renaming a theme, surface, or mode when token values have no
 ### Validate before publishing
 
 ```bash
-npx aplica-theme-engine validate:data && npm run tokens:build:all
+npx theme-engine validate:data && npm run tokens:build:all
 ```

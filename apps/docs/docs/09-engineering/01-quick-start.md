@@ -32,7 +32,7 @@ O pacote instala o engine, sua CLI e toda a lógica de geração. Seu projeto é
 Execute o comando de inicialização na raiz do projeto:
 
 ```bash
-npx aplica-theme-engine init
+npx theme-engine init
 ```
 
 A CLI oferece dois caminhos de entrada:

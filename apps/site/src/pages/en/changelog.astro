@@ -8,9 +8,66 @@ const r = routes.en;
 
 const releases = [
   {
-    version: 'v3.7.0',
+    version: 'v3.8.1',
     date: 'April 2026',
     status: 'latest',
+    changes: [
+      'Ambient txt accessibility correction: brand.ambient.neutral.*.txt and brand.ambient.grayscale.*.txt now validate against the declared contrast.base surface, not the level background',
+      'txtOn and ambient txt no longer share the same accessibility target implicitly — contracts are now distinct and correct',
+      'Regression coverage extended in test:txt-inversion to protect the declared-surface ambient text contract',
+    ],
+  },
+  {
+    version: 'v3.8.0',
+    date: 'April 2026',
+    status: 'stable',
+    changes: [
+      'Preferred theme-engine CLI alias — shorter command for consumer workspaces; aplica-theme-engine preserved as a compatibility fallback',
+      'All active documentation standardizes on theme-engine first — README, consumer guide, onboarding, and EN/PT-BR docs',
+      'Installed-package smoke coverage now validates both CLI names',
+    ],
+  },
+  {
+    version: 'v3.7.5',
+    date: 'April 2026',
+    status: 'stable',
+    changes: [
+      'Tokens Studio-safe fix: disabled product readable-text branches no longer emit invalid txt: null nodes',
+      'Workspaces with generateTxt: true and textExposure.product: false now generate Figma/Tokens Studio-safe JSON',
+    ],
+  },
+  {
+    version: 'v3.7.4',
+    date: 'April 2026',
+    status: 'stable',
+    changes: [
+      'Readable text inversion for negative surfaces: brand.text.negative.* resolves correctly in light-negative and dark-negative',
+      'Product txt tokens removed from public layers when textExposure.product is disabled',
+      'Legacy migrator infers feedback text exposure from flat aliases in the legacy contract',
+    ],
+  },
+  {
+    version: 'v3.7.2',
+    date: 'April 2026',
+    status: 'stable',
+    changes: [
+      'brand.branding propagation fixed through mode before reaching surface and semantic outputs',
+      'Legacy migrator now preserves the generation.colorText contract automatically on conversion',
+    ],
+  },
+  {
+    version: 'v3.7.1',
+    date: 'April 2026',
+    status: 'stable',
+    changes: [
+      'Ambient txt inversion fix: brand.ambient now resolves readable text against the correct positive/negative background contexts',
+      'test:txt-inversion regression path added to the validation pipeline',
+    ],
+  },
+  {
+    version: 'v3.7.0',
+    date: 'April 2026',
+    status: 'stable',
     changes: [
       'jsonTyped output platform — first extensible output delivery with typed metadata per token',
       'Configurable fields: type, value, description, path — key names adjustable via formatOptions.jsonTyped in transformers.config.mjs',

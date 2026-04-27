@@ -152,7 +152,7 @@ A partir da 3.6.0:
 
 ## Relação com includePrimitives
 
-A partir da 3.6.3, o workspace gerado pelo `aplica-theme-engine init` usa `includePrimitives: false` por padrão. A propriedade `txt` **não** é uma primitiva — é uma propriedade semântica gerada e está sempre incluída, independente dessa configuração.
+A partir da 3.6.3, o workspace gerado pelo `theme-engine init` usa `includePrimitives: false` por padrão. A propriedade `txt` **não** é uma primitiva — é uma propriedade semântica gerada e está sempre incluída, independente dessa configuração.
 
 ---
 

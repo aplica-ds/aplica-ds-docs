@@ -8,9 +8,66 @@ const r = routes['pt-br'];
 
 const releases = [
   {
-    version: 'v3.7.0',
+    version: 'v3.8.1',
     date: 'Abril 2026',
     status: 'latest',
+    changes: [
+      'Correção de acessibilidade do txt ambiente: brand.ambient.neutral.*.txt e brand.ambient.grayscale.*.txt agora validam contra o contrast.base declarado, não o background do nível',
+      'txtOn e txt ambiente deixam de compartilhar o mesmo alvo de acessibilidade implicitamente — contratos agora distintos e corretos',
+      'Cobertura de regressão estendida em test:txt-inversion para proteger o contrato de surface declarada',
+    ],
+  },
+  {
+    version: 'v3.8.0',
+    date: 'Abril 2026',
+    status: 'stable',
+    changes: [
+      'Alias CLI preferido theme-engine — comando mais curto para workspaces consumidores; aplica-theme-engine preservado como fallback de compatibilidade',
+      'Toda a documentação ativa padroniza em theme-engine primeiro — README, consumer guide, onboarding e docs EN/PT-BR',
+      'Smoke de pacote instalado agora valida os dois nomes de CLI',
+    ],
+  },
+  {
+    version: 'v3.7.5',
+    date: 'Abril 2026',
+    status: 'stable',
+    changes: [
+      'Fix Tokens Studio-safe: branches de texto legível de produto desabilitadas não emitem mais nós txt: null inválidos',
+      'Workspaces com generateTxt: true e textExposure.product: false agora geram JSON seguro para Figma/Tokens Studio',
+    ],
+  },
+  {
+    version: 'v3.7.4',
+    date: 'Abril 2026',
+    status: 'stable',
+    changes: [
+      'Inversão de texto legível para superfícies negativas: brand.text.negative.* resolve corretamente em light-negative e dark-negative',
+      'Tokens txt de produto removidos das camadas públicas quando textExposure.product está desabilitado',
+      'Migrador legado infere exposição de texto de feedback a partir de aliases planos do contrato legado',
+    ],
+  },
+  {
+    version: 'v3.7.2',
+    date: 'Abril 2026',
+    status: 'stable',
+    changes: [
+      'Propagação de brand.branding corrigida através de mode antes de chegar a surface e outputs semânticos',
+      'Migrador legado agora preserva o contrato generation.colorText automaticamente na conversão',
+    ],
+  },
+  {
+    version: 'v3.7.1',
+    date: 'Abril 2026',
+    status: 'stable',
+    changes: [
+      'Fix de inversão do txt ambiente: brand.ambient agora resolve texto legível contra os backgrounds positive/negative corretos',
+      'Caminho de regressão test:txt-inversion adicionado ao pipeline de validação',
+    ],
+  },
+  {
+    version: 'v3.7.0',
+    date: 'Abril 2026',
+    status: 'stable',
     changes: [
       'Plataforma de output jsonTyped — primeiro delivery de output extensível com metadata tipada por token',
       'Campos configuráveis: type, value, description, path — nomes ajustáveis via formatOptions.jsonTyped em transformers.config.mjs',

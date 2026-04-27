@@ -363,7 +363,7 @@ Executa automaticamente na ordem correta:
 | `npm run tokens:sync` | Após alterar o schema de arquitetura |
 | `npm run tokens:foundations` | Após alterar um config de foundation |
 | `npm run tokens:build:all` | Apenas o build Style Dictionary (quando `data/` já está atualizado) |
-| `aplica-theme-engine validate:data` | Verificar integridade de `data/` antes de buildar |
+| `theme-engine validate:data` | Verificar integridade de `data/` antes de buildar |
 
 ### Quando rodar `sync:architecture`
 

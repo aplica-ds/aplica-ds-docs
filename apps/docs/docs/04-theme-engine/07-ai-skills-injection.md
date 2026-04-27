@@ -16,7 +16,7 @@ Sem esses arquivos, um assistente de IA não tem conhecimento do contrato de tok
 ## Executando o comando
 
 ```bash
-npx aplica-theme-engine ai:init
+npx theme-engine ai:init
 ```
 
 > `ai:init`, `ai:setup`, `skills` e `skills:init` são todos aliases do mesmo comando.

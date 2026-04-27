@@ -270,7 +270,7 @@ The pipeline includes automatic checks:
 - **Broken references:** If a token references another that does not exist, the build fails with a resolution error
 - **WCAG contrast:** The engine reports AA/AAA failures as warnings during `themes:generate`. Configure `accessibilityLevel` and `acceptAALevelFallback` in the theme `options` to control behavior.
 - **Schema structure:** `sync:architecture:test` validates whether theme configs align with the schema without writing anything
-- **Data integrity:** Run `aplica-theme-engine validate:data` before publishing to catch schema mismatches early
+- **Data integrity:** Run `theme-engine validate:data` before publishing to catch schema mismatches early
 
 ---
 

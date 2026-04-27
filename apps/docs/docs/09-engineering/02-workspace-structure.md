@@ -164,7 +164,7 @@ Sobrescritas típicas:
 Para gerar um scaffold inicial de forma interativa:
 
 ```bash
-npx aplica-theme-engine schemas:helper
+npx theme-engine schemas:helper
 ```
 
 ---

@@ -15,7 +15,7 @@ A CLI `aplica-theme-engine` é a interface principal para gerar e construir desi
 npm install @aplica/aplica-theme-engine
 ```
 
-Após a instalação, a CLI fica disponível como `aplica-theme-engine` (ou via `npx aplica-theme-engine`).
+Após a instalação, a CLI fica disponível como `aplica-theme-engine` (ou via `npx theme-engine`).
 
 ---
 
@@ -345,7 +345,7 @@ Os artefatos de migração são gravados em `temp/outputs/legacy-migration/` —
 
 ```bash
 npm install @aplica/aplica-theme-engine
-npx aplica-theme-engine init
+npx theme-engine init
 npm run tokens:build
 ```
 
@@ -373,5 +373,5 @@ npm run tokens:build:all
 ### Validar antes de publicar
 
 ```bash
-npx aplica-theme-engine validate:data && npm run tokens:build:all
+npx theme-engine validate:data && npm run tokens:build:all
 ```

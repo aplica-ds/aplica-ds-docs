@@ -363,7 +363,7 @@ Runs automatically in the correct order:
 | `npm run tokens:sync` | After changing the architecture schema |
 | `npm run tokens:foundations` | After changing a foundation config |
 | `npm run tokens:build:all` | Only the Style Dictionary build (when `data/` is already up to date) |
-| `aplica-theme-engine validate:data` | Verify data/ integrity before building |
+| `theme-engine validate:data` | Verify data/ integrity before building |
 
 ### When to run `sync:architecture`
 

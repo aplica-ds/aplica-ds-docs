@@ -61,6 +61,8 @@ São nomes de código. Aparecem exatamente assim em pt-BR e em en-US.
 | `foundation.bg.*` | Namespace de token | "use `foundation.bg.primary`" |
 | `foundation.txt.*` | Namespace de token | "use `foundation.txt.body`" |
 | `brand.branding.*` | Namespace de token | — |
+| `theme-engine` | Alias CLI preferido | "`npx theme-engine init` — alias preferido desde 3.8.0; `aplica-theme-engine` mantido como fallback" |
+| `aplica-theme-engine` | CLI legado (compatibilidade) | "preservado como fallback — scripts existentes continuam funcionando sem alterações" |
 | OKLCh | Espaço de cor | "o pipeline OKLCh" |
 | WCAG | Sigla de acessibilidade | "contraste WCAG AA" |
 

@@ -16,7 +16,7 @@ Without these files, an AI assistant has no knowledge of the token contract: it 
 ## Running the command
 
 ```bash
-npx aplica-theme-engine ai:init
+npx theme-engine ai:init
 ```
 
 > `ai:init`, `ai:setup`, `skills`, and `skills:init` are all aliases for the same command.

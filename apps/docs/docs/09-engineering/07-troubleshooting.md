@@ -19,7 +19,7 @@ Este artigo cobre os erros mais comuns e como resolvê-los, organizados pela eta
 
 **Solução:**
 ```bash
-npx aplica-theme-engine init
+npx theme-engine init
 ```
 
 Ou crie `aplica-theme-engine.config.mjs` manualmente. Veja [01-quick-start.pt-br.md](./01-quick-start.pt-br.md).
@@ -36,7 +36,7 @@ Ou crie `aplica-theme-engine.config.mjs` manualmente. Veja [01-quick-start.pt-br
 npm install @aplica/aplica-theme-engine
 
 # Usar npx se o binário não estiver no PATH
-npx aplica-theme-engine init
+npx theme-engine init
 ```
 
 ---
@@ -108,7 +108,7 @@ npm run tokens:build
 
 ### `validate:data` termina com código não-zero
 
-**Quando aparece:** Ao executar `aplica-theme-engine validate:data`.
+**Quando aparece:** Ao executar `theme-engine validate:data`.
 
 **Causa:** O `data/` gerado não corresponde ao contrato de schema esperado. Causas comuns:
 - Config da marca mudou mas `themes:generate` não foi re-executado

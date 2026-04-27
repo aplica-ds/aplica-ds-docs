@@ -45,7 +45,7 @@ The package exposes:
 ### 2. Consumer Workspace Scaffolding
 
 ```bash
-npx aplica-theme-engine init
+npx theme-engine init
 ```
 
 Interactive wizard that creates:
@@ -58,7 +58,7 @@ Alternatively, `--template <starter>` skips the wizard.
 ### 3. Automated V2 Migration
 
 ```bash
-npx aplica-theme-engine migrate:legacy-consumer
+npx theme-engine migrate:legacy-consumer
 ```
 
 Three subcommands for safe migration from pre-V3 monolithic projects:
@@ -72,7 +72,7 @@ Three subcommands for safe migration from pre-V3 monolithic projects:
 ### 4. Figma Integration via `figma:generate`
 
 ```bash
-npx aplica-theme-engine figma:generate
+npx theme-engine figma:generate
 ```
 
 Generates and maintains the three files Tokens Studio requires:
@@ -100,7 +100,7 @@ Each class is a composite: typography classes bundle 7 CSS properties referencin
 ### 6. AI Skills Injection Program
 
 ```bash
-npx aplica-theme-engine ai:init
+npx theme-engine ai:init
 ```
 
 Injects editor-specific context files into the consumer workspace:
@@ -113,6 +113,20 @@ Injects editor-specific context files into the consumer workspace:
 | `.github/instructions/` | GitHub Copilot |
 
 The injected files teach agents which token layer to read, how to map intent to semantic tokens, and when to prefer Foundation Styles over atomic token assembly.
+
+### 8. `theme-engine` — preferred CLI alias (since 3.8.0)
+
+```bash
+npx theme-engine init
+npx theme-engine ai:init
+npx theme-engine build:all
+```
+
+`theme-engine` is now the preferred command name for consumer workspaces. The legacy `aplica-theme-engine` name is preserved as a compatibility fallback — existing scripts continue to work without changes.
+
+All active documentation, onboarding flows, and consumer guides standardize on `theme-engine` first. The package name (`@aplica/aplica-theme-engine`) and config filenames (`aplica-theme-engine.config.mjs`) are unchanged.
+
+---
 
 ### 7. AI UI Integration Program
 
@@ -128,8 +142,14 @@ Seven component archetypes (Button, Dialog, Input, Badge, Select, Card, Tabs) de
 
 ## V3 milestone versions
 
-Current version: **3.7.0** (2026-04-24)
+Current version: **3.8.1** (2026-04-27)
 
+- **3.8.1** — Ambient `txt` accessibility correction: `brand.ambient.neutral.*.txt` and `brand.ambient.grayscale.*.txt` now validate against the declared `contrast.base.{positive|negative}.background` surface instead of the level background; regression coverage extended in `test:txt-inversion`
+- **3.8.0** — `theme-engine` preferred CLI alias — shorter command for consumer workspaces; `aplica-theme-engine` preserved as a compatibility fallback; all active docs standardize on `theme-engine` first
+- **3.7.5** — Tokens Studio-safe fix: disabled product readable-text branches no longer emit invalid `txt: null` nodes when `generateTxt: true` and `textExposure.product: false`
+- **3.7.4** — Readable text inversion for negative surfaces: `brand.text.negative.*` now resolves correctly; product `txt` removed from public layers when product readable text is disabled; legacy migrator infers feedback text exposure from flat aliases
+- **3.7.2** — `brand.branding` propagation fixed through `mode` before reaching `surface` and semantic outputs; legacy migrator now preserves `generation.colorText` contract automatically
+- **3.7.1** — Ambient `txt` inversion fix at theme layer: `brand.ambient` now resolves readable text against the correct positive/negative background contexts
 - **3.7.0** — `jsonTyped` output platform — first extensible output delivery with typed metadata (`type`, `value`, `description`, `path`); configurable via `formatOptions.jsonTyped` in `transformers.config.mjs`; backward compatible, existing `json` contract unchanged
 - **3.6.4** — Migration fix: `generate-foundation.mjs` now correctly preserves `txt.base.items` in workspaces with custom product text families (e.g., Brewer-style themes with `tada`, `ze`)
 - **3.6.3** — `includePrimitives: false` default in `init` scaffold, CLI onboarding banner, smoke coverage for `ai:init`

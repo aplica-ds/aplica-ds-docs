@@ -152,7 +152,7 @@ As of 3.6.0:
 
 ## Relationship to includePrimitives
 
-As of 3.6.3, the workspace scaffolded by `aplica-theme-engine init` defaults to `includePrimitives: false`. The `txt` property is **not** a primitive — it is a generated semantic property and is always included regardless of this setting.
+As of 3.6.3, the workspace scaffolded by `theme-engine init` defaults to `includePrimitives: false`. The `txt` property is **not** a primitive — it is a generated semantic property and is always included regardless of this setting.
 
 ---
 
