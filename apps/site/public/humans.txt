@@ -34,6 +34,6 @@ engaged collaborator. Two years of surgical questions made this better.
 Language: Portuguese (BR) / English
 Standards: HTML5, CSS3
 Components: Astro, TypeScript
-Software: Aplica Tokens Theme Engine
+Software: Aplica Theme Engine
 License: Apache-2.0
 Last update: 2026/04
