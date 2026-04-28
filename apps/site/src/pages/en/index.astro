@@ -43,16 +43,35 @@ const r = routes.en;
         Semantic themes for
         <span class="text-gradient"> any UI library.</span>
       </h1>
-      <p data-animate="delay-2" style="font-size: 1.125rem; color: var(--color-text-muted); max-width: 560px; margin: 0 auto 2.5rem; line-height: 1.7;">
-        <strong style="color: var(--color-text);">No more hardcoded colors, manual dark mode, or per-brand forks.</strong> The Aplica Theme Engine generates design tokens in a 5-layer architecture — generation complexity stays contained in the inner layers, and what the consumer sees is radically smaller: the Semantic Layer and the Foundation Layer. Tokens with declared purpose, interpolated across brand, mode, and surface — multi-theme, dark mode by design, whitelabel-ready — from a single config file.
+      <p data-animate="delay-2" style="font-size: 1.0625rem; color: var(--color-text-muted); max-width: 520px; margin: 0 auto 2rem; line-height: 1.7;">
+        No more hardcoded colors, manual dark mode, or per-brand forks. One config file, all variants — multi-theme, dark mode by design, whitelabel-ready.
       </p>
-      <div data-animate="delay-2" style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; margin: -0.75rem auto 2rem; max-width: 580px; align-items: center;">
-        <span style="font-family: var(--font-mono); font-size: 0.75rem; padding: 0.2rem 0.625rem; background: var(--color-bg-subtle); border: 1px solid var(--color-border); border-radius: 99px; color: var(--color-text-muted);">Abstraction Layer · not exposed</span>
-        <span style="color: var(--color-text-muted); font-size: 0.75rem;">→</span>
-        <span style="font-family: var(--font-mono); font-size: 0.75rem; padding: 0.2rem 0.625rem; background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.2); border-radius: 99px; color: #6366f1;">Intent Layer · Semantic</span>
-        <span style="color: var(--color-text-muted); font-size: 0.75rem;">→</span>
-        <span style="font-family: var(--font-mono); font-size: 0.75rem; padding: 0.2rem 0.625rem; background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.2); border-radius: 99px; color: #6366f1;">Consumer Layer · Foundation</span>
+
+      <!-- Three-group architecture visual -->
+      <div data-animate="delay-2" style="display: flex; gap: 0; justify-content: center; align-items: stretch; max-width: 600px; margin: 0 auto 2.5rem; border: 1px solid var(--color-border); border-radius: 0.75rem; overflow: hidden;">
+        <div style="flex: 1; padding: 1rem 1.125rem; background: var(--color-bg-subtle); display: flex; flex-direction: column; gap: 0.25rem;">
+          <span style="font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600;">Abstraction</span>
+          <span style="font-size: 0.875rem; font-weight: 600; color: var(--color-text);">Brand · Mode · Surface</span>
+          <span style="font-size: 0.75rem; color: var(--color-text-muted);">not exposed</span>
+        </div>
+        <div style="width: 1px; background: var(--color-border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; position: relative;">
+          <span style="position: absolute; background: var(--color-bg-subtle); padding: 0.125rem 0; font-size: 0.75rem; color: var(--color-text-muted);">→</span>
+        </div>
+        <div style="flex: 1; padding: 1rem 1.125rem; background: rgba(99,102,241,0.04); display: flex; flex-direction: column; gap: 0.25rem;">
+          <span style="font-family: var(--font-mono); font-size: 0.6875rem; color: #6366f1; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600;">Intent Layer</span>
+          <span style="font-size: 0.875rem; font-weight: 600; color: var(--color-text);">Semantic</span>
+          <span style="font-size: 0.75rem; color: var(--color-text-muted);">components</span>
+        </div>
+        <div style="width: 1px; background: var(--color-border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; position: relative;">
+          <span style="position: absolute; background: var(--color-bg); padding: 0.125rem 0; font-size: 0.75rem; color: var(--color-text-muted);">→</span>
+        </div>
+        <div style="flex: 1; padding: 1rem 1.125rem; background: rgba(99,102,241,0.08); display: flex; flex-direction: column; gap: 0.25rem;">
+          <span style="font-family: var(--font-mono); font-size: 0.6875rem; color: #6366f1; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600;">Consumer Layer</span>
+          <span style="font-size: 0.875rem; font-weight: 600; color: var(--color-text);">Foundation</span>
+          <span style="font-size: 0.75rem; color: var(--color-text-muted);">product</span>
+        </div>
       </div>
+
       <div data-animate="delay-3" style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
         <a href={r.docsNpm} class="btn btn-primary" target="_blank" rel="noopener noreferrer">
           Configure & use →
