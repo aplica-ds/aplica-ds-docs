@@ -48,28 +48,39 @@ const r = routes['pt-br'];
       </p>
 
       <!-- Three-group architecture visual -->
-      <div data-animate="delay-2" style="display: flex; gap: 0; justify-content: center; align-items: stretch; max-width: 600px; margin: 0 auto 2.5rem; border: 1px solid var(--color-border); border-radius: 0.75rem; overflow: hidden;">
-        <div style="flex: 1; padding: 1rem 1.125rem; background: var(--color-bg-subtle); display: flex; flex-direction: column; gap: 0.25rem;">
-          <span style="font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600;">Abstraction</span>
-          <span style="font-size: 0.875rem; font-weight: 600; color: var(--color-text);">Brand · Mode · Surface</span>
-          <span style="font-size: 0.75rem; color: var(--color-text-muted);">não exposto</span>
+      <div data-animate="delay-2" style="display: flex; align-items: center; justify-content: center; gap: 0.75rem; max-width: 580px; margin: 0 auto 2.5rem; flex-wrap: wrap;">
+
+        <!-- Abstraction — muted, no particles -->
+        <div style="flex: 1; min-width: 130px; padding: 1rem 0.875rem; background: var(--color-bg-subtle); border: 1px solid var(--color-border); border-radius: 0.75rem; text-align: center; opacity: 0.72;">
+          <div style="font-family: var(--font-mono); font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-muted); margin-bottom: 0.375rem;">Abstraction</div>
+          <div style="font-size: 0.875rem; font-weight: 600; color: var(--color-text); margin-bottom: 0.25rem;">Brand · Mode · Surface</div>
+          <div style="font-size: 0.6875rem; color: var(--color-text-muted);">não exposto</div>
         </div>
-        <div style="width: 1px; background: var(--color-border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; position: relative;">
-          <span style="position: absolute; background: var(--color-bg-subtle); padding: 0.125rem 0; font-size: 0.75rem; color: var(--color-text-muted);">→</span>
+
+        <span style="color: var(--color-border); font-size: 1rem; flex-shrink: 0;">→</span>
+
+        <!-- Intent Layer — exposed, particles emerge from top -->
+        <div style="flex: 1; min-width: 120px; padding: 1rem 0.875rem; background: rgba(99,102,241,0.06); border: 1px solid rgba(99,102,241,0.22); border-radius: 0.75rem; text-align: center; position: relative; overflow: visible;">
+          <span class="particle" style="top: 0; left: 22%; animation-delay: 0s;"></span>
+          <span class="particle" style="top: 0; left: 50%; animation-delay: 1s;"></span>
+          <span class="particle" style="top: 0; left: 76%; animation-delay: 2s;"></span>
+          <div style="font-family: var(--font-mono); font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.08em; color: #6366f1; margin-bottom: 0.375rem;">Intent Layer</div>
+          <div style="font-size: 0.875rem; font-weight: 600; color: var(--color-text); margin-bottom: 0.25rem;">Semantic</div>
+          <div style="font-size: 0.6875rem; color: var(--color-text-muted);">componentes</div>
         </div>
-        <div style="flex: 1; padding: 1rem 1.125rem; background: rgba(99,102,241,0.04); border-left: none; display: flex; flex-direction: column; gap: 0.25rem;">
-          <span style="font-family: var(--font-mono); font-size: 0.6875rem; color: #6366f1; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600;">Intent Layer</span>
-          <span style="font-size: 0.875rem; font-weight: 600; color: var(--color-text);">Semantic</span>
-          <span style="font-size: 0.75rem; color: var(--color-text-muted);">componentes</span>
+
+        <span style="color: var(--color-border); font-size: 1rem; flex-shrink: 0;">→</span>
+
+        <!-- Consumer Layer — exposed, particles emerge from top -->
+        <div style="flex: 1; min-width: 120px; padding: 1rem 0.875rem; background: rgba(99,102,241,0.06); border: 1px solid rgba(99,102,241,0.22); border-radius: 0.75rem; text-align: center; position: relative; overflow: visible;">
+          <span class="particle" style="top: 0; left: 22%; animation-delay: 0.4s;"></span>
+          <span class="particle" style="top: 0; left: 50%; animation-delay: 1.4s;"></span>
+          <span class="particle" style="top: 0; left: 76%; animation-delay: 2.4s;"></span>
+          <div style="font-family: var(--font-mono); font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.08em; color: #6366f1; margin-bottom: 0.375rem;">Consumer Layer</div>
+          <div style="font-size: 0.875rem; font-weight: 600; color: var(--color-text); margin-bottom: 0.25rem;">Foundation</div>
+          <div style="font-size: 0.6875rem; color: var(--color-text-muted);">produto</div>
         </div>
-        <div style="width: 1px; background: var(--color-border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; position: relative;">
-          <span style="position: absolute; background: var(--color-bg); padding: 0.125rem 0; font-size: 0.75rem; color: var(--color-text-muted);">→</span>
-        </div>
-        <div style="flex: 1; padding: 1rem 1.125rem; background: rgba(99,102,241,0.08); display: flex; flex-direction: column; gap: 0.25rem;">
-          <span style="font-family: var(--font-mono); font-size: 0.6875rem; color: #6366f1; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600;">Consumer Layer</span>
-          <span style="font-size: 0.875rem; font-weight: 600; color: var(--color-text);">Foundation</span>
-          <span style="font-size: 0.75rem; color: var(--color-text-muted);">produto</span>
-        </div>
+
       </div>
 
       <div data-animate="delay-3" style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
