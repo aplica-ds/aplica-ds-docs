@@ -19,6 +19,8 @@ const config: Config = {
 
   onBrokenLinks: 'warn',
 
+  clientModules: ['./src/clientModules/langRedirect.js'],
+
   // Treat .md files as standard Markdown (not MDX).
   // Our KB content uses { } in code examples and error messages — MDX would
   // try to parse those as JSX expressions, causing build failures.

@@ -82,6 +82,39 @@ const allJsonLd = [organizationLd, ...jsonLd];
     {allJsonLd.map((schema) => (
       <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     ))}
+    <!-- Language auto-detection: redirect once per session based on browser locale -->
+    <script is:inline>
+      (function() {
+        if (sessionStorage.getItem('aplica-lang-detected')) return;
+        sessionStorage.setItem('aplica-lang-detected', '1');
+        var lang = (navigator.language || '').toLowerCase();
+        var isPortuguese = lang.startsWith('pt');
+        var path = window.location.pathname.replace(/\/$/, '') || '/';
+        // Normalize trailing slash
+        if (path === '') path = '/';
+        var ptToEn = {
+          '/':              '/en/',
+          '/agradecimentos':'/en/acknowledgments',
+          '/changelog':     '/en/changelog',
+          '/pro':           '/en/pro',
+          '/sobre':         '/en/sobre',
+        };
+        var enToPt = {
+          '/en':              '/',
+          '/en/acknowledgments': '/agradecimentos',
+          '/en/changelog':    '/changelog',
+          '/en/pro':          '/pro',
+          '/en/sobre':        '/sobre',
+        };
+        if (!isPortuguese && !path.startsWith('/en')) {
+          var dest = ptToEn[path];
+          if (dest) { window.location.replace(dest); }
+        } else if (isPortuguese && path.startsWith('/en')) {
+          var dest = enToPt[path] || '/';
+          window.location.replace(dest);
+        }
+      })();
+    </script>
     <!-- Dark mode: apply class before first paint to avoid flash -->
     <script is:inline>
       (function() {
