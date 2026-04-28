@@ -5,6 +5,8 @@ lang: en
 
 # Foundation Layer
 
+> _The Foundation Layer is also called the **Consumer Layer** in public-facing communication — it provides simplified aliases optimized for product teams with lower cognitive overhead._
+
 > **Documentation date:** 2026-04-10
 > **Focus:** Cognitive load reduction, alias mapping, and use in the Product scope.
 

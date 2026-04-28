@@ -225,6 +225,31 @@ Foundation also delivers **ready-to-use composite styles**:
 
 ---
 
+## Three-group view
+
+For public communication and onboarding, the six layers collapse into three groups:
+
+```
+┌─────────────────────── Abstraction Layer (not exposed) ──────────────┐
+│  Brand · Mode · Surface · Dimension                                   │
+│  Generation complexity stays contained here                           │
+└───────────────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────── Intent Layer (exposed) ───────────────────────────────┐
+│  Semantic                                                             │
+│  Maps meaning and usage — canonical boundary for component creators   │
+└───────────────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────── Consumer Layer (exposed) ─────────────────────────────┐
+│  Foundation                                                           │
+│  Simplified aliases — what product teams actually use                 │
+└───────────────────────────────────────────────────────────────────────┘
+```
+
+The technical five-layer naming remains canonical for engineering. The three-group framing is a communication shorthand.
+
+---
+
 ## Possible combinations
 
 ```

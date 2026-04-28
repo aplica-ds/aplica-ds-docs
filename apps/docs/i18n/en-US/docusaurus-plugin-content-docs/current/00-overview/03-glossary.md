@@ -77,6 +77,9 @@ Estes são termos cunhados — nomes de paradigmas, produtos ou personas do Apli
 | Config-First | Todos os níveis | Paradigma central do sistema |
 | Aplica DS | Todos | Nome do produto |
 | Aplica Tokens Theme Engine | Todos | Nome do engine |
+| Abstraction Layer | Comunicação pública, site, poster | Meta-grupo = Brand + Mode + Surface + Dimension; não exposto; não é nome técnico canônico |
+| Intent Layer | Comunicação pública, site, poster | Meta-grupo = Semantic layer; "mapeia significado e uso" — fronteira exposta canônica |
+| Consumer Layer | Comunicação pública, site, poster | Meta-grupo = Foundation layer; "aliases simplificados para times de produto" |
 | Tokens Studio | N1, N2 | Nome do plugin Figma — produto de terceiro |
 | Product Designer | N1, N2, N3 | Persona — inglês é o termo universal |
 | System Designer | N2, N3 | Persona |

@@ -131,6 +131,18 @@ The canonical naming contract ensures that any consumer — Web, Mobile, Figma �
 
 For the complete layer architecture, see [01-token-architecture.md](../01-design-tokens-fundamentals/01-token-architecture.md).
 
+### Three perspectives on the layers
+
+For communication and onboarding, the five layers collapse into three groups:
+
+| Group | Layers | Visibility |
+|-------|--------|-----------|
+| **Abstraction Layer** | Brand, Mode, Surface (+ Dimension) | Not exposed — generation complexity stays here |
+| **Intent Layer** | Semantic | Exposed — maps meaning and usage to components |
+| **Consumer Layer** | Foundation | Exposed — simplified aliases for product teams |
+
+The internal technical naming (Brand → Mode → Surface → Semantic → Foundation) remains canonical. The three-group framing is for public communication and onboarding.
+
 ---
 
 ## Three Knowledge Domains

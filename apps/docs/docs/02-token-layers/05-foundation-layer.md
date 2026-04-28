@@ -5,6 +5,8 @@ lang: pt-BR
 
 # Camada Foundation (Foundation Layer)
 
+> _A Foundation Layer é também chamada de **Consumer Layer** na comunicação pública — fornece aliases simplificados otimizados para times de produto com menor carga cognitiva._
+
 > **Data da documentação:** 2026-04-10
 > **Foco:** Redução de carga cognitiva, mapeamento de aliases e uso no escopo de Produto.
 

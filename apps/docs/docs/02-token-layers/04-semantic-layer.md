@@ -5,6 +5,8 @@ lang: pt-BR
 
 # Camada Semantic (Semantic Layer)
 
+> _A Semantic Layer é também chamada de **Intent Layer** na comunicação pública — é a camada que mapeia significado e uso, e é a fronteira exposta canônica do engine._
+
 > **Data da documentação:** 2026-04-10
 > **Foco:** A principal taxonomia do Theme Engine baseada em finalidade para criadores de componentes.
 

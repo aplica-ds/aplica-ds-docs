@@ -225,6 +225,31 @@ Foundation também entrega **estilos compostos prontos para uso**:
 
 ---
 
+## Visão em três grupos
+
+Para comunicação pública e onboarding, as seis camadas se agrupam em três conjuntos:
+
+```
+┌─────────────────────── Abstraction Layer (não exposto) ──────────────┐
+│  Brand · Mode · Surface · Dimension                                   │
+│  A complexidade de geração fica contida aqui                         │
+└───────────────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────── Intent Layer (exposto) ───────────────────────────────┐
+│  Semantic                                                             │
+│  Mapeia significado e uso — fronteira canônica para criadores de comp │
+└───────────────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────── Consumer Layer (exposto) ─────────────────────────────┐
+│  Foundation                                                           │
+│  Aliases simplificados — o que times de produto realmente usam       │
+└───────────────────────────────────────────────────────────────────────┘
+```
+
+A nomenclatura técnica de 5 camadas permanece canônica para engenharia. O agrupamento em três conjuntos é uma abreviação para comunicação.
+
+---
+
 ## Combinações possíveis
 
 ```

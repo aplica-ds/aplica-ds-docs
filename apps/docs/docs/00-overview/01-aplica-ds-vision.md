@@ -129,6 +129,18 @@ O contrato de nomenclatura canônico garante que qualquer consumidor — Web, Mo
 
 Para a arquitetura completa das camadas, veja [01-token-architecture.md](../01-design-tokens-fundamentals/01-token-architecture.md).
 
+### Três perspectivas sobre as camadas
+
+Para comunicação e onboarding, as cinco camadas se agrupam em três conjuntos:
+
+| Grupo | Camadas | Visibilidade |
+|-------|---------|-------------|
+| **Abstraction Layer** | Brand, Mode, Surface (+ Dimension) | Não exposto — a complexidade de geração fica aqui |
+| **Intent Layer** | Semantic | Exposto — mapeia significado e uso para componentes |
+| **Consumer Layer** | Foundation | Exposto — aliases simplificados para times de produto |
+
+A nomenclatura técnica interna (Brand → Mode → Surface → Semantic → Foundation) permanece canônica. O agrupamento em três conjuntos é para comunicação pública e onboarding.
+
 ---
 
 ## Três Domínios de Conhecimento

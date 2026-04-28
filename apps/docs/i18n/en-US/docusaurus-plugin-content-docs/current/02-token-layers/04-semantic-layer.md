@@ -5,6 +5,8 @@ lang: en
 
 # Semantic Layer
 
+> _The Semantic Layer is also called the **Intent Layer** in public-facing communication — it is the layer that maps meaning and usage, and it is the canonical exposed boundary of the engine._
+
 > **Documentation date:** 2026-04-10
 > **Focus:** The primary purpose-based taxonomy of the Theme Engine for component creators.
 

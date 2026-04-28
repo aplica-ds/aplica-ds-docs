@@ -46,6 +46,13 @@ const r = routes['pt-br'];
       <p data-animate="delay-2" style="font-size: 1.125rem; color: var(--color-text-muted); max-width: 560px; margin: 0 auto 2.5rem; line-height: 1.7;">
         <strong style="color: var(--color-text);">Chega de hardcode, dark mode improvisado e fork por marca nova.</strong> O Aplica Theme Engine gera design tokens em uma arquitetura de 5 camadas — a complexidade de geração fica contida nas camadas internas, e o que o consumidor vê é radicalmente menor: a Semantic Layer e a Foundation Layer. Tokens com propósito declarado, interpolados entre marca, modo e superfície — multi-tema, dark mode por construção, whitelabel pronto — a partir de um único arquivo de configuração.
       </p>
+      <div data-animate="delay-2" style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; margin: -0.75rem auto 2rem; max-width: 580px; align-items: center;">
+        <span style="font-family: var(--font-mono); font-size: 0.75rem; padding: 0.2rem 0.625rem; background: var(--color-bg-subtle); border: 1px solid var(--color-border); border-radius: 99px; color: var(--color-text-muted);">Abstraction Layer · não exposto</span>
+        <span style="color: var(--color-text-muted); font-size: 0.75rem;">→</span>
+        <span style="font-family: var(--font-mono); font-size: 0.75rem; padding: 0.2rem 0.625rem; background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.2); border-radius: 99px; color: #6366f1;">Intent Layer · Semantic</span>
+        <span style="color: var(--color-text-muted); font-size: 0.75rem;">→</span>
+        <span style="font-family: var(--font-mono); font-size: 0.75rem; padding: 0.2rem 0.625rem; background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.2); border-radius: 99px; color: #6366f1;">Consumer Layer · Foundation</span>
+      </div>
       <div data-animate="delay-3" style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
         <a href={r.docsNpm} class="btn btn-primary" target="_blank" rel="noopener noreferrer">
           Configurar e usar →
