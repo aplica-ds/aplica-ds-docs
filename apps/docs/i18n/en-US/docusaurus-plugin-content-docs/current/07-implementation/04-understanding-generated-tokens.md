@@ -230,7 +230,7 @@ ls dist/css/semantic/
 grep 'foundation-bg-primary' dist/css/semantic/aplica_joy-light-positive.css
 
 # Validate data/ before building (catches schema mismatches early)
-aplica-theme-engine validate:data
+theme-engine validate:data
 ```
 
 ---

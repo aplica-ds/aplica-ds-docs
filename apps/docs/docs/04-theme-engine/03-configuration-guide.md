@@ -280,7 +280,7 @@ overrides: {
 }
 ```
 
-> **Regra:** Overrides são a última alternativa após esgotar as opções semânticas padrão. Valide com `aplica-theme-engine sync:architecture:test` após aplicar overrides para detectar incompatibilidades de referência antes de um build completo.
+> **Regra:** Overrides são a última alternativa após esgotar as opções semânticas padrão. Valide com `theme-engine sync:architecture:test` após aplicar overrides para detectar incompatibilidades de referência antes de um build completo.
 
 ---
 
@@ -359,7 +359,7 @@ Executa automaticamente na ordem correta:
 | Comando | Quando usar |
 |---------|-------------|
 | `npm run tokens:themes` | Após alterar cores ou mapeamento de um tema |
-| `aplica-theme-engine themes:single --config=minha-marca` | Gerar apenas um tema específico |
+| `theme-engine themes:single --config=minha-marca` | Gerar apenas um tema específico |
 | `npm run tokens:sync` | Após alterar o schema de arquitetura |
 | `npm run tokens:foundations` | Após alterar um config de foundation |
 | `npm run tokens:build:all` | Apenas o build Style Dictionary (quando `data/` já está atualizado) |
@@ -397,8 +397,8 @@ Quando o conjunto padrão de aliases não é suficiente para um consumidor espec
 | Alterar foundation | Editar `.config.mjs` em `theme-engine/config/foundations/` + `npm run tokens:foundations` + `npm run tokens:build:all` |
 | Alterar schema (feedback/product) | Editar override de schema em `theme-engine/schemas/` + `npm run tokens:sync` + rebuild |
 | Gradientes não aparecem no output | Rodar `npm run tokens:sync` antes de `tokens:build:all` |
-| Verificar sem gravar | `aplica-theme-engine sync:architecture:test` |
-| Ver schema atual | `aplica-theme-engine sync:architecture:schema` |
+| Verificar sem gravar | `theme-engine sync:architecture:test` |
+| Ver schema atual | `theme-engine sync:architecture:schema` |
 
 ---
 

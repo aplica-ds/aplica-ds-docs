@@ -69,12 +69,12 @@ Para um primeiro projeto, **escolha o starter template**.
 ```json
 {
   "scripts": {
-    "tokens:build":       "aplica-theme-engine build",
-    "tokens:build:all":   "aplica-theme-engine build:all",
-    "tokens:themes":      "aplica-theme-engine themes:generate",
-    "tokens:dimension":   "aplica-theme-engine dimension:generate",
-    "tokens:sync":        "aplica-theme-engine sync:architecture",
-    "tokens:foundations": "aplica-theme-engine foundations:generate"
+    "tokens:build":       "theme-engine build",
+    "tokens:build:all":   "theme-engine build:all",
+    "tokens:themes":      "theme-engine themes:generate",
+    "tokens:dimension":   "theme-engine dimension:generate",
+    "tokens:sync":        "theme-engine sync:architecture",
+    "tokens:foundations": "theme-engine foundations:generate"
   }
 }
 ```

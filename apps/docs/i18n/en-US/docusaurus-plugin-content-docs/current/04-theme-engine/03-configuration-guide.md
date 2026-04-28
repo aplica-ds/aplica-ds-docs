@@ -280,7 +280,7 @@ overrides: {
 }
 ```
 
-> **Rule:** Overrides are the last resort after exhausting the default semantic options. Validate with `aplica-theme-engine sync:architecture:test` after applying overrides to catch reference mismatches before a full build.
+> **Rule:** Overrides are the last resort after exhausting the default semantic options. Validate with `theme-engine sync:architecture:test` after applying overrides to catch reference mismatches before a full build.
 
 ---
 
@@ -359,7 +359,7 @@ Runs automatically in the correct order:
 | Command | When to use |
 |---------|-------------|
 | `npm run tokens:themes` | After changing colors or mapping for a theme |
-| `aplica-theme-engine themes:single --config=my-brand` | Generate only a specific theme |
+| `theme-engine themes:single --config=my-brand` | Generate only a specific theme |
 | `npm run tokens:sync` | After changing the architecture schema |
 | `npm run tokens:foundations` | After changing a foundation config |
 | `npm run tokens:build:all` | Only the Style Dictionary build (when `data/` is already up to date) |
@@ -397,8 +397,8 @@ When the default alias set is insufficient for a specific consumer:
 | Change foundation | Edit `.config.mjs` in `theme-engine/config/foundations/` + `npm run tokens:foundations` + `npm run tokens:build:all` |
 | Change schema (feedback/product) | Edit schema override in `theme-engine/schemas/` + `npm run tokens:sync` + rebuild |
 | Gradients don't appear in output | Run `npm run tokens:sync` before `tokens:build:all` |
-| Verify without writing | `aplica-theme-engine sync:architecture:test` |
-| View current schema | `aplica-theme-engine sync:architecture:schema` |
+| Verify without writing | `theme-engine sync:architecture:test` |
+| View current schema | `theme-engine sync:architecture:schema` |
 
 ---
 

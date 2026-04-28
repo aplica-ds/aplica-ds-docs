@@ -15,7 +15,7 @@ The `aplica-theme-engine` CLI is the primary interface for generating and buildi
 npm install @aplica/aplica-theme-engine
 ```
 
-After installation, the CLI is available as `aplica-theme-engine` (or via `npx theme-engine`).
+After installation, the CLI is available as `theme-engine` (or via `npx theme-engine`).
 
 ---
 
@@ -40,7 +40,7 @@ After installation, the CLI is available as `aplica-theme-engine` (or via `npx t
 Runs the full generation + build pipeline in a single command. This is the recommended command for CI and day-to-day use.
 
 ```bash
-aplica-theme-engine build
+theme-engine build
 ```
 
 **Pipeline executed:**
@@ -61,7 +61,7 @@ aplica-theme-engine build
 Transforms the existing `data/` into `dist/` without regenerating `data/`. Use this when the token data is already correct and you only need to rebuild the output artifacts.
 
 ```bash
-aplica-theme-engine build:all
+theme-engine build:all
 ```
 
 Useful for iterating on output format changes without re-running the full generation pipeline.
@@ -73,7 +73,7 @@ Useful for iterating on output format changes without re-running the full genera
 Builds only the Semantic layer output.
 
 ```bash
-aplica-theme-engine build:semantic
+theme-engine build:semantic
 ```
 
 ---
@@ -83,7 +83,7 @@ aplica-theme-engine build:semantic
 Builds only the Foundation layer output.
 
 ```bash
-aplica-theme-engine build:foundation
+theme-engine build:foundation
 ```
 
 ---
@@ -93,7 +93,7 @@ aplica-theme-engine build:foundation
 Builds only the Components layer output. Skipped with an informational message if `data/components` does not exist.
 
 ```bash
-aplica-theme-engine build:components
+theme-engine build:components
 ```
 
 ---
@@ -107,7 +107,7 @@ These commands produce or update `data/` from your configuration. Run them indiv
 Decomposes all brand color configurations into the full OKLCh token palette. Writes to `data/brand/`, `data/mode/`, and `data/surface/`.
 
 ```bash
-aplica-theme-engine themes:generate
+theme-engine themes:generate
 ```
 
 ---
@@ -117,7 +117,7 @@ aplica-theme-engine themes:generate
 Generates the token data for a single brand. Useful during brand development when you don't want to regenerate all brands.
 
 ```bash
-aplica-theme-engine themes:single my-brand
+theme-engine themes:single my-brand
 ```
 
 ---
@@ -127,7 +127,7 @@ aplica-theme-engine themes:single my-brand
 Generates the spatial scale (spacing, sizing, border radius) for all three dimension variants (minor, normal, major). Writes to `data/dimension/`.
 
 ```bash
-aplica-theme-engine dimension:generate
+theme-engine dimension:generate
 ```
 
 ---
@@ -137,7 +137,7 @@ aplica-theme-engine dimension:generate
 Generates Foundation token aliases from the Semantic layer. Writes to `data/foundation/`.
 
 ```bash
-aplica-theme-engine foundations:generate
+theme-engine foundations:generate
 ```
 
 ---
@@ -147,7 +147,7 @@ aplica-theme-engine foundations:generate
 Generates (or merges) the three files Tokens Studio needs to understand which token sets belong to which theme variant. Writes to `data/`.
 
 ```bash
-aplica-theme-engine figma:generate
+theme-engine figma:generate
 ```
 
 **Files produced:**
@@ -158,7 +158,7 @@ aplica-theme-engine figma:generate
 | `data/$themes.engine.json.template` | Engine-owned template with the same structure and empty Figma fields. Use as a reset reference. |
 | `data/$metadata.json` | Token-set load order for the active workspace. |
 
-Use this command standalone when you added or renamed a theme, surface, or mode and want to update the Tokens Studio files without running a full build. In a full build (`aplica-theme-engine build`), this step runs automatically between `foundations:generate` and `build:all`.
+Use this command standalone when you added or renamed a theme, surface, or mode and want to update the Tokens Studio files without running a full build. In a full build (`theme-engine build`), this step runs automatically between `foundations:generate` and `build:all`.
 
 > Do not delete `data/$themes.json`. If it is deleted, Figma style references stored in it are lost.
 
@@ -169,7 +169,7 @@ Use this command standalone when you added or renamed a theme, surface, or mode 
 Validates the `data/` directory structure and creates any missing directories. Run before generation commands when setting up a new workspace.
 
 ```bash
-aplica-theme-engine ensure:data
+theme-engine ensure:data
 ```
 
 ---
@@ -181,7 +181,7 @@ aplica-theme-engine ensure:data
 Propagates token references across all layers (Brand → Mode → Surface → Semantic → Foundation). Run after `themes:generate` and before `foundations:generate`.
 
 ```bash
-aplica-theme-engine sync:architecture
+theme-engine sync:architecture
 ```
 
 ---
@@ -191,7 +191,7 @@ aplica-theme-engine sync:architecture
 Runs architecture sync in test mode — reports what would change without writing to `data/`.
 
 ```bash
-aplica-theme-engine sync:architecture:test
+theme-engine sync:architecture:test
 ```
 
 ---
@@ -201,7 +201,7 @@ aplica-theme-engine sync:architecture:test
 Runs architecture sync in schema mode — validates the token structure contract.
 
 ```bash
-aplica-theme-engine sync:architecture:schema
+theme-engine sync:architecture:schema
 ```
 
 ---
@@ -216,7 +216,7 @@ Validates the current `data/` directory against:
 - Foundation and typography style contracts
 
 ```bash
-aplica-theme-engine validate:data
+theme-engine validate:data
 ```
 
 Run this before `build:all` in CI to catch generation errors before the Style Dictionary build.
@@ -232,7 +232,7 @@ Run this before `build:all` in CI to catch generation errors before the Style Di
 Scaffolds a new consumer workspace. Run this once after installing the package.
 
 ```bash
-aplica-theme-engine init
+theme-engine init
 ```
 
 Offers two onboarding paths:
@@ -248,7 +248,7 @@ Offers two onboarding paths:
 Interactively generates a `theme-engine/schemas/architecture.mjs` scaffold. Use this when you need to customize the token structure contract beyond what the starter template provides.
 
 ```bash
-aplica-theme-engine schemas:helper
+theme-engine schemas:helper
 ```
 
 The helper asks about:
@@ -270,7 +270,7 @@ The helper asks about:
 Injects AI editor integration files into the consumer workspace. Run once after installing or upgrading the package to give your AI coding assistant (Cursor, Claude Code, GitHub Copilot) structured knowledge of the token contract.
 
 ```bash
-aplica-theme-engine ai:init
+theme-engine ai:init
 ```
 
 **Files injected:**
@@ -297,7 +297,7 @@ Migrates a monolithic (pre-package) project to the consumer workspace model. Val
 **Recommended: run the full migration in one step**
 
 ```bash
-aplica-theme-engine migrate:legacy-consumer run --source <path-to-legacy-project>
+theme-engine migrate:legacy-consumer run --source <path-to-legacy-project>
 ```
 
 This command:
@@ -311,13 +311,13 @@ This command:
 
 ```bash
 # Analyze only — no changes made
-aplica-theme-engine migrate:legacy-consumer analyze --source <path>
+theme-engine migrate:legacy-consumer analyze --source <path>
 
 # Convert only
-aplica-theme-engine migrate:legacy-consumer convert --source <path>
+theme-engine migrate:legacy-consumer convert --source <path>
 
 # Compare only (after a conversion has already been run)
-aplica-theme-engine migrate:legacy-consumer compare --source <path>
+theme-engine migrate:legacy-consumer compare --source <path>
 ```
 
 **Options**

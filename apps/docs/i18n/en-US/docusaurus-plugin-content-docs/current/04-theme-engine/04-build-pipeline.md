@@ -130,10 +130,10 @@ The generator rebuilds the structural entries (`selectedTokenSets`, `name`, `gro
 
 **Do not delete these files.** If `data/$themes.json` is deleted, all Figma style references stored in it are lost and must be re-synced from Figma.
 
-This command runs automatically as part of `aplica-theme-engine build`. Run it standalone when you only changed the workspace structure (added or renamed a theme, surface, or mode) without changing token values:
+This command runs automatically as part of `theme-engine build`. Run it standalone when you only changed the workspace structure (added or renamed a theme, surface, or mode) without changing token values:
 
 ```bash
-aplica-theme-engine figma:generate
+theme-engine figma:generate
 ```
 
 ---
@@ -209,10 +209,10 @@ The schema is owned by the package. Consumers can inspect the active schema and 
 
 ```bash
 # View current schema
-aplica-theme-engine sync:architecture:schema
+theme-engine sync:architecture:schema
 
 # Verify impact without writing
-aplica-theme-engine sync:architecture:test
+theme-engine sync:architecture:test
 ```
 
 When the schema changes (e.g., adding a new feedback item), `sync:architecture` propagates that change to all layers. Themes that do not declare the new color in `mapping` will receive a warning during the build.

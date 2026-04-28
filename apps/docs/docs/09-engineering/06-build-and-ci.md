@@ -14,14 +14,14 @@ Este artigo cobre os scripts recomendados de `package.json`, estratégias de bui
 ```json
 {
   "scripts": {
-    "tokens:build":       "aplica-theme-engine build",
-    "tokens:build:all":   "aplica-theme-engine build:all",
-    "tokens:themes":      "aplica-theme-engine themes:generate",
-    "tokens:dimension":   "aplica-theme-engine dimension:generate",
-    "tokens:sync":        "aplica-theme-engine sync:architecture",
-    "tokens:foundations": "aplica-theme-engine foundations:generate",
-    "tokens:figma":       "aplica-theme-engine figma:generate",
-    "tokens:validate":    "aplica-theme-engine validate:data"
+    "tokens:build":       "theme-engine build",
+    "tokens:build:all":   "theme-engine build:all",
+    "tokens:themes":      "theme-engine themes:generate",
+    "tokens:dimension":   "theme-engine dimension:generate",
+    "tokens:sync":        "theme-engine sync:architecture",
+    "tokens:foundations": "theme-engine foundations:generate",
+    "tokens:figma":       "theme-engine figma:generate",
+    "tokens:validate":    "theme-engine validate:data"
   }
 }
 ```

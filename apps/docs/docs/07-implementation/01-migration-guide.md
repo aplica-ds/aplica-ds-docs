@@ -39,7 +39,7 @@ npm install @aplica/aplica-theme-engine
 Execute o analyzer primeiro para entender o que será migrado:
 
 ```bash
-aplica-theme-engine migrate:legacy-consumer analyze --source=./dynamic-themes
+theme-engine migrate:legacy-consumer analyze --source=./dynamic-themes
 ```
 
 O analyzer reporta:
@@ -51,10 +51,10 @@ O analyzer reporta:
 
 ```bash
 # Dry run — visualizar todas as mudanças sem escrever nada
-aplica-theme-engine migrate:legacy-consumer run --source=./dynamic-themes --dry-run
+theme-engine migrate:legacy-consumer run --source=./dynamic-themes --dry-run
 
 # Executar a migração
-aplica-theme-engine migrate:legacy-consumer run --source=./dynamic-themes
+theme-engine migrate:legacy-consumer run --source=./dynamic-themes
 ```
 
 A migração:
@@ -73,7 +73,7 @@ A migração é bem-sucedida quando tanto o build anterior quanto o novo produze
 npm run tokens:build
 
 # Comparar novo output com o output legado
-aplica-theme-engine migrate:legacy-consumer compare
+theme-engine migrate:legacy-consumer compare
 ```
 
 O compare faz diff arquivo por arquivo em `dist/` e reporta quaisquer discrepâncias. Paridade significa que a migração está completa.
@@ -85,12 +85,12 @@ Substitua os scripts de build antigos pelos novos scripts de consumer:
 ```json
 {
   "scripts": {
-    "tokens:build":       "aplica-theme-engine build",
-    "tokens:build:all":   "aplica-theme-engine build:all",
-    "tokens:themes":      "aplica-theme-engine themes:generate",
-    "tokens:sync":        "aplica-theme-engine sync:architecture",
-    "tokens:foundations": "aplica-theme-engine foundations:generate",
-    "tokens:validate":    "aplica-theme-engine validate:data"
+    "tokens:build":       "theme-engine build",
+    "tokens:build:all":   "theme-engine build:all",
+    "tokens:themes":      "theme-engine themes:generate",
+    "tokens:sync":        "theme-engine sync:architecture",
+    "tokens:foundations": "theme-engine foundations:generate",
+    "tokens:validate":    "theme-engine validate:data"
   }
 }
 ```
@@ -427,7 +427,7 @@ export default defineThemeEngineConfig({
 ### Passo 3 — Rebuild
 
 ```bash
-aplica-theme-engine build
+theme-engine build
 ```
 
 O build vai gerar propriedades `txt` em todos os blocos de cor em `data/` e `dist/`.
@@ -463,7 +463,7 @@ options: {
 - [ ] Atualizar pacote para 3.6.3
 - [ ] Adicionar `generation.colorText` ao workspace config com `generateTxt: true`
 - [ ] Remover campos txt-relacionados dos configs de tema individuais (mudança 3.6.0 → 3.6.1)
-- [ ] Rodar `aplica-theme-engine build`
+- [ ] Rodar `theme-engine build`
 - [ ] Revisar componentes que usam valores `surface.*` como cor de texto → migrar para `foundation.txt.*` ou `*.txt.normal`
 - [ ] Verificar configuração de `includePrimitives` se primitivos Figma são necessários
 - [ ] Confirmar que o output em `dist/` contém propriedades `txt` nos tokens de cor

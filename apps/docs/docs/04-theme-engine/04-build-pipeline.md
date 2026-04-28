@@ -130,10 +130,10 @@ O gerador reconstrói as entradas estruturais (`selectedTokenSets`, `name`, `gro
 
 **Não delete esses arquivos.** Se `data/$themes.json` for deletado, todas as referências de estilo do Figma armazenadas nele são perdidas e precisam ser re-sincronizadas do Figma.
 
-Este comando é executado automaticamente como parte de `aplica-theme-engine build`. Execute standalone quando você só alterou a estrutura do workspace (adicionou ou renomeou um tema, surface ou mode) sem alterar valores de tokens:
+Este comando é executado automaticamente como parte de `theme-engine build`. Execute standalone quando você só alterou a estrutura do workspace (adicionou ou renomeou um tema, surface ou mode) sem alterar valores de tokens:
 
 ```bash
-aplica-theme-engine figma:generate
+theme-engine figma:generate
 ```
 
 ---
@@ -209,10 +209,10 @@ O schema é de propriedade do pacote. Consumidores podem inspecionar o schema at
 
 ```bash
 # Ver o schema atual
-aplica-theme-engine sync:architecture:schema
+theme-engine sync:architecture:schema
 
 # Verificar impacto sem gravar
-aplica-theme-engine sync:architecture:test
+theme-engine sync:architecture:test
 ```
 
 Quando o schema muda (ex.: adicionar um novo item de feedback), o `sync:architecture` propaga essa mudança para todas as camadas. Temas que não declararem a nova cor no `mapping` receberão um aviso no build.

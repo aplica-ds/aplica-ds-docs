@@ -26,7 +26,7 @@ Ou crie `aplica-theme-engine.config.mjs` manualmente. Veja [01-quick-start.pt-br
 
 ---
 
-### Comando `aplica-theme-engine` não encontrado
+### Comando `theme-engine` não encontrado
 
 **Causa:** O pacote não está instalado, ou o diretório `.bin` não está no `PATH`.
 
@@ -202,7 +202,7 @@ node -v
 A CLI exibe seus caminhos resolvidos na inicialização:
 
 ```
-aplica-theme-engine
+theme-engine
 Package root:   /caminho/para/node_modules/@aplica/aplica-theme-engine
 Workspace root: /caminho/para/seu-projeto
 Command:        build

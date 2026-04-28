@@ -15,7 +15,7 @@ A CLI `aplica-theme-engine` é a interface principal para gerar e construir desi
 npm install @aplica/aplica-theme-engine
 ```
 
-Após a instalação, a CLI fica disponível como `aplica-theme-engine` (ou via `npx theme-engine`).
+Após a instalação, a CLI fica disponível como `theme-engine` (ou via `npx theme-engine`).
 
 ---
 
@@ -40,7 +40,7 @@ Após a instalação, a CLI fica disponível como `aplica-theme-engine` (ou via 
 Executa o pipeline completo de geração + build em um único comando. É o comando recomendado para CI e uso no dia a dia.
 
 ```bash
-aplica-theme-engine build
+theme-engine build
 ```
 
 **Pipeline executado:**
@@ -61,7 +61,7 @@ aplica-theme-engine build
 Transforma o `data/` existente em `dist/` sem regenerar `data/`. Use quando os dados de token já estão corretos e você precisa apenas reconstruir os artefatos de output.
 
 ```bash
-aplica-theme-engine build:all
+theme-engine build:all
 ```
 
 Útil para iterar em mudanças de formato de output sem rodar o pipeline completo de geração.
@@ -73,7 +73,7 @@ aplica-theme-engine build:all
 Constrói apenas o output da camada Semantic.
 
 ```bash
-aplica-theme-engine build:semantic
+theme-engine build:semantic
 ```
 
 ---
@@ -83,7 +83,7 @@ aplica-theme-engine build:semantic
 Constrói apenas o output da camada Foundation.
 
 ```bash
-aplica-theme-engine build:foundation
+theme-engine build:foundation
 ```
 
 ---
@@ -93,7 +93,7 @@ aplica-theme-engine build:foundation
 Constrói apenas o output da camada Components. Ignorado com mensagem informativa se `data/components` não existir.
 
 ```bash
-aplica-theme-engine build:components
+theme-engine build:components
 ```
 
 ---
@@ -107,7 +107,7 @@ Esses comandos produzem ou atualizam `data/` a partir da sua configuração. Exe
 Decompõe todas as configurações de cores de marca na paleta completa de tokens OKLCh. Grava em `data/brand/`, `data/mode/` e `data/surface/`.
 
 ```bash
-aplica-theme-engine themes:generate
+theme-engine themes:generate
 ```
 
 ---
@@ -117,7 +117,7 @@ aplica-theme-engine themes:generate
 Gera os dados de token para uma única marca. Útil durante o desenvolvimento de marca quando você não quer regenerar todas as marcas.
 
 ```bash
-aplica-theme-engine themes:single minha-marca
+theme-engine themes:single minha-marca
 ```
 
 ---
@@ -127,7 +127,7 @@ aplica-theme-engine themes:single minha-marca
 Gera a escala espacial (espaçamento, tamanho, border radius) para as três variantes de dimensão (minor, normal, major). Grava em `data/dimension/`.
 
 ```bash
-aplica-theme-engine dimension:generate
+theme-engine dimension:generate
 ```
 
 ---
@@ -137,7 +137,7 @@ aplica-theme-engine dimension:generate
 Gera aliases de token Foundation a partir da camada Semantic. Grava em `data/foundation/`.
 
 ```bash
-aplica-theme-engine foundations:generate
+theme-engine foundations:generate
 ```
 
 ---
@@ -147,7 +147,7 @@ aplica-theme-engine foundations:generate
 Gera (ou mescla) os três arquivos que o Tokens Studio precisa para entender quais token sets pertencem a cada variante de tema. Grava em `data/`.
 
 ```bash
-aplica-theme-engine figma:generate
+theme-engine figma:generate
 ```
 
 **Arquivos produzidos:**
@@ -158,7 +158,7 @@ aplica-theme-engine figma:generate
 | `data/$themes.engine.json.template` | Template do engine com a mesma estrutura e campos Figma vazios. Use como referência de reset. |
 | `data/$metadata.json` | Ordem de carregamento dos token sets para o workspace ativo. |
 
-Use este comando standalone quando você adicionou ou renomeou um tema, surface ou mode e quer atualizar os arquivos do Tokens Studio sem rodar um build completo. Em um build completo (`aplica-theme-engine build`), esta etapa é executada automaticamente entre `foundations:generate` e `build:all`.
+Use este comando standalone quando você adicionou ou renomeou um tema, surface ou mode e quer atualizar os arquivos do Tokens Studio sem rodar um build completo. Em um build completo (`theme-engine build`), esta etapa é executada automaticamente entre `foundations:generate` e `build:all`.
 
 > Não delete `data/$themes.json`. Se for deletado, as referências de estilo do Figma armazenadas nele são perdidas.
 
@@ -169,7 +169,7 @@ Use este comando standalone quando você adicionou ou renomeou um tema, surface 
 Valida a estrutura de diretórios de `data/` e cria os que estão faltando. Execute antes dos comandos de geração ao configurar um novo workspace.
 
 ```bash
-aplica-theme-engine ensure:data
+theme-engine ensure:data
 ```
 
 ---
@@ -181,7 +181,7 @@ aplica-theme-engine ensure:data
 Propaga referências de tokens entre todas as camadas (Brand → Mode → Surface → Semantic → Foundation). Execute após `themes:generate` e antes de `foundations:generate`.
 
 ```bash
-aplica-theme-engine sync:architecture
+theme-engine sync:architecture
 ```
 
 ---
@@ -191,7 +191,7 @@ aplica-theme-engine sync:architecture
 Executa a sincronização de arquitetura em modo de teste — reporta o que mudaria sem gravar em `data/`.
 
 ```bash
-aplica-theme-engine sync:architecture:test
+theme-engine sync:architecture:test
 ```
 
 ---
@@ -201,7 +201,7 @@ aplica-theme-engine sync:architecture:test
 Executa a sincronização de arquitetura em modo de schema — valida o contrato de estrutura de tokens.
 
 ```bash
-aplica-theme-engine sync:architecture:schema
+theme-engine sync:architecture:schema
 ```
 
 ---
@@ -216,7 +216,7 @@ Valida o diretório `data/` atual contra:
 - Os contratos de estilos de Foundation e tipografia
 
 ```bash
-aplica-theme-engine validate:data
+theme-engine validate:data
 ```
 
 Execute antes de `build:all` no CI para capturar erros de geração antes do build do Style Dictionary.
@@ -232,7 +232,7 @@ Execute antes de `build:all` no CI para capturar erros de geração antes do bui
 Monta um novo workspace de consumidor. Execute uma vez após instalar o pacote.
 
 ```bash
-aplica-theme-engine init
+theme-engine init
 ```
 
 Oferece dois caminhos de entrada:
@@ -248,7 +248,7 @@ Oferece dois caminhos de entrada:
 Gera interativamente um scaffold de `theme-engine/schemas/architecture.mjs`. Use quando precisar personalizar o contrato de estrutura de tokens além do que o starter template oferece.
 
 ```bash
-aplica-theme-engine schemas:helper
+theme-engine schemas:helper
 ```
 
 O helper pergunta sobre:
@@ -270,7 +270,7 @@ O helper pergunta sobre:
 Injeta arquivos de integração de editor de IA no workspace do consumidor. Execute uma vez após instalar ou atualizar o pacote para dar ao seu assistente de código de IA (Cursor, Claude Code, GitHub Copilot) conhecimento estruturado do contrato de tokens.
 
 ```bash
-aplica-theme-engine ai:init
+theme-engine ai:init
 ```
 
 **Arquivos injetados:**
@@ -297,7 +297,7 @@ Migra um projeto monolítico (pré-pacote) para o modelo de workspace de consumi
 **Recomendado: executar a migração completa em uma etapa**
 
 ```bash
-aplica-theme-engine migrate:legacy-consumer run --source <caminho-do-projeto-legado>
+theme-engine migrate:legacy-consumer run --source <caminho-do-projeto-legado>
 ```
 
 Esse comando:
@@ -311,13 +311,13 @@ Esse comando:
 
 ```bash
 # Apenas analisar — sem alterações
-aplica-theme-engine migrate:legacy-consumer analyze --source <caminho>
+theme-engine migrate:legacy-consumer analyze --source <caminho>
 
 # Apenas converter
-aplica-theme-engine migrate:legacy-consumer convert --source <caminho>
+theme-engine migrate:legacy-consumer convert --source <caminho>
 
 # Apenas comparar (após uma conversão já ter sido executada)
-aplica-theme-engine migrate:legacy-consumer compare --source <caminho>
+theme-engine migrate:legacy-consumer compare --source <caminho>
 ```
 
 **Opções**

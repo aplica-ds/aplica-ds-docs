@@ -137,13 +137,13 @@ Em seguida, aplique as classes diretamente no markup:
 Foundation Styles são geradas como parte do step `foundations:generate`, que roda automaticamente durante um build completo:
 
 ```bash
-aplica-theme-engine build
+theme-engine build
 ```
 
 Para regenerar apenas os dados de foundation (incluindo estilos) sem um build completo:
 
 ```bash
-aplica-theme-engine foundations:generate
+theme-engine foundations:generate
 ```
 
 ---
