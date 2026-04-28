@@ -34,6 +34,16 @@ const r = routes['pt-br'];
   <section id="hero" style="position: relative; overflow: hidden; padding: 6rem 0 4.5rem; text-align: center;">
     <div style="position: absolute; inset: 0; background: var(--gradient-hero-overlay); pointer-events: none;" aria-hidden="true"></div>
 
+    <!-- Neon Bulb Particle Effect Background -->
+    <div class="hero-neon-bg" aria-hidden="true">
+      <div class="neon-glowing"><span style="--i:1;"></span><span style="--i:2;"></span><span style="--i:3;"></span></div>
+      <div class="neon-glowing"><span style="--i:1;"></span><span style="--i:2;"></span><span style="--i:3;"></span></div>
+      <div class="neon-glowing"><span style="--i:1;"></span><span style="--i:2;"></span><span style="--i:3;"></span></div>
+      <div class="neon-glowing"><span style="--i:1;"></span><span style="--i:2;"></span><span style="--i:3;"></span></div>
+      <div class="neon-glowing"><span style="--i:1;"></span><span style="--i:2;"></span><span style="--i:3;"></span></div>
+      <div class="neon-glowing"><span style="--i:1;"></span><span style="--i:2;"></span><span style="--i:3;"></span></div>
+    </div>
+
     <div class="container" style="position: relative;">
       <div data-animate style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem;">
         <p class="badge" style="margin: 0;">Open Source · Apache-2.0</p>
@@ -558,6 +568,102 @@ npm run tokens:build</pre>
 </Base>
 
 <style is:global>
+  /* ── Neon Bulb Particle Effect ──────────────────────────────── */
+  .hero-neon-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    opacity: 0.32;
+  }
+
+  .neon-glowing {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    animation: neonColorChange 5s linear infinite;
+  }
+  .neon-glowing:nth-child(1) { top: -120px; left: -120px; animation-delay: 0s; }
+  .neon-glowing:nth-child(2) { top: -120px; right: -120px; animation-delay: -1.25s; animation-direction: reverse; }
+  .neon-glowing:nth-child(3) { bottom: -120px; left: 5%; animation-delay: -2.5s; }
+  .neon-glowing:nth-child(4) { top: 5%; right: -120px; animation-delay: -3.75s; animation-direction: reverse; }
+  .neon-glowing:nth-child(5) { bottom: -120px; right: 20%; animation-delay: -0.75s; }
+  .neon-glowing:nth-child(6) { top: 25%; left: 38%; animation-delay: -2s; animation-direction: reverse; }
+
+  @keyframes neonColorChange {
+    0%   { filter: hue-rotate(0deg);   transform: rotate(0deg); }
+    100% { filter: hue-rotate(360deg); transform: rotate(360deg); }
+  }
+
+  .neon-glowing span {
+    position: absolute;
+    top:    calc(80px * var(--i));
+    left:   calc(80px * var(--i));
+    bottom: calc(80px * var(--i));
+    right:  calc(80px * var(--i));
+  }
+
+  .neon-glowing span::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -8px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+  }
+
+  .neon-glowing span:nth-child(3n+1)::before {
+    background: rgba(134,255,0,1);
+    box-shadow:
+      0 0 20px rgba(134,255,0,1),
+      0 0 40px rgba(134,255,0,1),
+      0 0 60px rgba(134,255,0,1),
+      0 0 80px rgba(134,255,0,1),
+      0 0 0 8px rgba(134,255,0,.1);
+  }
+
+  .neon-glowing span:nth-child(3n+2)::before {
+    background: rgba(255,214,0,1);
+    box-shadow:
+      0 0 20px rgba(255,214,0,1),
+      0 0 40px rgba(255,214,0,1),
+      0 0 60px rgba(255,214,0,1),
+      0 0 80px rgba(255,214,0,1),
+      0 0 0 8px rgba(255,214,0,.1);
+  }
+
+  .neon-glowing span:nth-child(3n+3)::before {
+    background: rgba(0,226,255,1);
+    box-shadow:
+      0 0 20px rgba(0,226,255,1),
+      0 0 40px rgba(0,226,255,1),
+      0 0 60px rgba(0,226,255,1),
+      0 0 80px rgba(0,226,255,1),
+      0 0 0 8px rgba(0,226,255,.1);
+  }
+
+  .neon-glowing span:nth-child(3n+1) { animation: neonOrbit  10s alternate infinite; }
+  .neon-glowing span:nth-child(3n+2) { animation: neonOrbitR  3s alternate infinite; }
+  .neon-glowing span:nth-child(3n+3) { animation: neonOrbit   8s alternate infinite; }
+
+  @keyframes neonOrbit {
+    0%   { transform: rotate(180deg); }
+    50%  { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  @keyframes neonOrbitR {
+    0%   { transform: rotate(360deg); }
+    50%  { transform: rotate(180deg); }
+    100% { transform: rotate(0deg); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .neon-glowing, .neon-glowing span { animation: none !important; }
+  }
+
+  /* ── Responsive / Mobile ────────────────────────────────────── */
   @media (max-width: 640px) {
     /* Hero */
     #hero { padding: 3rem 0 2rem !important; }
