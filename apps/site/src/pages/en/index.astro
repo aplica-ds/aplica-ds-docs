@@ -40,8 +40,6 @@ const r = routes.en;
       <div class="neon-glowing"><span style="--i:1;"></span><span style="--i:2;"></span><span style="--i:3;"></span></div>
       <div class="neon-glowing"><span style="--i:1;"></span><span style="--i:2;"></span><span style="--i:3;"></span></div>
       <div class="neon-glowing"><span style="--i:1;"></span><span style="--i:2;"></span><span style="--i:3;"></span></div>
-      <div class="neon-glowing"><span style="--i:1;"></span><span style="--i:2;"></span><span style="--i:3;"></span></div>
-      <div class="neon-glowing"><span style="--i:1;"></span><span style="--i:2;"></span><span style="--i:3;"></span></div>
     </div>
 
     <div class="container" style="position: relative;">
@@ -571,24 +569,25 @@ npm run tokens:build</pre>
   /* ── Neon Bulb Particle Effect ──────────────────────────────── */
   .hero-neon-bg {
     position: absolute;
-    inset: 0;
+    top: 50%;
+    left: 50%;
+    width: 560px;
+    height: 560px;
+    transform: translate(-50%, -50%);
     pointer-events: none;
-    overflow: hidden;
-    opacity: 0.32;
+    opacity: 0.35;
+    z-index: 0;
   }
 
   .neon-glowing {
     position: absolute;
-    width: 500px;
-    height: 500px;
+    inset: 0;
+    transform-origin: right;
     animation: neonColorChange 5s linear infinite;
   }
-  .neon-glowing:nth-child(1) { top: -120px; left: -120px; animation-delay: 0s; }
-  .neon-glowing:nth-child(2) { top: -120px; right: -120px; animation-delay: -1.25s; animation-direction: reverse; }
-  .neon-glowing:nth-child(3) { bottom: -120px; left: 5%; animation-delay: -2.5s; }
-  .neon-glowing:nth-child(4) { top: 5%; right: -120px; animation-delay: -3.75s; animation-direction: reverse; }
-  .neon-glowing:nth-child(5) { bottom: -120px; right: 20%; animation-delay: -0.75s; }
-  .neon-glowing:nth-child(6) { top: 25%; left: 38%; animation-delay: -2s; animation-direction: reverse; }
+  .neon-glowing:nth-child(even) {
+    transform-origin: left;
+  }
 
   @keyframes neonColorChange {
     0%   { filter: hue-rotate(0deg);   transform: rotate(0deg); }
