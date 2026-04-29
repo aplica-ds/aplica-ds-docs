@@ -142,8 +142,13 @@ Seven component archetypes (Button, Dialog, Input, Badge, Select, Card, Tabs) de
 
 ## V3 milestone versions
 
-Current version: **3.8.1** (2026-04-27)
+Current version: **3.9.0** (2026-04-28)
 
+- **3.9.0** — Authored interaction decomposition modes (`system-scale` / `dilution`) for `interface.function` and `interface.feedback`; expanded `solid` / `ghost` surface presets via `legacyStructure: false`; per-state authored tuning under `options.interaction.surfaces.{solid|ghost}.levels`; `theme-engine preview` command generates static HTML preview in `dist/preview/`
+- **3.8.5** — Trusted publishing release automation via GitHub Actions; runtimes upgraded to Node.js 24
+- **3.8.4** — Negative `*.txt` tokens now follow the declared canvas contract all the way to `dist/` for interface, feedback, disabled, and product branches; new `mode.productBySurface` branch ensures product polarity survives `sync:architecture`; `test:txt-inversion` now audits final distributable JSON in `dist/`
+- **3.8.3** — Ambient readable text now follows the final file canvas in both polarities: `brand.ambient.contrast.*`, `neutral.*`, and `grayscale.*.txt` resolve against the declared `contrast.base.positive.background`; negative ambient surfaces resolve from the inverse mode canvas
+- **3.8.2** — `brand.branding` now respects positive/negative surface polarity in semantic outputs via a dedicated `mode.brand.brandingBySurface` branch; dark mode follows the same inverse-surface rule as light mode
 - **3.8.1** — Ambient `txt` accessibility correction: `brand.ambient.neutral.*.txt` and `brand.ambient.grayscale.*.txt` now validate against the declared `contrast.base.{positive|negative}.background` surface instead of the level background; regression coverage extended in `test:txt-inversion`
 - **3.8.0** — `theme-engine` preferred CLI alias — shorter command for consumer workspaces; `aplica-theme-engine` preserved as a compatibility fallback; all active docs standardize on `theme-engine` first
 - **3.7.5** — Tokens Studio-safe fix: disabled product readable-text branches no longer emit invalid `txt: null` nodes when `generateTxt: true` and `textExposure.product: false`

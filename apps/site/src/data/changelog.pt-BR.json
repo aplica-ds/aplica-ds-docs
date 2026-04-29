@@ -1,8 +1,59 @@
 [
   {
-    "version": "v3.8.1",
+    "version": "v3.9.0",
     "date": "Abril 2026",
     "status": "latest",
+    "changes": [
+      "Modos de decomposição de interação: temas podem declarar options.interaction.decomposition.method como system-scale (comportamento legado, agora nomeado explicitamente) ou dilution (novo) para interface.function e interface.feedback",
+      "Presets de surface expandidos com grupos opcionais solid e ghost — temas que optam por legacyStructure: false geram grupos function e feedback explícitos em brand, mode, surface e semantic",
+      "Ajuste fino de interação por estado: configure valores diretamente em options.interaction.surfaces.{solid|ghost}.levels — em system-scale são níveis de paleta (active: 120), em dilution são fatores autorais (active: 0.8, action: 1.2, focus: 0.3)",
+      "Comando theme-engine preview — gera preview HTML estático em dist/preview/ para inspecionar background, border, txtOn, txt, classes de tipografia e elevation em todas as combinações de tema; flags --build (rebuild antes) e --serve (servidor local estático)"
+    ]
+  },
+  {
+    "version": "v3.8.5",
+    "date": "Abril 2026",
+    "status": "stable",
+    "changes": [
+      "Automação de publicação confiável (trusted publishing) via GitHub Actions — fluxo de release sem segredos de npm token",
+      "Runtimes das GitHub Actions atualizados para Node.js 24"
+    ]
+  },
+  {
+    "version": "v3.8.4",
+    "date": "Abril 2026",
+    "status": "stable",
+    "changes": [
+      "Tokens txt negativos agora seguem o contrato de canvas declarado em todo o pipeline até dist/ — interface.function, interface.feedback, disabled e product corrigidos",
+      "Polaridade de produto sobrevive ao sync:architecture — novo branch mode.productBySurface garante que readable text de produto chegue a surface, semantic e dist/ sem colapsar para o contrato positive",
+      "Workspaces novos inicializam corretamente o branch surface-aware de produto ao rodar sync:architecture do zero",
+      "test:txt-inversion agora audita o JSON final em dist/ em vez de camadas intermediárias — falhas em branches negativos de interface e produto são detectadas no mesmo layer que o Figma consome"
+    ]
+  },
+  {
+    "version": "v3.8.3",
+    "date": "Abril 2026",
+    "status": "stable",
+    "changes": [
+      "txt ambiente agora segue o canvas do arquivo final em ambas as polaridades — brand.ambient.contrast.*.txt, neutral.*.txt e grayscale.*.txt resolvem contra contrast.base.positive.background do modo ativo",
+      "Superfícies negativas ambientes resolvem a partir do canvas do modo inverso — light-negative alinha com o contrato dark; dark-negative alinha com o contrato light",
+      "Cobertura de regressão agora protege contrast.base, neutral e grayscale em todos os quatro quadrantes de mode/surface"
+    ]
+  },
+  {
+    "version": "v3.8.2",
+    "date": "Abril 2026",
+    "status": "stable",
+    "changes": [
+      "brand.branding agora respeita a polaridade positive/negative nos outputs semânticos — sync:architecture carrega branch mode.brand.brandingBySurface separado para que surface.color.brand.branding.* não colapse light-positive e light-negative na mesma cadeia de aliases",
+      "Dark mode segue a mesma regra de surface inversa que o light mode — dark-negative espelha o branch light enquanto dark-positive permanece no branch dark",
+      "Cobertura de regressão agora valida o espelhamento de branding por surface e impede que mudanças futuras de sync achateem outputs negativos silenciosamente"
+    ]
+  },
+  {
+    "version": "v3.8.1",
+    "date": "Abril 2026",
+    "status": "stable",
     "changes": [
       "Correção de acessibilidade do txt ambiente: brand.ambient.neutral.*.txt e brand.ambient.grayscale.*.txt agora validam contra o contrast.base declarado, não o background do nível",
       "txtOn e txt ambiente deixam de compartilhar o mesmo alvo de acessibilidade implicitamente — contratos agora distintos e corretos",

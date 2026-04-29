@@ -62,7 +62,14 @@ São nomes de código. Aparecem exatamente assim em pt-BR e em en-US.
 | `foundation.txt.*` | Namespace de token | "use `foundation.txt.body`" |
 | `brand.branding.*` | Namespace de token | — |
 | `theme-engine` | Alias CLI preferido | "`npx theme-engine init` — alias preferido desde 3.8.0; `aplica-theme-engine` mantido como fallback" |
+| `theme-engine preview` | Comando CLI | "`npx theme-engine preview` — gera preview HTML estático em `dist/preview/`; flags: `--build` (rebuild antes), `--serve` (servidor local) — desde 3.9.0" |
 | `aplica-theme-engine` | CLI legado (compatibilidade) | "preservado como fallback — scripts existentes continuam funcionando sem alterações" |
+| `options.interaction.decomposition.method` | Chave de config | "declara o modo de decomposição de interação: `'system-scale'` (padrão, legado) ou `'dilution'` (novo) — desde 3.9.0" |
+| `system-scale` | Valor de config | "modo de decomposição legado explicitamente nomeado — usa os níveis de paleta existentes (ex.: `active: 120`)" |
+| `dilution` | Valor de config | "novo modo de decomposição: move a cor base em direção a branco/preto sem alterar o hue; fatores de estado (`action: 1.2`, `active: 0.8`, `focus: 0.3`); valores acima de `1.0` invertem a direção" |
+| `options.interaction.legacyStructure` | Parâmetro de config | "todos os temas do workspace devem concordar neste valor — `true` (padrão) mantém a estrutura pública anterior; `false` habilita grupos `solid`/`ghost` expandidos — desde 3.9.0" |
+| `mode.productBySurface` | Branch interno do engine | "branch gerado pelo sync:architecture para garantir que readable text de produto respeite a polaridade positive/negative — desde 3.8.4" |
+| `mode.brand.brandingBySurface` | Branch interno do engine | "branch gerado pelo sync:architecture para que branding não colapse light-positive e light-negative — desde 3.8.2" |
 | OKLCh | Espaço de cor | "o pipeline OKLCh" |
 | WCAG | Sigla de acessibilidade | "contraste WCAG AA" |
 
@@ -294,5 +301,6 @@ O Aplica DS usa metáforas específicas para explicar conceitos. Estas metáfora
 
 | Data | Mudança |
 |------|---------|
+| 2026-04-28 | Adicionados termos 3.8.x–3.9.0: `theme-engine preview`, `options.interaction.decomposition.method`, `system-scale`, `dilution`, `options.interaction.legacyStructure`, `mode.productBySurface`, `mode.brand.brandingBySurface` |
 | 2026-04-23 | Adicionados termos 3.6.x: `txt`, `txtBaseColorLevel`, `fallbackBaseColorLevel`, `textExposure`, `generateTxt`, `generation.colorText`; vocabulário de contrato expandido |
 | 2026-04-10 | Versão inicial — criado antes da primeira tradução |

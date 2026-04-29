@@ -142,8 +142,13 @@ Sete archetypes de componente (Button, Dialog, Input, Badge, Select, Card, Tabs)
 
 ## Versões de marco da V3
 
-Versão atual: **3.8.1** (2026-04-27)
+Versão atual: **3.9.0** (2026-04-28)
 
+- **3.9.0** — Modos de decomposição de interação autorais (`system-scale` / `dilution`) para `interface.function` e `interface.feedback`; presets expandidos `solid` / `ghost` via `legacyStructure: false`; ajuste por estado em `options.interaction.surfaces.{solid|ghost}.levels`; comando `theme-engine preview` gera preview HTML estático em `dist/preview/`
+- **3.8.5** — Automação de publicação confiável (trusted publishing) via GitHub Actions; runtimes atualizados para Node.js 24
+- **3.8.4** — Tokens `*.txt` negativos agora seguem o contrato de canvas declarado em todo o pipeline até `dist/` para branches de interface, feedback, disabled e produto; novo branch `mode.productBySurface` garante que a polaridade de produto sobreviva ao `sync:architecture`; `test:txt-inversion` agora audita o JSON final em `dist/`
+- **3.8.3** — Texto legível ambiente agora segue o canvas do arquivo final em ambas as polaridades: `brand.ambient.contrast.*`, `neutral.*` e `grayscale.*.txt` resolvem contra o `contrast.base.positive.background` declarado; superfícies negativas ambientes resolvem a partir do canvas do modo inverso
+- **3.8.2** — `brand.branding` agora respeita a polaridade positive/negative nos outputs semânticos via branch dedicado `mode.brand.brandingBySurface`; dark mode segue a mesma regra de surface inversa que o light mode
 - **3.8.1** — Correção de acessibilidade do `txt` ambiente: `brand.ambient.neutral.*.txt` e `brand.ambient.grayscale.*.txt` agora validam contra o `contrast.base.{positive|negative}.background` declarado em vez do background do nível; cobertura de regressão estendida em `test:txt-inversion`
 - **3.8.0** — Alias CLI preferido `theme-engine` — comando mais curto para workspaces consumidores; `aplica-theme-engine` preservado como fallback de compatibilidade; toda a documentação ativa padroniza em `theme-engine` primeiro
 - **3.7.5** — Fix Tokens Studio-safe: branches de texto legível de produto desabilitadas não emitem mais nós `txt: null` inválidos quando `generateTxt: true` e `textExposure.product: false`
