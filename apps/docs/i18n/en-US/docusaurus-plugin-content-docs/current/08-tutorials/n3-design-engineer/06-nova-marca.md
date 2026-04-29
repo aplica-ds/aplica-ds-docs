@@ -152,12 +152,20 @@ export default {
   options: {
     txtOnStrategy:    'high-contrast',  // green credit — institutional, maximum contrast
     darkModeChroma:    0.80,            // slightly softer than default (0.85)
-    accessibilityLevel: 'AA'
+    accessibilityLevel: 'AA',
+
+    // Interaction decomposition (since 3.9.0) — omit to keep system-scale (legacy default)
+    // interaction: {
+    //   decomposition: { method: 'system-scale' },
+    //   legacyStructure: true,  // must match all other themes in the workspace
+    // }
   }
 }
 ```
 
 **Why `high-contrast`?** A credit brand for small businesses — trust and legibility take precedence over chromatic expressiveness. `brand-tint` could reduce contrast on dark green backgrounds.
+
+**On `options.interaction`:** Verdana uses the default (`system-scale`, `legacyStructure: true`) so no explicit config is needed. To switch to `dilution` or enable `ghost` surfaces, every theme in the workspace must opt in together — changing one theme alone breaks the shared `mode`, `surface`, and `semantic` layers. See [03-configuration-guide.md](../../04-theme-engine/03-configuration-guide.md#interaction-decomposition-since-390) for the full contract.
 
 ---
 
@@ -220,7 +228,35 @@ If you are adding the theme to a project that already has other themes, the them
 
 ---
 
-## Step 4 — Verify the output
+## Step 4 — Preview the output visually
+
+Before checking raw token values, use the preview command to confirm all four Verdana variants look correct:
+
+```bash
+theme-engine preview --build --serve
+```
+
+Open `http://localhost:<port>` (the CLI prints the URL). You should see:
+
+- **light-positive / light-negative / dark-positive / dark-negative** — four tabs or sections
+- Colors: `background`, `border`, `txtOn`, and `txt` for every semantic family at every state
+- Typography: foundation classes applied to sample text
+- Elevation: card surfaces per elevation level
+
+**What to check for Verdana specifically:**
+
+| Check | What to look for |
+|-------|-----------------|
+| `interface.function.primary.normal.background` | The green `#15803D` tone — not oversaturated in dark mode |
+| `txtOn` on dark surfaces | White (expected — `high-contrast` strategy) |
+| `txt` ambient | Accessible green-tinted text on the canvas background |
+| `product.eco.*` | Green badge surfaces with correct `txtOn` |
+
+If anything looks wrong, fix the config and re-run `theme-engine preview --build`.
+
+---
+
+## Step 5 — Verify tokens in the output
 
 After the build, Verdana's tokens are at:
 
@@ -272,7 +308,7 @@ The value should differ from light — the lightness level was inverted.
 
 ---
 
-## Step 5 — Sync with Figma
+## Step 6 — Sync with Figma
 
 ### 5.1 — Load the tokens
 
@@ -301,7 +337,7 @@ Switch the mode to Dark — both should change automatically to the dark equival
 
 ---
 
-## Step 6 — Custom foundation (when necessary)
+## Step 7 — Custom foundation (when necessary)
 
 The Verdana theme uses the default foundation (`engine`). This is correct for most cases.
 
@@ -361,9 +397,11 @@ By the end of this tutorial you should know:
 - [ ] Connect `colors` to `mapping` without key errors
 - [ ] Register the theme in `themes.config.json` with the correct key
 - [ ] Run `npm run build:themes` and interpret the output
+- [ ] Use `theme-engine preview` to visually validate all four theme variants before syncing
 - [ ] Verify tokens in the generated CSS with `grep`
 - [ ] Describe the synchronization process with Figma via Tokens Studio
 - [ ] Decide when to create a custom foundation vs using `engine`
+- [ ] Understand when `options.interaction` changes require all themes in the workspace to opt in together
 
 ---
 

@@ -263,6 +263,55 @@ Se `sync:architecture` não rodar após `themes:generate`, a seção `semantic.c
 
 ---
 
+## Preview Visual (desde 3.9.0)
+
+Após o build do Style Dictionary, `theme-engine preview` gera um relatório HTML estático local que renderiza todas as combinações de tema geradas — antes de qualquer sync com Figma ou integração no browser.
+
+```bash
+# Gerar preview a partir do dist/ atual
+theme-engine preview
+
+# Reconstruir dist/ antes e então gerar o preview
+theme-engine preview --build
+
+# Reconstruir, gerar e servir via servidor estático local
+theme-engine preview --build --serve
+```
+
+**O que o preview renderiza:**
+
+| Seção | O que mostra |
+|-------|-------------|
+| Cores | `background`, `border`, `txtOn`, `txt` em todas as famílias semânticas, estados e níveis de intensidade |
+| Tipografia | Todas as classes foundation de tipografia aplicadas a texto de exemplo real |
+| Elevação | Todas as classes de elevação renderizadas como superfícies de cards elevados |
+
+**Output gerado em:**
+
+```
+dist/preview/
+├── index.html         ← abrir no browser
+├── preview-data.js    ← dados de tokens resolvidos
+├── preview-app.js     ← renderer
+└── preview-app.css    ← estilos do preview
+```
+
+**Quando usar:**
+
+- Após adicionar um novo tema — confirme que as quatro variantes (light/dark × positive/negative) renderizam corretamente.
+- Após alterar uma cor ou override — verifique visualmente que o contraste de `txtOn` e as cores de canvas `txt` estão corretas antes de sincronizar com o Figma.
+- Ao validar ghost surfaces — `ghost.normal.background` é transparente, então checar o canvas composto efetivo exige uma ferramenta visual.
+
+Adicionar à tabela de builds incrementais:
+
+| Mudança | Comandos necessários |
+|---------|---------------------|
+| Inspecionar output visualmente | `theme-engine preview` (ou `theme-engine preview --build` para reconstruir primeiro) |
+
+> O preview renderiza contra o **output atual de `dist/`**. Use `--build` para garantir que `dist/` está atualizado antes de abrir.
+
+---
+
 ## Validação no Build
 
 O pipeline inclui verificações automáticas:

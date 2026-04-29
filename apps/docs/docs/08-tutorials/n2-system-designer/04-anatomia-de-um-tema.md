@@ -213,6 +213,35 @@ Quando todos os quatro apontam para a mesma família (como `'Inter'` acima), o s
 - `'AA'` (padrão) — contraste 4.5:1 — suficiente para a maioria dos produtos
 - `'AAA'` — contraste 7:1 — mais restritivo, reduz a quantidade de combinações disponíveis
 
+**`options.interaction`** (desde 3.9.0) — como os estados de interação (`normal`, `action`, `active`, `focus`) são derivados para `interface.function` e `interface.feedback`:
+
+```javascript
+options: {
+  interaction: {
+    decomposition: {
+      method: 'dilution',   // 'system-scale' (padrão) ou 'dilution'
+    },
+    legacyStructure: false, // deve ser igual em todos os temas do workspace
+    surfaces: {
+      solid: {
+        levels: { action: 1.2, active: 0.8, focus: 0.3 }
+      },
+      ghost: {
+        enabled: true,
+        levels: { action: 40, active: 60, focus: 20 }
+      }
+    }
+  }
+}
+```
+
+| Método | Como os estados são calculados |
+|--------|-------------------------------|
+| `'system-scale'` (padrão) | Níveis de paleta — igual a todos os temas existentes; totalmente retrocompatível |
+| `'dilution'` | Fatores que movem a cor base em direção ao branco ou preto; valores acima de `1.0` invertem a direção |
+
+> **Importante:** `legacyStructure` deve ser **idêntico em todos os temas do workspace** — ele controla se as camadas compartilhadas `mode`, `surface` e `semantic` emitem grupos `solid`/`ghost` explícitos ou a forma pública anterior. Misturar valores quebra essas camadas.
+
 ---
 
 ### Seção 6 — `overrides` (opcional)

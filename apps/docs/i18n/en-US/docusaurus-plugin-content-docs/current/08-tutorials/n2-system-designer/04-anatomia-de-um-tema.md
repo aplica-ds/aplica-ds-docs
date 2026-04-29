@@ -213,6 +213,35 @@ When all four point to the same family (like `'Inter'` above), the system uses a
 - `'AA'` (default) — 4.5:1 contrast — sufficient for most products
 - `'AAA'` — 7:1 contrast — more restrictive, reduces the number of available combinations
 
+**`options.interaction`** (since 3.9.0) — how interaction states (`normal`, `action`, `active`, `focus`) are derived for `interface.function` and `interface.feedback`:
+
+```javascript
+options: {
+  interaction: {
+    decomposition: {
+      method: 'dilution',   // 'system-scale' (default) or 'dilution'
+    },
+    legacyStructure: false, // must match across all themes in the workspace
+    surfaces: {
+      solid: {
+        levels: { action: 1.2, active: 0.8, focus: 0.3 }
+      },
+      ghost: {
+        enabled: true,
+        levels: { action: 40, active: 60, focus: 20 }
+      }
+    }
+  }
+}
+```
+
+| Method | How states are computed |
+|--------|------------------------|
+| `'system-scale'` (default) | Palette levels — same as all existing themes; fully backward compatible |
+| `'dilution'` | Factors that move the base color toward white or black; values above `1.0` invert direction |
+
+> **Important:** `legacyStructure` must be **identical in all themes in the workspace** — it controls whether the shared `mode`, `surface`, and `semantic` layers emit explicit `solid`/`ghost` groups or the previous public shape. Mixing values breaks those shared layers.
+
 ---
 
 ### Section 6 — `overrides` (optional)

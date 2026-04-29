@@ -159,6 +159,36 @@ npm run build
 
 ---
 
+## Validando o output visualmente — `theme-engine preview` (desde 3.9.0)
+
+Após o build, use o comando de preview para inspecionar todas as combinações de tema no browser antes de sincronizar com o Figma ou integrar em um projeto:
+
+```bash
+# Usar o dist/ atual
+theme-engine preview
+
+# Reconstruir primeiro e então gerar o preview
+theme-engine preview --build
+
+# Reconstruir, gerar preview e servir via servidor estático local
+theme-engine preview --build --serve
+```
+
+O preview renderiza as quatro variantes (light-positive, light-negative, dark-positive, dark-negative) de todos os temas do workspace. Para cada variante, mostra:
+
+- `background`, `border`, `txtOn` e `txt` em todas as famílias semânticas e estados
+- Classes foundation de tipografia aplicadas a texto de exemplo
+- Classes de elevação renderizadas como superfícies de cards elevados
+
+**Adicionar à tabela de diagnóstico:**
+
+| Sintoma | Causa provável | Solução |
+|---------|---------------|---------|
+| `txtOn` visualmente errado no browser mas o build passa | Token resolvido contra canvas incorreto | `theme-engine preview` para inspecionar o resultado composto |
+| Superfície ghost aparece invisível | `ghost.normal.background` é transparente — comportamento correto | Abrir `theme-engine preview` para verificar contraste contra o canvas composto |
+
+---
+
 ## Checkpoint
 
 Ao fim deste tutorial você deve saber:
@@ -168,6 +198,7 @@ Ao fim deste tutorial você deve saber:
 - [ ] A diferença entre `build:themes` (completo) e os comandos incrementais
 - [ ] Por que nunca editar `data/` manualmente
 - [ ] Diagnosticar os 5 problemas mais comuns pelo sintoma
+- [ ] Usar `theme-engine preview` para validar visualmente o output de tokens gerado
 
 ---
 

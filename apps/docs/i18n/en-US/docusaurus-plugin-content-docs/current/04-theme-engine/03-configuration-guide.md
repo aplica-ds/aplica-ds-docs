@@ -254,6 +254,78 @@ See [07-txt-token.md](../02-token-layers/07-txt-token.md) for the full txt contr
 
 ---
 
+## Interaction Decomposition (since 3.9.0)
+
+By default, `interface.function` and `interface.feedback` generate interaction states (`normal`, `action`, `active`, `focus`) using the engine's palette-level logic. Version 3.9.0 introduces authored control over how those states are derived.
+
+### Decomposition method
+
+Configure `options.interaction.decomposition.method` inside the theme config:
+
+| Value | Behavior |
+|-------|----------|
+| `'system-scale'` (default) | Legacy behavior, now explicitly named. Palette levels drive state colors (e.g., `active: 120`). All existing themes use this. |
+| `'dilution'` | New. State colors move toward white or black from the base color without rotating hue. Factors drive intensity (e.g., `active: 0.8`, `action: 1.2`). Values above `1.0` invert direction. |
+
+```javascript
+options: {
+  interaction: {
+    decomposition: {
+      method: 'dilution',
+      // direction: 'high'  // 'high' = move darker (default); 'low' = move lighter
+    },
+    surfaces: {
+      solid: {
+        levels: {
+          // dilution: factors (1.0 = base color, <1.0 = less diluted, >1.0 = inverts direction)
+          action: 1.2,
+          active: 0.8,
+          focus:  0.3,
+        }
+      },
+      ghost: {
+        enabled: true,
+        levels: {
+          // ghost backgrounds use palette levels, even in dilution mode
+          action: 40,
+          active: 60,
+          focus:  20,
+        }
+      }
+    }
+  }
+}
+```
+
+`normal` always stays on the authored base color — no override is needed or expected.
+
+### Backward compatibility
+
+- Themes with no `interaction` config generate exactly as before — `system-scale` is the implicit default.
+- Legacy `options.interfaceFunctionPaletteLevels` still works and is mapped internally to `options.interaction.surfaces.solid.levels`.
+- Existing token structures for `background`, `txtOn`, `border`, and `txt` remain unchanged.
+
+### Workspace consistency rule
+
+All themes in the same workspace **must agree** on `options.interaction.legacyStructure`:
+
+```javascript
+options: {
+  interaction: {
+    legacyStructure: false,  // must be identical across all themes in the workspace
+  }
+}
+```
+
+| Value | Public output shape |
+|-------|---------------------|
+| `true` (default) | Previous public shape — `function` and `feedback` groups as before |
+| `false` | Explicit `solid` and `ghost` groups generated across `brand`, `mode`, `surface`, and `semantic` |
+
+> **Mixed workspaces break.** `mode`, `surface`, and `semantic` are shared layers — if some themes have `legacyStructure: false` and others do not, those shared layers become inconsistent. Set this flag identically in all theme configs.
+
+---
+
 ## Overrides
 
 Overrides allow replacing engine-generated values in specific cases:

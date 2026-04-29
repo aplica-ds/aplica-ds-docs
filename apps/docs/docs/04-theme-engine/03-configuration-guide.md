@@ -254,6 +254,78 @@ Veja [07-txt-token.md](../02-token-layers/07-txt-token.md) para a documentação
 
 ---
 
+## Decomposição de Interação (desde 3.9.0)
+
+Por padrão, `interface.function` e `interface.feedback` geram estados de interação (`normal`, `action`, `active`, `focus`) usando a lógica de níveis de paleta do engine. A versão 3.9.0 introduz controle autoral sobre como esses estados são derivados.
+
+### Modo de decomposição
+
+Configure `options.interaction.decomposition.method` no config do tema:
+
+| Valor | Comportamento |
+|-------|--------------|
+| `'system-scale'` (padrão) | Comportamento legado, agora nomeado explicitamente. Níveis de paleta controlam os estados (ex.: `active: 120`). Todos os temas existentes usam isso. |
+| `'dilution'` | Novo. Os estados de cor movem a cor base em direção ao branco ou preto sem rotacionar o hue. Fatores controlam a intensidade (ex.: `active: 0.8`, `action: 1.2`). Valores acima de `1.0` invertem a direção. |
+
+```javascript
+options: {
+  interaction: {
+    decomposition: {
+      method: 'dilution',
+      // direction: 'high'  // 'high' = mover para mais escuro (padrão); 'low' = mais claro
+    },
+    surfaces: {
+      solid: {
+        levels: {
+          // dilution: fatores (1.0 = cor base, <1.0 = menos diluído, >1.0 = inverte direção)
+          action: 1.2,
+          active: 0.8,
+          focus:  0.3,
+        }
+      },
+      ghost: {
+        enabled: true,
+        levels: {
+          // ghost usa níveis de paleta mesmo em modo dilution
+          action: 40,
+          active: 60,
+          focus:  20,
+        }
+      }
+    }
+  }
+}
+```
+
+`normal` sempre permanece na cor base autoral — nenhum override é esperado para ele.
+
+### Compatibilidade retroativa
+
+- Temas sem config `interaction` geram exatamente como antes — `system-scale` é o padrão implícito.
+- `options.interfaceFunctionPaletteLevels` legado ainda funciona e é mapeado internamente para `options.interaction.surfaces.solid.levels`.
+- Estruturas existentes de `background`, `txtOn`, `border` e `txt` permanecem inalteradas.
+
+### Regra de consistência do workspace
+
+Todos os temas no mesmo workspace **devem concordar** em `options.interaction.legacyStructure`:
+
+```javascript
+options: {
+  interaction: {
+    legacyStructure: false,  // deve ser idêntico em todos os temas do workspace
+  }
+}
+```
+
+| Valor | Forma pública do output |
+|-------|------------------------|
+| `true` (padrão) | Forma pública anterior — grupos `function` e `feedback` como antes |
+| `false` | Grupos `solid` e `ghost` explícitos gerados em `brand`, `mode`, `surface` e `semantic` |
+
+> **Workspaces mistos quebram.** `mode`, `surface` e `semantic` são camadas compartilhadas — se alguns temas tiverem `legacyStructure: false` e outros não, essas camadas ficam inconsistentes. Defina esse flag de forma idêntica em todos os configs de tema.
+
+---
+
 ## Sobreposições (Overrides)
 
 Overrides permitem substituir valores gerados pelo engine em casos específicos:

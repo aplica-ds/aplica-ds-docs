@@ -263,6 +263,55 @@ If `sync:architecture` does not run after `themes:generate`, the `semantic.color
 
 ---
 
+## Visual Preview (since 3.9.0)
+
+After the Style Dictionary build, `theme-engine preview` generates a workspace-local static HTML report that renders every generated theme combination — before any Figma sync or browser integration.
+
+```bash
+# Generate preview from the current dist/ output
+theme-engine preview
+
+# Rebuild dist/ first, then generate the preview
+theme-engine preview --build
+
+# Rebuild, generate, and serve via a local static server
+theme-engine preview --build --serve
+```
+
+**What the preview renders:**
+
+| Section | What it shows |
+|---------|---------------|
+| Colors | `background`, `border`, `txtOn`, `txt` across every semantic family, state, and intensity level |
+| Typography | All foundation typography classes applied to live sample text |
+| Elevation | All elevation classes rendered as raised card surfaces |
+
+**Output written to:**
+
+```
+dist/preview/
+├── index.html         ← open in the browser
+├── preview-data.js    ← resolved token data
+├── preview-app.js     ← renderer
+└── preview-app.css    ← preview styles
+```
+
+**When to use it:**
+
+- After adding a new theme — confirm all four variants (light/dark × positive/negative) render correctly.
+- After changing a color or override — visually verify that `txtOn` contrast and `txt` canvas colors are correct before syncing to Figma.
+- When validating ghost surfaces — `ghost.normal.background` is transparent, so checking the effective composited canvas requires a visual tool.
+
+Add to the incremental build table:
+
+| Change | Required commands |
+|--------|-------------------|
+| Inspect output visually | `theme-engine preview` (or `theme-engine preview --build` to rebuild first) |
+
+> The preview renders against the **current `dist/` output**. Run with `--build` to ensure `dist/` is up to date before opening.
+
+---
+
 ## Build Validation
 
 The pipeline includes automatic checks:

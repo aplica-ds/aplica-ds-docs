@@ -152,12 +152,20 @@ export default {
   options: {
     txtOnStrategy: 'high-contrast',  // crédito verde — institucional, máximo contraste
     darkModeChroma: 0.80,             // ligeiramente mais suave que padrão (0.85)
-    accessibilityLevel: 'AA'
+    accessibilityLevel: 'AA',
+
+    // Decomposição de interação (desde 3.9.0) — omitir para manter system-scale (padrão legado)
+    // interaction: {
+    //   decomposition: { method: 'system-scale' },
+    //   legacyStructure: true,  // deve ser igual em todos os temas do workspace
+    // }
   }
 }
 ```
 
 **Por que `high-contrast`?** Marca de crédito para pequenas empresas — confiança e legibilidade têm precedência sobre expressividade cromática. `brand-tint` poderia reduzir o contraste em fundos verdes escuros.
+
+**Sobre `options.interaction`:** Verdana usa o padrão (`system-scale`, `legacyStructure: true`), portanto nenhuma config explícita é necessária. Para mudar para `dilution` ou habilitar superfícies `ghost`, todos os temas do workspace precisam optar juntos — mudar apenas um tema quebra as camadas compartilhadas `mode`, `surface` e `semantic`. Veja [03-configuration-guide.pt-br.md](../../04-theme-engine/03-configuration-guide.md#decomposição-de-interação-desde-390) para o contrato completo.
 
 ---
 
@@ -220,7 +228,35 @@ Se você está adicionando o tema a um projeto que já tem outros temas, o núme
 
 ---
 
-## Passo 4 — Verificar o output
+## Passo 4 — Preview visual do output
+
+Antes de verificar valores de tokens brutos, use o comando de preview para confirmar que as quatro variantes de Verdana estão corretas:
+
+```bash
+theme-engine preview --build --serve
+```
+
+Abra `http://localhost:<porta>` (a CLI imprime a URL). Você deve ver:
+
+- **light-positive / light-negative / dark-positive / dark-negative** — quatro abas ou seções
+- Cores: `background`, `border`, `txtOn` e `txt` de cada família semântica em cada estado
+- Tipografia: classes foundation aplicadas a texto de exemplo
+- Elevação: superfícies de cards por nível de elevação
+
+**O que verificar especificamente na Verdana:**
+
+| Verificação | O que observar |
+|-------------|---------------|
+| `interface.function.primary.normal.background` | Tom verde `#15803D` — não supersaturado no dark mode |
+| `txtOn` em superfícies escuras | Branco (esperado — estratégia `high-contrast`) |
+| `txt` ambiente | Texto com tinta verde acessível sobre o fundo canvas |
+| `product.eco.*` | Superfícies de badge verde com `txtOn` correto |
+
+Se algo parecer errado, corrija o config e rode novamente `theme-engine preview --build`.
+
+---
+
+## Passo 5 — Verificar o output
 
 Após o build, os tokens de Verdana estão em:
 
@@ -272,7 +308,7 @@ O valor deve ser diferente do light — o nível de luminosidade foi invertido.
 
 ---
 
-## Passo 5 — Sincronizar com o Figma
+## Passo 6 — Sincronizar com o Figma
 
 ### 5.1 — Carregar os tokens
 
@@ -301,7 +337,7 @@ Troque o modo para Dark — ambos devem mudar automaticamente para o equivalente
 
 ---
 
-## Passo 6 — Foundation customizada (quando necessário)
+## Passo 7 — Foundation customizada (quando necessário)
 
 O tema Verdana usa a Foundation padrão (`engine`). Isso é correto para a maioria dos casos.
 
@@ -362,9 +398,11 @@ Ao fim deste tutorial você deve saber:
 - [ ] Conectar `colors` ao `mapping` sem erros de chave
 - [ ] Registrar o tema em `themes.config.json` com a chave correta
 - [ ] Executar `npm run build:themes` e interpretar o output
+- [ ] Usar `theme-engine preview` para validar visualmente as quatro variantes antes de sincronizar
 - [ ] Verificar tokens no CSS gerado com `grep`
 - [ ] Descrever o processo de sincronização com o Figma via Tokens Studio
 - [ ] Decidir quando criar uma Foundation customizada vs usar a `engine`
+- [ ] Entender quando mudanças em `options.interaction` exigem que todos os temas do workspace optem juntos
 
 ---
 
