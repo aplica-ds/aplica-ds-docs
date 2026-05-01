@@ -305,6 +305,40 @@ options: {
 - Legacy `options.interfaceFunctionPaletteLevels` still works and is mapped internally to `options.interaction.surfaces.solid.levels`.
 - Existing token structures for `background`, `txtOn`, `border`, and `txt` remain unchanged.
 
+### Per-group configuration (since 3.12.0)
+
+When `function` and `feedback` need different decomposition behavior, declare them under `options.interaction.groups`:
+
+```javascript
+options: {
+  interaction: {
+    decomposition: { method: 'system-scale' }, // theme default
+    groups: {
+      function: {
+        decomposition: { method: 'dilution' }, // override for function only
+        surfaces: {
+          solid: {
+            levels: { action: 1.2, active: 0.8, focus: 0.3 }
+          }
+        }
+      },
+      feedback: {
+        // inherits theme default (system-scale)
+        surfaces: {
+          solid: {
+            levels: { action: 80, active: 120, focus: 50 }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+Resolution order: theme default → surface-level → group-level → group-surface-level (each layer overrides the previous).
+
+> **`groups.{function|feedback}.levels` is not supported.** Declare state values in `groups.{function|feedback}.surfaces.solid.levels` or `.ghost.levels` instead.
+
 ### Workspace consistency rule
 
 All themes in the same workspace **must agree** on `options.interaction.legacyStructure`:

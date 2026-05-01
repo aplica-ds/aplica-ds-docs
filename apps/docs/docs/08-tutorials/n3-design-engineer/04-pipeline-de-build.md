@@ -170,9 +170,11 @@ theme-engine preview
 # Reconstruir primeiro e então gerar o preview
 theme-engine preview --build
 
-# Reconstruir, gerar preview e servir via servidor estático local
+# Reconstruir, gerar preview e servir via servidor estático local com live reload (desde 3.11.0)
 theme-engine preview --build --serve
 ```
+
+Desde **3.11.0**, `--serve` mantém o browser sincronizado automaticamente — cada vez que você rodar `npm run themes:generate && npm run build` em outro terminal, a aba recarrega sem intervenção.
 
 O preview renderiza as quatro variantes (light-positive, light-negative, dark-positive, dark-negative) de todos os temas do workspace. Para cada variante, mostra:
 

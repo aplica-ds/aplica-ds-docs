@@ -170,9 +170,11 @@ theme-engine preview
 # Rebuild first, then preview
 theme-engine preview --build
 
-# Rebuild, preview, and serve via a local static server
+# Rebuild, preview, and serve via a local static server with live reload (since 3.11.0)
 theme-engine preview --build --serve
 ```
+
+Since **3.11.0**, `--serve` keeps the browser in sync automatically — every time you run `npm run themes:generate && npm run build` in another terminal, the tab reloads without intervention.
 
 The preview renders all four variants (light-positive, light-negative, dark-positive, dark-negative) for every theme in the workspace. For each variant, it shows:
 

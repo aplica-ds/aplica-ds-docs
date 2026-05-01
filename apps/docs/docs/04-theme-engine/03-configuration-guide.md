@@ -305,6 +305,40 @@ options: {
 - `options.interfaceFunctionPaletteLevels` legado ainda funciona e é mapeado internamente para `options.interaction.surfaces.solid.levels`.
 - Estruturas existentes de `background`, `txtOn`, `border` e `txt` permanecem inalteradas.
 
+### Configuração por grupo (desde 3.12.0)
+
+Quando `function` e `feedback` precisam de comportamento de decomposição diferente, declare-os em `options.interaction.groups`:
+
+```javascript
+options: {
+  interaction: {
+    decomposition: { method: 'system-scale' }, // padrão do tema
+    groups: {
+      function: {
+        decomposition: { method: 'dilution' }, // override apenas para function
+        surfaces: {
+          solid: {
+            levels: { action: 1.2, active: 0.8, focus: 0.3 }
+          }
+        }
+      },
+      feedback: {
+        // herda o padrão do tema (system-scale)
+        surfaces: {
+          solid: {
+            levels: { action: 80, active: 120, focus: 50 }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+Ordem de resolução: padrão do tema → nível de surface → nível de grupo → nível grupo-surface (cada camada sobrescreve a anterior).
+
+> **`groups.{function|feedback}.levels` não é suportado.** Declare valores de estado em `groups.{function|feedback}.surfaces.solid.levels` ou `.ghost.levels`.
+
 ### Regra de consistência do workspace
 
 Todos os temas no mesmo workspace **devem concordar** em `options.interaction.legacyStructure`:

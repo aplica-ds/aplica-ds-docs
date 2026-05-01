@@ -1,8 +1,43 @@
 [
   {
-    "version": "v3.9.0",
+    "version": "v3.12.0",
     "date": "April 2026",
     "status": "latest",
+    "changes": [
+      "Enhanced interaction decomposition configuration: themes can now declare options.interaction.groups.{function|feedback} to configure decomposition method and surface levels independently per group — function and feedback can use different methods within the same theme",
+      "Per-group surface overrides: options.interaction.groups.function.surfaces.solid and .ghost carry their own decomposition and levels config, resolved by merging theme-level → surface-level → group-level → group-surface-level",
+      "Validation updated: groups.{function|feedback}.levels is not supported (use groups.{function|feedback}.surfaces.solid.levels or .ghost.levels instead)"
+    ]
+  },
+  {
+    "version": "v3.11.0",
+    "date": "April 2026",
+    "status": "stable",
+    "changes": [
+      "theme-engine preview --serve now includes live reload — the browser refreshes automatically when dist/ changes, no manual page reload needed while iterating on theme configs"
+    ]
+  },
+  {
+    "version": "v3.10.1",
+    "date": "April 2026",
+    "status": "stable",
+    "changes": [
+      "Bug fix: grouped interaction decomposition overrides (options.interaction.groups.*) now resolve correctly in all surface and state combinations — the previous version could produce wrong color values when group-level config existed alongside surface-level config"
+    ]
+  },
+  {
+    "version": "v3.10.0",
+    "date": "April 2026",
+    "status": "stable",
+    "changes": [
+      "Native AI guidance distribution for consumer workspaces: theme-engine ai:init now deploys context files from the published package instead of from a local template, keeping consumer workspaces in sync with engine evolution without manual file management",
+      "AI_CONTEXT.md and THEME_CONFIG_REFERENCE.md are now packaged and distributed with each engine release — running ai:init after a version upgrade updates the guidance automatically"
+    ]
+  },
+  {
+    "version": "v3.9.0",
+    "date": "April 2026",
+    "status": "stable",
     "changes": [
       "Authored interaction decomposition modes: themes can declare options.interaction.decomposition.method as system-scale (legacy behavior, now explicitly named) or dilution (new) for interface.function and interface.feedback",
       "Expanded interaction surface presets with optional solid and ghost groups — themes opting out of legacyStructure: false generate explicit function and feedback groups across brand, mode, surface, and semantic",

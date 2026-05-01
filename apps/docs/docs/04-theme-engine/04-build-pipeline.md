@@ -274,9 +274,11 @@ theme-engine preview
 # Reconstruir dist/ antes e então gerar o preview
 theme-engine preview --build
 
-# Reconstruir, gerar e servir via servidor estático local
+# Reconstruir, gerar e servir via servidor estático local com live reload (desde 3.11.0)
 theme-engine preview --build --serve
 ```
+
+Desde **3.11.0**, `--serve` adiciona live reload: a aba do browser atualiza automaticamente quando `dist/` muda. Isso permite um ciclo de feedback direto — rode `npm run themes:generate && npm run build` em outro terminal e o preview atualiza sem reloads manuais.
 
 **O que o preview renderiza:**
 

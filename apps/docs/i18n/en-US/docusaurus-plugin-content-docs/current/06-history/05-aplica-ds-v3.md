@@ -142,8 +142,12 @@ Seven component archetypes (Button, Dialog, Input, Badge, Select, Card, Tabs) de
 
 ## V3 milestone versions
 
-Current version: **3.9.0** (2026-04-28)
+Current version: **3.12.0** (2026-04-30)
 
+- **3.12.0** — Enhanced interaction decomposition: `options.interaction.groups.{function|feedback}` allows `function` and `feedback` to use different decomposition methods and surface configs independently within the same theme; per-group surface overrides resolve by merging theme → surface → group → group-surface
+- **3.11.0** — `theme-engine preview --serve` adds live reload — the browser refreshes automatically when `dist/` changes; no manual reload needed while iterating on theme configs
+- **3.10.1** — Bug fix: grouped interaction decomposition overrides (`options.interaction.groups.*`) now resolve correctly in all surface and state combinations
+- **3.10.0** — Native AI guidance distribution: `theme-engine ai:init` now deploys context files from the published package instead of local templates; `AI_CONTEXT.md` and `THEME_CONFIG_REFERENCE.md` are packaged per release and updated automatically on `ai:init` after an upgrade
 - **3.9.0** — Authored interaction decomposition modes (`system-scale` / `dilution`) for `interface.function` and `interface.feedback`; expanded `solid` / `ghost` surface presets via `legacyStructure: false`; per-state authored tuning under `options.interaction.surfaces.{solid|ghost}.levels`; `theme-engine preview` command generates static HTML preview in `dist/preview/`
 - **3.8.5** — Trusted publishing release automation via GitHub Actions; runtimes upgraded to Node.js 24
 - **3.8.4** — Negative `*.txt` tokens now follow the declared canvas contract all the way to `dist/` for interface, feedback, disabled, and product branches; new `mode.productBySurface` branch ensures product polarity survives `sync:architecture`; `test:txt-inversion` now audits final distributable JSON in `dist/`

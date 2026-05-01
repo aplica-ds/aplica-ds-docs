@@ -1,8 +1,43 @@
 [
   {
-    "version": "v3.9.0",
+    "version": "v3.12.0",
     "date": "Abril 2026",
     "status": "latest",
+    "changes": [
+      "Configuração de decomposição de interação aprimorada: temas podem declarar options.interaction.groups.{function|feedback} para configurar método de decomposição e levels de surface independentemente por grupo — function e feedback podem usar métodos diferentes no mesmo tema",
+      "Overrides de surface por grupo: options.interaction.groups.function.surfaces.solid e .ghost carregam sua própria config de decomposição e levels, resolvida por mesclagem tema → surface → grupo → grupo-surface",
+      "Validação atualizada: groups.{function|feedback}.levels não é suportado (usar groups.{function|feedback}.surfaces.solid.levels ou .ghost.levels)"
+    ]
+  },
+  {
+    "version": "v3.11.0",
+    "date": "Abril 2026",
+    "status": "stable",
+    "changes": [
+      "theme-engine preview --serve agora inclui live reload — o browser atualiza automaticamente quando dist/ muda, sem necessidade de reload manual enquanto se itera em configs de tema"
+    ]
+  },
+  {
+    "version": "v3.10.1",
+    "date": "Abril 2026",
+    "status": "stable",
+    "changes": [
+      "Bug fix: overrides de decomposição de interação agrupados (options.interaction.groups.*) agora resolvem corretamente em todas as combinações de surface e estado — a versão anterior podia produzir valores de cor incorretos quando config de nível de grupo coexistia com config de nível de surface"
+    ]
+  },
+  {
+    "version": "v3.10.0",
+    "date": "Abril 2026",
+    "status": "stable",
+    "changes": [
+      "Distribuição nativa de orientação para IA em workspaces consumidores: theme-engine ai:init agora implanta arquivos de contexto a partir do pacote publicado em vez de templates locais, mantendo workspaces consumidores sincronizados com a evolução do engine sem gestão manual de arquivos",
+      "AI_CONTEXT.md e THEME_CONFIG_REFERENCE.md são agora empacotados e distribuídos com cada release do engine — rodar ai:init após um upgrade de versão atualiza a orientação automaticamente"
+    ]
+  },
+  {
+    "version": "v3.9.0",
+    "date": "Abril 2026",
+    "status": "stable",
     "changes": [
       "Modos de decomposição de interação: temas podem declarar options.interaction.decomposition.method como system-scale (comportamento legado, agora nomeado explicitamente) ou dilution (novo) para interface.function e interface.feedback",
       "Presets de surface expandidos com grupos opcionais solid e ghost — temas que optam por legacyStructure: false geram grupos function e feedback explícitos em brand, mode, surface e semantic",

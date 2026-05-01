@@ -665,6 +665,10 @@ npm run tokens:build</pre>
   /* ── Responsive / Mobile ────────────────────────────────────── */
   @media (max-width: 640px) {
     #hero { padding: 3rem 0 2rem !important; }
+
+    /* Hero neon bg — scale down on mobile */
+    .hero-neon-bg { width: 280px !important; height: 280px !important; }
+
     #problem-statement div[style*="grid-template-columns"],
     #semantica-ia div[style*="grid-template-columns"],
     #como-funciona div[style*="grid-template-columns"],
@@ -679,5 +683,35 @@ npm run tokens:build</pre>
     #como-funciona, #para-quem, #open-source, #cta-final {
       padding: 2.5rem 0 !important;
     }
+
+    /* Hero architecture cards — stack vertically, hide arrows */
+    #hero div[style*="max-width: 580px"] {
+      flex-direction: column !important;
+      gap: 0.5rem !important;
+    }
+    #hero div[style*="max-width: 580px"] > span {
+      display: none !important;
+    }
+    #hero div[style*="max-width: 580px"] > div {
+      min-width: 0 !important;
+      width: 100% !important;
+    }
+  }
+
+  /* 480px — tightest phone range */
+  @media (max-width: 480px) {
+    /* AI highlight strip — reduce gap when items wrap to column */
+    #ai-highlight div[style*="gap: 2.5rem"] {
+      gap: 1.25rem !important;
+    }
+
+    /* Hero CTA buttons — full width on very small screens */
+    #hero div[style*="gap: 1rem"][style*="flex-wrap: wrap"] a {
+      width: 100%;
+      justify-content: center;
+    }
+
+    /* Reduce section headings on very small screens */
+    h2[style*="font-size: 1.75rem"] { font-size: 1.5rem !important; }
   }
 </style>
