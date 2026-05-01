@@ -311,7 +311,7 @@ const r = routes.en;
         A semantic token doesn't store a color. It stores a <em>meaning</em>. That changes what tools, engineers, and AI agents can do with it.
       </p>
 
-      <div data-animate style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 3rem;">
+      <div data-animate class="ia-cards-grid" style="display: grid; gap: 1.5rem; margin-bottom: 3rem;">
 
         <div style="background: var(--color-bg); border: 1px solid var(--color-border); border-radius: 1rem; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
           <div style="width: 2.5rem; height: 2.5rem; border-radius: 0.625rem; background: rgba(99,102,241,0.1); display: flex; align-items: center; justify-content: center;">
@@ -713,6 +713,11 @@ npm run tokens:build</pre>
     .neon-glowing, .neon-glowing span { animation: none !important; }
   }
 
+  /* ── Layout classes ─────────────────────────────────────────── */
+  .ia-cards-grid { grid-template-columns: repeat(2, 1fr); }
+  .comparison-table-wrap { display: block; }
+  .comparison-cards-mobile { display: none; }
+
   /* ── Responsive / Mobile ────────────────────────────────────── */
   @media (max-width: 640px) {
     #hero { padding: 3rem 0 2rem !important; }
@@ -721,7 +726,6 @@ npm run tokens:build</pre>
     .hero-neon-bg { width: 280px !important; height: 280px !important; }
 
     #problem-statement div[style*="grid-template-columns"],
-    #semantica-ia div[style*="grid-template-columns"],
     #como-funciona div[style*="grid-template-columns"],
     #para-quem div[style*="grid-template-columns"],
     #cta-final div[style*="grid-template-columns"] {
@@ -730,10 +734,17 @@ npm run tokens:build</pre>
     #como-funciona div[style*="position: absolute"][style*="left: 1.5rem"] {
       display: none !important;
     }
-    #problem-statement, #posicionamento, #semantica-ia,
+    #problem-statement, #posicionamento,
     #como-funciona, #para-quem, #open-source, #cta-final {
       padding: 2.5rem 0 !important;
     }
+
+    /* Semantica IA grid — class-based (attribute selector unreliable vs inline) */
+    .ia-cards-grid { grid-template-columns: 1fr; }
+
+    /* Comparison table → hidden on mobile; cards shown */
+    .comparison-table-wrap { display: none !important; }
+    .comparison-cards-mobile { display: flex; flex-direction: column; gap: 0.625rem; }
 
     /* Hero architecture cards — stack vertically, hide arrows */
     #hero div[style*="max-width: 580px"] {
