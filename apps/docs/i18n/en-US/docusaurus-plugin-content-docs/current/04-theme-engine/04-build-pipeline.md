@@ -288,6 +288,17 @@ Since **3.11.0**, `--serve` adds live reload: the browser tab refreshes automati
 | Typography | All foundation typography classes applied to live sample text |
 | Elevation | All elevation classes rendered as raised card surfaces |
 
+**View modes (since 3.13.0):**
+
+The preview browser interface includes a **View** dropdown:
+
+| Mode | Description |
+|------|-------------|
+| **Detailed** (default) | Full card explorer — one card per semantic family and state, with all four color properties rendered visually |
+| **Summary** | Compact table — `background`, `txtOn`, `border`, `txt`, and WCAG contrast ratios for every family and state; optimized for QA across combinations |
+
+Use Summary mode to quickly compare generated colors across light/dark and positive/negative quadrants before syncing to Figma.
+
 **Output written to:**
 
 ```

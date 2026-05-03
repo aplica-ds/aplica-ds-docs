@@ -37,7 +37,61 @@ Create the file at:
 dynamic-themes/themes/config/verdana.config.mjs
 ```
 
-### 1.1 — Basic structure and colors
+**Build in stages, not all at once.** The sections below go from minimum viable to fully configured. Each stage already generates valid tokens — add the next only when the current one builds cleanly.
+
+### 1.0 — Minimal config (generates valid tokens immediately)
+
+Start here. This is the least a config needs to produce a complete build:
+
+```javascript
+export default {
+  name: 'verdana',
+
+  colors: {
+    brand_green:  '#16A34A',
+    brand_stone:  '#57534E',
+    brand_amber:  '#D97706',
+    action_primary:   '#15803D',
+    action_secondary: '#78350F',
+    action_link:      '#166534',
+    info_light: '#DBEAFE', info_sat: '#1D4ED8',
+    ok_light:   '#DCFCE7', ok_sat:   '#15803D',
+    warning_light: '#FEF3C7', warning_sat: '#B45309',
+    error_light:   '#FEE2E2', error_sat:   '#DC2626',
+  },
+
+  mapping: {
+    brand: { first: 'brand_green', second: 'brand_stone', third: 'brand_amber' },
+    interface: {
+      function: { primary: 'action_primary', secondary: 'action_secondary', link: 'action_link' },
+      feedback: {
+        info_default: 'info_light', info_secondary: 'info_sat',
+        success_default: 'ok_light', success_secondary: 'ok_sat',
+        warning_default: 'warning_light', warning_secondary: 'warning_sat',
+        danger_default: 'error_light', danger_secondary: 'error_sat',
+      }
+    }
+  },
+
+  typography: {
+    fontFamilies: { main: 'Inter', content: 'Inter', display: 'DM Sans', code: 'JetBrains Mono' },
+    weights: {
+      main: {
+        regular: { normal: 400, italic: 400 }, semibold: { normal: 600, italic: 600 },
+        bold: { normal: 700, italic: 700 }
+      },
+      display: { regular: { normal: 400, italic: 400 }, bold: { normal: 700, italic: 700 } },
+      code: { regular: { normal: 400, italic: 400 } }
+    }
+  }
+}
+```
+
+Run `npm run build:themes` now. If it passes, this theme is already fully functional across all four quadrants (light-positive, light-negative, dark-positive, dark-negative). Everything after this is refinement.
+
+### 1.1 — Extend with product colors
+
+Add the product-specific colors to the `colors` block and wire them in `mapping`. Only add what the brand actually needs — Verdana has one justified product concept: the "Green Credit" badge.
 
 ```javascript
 export default {
@@ -45,46 +99,38 @@ export default {
 
   colors: {
     // ── Brand ──────────────────────────────────────────
-    brand_green:  '#16A34A',   // primary brand green
-    brand_stone:  '#57534E',   // neutral identity anchor
-    brand_amber:  '#D97706',   // warm highlight
+    brand_green:  '#16A34A',
+    brand_stone:  '#57534E',
+    brand_amber:  '#D97706',
 
     // ── Interface Function ─────────────────────────────
-    action_primary:   '#15803D',  // action green (slightly darker than brand)
-    action_secondary: '#78350F',  // amber-brown for secondary action
-    action_link:      '#166534',  // deep green for links
+    action_primary:   '#15803D',
+    action_secondary: '#78350F',
+    action_link:      '#166534',
 
     // ── Feedback ──────────────────────────────────────
     // default: soft tone (for banner/badge backgrounds)
     // secondary: saturated tone (for icons, borders, text)
-    info_light:    '#DBEAFE',   // soft blue
-    info_sat:      '#1D4ED8',   // saturated blue
-    ok_light:      '#DCFCE7',   // soft green
-    ok_sat:        '#15803D',   // saturated green (reuses brand_green)
-    warning_light: '#FEF3C7',   // soft amber
-    warning_sat:   '#B45309',   // saturated amber
-    error_light:   '#FEE2E2',   // soft red
-    error_sat:     '#DC2626',   // saturated red
+    info_light:    '#DBEAFE',
+    info_sat:      '#1D4ED8',
+    ok_light:      '#DCFCE7',
+    ok_sat:        '#15803D',   // reuses brand_green — intentional
+    warning_light: '#FEF3C7',
+    warning_sat:   '#B45309',
+    error_light:   '#FEE2E2',
+    error_sat:     '#DC2626',
 
     // ── Product ───────────────────────────────────────
-    // Only what is needed — 1 justified item
-    eco_green:  '#166534',   // "Green Credit" badge (product identity)
-    eco_light:  '#DCFCE7',   // soft version of the same badge
+    eco_green:  '#166534',   // "Green Credit" badge
+    eco_light:  '#DCFCE7',   // soft version
   },
-```
 
-**Recorded design decision:** `ok_sat` reuses `brand_green` (`#15803D`) — this is correct and intentional. The success green and the brand green are the same color; there is no reason to create an artificial distinction.
-
-### 1.2 — Semantic mapping
-
-```javascript
   mapping: {
     brand: {
       first:  'brand_green',
       second: 'brand_stone',
       third:  'brand_amber'
     },
-
     interface: {
       function: {
         primary:   'action_primary',
@@ -92,32 +138,27 @@ export default {
         link:      'action_link'
       },
       feedback: {
-        info_default:       'info_light',
-        info_secondary:     'info_sat',
-        success_default:    'ok_light',
-        success_secondary:  'ok_sat',
-        warning_default:    'warning_light',
-        warning_secondary:  'warning_sat',
-        danger_default:     'error_light',
-        danger_secondary:   'error_sat'
+        info_default:      'info_light',
+        info_secondary:    'info_sat',
+        success_default:   'ok_light',
+        success_secondary: 'ok_sat',
+        warning_default:   'warning_light',
+        warning_secondary: 'warning_sat',
+        danger_default:    'error_light',
+        danger_secondary:  'error_sat'
       }
     },
-
     product: {
       eco_default:   'eco_green',
       eco_secondary: 'eco_light'
     }
   },
-```
 
-### 1.3 — Typography
-
-```javascript
   typography: {
     fontFamilies: {
       main:    'Inter',
       content: 'Inter',
-      display: 'DM Sans',        // more expressive display, remains institutional
+      display: 'DM Sans',
       code:    'JetBrains Mono'
     },
     weights: {
@@ -143,29 +184,55 @@ export default {
         bold:    { normal: 700, italic: 700 }
       }
     }
-  },
-```
-
-### 1.4 — Options
-
-```javascript
-  options: {
-    txtOnStrategy:    'high-contrast',  // green credit — institutional, maximum contrast
-    darkModeChroma:    0.80,            // slightly softer than default (0.85)
-    accessibilityLevel: 'AA',
-
-    // Interaction decomposition (since 3.9.0) — omit to keep system-scale (legacy default)
-    // interaction: {
-    //   decomposition: { method: 'system-scale' },
-    //   legacyStructure: true,  // must match all other themes in the workspace
-    // }
   }
 }
 ```
 
-**Why `high-contrast`?** A credit brand for small businesses — trust and legibility take precedence over chromatic expressiveness. `brand-tint` could reduce contrast on dark green backgrounds.
+Run `npm run build:themes` again. The product tokens (`product-eco-*`) should now appear in `dist/`.
 
-**On `options.interaction`:** Verdana uses the default (`system-scale`, `legacyStructure: true`) so no explicit config is needed. To switch to `dilution` or enable `ghost` surfaces, every theme in the workspace must opt in together — changing one theme alone breaks the shared `mode`, `surface`, and `semantic` layers. See [03-configuration-guide.md](../../04-theme-engine/03-configuration-guide.md#interaction-decomposition-since-390) for the full contract.
+**Design note:** `ok_sat` reuses `brand_green` (`#15803D`) — intentional. The success green and the brand green are the same color; creating an artificial distinction would be wrong.
+
+### 1.2 — Add basic options
+
+Once the build is clean, add `options` to tune rendering behavior:
+
+```javascript
+  options: {
+    txtOnStrategy:      'high-contrast',  // institutional — trust over expressiveness
+    darkModeChroma:      0.80,            // slightly softer than default (0.85)
+    accessibilityLevel: 'AA',
+  }
+```
+
+**Why `high-contrast`?** A credit platform for small businesses — trust and legibility take precedence over chromatic expressiveness. `brand-tint` could reduce contrast on dark green backgrounds.
+
+### 1.3 — Advanced options (workspace-wide)
+
+These options affect the shared architecture layers (`mode/`, `surface/`, `semantic/`). **Every theme in the workspace must agree** — changing one theme alone breaks the system.
+
+```javascript
+  options: {
+    txtOnStrategy:      'high-contrast',
+    darkModeChroma:      0.80,
+    accessibilityLevel: 'AA',
+
+    // Interaction decomposition — omit to keep the default (system-scale)
+    // Only add if the whole workspace is switching to dilution or ghost surfaces.
+    // interaction: {
+    //   decomposition: { method: 'dilution', target: 'canvas' },
+    //   legacyStructure: false,
+    // },
+
+    // Quadrant-aware base adaptation (since 3.13.4)
+    // Makes interaction.normal and product.default surfaces respond to
+    // light/dark + positive/negative. Requires all themes to opt in together.
+    // baseAdaptation: true,
+  }
+```
+
+Verdana ships with both commented out — the defaults (`system-scale`, `legacyStructure: true`, no `baseAdaptation`) are correct for most workspaces. Uncomment only when the whole workspace is ready to migrate.
+
+See [03-configuration-guide.md](../../04-theme-engine/03-configuration-guide.md#interaction-decomposition-since-390) for the full contract on workspace-wide options.
 
 ---
 
@@ -213,7 +280,7 @@ The command runs the six stages in sequence. Expected output at the last line of
 [themes:generate]      ✓ verdana: palette decomposed (7 colors × 19 levels)
 [sync:architecture]    ✓ Mode, surface, semantic, foundation synced
 [foundations:generate] ✓ engine foundation styles generated
-[build]                ✓ Style Dictionary: 8 themes written to dist/
+[build:all]            ✓ Style Dictionary: 8 themes written to dist/
 ```
 
 If you are adding the theme to a project that already has other themes, the theme count in the build increases — this is expected. Each theme generates 4 variants (light-positive, light-negative, dark-positive, dark-negative).
@@ -383,7 +450,7 @@ And regenerate:
 
 ```bash
 npm run foundations:generate
-npm run build
+npm run build:all
 ```
 
 ---
@@ -392,16 +459,18 @@ npm run build
 
 By the end of this tutorial you should know:
 
-- [ ] Create a complete `*.config.mjs` with all required sections
+- [ ] Start from the minimal config (1.0) and verify the build passes before adding complexity
 - [ ] Write the `colors` block with the `default` (soft) and `secondary` (saturated) distinction for feedback
+- [ ] Add product colors and wire them in `mapping` (stage 1.1)
+- [ ] Add basic `options` — `txtOnStrategy`, `darkModeChroma`, `accessibilityLevel` (stage 1.2)
+- [ ] Understand why `options.interaction` and `baseAdaptation` are workspace-wide contracts (stage 1.3)
 - [ ] Connect `colors` to `mapping` without key errors
 - [ ] Register the theme in `themes.config.json` with the correct key
 - [ ] Run `npm run build:themes` and interpret the output
-- [ ] Use `theme-engine preview` to visually validate all four theme variants before syncing
+- [ ] Use `theme-engine preview` (Detailed and Summary views) to visually validate all four variants
 - [ ] Verify tokens in the generated CSS with `grep`
 - [ ] Describe the synchronization process with Figma via Tokens Studio
 - [ ] Decide when to create a custom foundation vs using `engine`
-- [ ] Understand when `options.interaction` changes require all themes in the workspace to opt in together
 
 ---
 

@@ -305,6 +305,61 @@ options: {
 - Legacy `options.interfaceFunctionPaletteLevels` still works and is mapped internally to `options.interaction.surfaces.solid.levels`.
 - Existing token structures for `background`, `txtOn`, `border`, and `txt` remain unchanged.
 
+### Dilution targets (since 3.9.0 / 3.13.1)
+
+When using `method: 'dilution'`, the `target` property controls which destination the states dilute toward:
+
+| Value | Behavior |
+|-------|----------|
+| `'canvas'` (default for dilution) | Moves toward the resolved canvas for the active quadrant — lightens on light canvases, darkens on dark canvases. `fallback` controls behavior when no canvas is resolvable. |
+| `'anchor'` (since 3.13.1) | Moves toward a configurable chromatic anchor. States shift in hue toward the anchor rather than toward white/black. |
+
+#### Canvas-aware dilution (since 3.9.0)
+
+```javascript
+options: {
+  interaction: {
+    decomposition: {
+      method: 'dilution',
+      target: 'canvas',            // default when method is 'dilution'
+      fallback: 'ambient-neutral', // 'legacy' | 'ambient-neutral'
+    }
+  }
+}
+```
+
+#### Anchor-aware dilution (since 3.13.1–3.13.3)
+
+```javascript
+options: {
+  interaction: {
+    decomposition: {
+      method: 'dilution',
+      target: 'anchor',
+      anchor: {
+        source: 'palette',    // 'palette' | 'hex' | 'token'
+        // hex: '#7C3AED',   // required when source: 'hex'
+        // token: 'brand.branding.first.default.background', // required when source: 'token'
+        canvasAware: true,    // anchor lightens on light canvases, darkens on dark canvases
+        canvasMix:   0.2      // 0.0–1.0 — how strongly the anchor responds to the canvas
+      }
+    }
+  }
+}
+```
+
+| `anchor.source` | Description |
+|----------------|-------------|
+| `'palette'` | Current brand palette family — stays within the same color family |
+| `'hex'` | Fixed chromatic destination declared in `anchor.hex` |
+| `'token'` | Another generated token scale declared in `anchor.token` |
+
+`anchor.canvasAware` + `anchor.canvasMix` let the anchor retain its authored hue while still lightening on light and darkening on dark canvases. Use `target: 'anchor'` for brighter or more chromatic secondary states that must remain systemic without manual overrides.
+
+> The `target` / `anchor` config applies per-theme, per-surface, and per-group — any branch that uses `method: 'dilution'` can independently configure its target.
+
+---
+
 ### Per-group configuration (since 3.12.0)
 
 When `function` and `feedback` need different decomposition behavior, declare them under `options.interaction.groups`:
@@ -357,6 +412,20 @@ options: {
 | `false` | Explicit `solid` and `ghost` groups generated across `brand`, `mode`, `surface`, and `semantic` |
 
 > **Mixed workspaces break.** `mode`, `surface`, and `semantic` are shared layers — if some themes have `legacyStructure: false` and others do not, those shared layers become inconsistent. Set this flag identically in all theme configs.
+
+### Quadrant-aware base adaptation (since 3.13.4)
+
+By default, interaction `normal` surfaces and product `default` surfaces are **fixed** at the authored base color regardless of the active light/dark + positive/negative quadrant. Opt in to quadrant adaptation per theme:
+
+```javascript
+options: {
+  baseAdaptation: true  // interaction normal + product default respond to the active quadrant
+}
+```
+
+With `baseAdaptation: true`, the engine adjusts `normal` and `default` surfaces based on the resolved quadrant — lightening on light-positive, darkening on dark-negative, etc.
+
+> **Use sparingly.** The fixed-base rule is intentional: `normal` is always the authored brand color, giving designers a stable reference point. `baseAdaptation` is an escape hatch for brands that explicitly need those base surfaces to shift with context. Each theme can independently opt in or out — this option does not need to be consistent across the workspace.
 
 ---
 

@@ -142,8 +142,9 @@ Sete archetypes de componente (Button, Dialog, Input, Badge, Select, Card, Tabs)
 
 ## Versões de marco da V3
 
-Versão atual: **3.12.0** (2026-04-30)
+Versão atual: **3.13.4** (2026-05-03)
 
+- **3.13.0–3.13.4** — Preview modo Summary + cluster de dilution com âncora + adaptação de base por quadrante: `theme-engine preview` ganha dropdown View (Detailed / Summary); dilution ganha `target: 'anchor'` com `anchor.source` configurável ('palette' | 'hex' | 'token'), `anchor.canvasAware` e `anchor.canvasMix` para âncoras cromáticas sensíveis ao quadrante; `options.baseAdaptation: true` faz superfícies `normal` de interaction e `default` de produto responderem ao quadrante ativo light/dark + positive/negative
 - **3.12.0** — Decomposição de interação aprimorada: `options.interaction.groups.{function|feedback}` permite que `function` e `feedback` usem métodos de decomposição e configs de surface independentes dentro do mesmo tema; overrides por grupo resolvem por mesclagem tema → surface → grupo → grupo-surface
 - **3.11.0** — `theme-engine preview --serve` adiciona live reload — o browser atualiza automaticamente quando `dist/` muda; sem necessidade de reload manual ao iterar em configs de tema
 - **3.10.1** — Bug fix: overrides de decomposição de interação agrupados (`options.interaction.groups.*`) agora resolvem corretamente em todas as combinações de surface e estado

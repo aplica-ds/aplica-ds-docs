@@ -186,15 +186,17 @@ Quando todos os quatro apontam para a mesma família (como `'Inter'` acima), o s
 
 ### Seção 5 — `options` (opcional)
 
+`options` controla como o engine se comporta durante a geração. As opções se dividem em dois níveis: **por tema** (seguro alterar de forma independente) e **de workspace** (todos os temas do workspace precisam concordar).
+
+#### 5a — Opções por tema
+
 ```javascript
   options: {
-    txtOnStrategy: 'brand-tint',
-    darkModeChroma: 0.85,
+    txtOnStrategy:      'brand-tint',
+    darkModeChroma:      0.85,
     accessibilityLevel: 'AA',
   },
 ```
-
-`options` controla como o engine se comporta durante a geração.
 
 **`txtOnStrategy`** — como o engine escolhe a cor do texto sobre fundos coloridos:
 
@@ -213,15 +215,20 @@ Quando todos os quatro apontam para a mesma família (como `'Inter'` acima), o s
 - `'AA'` (padrão) — contraste 4.5:1 — suficiente para a maioria dos produtos
 - `'AAA'` — contraste 7:1 — mais restritivo, reduz a quantidade de combinações disponíveis
 
-**`options.interaction`** (desde 3.9.0) — como os estados de interação (`normal`, `action`, `active`, `focus`) são derivados para `interface.function` e `interface.feedback`:
+#### 5b — Opções de workspace
+
+Estas opções afetam as camadas compartilhadas de arquitetura (`mode/`, `surface/`, `semantic/`). **Todos os temas do workspace precisam usar valores idênticos** — um único tema divergente quebra essas camadas para todos os consumidores.
+
+**`options.interaction`** (desde 3.9.0) — como os estados de interação (`normal`, `action`, `active`, `focus`) são derivados:
 
 ```javascript
 options: {
   interaction: {
     decomposition: {
-      method: 'dilution',   // 'system-scale' (padrão) ou 'dilution'
+      method: 'dilution',     // 'system-scale' (padrão) ou 'dilution'
+      target: 'canvas',       // 'canvas' (padrão) ou 'anchor' (desde 3.13.1)
     },
-    legacyStructure: false, // deve ser igual em todos os temas do workspace
+    legacyStructure: false,   // deve ser igual em todos os temas do workspace
     surfaces: {
       solid: {
         levels: { action: 1.2, active: 0.8, focus: 0.3 }
@@ -231,16 +238,21 @@ options: {
         levels: { action: 40, active: 60, focus: 20 }
       }
     }
-  }
+  },
+  baseAdaptation: true,       // superfícies base por quadrante (desde 3.13.4)
 }
 ```
 
-| Método | Como os estados são calculados |
-|--------|-------------------------------|
-| `'system-scale'` (padrão) | Níveis de paleta — igual a todos os temas existentes; totalmente retrocompatível |
-| `'dilution'` | Fatores que movem a cor base em direção ao branco ou preto; valores acima de `1.0` invertem a direção |
+| Opção | O que controla | Padrão |
+|-------|---------------|--------|
+| `method` | Como os estados são calculados: níveis de paleta (`system-scale`) ou fatores de diluição | `'system-scale'` |
+| `target` | Âncora de diluição: fundo canvas (`'canvas'`) ou uma cor específica (`'anchor'`) | `'canvas'` |
+| `legacyStructure` | Se as camadas compartilhadas emitem grupos `solid`/`ghost` explícitos | `true` |
+| `baseAdaptation` | Faz as superfícies `interaction.normal` e `product.default` responderem ao quadrante light/dark × positive/negative | `false` |
 
-> **Importante:** `legacyStructure` deve ser **idêntico em todos os temas do workspace** — ele controla se as camadas compartilhadas `mode`, `surface` e `semantic` emitem grupos `solid`/`ghost` explícitos ou a forma pública anterior. Misturar valores quebra essas camadas.
+> **Importante:** `legacyStructure` e `baseAdaptation` devem ser **idênticos em todos os temas**. Misturar valores entre temas corrompe as camadas compartilhadas `mode`, `surface` e `semantic`.
+
+Para detalhes completos sobre métodos de diluição, opções de `target: 'anchor'` e configuração por grupo, veja [03-configuration-guide.pt-br.md](../../04-theme-engine/03-configuration-guide.md#decomposição-de-interação-desde-390).
 
 ---
 
@@ -427,6 +439,8 @@ Ao fim deste tutorial você deve saber:
 - [ ] A distinção entre `colors` (dicionário livre) e `mapping` (papéis semânticos fixos)
 - [ ] O padrão `default` + `secondary` para cores de feedback
 - [ ] As três estratégias de `txtOnStrategy` e quando usar cada
+- [ ] A diferença entre opções por tema e opções de workspace
+- [ ] Por que `legacyStructure` e `baseAdaptation` precisam ser idênticos em todos os temas do workspace
 - [ ] Por que `overrides` deve ser a seção mais rara do config
 - [ ] Como registrar o tema em `themes.config.json` e a regra de consistência de nomes
 - [ ] A armadilha dos gradientes e quando rodar `sync:architecture`

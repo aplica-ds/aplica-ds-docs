@@ -1,8 +1,18 @@
 [
   {
+    "version": "v3.13.0–3.13.4",
+    "date": "May 2026",
+    "status": "latest",
+    "changes": [
+      "Preview Summary view (3.13.0): theme-engine preview now includes a View dropdown to switch between Detailed (existing explorer) and Summary modes — Summary renders a compact table showing background, txtOn, border, txt, and contrast ratios for every semantic family and state, optimized for fast QA across theme combinations",
+      "Anchor-aware dilution (3.13.1–3.13.3): dilution method gains target: 'anchor' — moves interaction states toward a configurable chromatic anchor instead of always targeting white/black or the canvas; anchor.source accepts 'palette' (current brand palette family), 'hex' (fixed color), or 'token' (another generated scale); anchor.canvasAware and anchor.canvasMix let the anchor remain hue-stable while still lightening on light canvases and darkening on dark canvases",
+      "Quadrant-aware base adaptation (3.13.4): options.baseAdaptation: true makes interaction normal surfaces (function/feedback) and product default surfaces respond to the active light/dark + positive/negative quadrant — by default normal and default remain fixed at the authored base color regardless of quadrant; opt in only when brands need those base surfaces to adapt"
+    ]
+  },
+  {
     "version": "v3.12.0",
     "date": "April 2026",
-    "status": "latest",
+    "status": "stable",
     "changes": [
       "Enhanced interaction decomposition configuration: themes can now declare options.interaction.groups.{function|feedback} to configure decomposition method and surface levels independently per group — function and feedback can use different methods within the same theme",
       "Per-group surface overrides: options.interaction.groups.function.surfaces.solid and .ghost carry their own decomposition and levels config, resolved by merging theme-level → surface-level → group-level → group-surface-level",

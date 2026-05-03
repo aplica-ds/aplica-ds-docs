@@ -32,15 +32,16 @@ config/*.config.mjs
         ├─ themes:generate    → data/brand/{theme}/
         ├─ dimension:generate → data/dimension/normal.json
         ├─ sync:architecture  → data/mode/, data/surface/, data/semantic/, data/foundation/
-        └─ foundations:generate → data/foundation/{name}/styles/
+        ├─ foundations:generate → data/foundation/{name}/styles/
+        └─ figma:generate     → data/$themes.json, data/$metadata.json
 
 [Stage 2 — Style Dictionary]
-data/  →  npm run build  →  dist/
-                             ├── css/
-                             ├── json/
-                             ├── esm/
-                             ├── cjs/
-                             └── dts/
+data/  →  npm run build:all  →  dist/
+                                 ├── css/
+                                 ├── json/
+                                 ├── esm/
+                                 ├── cjs/
+                                 └── dts/
 ```
 
 The `data/` folder is intermediary — **never edit files in `data/` manually**. Any manual edit is overwritten on the next pipeline execution.
@@ -51,7 +52,7 @@ The `data/` folder is intermediary — **never edit files in `data/` manually**.
 npm run build:themes
 ```
 
-Runs in the correct order: `ensure:data` → `dimension:generate` → `themes:generate` → `sync:architecture` → `foundations:generate` → `build`.
+Runs in the correct order: `ensure:data` → `themes:generate` → `dimension:generate` → `sync:architecture` → `foundations:generate` → `figma:generate` → `build:all`.
 
 Use this command after cloning the repository, after changing configs, or when you are not sure what is out of date.
 
@@ -59,11 +60,12 @@ Use this command after cloning the repository, after changing configs, or when y
 
 | Change | Required commands |
 |--------|-------------------|
-| Change a theme's color | `themes:generate` → `build` |
-| Change dimensional scale | `dimension:generate` → `build` |
-| Change schema (feedback/product) | `sync:architecture` → `themes:generate` → `build` |
-| Change foundation | `foundations:generate` → `build` |
-| `data/` already up to date, just recreate dist/ | `build` |
+| Change a theme's color | `themes:generate` → `build:all` |
+| Change dimensional scale | `dimension:generate` → `build:all` |
+| Change schema (feedback/product) | `sync:architecture` → `themes:generate` → `build:all` |
+| Change foundation | `foundations:generate` → `build:all` |
+| Add / rename a theme, surface, or mode | `figma:generate` |
+| `data/` already up to date, just recreate dist/ | `build:all` |
 
 ---
 
@@ -151,11 +153,12 @@ npm run build
 
 | Symptom | Likely cause | Solution |
 |---------|-------------|---------|
-| Gradient does not appear in CSS | `sync:architecture` did not run after `themes:generate` | `npm run sync:architecture` → `npm run build` |
+| Gradient does not appear in CSS | `sync:architecture` did not run after `themes:generate` | `npm run sync:architecture` → `npm run build:all` |
 | New token does not appear in `dist/` | Theme not registered in `themes.config.json` | Add entry to the global themes file |
 | Color different from expected | Override in `overrides.*` overwriting the generated value | Check overrides in the theme config |
 | Build fails with "reference not found" | `data/` out of sync with configs | `npm run build:themes` (full rebuild) |
 | `txtOn` is black/white when brand color was expected | `txtOnStrategy: 'high-contrast'` is the default | Change to `'brand-tint'` in the theme options |
+| New theme not visible in Tokens Studio | `figma:generate` did not run after adding the theme | `npm run figma:generate` or `npm run build:themes` |
 
 ---
 
@@ -174,9 +177,9 @@ theme-engine preview --build
 theme-engine preview --build --serve
 ```
 
-Since **3.11.0**, `--serve` keeps the browser in sync automatically — every time you run `npm run themes:generate && npm run build` in another terminal, the tab reloads without intervention.
+Since **3.11.0**, `--serve` keeps the browser in sync automatically — every time you run `npm run themes:generate && npm run build:all` in another terminal, the tab reloads without intervention.
 
-The preview renders all four variants (light-positive, light-negative, dark-positive, dark-negative) for every theme in the workspace. For each variant, it shows:
+The preview renders all four variants (light-positive, light-negative, dark-positive, dark-negative) for every theme in the workspace. Switch between **Detailed** (full card explorer, default) and **Summary** (compact table with contrast ratios — since 3.13.0) using the View dropdown. For each variant, it shows:
 
 - `background`, `border`, `txtOn`, and `txt` for all semantic families and states
 - Foundation typography classes applied to sample text

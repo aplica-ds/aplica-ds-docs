@@ -288,6 +288,17 @@ Desde **3.11.0**, `--serve` adiciona live reload: a aba do browser atualiza auto
 | Tipografia | Todas as classes foundation de tipografia aplicadas a texto de exemplo real |
 | Elevação | Todas as classes de elevação renderizadas como superfícies de cards elevados |
 
+**Modos de visualização (desde 3.13.0):**
+
+A interface do preview no browser inclui um dropdown **View**:
+
+| Modo | Descrição |
+|------|-----------|
+| **Detailed** (padrão) | Explorador em cards — um card por família semântica e estado, com as quatro propriedades de cor renderizadas visualmente |
+| **Summary** | Tabela compacta — `background`, `txtOn`, `border`, `txt` e contrast ratios WCAG para todas as famílias e estados; otimizado para QA entre combinações |
+
+Use o modo Summary para comparar rapidamente as cores geradas entre os quadrantes light/dark e positive/negative antes de sincronizar com o Figma.
+
 **Output gerado em:**
 
 ```

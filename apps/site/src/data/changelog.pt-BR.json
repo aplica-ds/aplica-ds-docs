@@ -1,8 +1,18 @@
 [
   {
+    "version": "v3.13.0–3.13.4",
+    "date": "Maio 2026",
+    "status": "latest",
+    "changes": [
+      "Preview modo Summary (3.13.0): theme-engine preview ganha dropdown View para alternar entre Detailed (explorador existente) e Summary — o modo Summary exibe uma tabela compacta com background, txtOn, border, txt e contrast ratios para cada família semântica e estado, otimizado para QA rápido entre combinações de tema",
+      "Dilution com âncora cromática (3.13.1–3.13.3): o método dilution ganha target: 'anchor' — move os estados de interação em direção a uma cor-âncora configurável em vez de sempre mirar branco/preto ou o canvas; anchor.source aceita 'palette' (família de paleta atual), 'hex' (cor fixa) ou 'token' (outra escala gerada); anchor.canvasAware e anchor.canvasMix permitem que a âncora mantenha seu hue próprio enquanto ainda clareia em canvases claros e escurece em canvases escuros",
+      "Adaptação de base por quadrante (3.13.4): options.baseAdaptation: true faz com que superfícies normal de interaction (function/feedback) e superfícies default de product respondam ao quadrante ativo (light/dark + positive/negative) — por padrão normal e default permanecem fixos na cor base autorada independente do quadrante; ative apenas quando a marca precisa que essas superfícies se adaptem"
+    ]
+  },
+  {
     "version": "v3.12.0",
     "date": "Abril 2026",
-    "status": "latest",
+    "status": "stable",
     "changes": [
       "Configuração de decomposição de interação aprimorada: temas podem declarar options.interaction.groups.{function|feedback} para configurar método de decomposição e levels de surface independentemente por grupo — function e feedback podem usar métodos diferentes no mesmo tema",
       "Overrides de surface por grupo: options.interaction.groups.function.surfaces.solid e .ghost carregam sua própria config de decomposição e levels, resolvida por mesclagem tema → surface → grupo → grupo-surface",

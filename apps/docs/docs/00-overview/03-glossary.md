@@ -62,13 +62,16 @@ São nomes de código. Aparecem exatamente assim em pt-BR e em en-US.
 | `foundation.txt.*` | Namespace de token | "use `foundation.txt.body`" |
 | `brand.branding.*` | Namespace de token | — |
 | `theme-engine` | Alias CLI preferido | "`npx theme-engine init` — alias preferido desde 3.8.0; `aplica-theme-engine` mantido como fallback" |
-| `theme-engine preview` | Comando CLI | "`npx theme-engine preview` — gera preview HTML estático em `dist/preview/`; flags: `--build` (rebuild antes), `--serve` (servidor local com live reload desde 3.11.0) — desde 3.9.0" |
+| `theme-engine preview` | Comando CLI | "`npx theme-engine preview` — gera preview HTML estático em `dist/preview/`; flags: `--build` (rebuild antes), `--serve` (servidor local com live reload desde 3.11.0); dropdown **View** com modos Detailed / Summary desde 3.13.0 — desde 3.9.0" |
 | `aplica-theme-engine` | CLI legado (compatibilidade) | "preservado como fallback — scripts existentes continuam funcionando sem alterações" |
 | `options.interaction.decomposition.method` | Chave de config | "declara o modo de decomposição de interação: `'system-scale'` (padrão, legado) ou `'dilution'` (novo) — desde 3.9.0" |
 | `system-scale` | Valor de config | "modo de decomposição legado explicitamente nomeado — usa os níveis de paleta existentes (ex.: `active: 120`)" |
 | `dilution` | Valor de config | "novo modo de decomposição: move a cor base em direção a branco/preto sem alterar o hue; fatores de estado (`action: 1.2`, `active: 0.8`, `focus: 0.3`); valores acima de `1.0` invertem a direção" |
 | `options.interaction.legacyStructure` | Parâmetro de config | "todos os temas do workspace devem concordar neste valor — `true` (padrão) mantém a estrutura pública anterior; `false` habilita grupos `solid`/`ghost` expandidos — desde 3.9.0" |
 | `options.interaction.groups` | Chave de config | "configura decomposição e levels de surface independentemente para `function` e `feedback`; resolução: tema → surface → grupo → grupo-surface — desde 3.12.0" |
+| `options.interaction.decomposition.target` | Chave de config | "destino do dilution: `'canvas'` (padrão — move em direção ao canvas do quadrante ativo) ou `'anchor'` (desde 3.13.1 — move em direção a uma âncora cromática configurável)" |
+| `options.interaction.decomposition.anchor` | Chave de config | "config da âncora para `target: 'anchor'`; `anchor.source`: `'palette' \| 'hex' \| 'token'`; `anchor.canvasAware`: âncora responde ao quadrante; `anchor.canvasMix`: intensidade da resposta (0.0–1.0) — desde 3.13.1" |
+| `options.baseAdaptation` | Chave de config | "quando `true`, superfícies `normal` de interaction e `default` de produto respondem ao quadrante ativo (light/dark + positive/negative); por padrão essas superfícies permanecem fixas na cor base autoral — desde 3.13.4" |
 | `theme-engine ai:init` | Comando CLI | "injeta arquivos de contexto do pacote publicado no workspace consumidor; desde 3.10.0, distribui `AI_CONTEXT.md` e `THEME_CONFIG_REFERENCE.md` diretamente do pacote, atualizados a cada upgrade" |
 | `mode.productBySurface` | Branch interno do engine | "branch gerado pelo sync:architecture para garantir que readable text de produto respeite a polaridade positive/negative — desde 3.8.4" |
 | `mode.brand.brandingBySurface` | Branch interno do engine | "branch gerado pelo sync:architecture para que branding não colapse light-positive e light-negative — desde 3.8.2" |
@@ -303,6 +306,7 @@ O Aplica DS usa metáforas específicas para explicar conceitos. Estas metáfora
 
 | Data | Mudança |
 |------|---------|
+| 2026-05-03 | Adicionados termos 3.13.x: `options.interaction.decomposition.target`, `options.interaction.decomposition.anchor`, `options.baseAdaptation`; atualizado `theme-engine preview` (Summary view 3.13.0) |
 | 2026-04-30 | Adicionados termos 3.10.0–3.12.0: `options.interaction.groups`, `theme-engine ai:init`; atualizado `theme-engine preview` (live reload 3.11.0) |
 | 2026-04-28 | Adicionados termos 3.8.x–3.9.0: `theme-engine preview`, `options.interaction.decomposition.method`, `system-scale`, `dilution`, `options.interaction.legacyStructure`, `mode.productBySurface`, `mode.brand.brandingBySurface` |
 | 2026-04-23 | Adicionados termos 3.6.x: `txt`, `txtBaseColorLevel`, `fallbackBaseColorLevel`, `textExposure`, `generateTxt`, `generation.colorText`; vocabulário de contrato expandido |

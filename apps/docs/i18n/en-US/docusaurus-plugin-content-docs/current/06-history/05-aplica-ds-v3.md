@@ -142,8 +142,9 @@ Seven component archetypes (Button, Dialog, Input, Badge, Select, Card, Tabs) de
 
 ## V3 milestone versions
 
-Current version: **3.12.0** (2026-04-30)
+Current version: **3.13.4** (2026-05-03)
 
+- **3.13.0–3.13.4** — Preview Summary view + anchor-aware dilution cluster + quadrant-aware base adaptation: `theme-engine preview` gains a View dropdown (Detailed / Summary); dilution gains `target: 'anchor'` with configurable `anchor.source` ('palette' | 'hex' | 'token'), `anchor.canvasAware`, and `anchor.canvasMix` for quadrant-sensitive chromatic anchors; `options.baseAdaptation: true` makes interaction `normal` and product `default` surfaces respond to the active light/dark + positive/negative quadrant
 - **3.12.0** — Enhanced interaction decomposition: `options.interaction.groups.{function|feedback}` allows `function` and `feedback` to use different decomposition methods and surface configs independently within the same theme; per-group surface overrides resolve by merging theme → surface → group → group-surface
 - **3.11.0** — `theme-engine preview --serve` adds live reload — the browser refreshes automatically when `dist/` changes; no manual reload needed while iterating on theme configs
 - **3.10.1** — Bug fix: grouped interaction decomposition overrides (`options.interaction.groups.*`) now resolve correctly in all surface and state combinations

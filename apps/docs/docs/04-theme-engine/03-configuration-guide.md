@@ -305,6 +305,61 @@ options: {
 - `options.interfaceFunctionPaletteLevels` legado ainda funciona e é mapeado internamente para `options.interaction.surfaces.solid.levels`.
 - Estruturas existentes de `background`, `txtOn`, `border` e `txt` permanecem inalteradas.
 
+### Destinos de dilution (desde 3.9.0 / 3.13.1)
+
+Ao usar `method: 'dilution'`, a propriedade `target` controla para qual destino os estados se diluem:
+
+| Valor | Comportamento |
+|-------|--------------|
+| `'canvas'` (padrão para dilution) | Move em direção ao canvas resolvido para o quadrante ativo — clareia em canvases claros, escurece em canvases escuros. `fallback` controla o comportamento quando nenhum canvas é resolvível. |
+| `'anchor'` (desde 3.13.1) | Move em direção a uma âncora cromática configurável. Os estados se deslocam em hue em direção à âncora em vez de ao branco/preto. |
+
+#### Canvas-aware dilution (desde 3.9.0)
+
+```javascript
+options: {
+  interaction: {
+    decomposition: {
+      method: 'dilution',
+      target: 'canvas',            // padrão quando method é 'dilution'
+      fallback: 'ambient-neutral', // 'legacy' | 'ambient-neutral'
+    }
+  }
+}
+```
+
+#### Anchor-aware dilution (desde 3.13.1–3.13.3)
+
+```javascript
+options: {
+  interaction: {
+    decomposition: {
+      method: 'dilution',
+      target: 'anchor',
+      anchor: {
+        source: 'palette',    // 'palette' | 'hex' | 'token'
+        // hex: '#7C3AED',   // obrigatório quando source: 'hex'
+        // token: 'brand.branding.first.default.background', // obrigatório quando source: 'token'
+        canvasAware: true,    // âncora clareia em canvases claros, escurece em canvases escuros
+        canvasMix:   0.2      // 0.0–1.0 — intensidade da resposta da âncora ao canvas
+      }
+    }
+  }
+}
+```
+
+| `anchor.source` | Descrição |
+|----------------|-----------|
+| `'palette'` | Família de paleta atual da marca — permanece dentro da mesma família de cores |
+| `'hex'` | Destino cromático fixo declarado em `anchor.hex` |
+| `'token'` | Outra escala gerada declarada em `anchor.token` |
+
+`anchor.canvasAware` + `anchor.canvasMix` permitem que a âncora mantenha seu hue próprio enquanto ainda clareia em canvases claros e escurece em canvases escuros. Use `target: 'anchor'` para estados secundários mais brilhantes ou mais cromáticos que devem permanecer sistêmicos sem overrides manuais.
+
+> A configuração de `target` / `anchor` se aplica por tema, por surface e por grupo — qualquer branch que use `method: 'dilution'` pode configurar seu destino de forma independente.
+
+---
+
 ### Configuração por grupo (desde 3.12.0)
 
 Quando `function` e `feedback` precisam de comportamento de decomposição diferente, declare-os em `options.interaction.groups`:
@@ -357,6 +412,20 @@ options: {
 | `false` | Grupos `solid` e `ghost` explícitos gerados em `brand`, `mode`, `surface` e `semantic` |
 
 > **Workspaces mistos quebram.** `mode`, `surface` e `semantic` são camadas compartilhadas — se alguns temas tiverem `legacyStructure: false` e outros não, essas camadas ficam inconsistentes. Defina esse flag de forma idêntica em todos os configs de tema.
+
+### Adaptação de base por quadrante (desde 3.13.4)
+
+Por padrão, superfícies `normal` de interação e superfícies `default` de produto são **fixas** na cor base autoral, independente do quadrante ativo (light/dark + positive/negative). Ative a adaptação por quadrante por tema:
+
+```javascript
+options: {
+  baseAdaptation: true  // interaction normal + product default respondem ao quadrante ativo
+}
+```
+
+Com `baseAdaptation: true`, o engine ajusta as superfícies `normal` e `default` com base no quadrante resolvido — clareando em light-positive, escurecendo em dark-negative, etc.
+
+> **Use com parcimônia.** A regra de base fixa é intencional: `normal` é sempre a cor de marca autoral, dando aos designers um ponto de referência estável. `baseAdaptation` é uma válvula de escape para marcas que explicitamente precisam que essas superfícies se adaptem ao contexto. Cada tema pode optar de forma independente — esta opção não precisa ser consistente entre os temas do workspace.
 
 ---
 

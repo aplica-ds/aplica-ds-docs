@@ -186,15 +186,17 @@ When all four point to the same family (like `'Inter'` above), the system uses a
 
 ### Section 5 — `options` (optional)
 
+`options` controls how the engine behaves during generation. Options divide into two tiers: **per-theme** (safe to change independently) and **workspace-wide** (all themes in the workspace must agree).
+
+#### 5a — Per-theme options
+
 ```javascript
   options: {
-    txtOnStrategy: 'brand-tint',
-    darkModeChroma: 0.85,
+    txtOnStrategy:      'brand-tint',
+    darkModeChroma:      0.85,
     accessibilityLevel: 'AA',
   },
 ```
-
-`options` controls how the engine behaves during generation.
 
 **`txtOnStrategy`** — how the engine chooses the text color over colored backgrounds:
 
@@ -213,15 +215,20 @@ When all four point to the same family (like `'Inter'` above), the system uses a
 - `'AA'` (default) — 4.5:1 contrast — sufficient for most products
 - `'AAA'` — 7:1 contrast — more restrictive, reduces the number of available combinations
 
-**`options.interaction`** (since 3.9.0) — how interaction states (`normal`, `action`, `active`, `focus`) are derived for `interface.function` and `interface.feedback`:
+#### 5b — Workspace-wide options
+
+These options affect the shared architecture layers (`mode/`, `surface/`, `semantic/`). **Every theme in the workspace must use identical values** — a single divergent theme breaks those layers for all consumers.
+
+**`options.interaction`** (since 3.9.0) — how interaction states (`normal`, `action`, `active`, `focus`) are derived:
 
 ```javascript
 options: {
   interaction: {
     decomposition: {
-      method: 'dilution',   // 'system-scale' (default) or 'dilution'
+      method: 'dilution',     // 'system-scale' (default) or 'dilution'
+      target: 'canvas',       // 'canvas' (default) or 'anchor' (since 3.13.1)
     },
-    legacyStructure: false, // must match across all themes in the workspace
+    legacyStructure: false,   // must match across all themes in the workspace
     surfaces: {
       solid: {
         levels: { action: 1.2, active: 0.8, focus: 0.3 }
@@ -231,16 +238,21 @@ options: {
         levels: { action: 40, active: 60, focus: 20 }
       }
     }
-  }
+  },
+  baseAdaptation: true,       // quadrant-aware base surfaces (since 3.13.4)
 }
 ```
 
-| Method | How states are computed |
-|--------|------------------------|
-| `'system-scale'` (default) | Palette levels — same as all existing themes; fully backward compatible |
-| `'dilution'` | Factors that move the base color toward white or black; values above `1.0` invert direction |
+| Option | What it controls | Default |
+|--------|-----------------|---------|
+| `method` | How states are computed: palette levels (`system-scale`) or dilution factors | `'system-scale'` |
+| `target` | Dilution anchor: canvas background (`'canvas'`) or a specific color (`'anchor'`) | `'canvas'` |
+| `legacyStructure` | Whether shared layers emit explicit `solid`/`ghost` groups | `true` |
+| `baseAdaptation` | Makes `interaction.normal` and `product.default` surfaces respond to the light/dark × positive/negative quadrant | `false` |
 
-> **Important:** `legacyStructure` must be **identical in all themes in the workspace** — it controls whether the shared `mode`, `surface`, and `semantic` layers emit explicit `solid`/`ghost` groups or the previous public shape. Mixing values breaks those shared layers.
+> **Important:** `legacyStructure` and `baseAdaptation` must be **identical in all themes**. Mixing values across themes corrupts the shared `mode`, `surface`, and `semantic` layers.
+
+For full detail on dilution methods, `target: 'anchor'` options, and per-group configuration, see [03-configuration-guide.md](../../04-theme-engine/03-configuration-guide.md#interaction-decomposition-since-390).
 
 ---
 
@@ -427,6 +439,8 @@ By the end of this tutorial you should know:
 - [ ] The distinction between `colors` (free dictionary) and `mapping` (fixed semantic roles)
 - [ ] The `default` + `secondary` pattern for feedback colors
 - [ ] The three `txtOnStrategy` options and when to use each
+- [ ] The difference between per-theme options and workspace-wide options
+- [ ] Why `legacyStructure` and `baseAdaptation` must be identical across all themes in the workspace
 - [ ] Why `overrides` should be the rarest section in the config
 - [ ] How to register the theme in `themes.config.json` and the name consistency rule
 - [ ] The gradients trap and when to run `sync:architecture`

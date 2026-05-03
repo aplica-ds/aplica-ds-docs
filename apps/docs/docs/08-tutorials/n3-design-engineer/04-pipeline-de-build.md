@@ -32,15 +32,16 @@ config/*.config.mjs
         ├─ themes:generate    → data/brand/{tema}/
         ├─ dimension:generate → data/dimension/normal.json
         ├─ sync:architecture  → data/mode/, data/surface/, data/semantic/, data/foundation/
-        └─ foundations:generate → data/foundation/{nome}/styles/
+        ├─ foundations:generate → data/foundation/{nome}/styles/
+        └─ figma:generate     → data/$themes.json, data/$metadata.json
 
 [Etapa 2 — Style Dictionary]
-data/  →  npm run build  →  dist/
-                             ├── css/
-                             ├── json/
-                             ├── esm/
-                             ├── cjs/
-                             └── dts/
+data/  →  npm run build:all  →  dist/
+                                 ├── css/
+                                 ├── json/
+                                 ├── esm/
+                                 ├── cjs/
+                                 └── dts/
 ```
 
 A pasta `data/` é intermediária — **nunca edite arquivos em `data/` manualmente**. Qualquer edição manual é sobrescrita na próxima execução do pipeline.
@@ -51,7 +52,7 @@ A pasta `data/` é intermediária — **nunca edite arquivos em `data/` manualme
 npm run build:themes
 ```
 
-Executa na ordem correta: `ensure:data` → `dimension:generate` → `themes:generate` → `sync:architecture` → `foundations:generate` → `build`.
+Executa na ordem correta: `ensure:data` → `themes:generate` → `dimension:generate` → `sync:architecture` → `foundations:generate` → `figma:generate` → `build:all`.
 
 Use este comando após clone do repositório, após mudanças em configs, ou quando não tem certeza do que está desatualizado.
 
@@ -59,11 +60,12 @@ Use este comando após clone do repositório, após mudanças em configs, ou qua
 
 | Mudança | Comandos necessários |
 |---------|---------------------|
-| Alterar cor de um tema | `themes:generate` → `build` |
-| Alterar escala dimensional | `dimension:generate` → `build` |
-| Alterar schema (feedback/product) | `sync:architecture` → `themes:generate` → `build` |
-| Alterar foundation | `foundations:generate` → `build` |
-| `data/` já atualizado, só recriar dist/ | `build` |
+| Alterar cor de um tema | `themes:generate` → `build:all` |
+| Alterar escala dimensional | `dimension:generate` → `build:all` |
+| Alterar schema (feedback/product) | `sync:architecture` → `themes:generate` → `build:all` |
+| Alterar foundation | `foundations:generate` → `build:all` |
+| Adicionar / renomear tema, surface ou mode | `figma:generate` |
+| `data/` já atualizado, só recriar dist/ | `build:all` |
 
 ---
 
@@ -105,7 +107,7 @@ Este é o problema mais comum com gradientes:
 ```bash
 # Você fez isso:
 npm run themes:generate
-npm run build
+npm run build:all
 
 # O gradiente não aparece no CSS. Por quê?
 # sync:architecture não rodou → semantic.color.gradient não existe
@@ -113,13 +115,13 @@ npm run build
 
 # Solução:
 npm run sync:architecture
-npm run build
+npm run build:all
 ```
 
 O `build:themes` já inclui o `sync:architecture` na ordem correta. Se você usou comandos individuais, esta é a ordem que nunca falha:
 
 ```
-themes:generate → sync:architecture → build
+themes:generate → sync:architecture → build:all
 ```
 
 ---
@@ -140,7 +142,7 @@ npm run sync:architecture
 npm run themes:generate
 
 # 3. Recriar dist/ com os dados atualizados
-npm run build
+npm run build:all
 ```
 
 > Se você tivesse dúvida sobre a ordem, o comando seguro sempre é `npm run build:themes` — ele resolve tudo.
@@ -151,11 +153,12 @@ npm run build
 
 | Sintoma | Causa provável | Solução |
 |---------|---------------|---------|
-| Gradiente não aparece no CSS | `sync:architecture` não rodou após `themes:generate` | `npm run sync:architecture` → `npm run build` |
+| Gradiente não aparece no CSS | `sync:architecture` não rodou após `themes:generate` | `npm run sync:architecture` → `npm run build:all` |
 | Token novo não aparece no `dist/` | Tema não registrado em `themes.config.json` | Adicionar entrada no arquivo global de temas |
 | Cor diferente do esperado | Override em `overrides.*` sobrescrevendo o gerado | Verificar overrides no config do tema |
 | Build falha com "reference not found" | `data/` desatualizado em relação aos configs | `npm run build:themes` (rebuild completo) |
 | `txtOn` é preto/branco quando esperava cor de marca | `txtOnStrategy: 'high-contrast'` é o padrão | Mudar para `'brand-tint'` nas options do tema |
+| Novo tema não aparece no Tokens Studio | `figma:generate` não rodou após adicionar o tema | `npm run figma:generate` ou `npm run build:themes` |
 
 ---
 
@@ -174,9 +177,9 @@ theme-engine preview --build
 theme-engine preview --build --serve
 ```
 
-Desde **3.11.0**, `--serve` mantém o browser sincronizado automaticamente — cada vez que você rodar `npm run themes:generate && npm run build` em outro terminal, a aba recarrega sem intervenção.
+Desde **3.11.0**, `--serve` mantém o browser sincronizado automaticamente — cada vez que você rodar `npm run themes:generate && npm run build:all` em outro terminal, a aba recarrega sem intervenção.
 
-O preview renderiza as quatro variantes (light-positive, light-negative, dark-positive, dark-negative) de todos os temas do workspace. Para cada variante, mostra:
+O preview renderiza as quatro variantes (light-positive, light-negative, dark-positive, dark-negative) de todos os temas do workspace. Alterne entre **Detailed** (explorador em cards, padrão) e **Summary** (tabela compacta com contrast ratios — desde 3.13.0) pelo dropdown View. Para cada variante, mostra:
 
 - `background`, `border`, `txtOn` e `txt` em todas as famílias semânticas e estados
 - Classes foundation de tipografia aplicadas a texto de exemplo
