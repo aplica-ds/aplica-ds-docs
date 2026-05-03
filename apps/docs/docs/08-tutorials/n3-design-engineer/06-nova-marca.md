@@ -272,15 +272,16 @@ Abra `dynamic-themes/themes/config/global/themes.config.json` e adicione a entra
 npm run build:themes
 ```
 
-O comando executa os seis estágios em sequência. O output esperado na última linha de cada estágio:
+O comando executa os sete estágios em sequência. O output esperado na última linha de cada estágio:
 
 ```
-[ensure:data]        ✓ Directories verified
-[dimension:generate] ✓ Dimension scale generated (normal)
-[themes:generate]    ✓ verdana: palette decomposed (7 colors × 19 levels)
-[sync:architecture]  ✓ Mode, surface, semantic, foundation synced
+[ensure:data]          ✓ Directories verified
+[themes:generate]      ✓ verdana: palette decomposed (7 colors × 19 levels)
+[dimension:generate]   ✓ Dimension scale generated (normal)
+[sync:architecture]    ✓ Mode, surface, semantic, foundation synced
 [foundations:generate] ✓ engine foundation styles generated
-[build:all]          ✓ Style Dictionary: 8 themes written to dist/
+[figma:generate]       ✓ $themes.json and $metadata.json updated
+[build:all]            ✓ Style Dictionary: 8 themes written to dist/
 ```
 
 Se você está adicionando o tema a um projeto que já tem outros temas, o número de temas no build aumenta — isso é esperado. Cada tema gera 4 variantes (light-positive, light-negative, dark-positive, dark-negative).

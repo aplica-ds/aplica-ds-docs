@@ -272,14 +272,15 @@ Open `dynamic-themes/themes/config/global/themes.config.json` and add the entry:
 npm run build:themes
 ```
 
-The command runs the six stages in sequence. Expected output at the last line of each stage:
+The command runs the seven stages in sequence. Expected output at the last line of each stage:
 
 ```
 [ensure:data]          ✓ Directories verified
-[dimension:generate]   ✓ Dimension scale generated (normal)
 [themes:generate]      ✓ verdana: palette decomposed (7 colors × 19 levels)
+[dimension:generate]   ✓ Dimension scale generated (normal)
 [sync:architecture]    ✓ Mode, surface, semantic, foundation synced
 [foundations:generate] ✓ engine foundation styles generated
+[figma:generate]       ✓ $themes.json and $metadata.json updated
 [build:all]            ✓ Style Dictionary: 8 themes written to dist/
 ```
 
@@ -303,7 +304,7 @@ Before checking raw token values, use the preview command to confirm all four Ve
 theme-engine preview --build --serve
 ```
 
-Open `http://localhost:<port>` (the CLI prints the URL). You should see:
+Open `http://localhost:<port>` (the CLI prints the URL). Use the **View** dropdown to switch between **Detailed** (card explorer, default) and **Summary** (compact table with WCAG contrast ratios — since 3.13.0). You should see:
 
 - **light-positive / light-negative / dark-positive / dark-negative** — four tabs or sections
 - Colors: `background`, `border`, `txtOn`, and `txt` for every semantic family at every state

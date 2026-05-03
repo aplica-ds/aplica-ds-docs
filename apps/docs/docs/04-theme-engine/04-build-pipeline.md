@@ -229,8 +229,8 @@ npm run tokens:build
 
 Executa em ordem:
 1. `ensure:data` — cria diretórios necessários em `data/`
-2. `dimension:generate` — gera escala dimensional
-3. `themes:generate` — decompõe cores de todos os temas
+2. `themes:generate` — decompõe cores de todos os temas
+3. `dimension:generate` — gera escala dimensional
 4. `sync:architecture` — propaga referências entre camadas
 5. `foundations:generate` — gera estilos de foundation
 6. `figma:generate` — gera arquivos de scaffolding Tokens Studio / Figma
@@ -278,7 +278,7 @@ theme-engine preview --build
 theme-engine preview --build --serve
 ```
 
-Desde **3.11.0**, `--serve` adiciona live reload: a aba do browser atualiza automaticamente quando `dist/` muda. Isso permite um ciclo de feedback direto — rode `npm run themes:generate && npm run build` em outro terminal e o preview atualiza sem reloads manuais.
+Desde **3.11.0**, `--serve` adiciona live reload: a aba do browser atualiza automaticamente quando `dist/` muda. Isso permite um ciclo de feedback direto — rode `npm run tokens:themes && npm run tokens:build:all` em outro terminal e o preview atualiza sem reloads manuais.
 
 **O que o preview renderiza:**
 
