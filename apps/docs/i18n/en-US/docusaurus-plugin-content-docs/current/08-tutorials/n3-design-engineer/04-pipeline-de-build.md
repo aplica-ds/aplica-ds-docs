@@ -73,7 +73,7 @@ Use this command after cloning the repository, after changing configs, or when y
 
 ### The role of `sync:architecture`
 
-This is the most misunderstood command in the pipeline. It reads the architecture schema and propagates references to all intermediate layers. Without it, the `mode/`, `surface/`, `semantic/`, and `foundation/engine/` layers fall out of sync with the schema.
+This is the most misunderstood command in the pipeline. Think of it as **refreshing the links in a spreadsheet**: the architecture schema defines what tokens should exist; `sync:architecture` reads the schema and updates all intermediate layers (`mode/`, `surface/`, `semantic/`, `foundation/engine/`) to match. If you skip it, those layers still point to the old structure — new token slots don't exist yet, and the Style Dictionary build quietly omits them.
 
 **When it is mandatory:**
 
@@ -82,12 +82,12 @@ This is the most misunderstood command in the pipeline. It reads the architectur
 # → sync propagates the new category to mode/, surface/, semantic/
 npm run sync:architecture
 npm run themes:generate
-npm run build
+npm run build:all
 
 # Added gradients to a theme's config
 # → without sync, semantic.color.gradient does not exist, gradient is omitted
 npm run sync:architecture
-npm run build
+npm run build:all
 ```
 
 **How to test without writing:**

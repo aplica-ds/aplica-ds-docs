@@ -73,7 +73,7 @@ Use este comando após clone do repositório, após mudanças em configs, ou qua
 
 ### O papel do `sync:architecture`
 
-Este é o comando mais incompreendido do pipeline. Ele lê o schema de arquitetura e propaga referências para todas as camadas intermediárias. Sem ele, as camadas `mode/`, `surface/`, `semantic/` e `foundation/engine/` ficam desatualizadas em relação ao schema.
+Este é o comando mais incompreendido do pipeline. Pense nele como **atualizar os links de uma planilha**: o schema de arquitetura define quais tokens devem existir; o `sync:architecture` lê o schema e atualiza todas as camadas intermediárias (`mode/`, `surface/`, `semantic/`, `foundation/engine/`) para corresponder. Se você pular este passo, essas camadas ainda apontam para a estrutura antiga — novos slots de token não existem ainda, e o build do Style Dictionary os omite silenciosamente.
 
 **Quando é obrigatório:**
 
@@ -82,12 +82,12 @@ Este é o comando mais incompreendido do pipeline. Ele lê o schema de arquitetu
 # → o sync propaga a nova categoria para mode/, surface/, semantic/
 npm run sync:architecture
 npm run themes:generate
-npm run build
+npm run build:all
 
 # Adicionou gradientes ao config de um tema
 # → sem o sync, semantic.color.gradient não existe, gradiente é omitido
 npm run sync:architecture
-npm run build
+npm run build:all
 ```
 
 **Como testar sem gravar:**

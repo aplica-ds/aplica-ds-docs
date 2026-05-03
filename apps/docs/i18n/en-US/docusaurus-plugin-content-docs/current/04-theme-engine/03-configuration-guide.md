@@ -205,7 +205,7 @@ options: {
 | `darkModeChroma` | `0.85` | Saturation factor in dark mode (0.7 = softer, 1.0 = same as light) |
 | `accessibilityLevel` | `'AA'` | Minimum WCAG level: `'AA'` (4.5:1) or `'AAA'` (7:1) |
 | `acceptAALevelFallback` | `true` | When targeting AAA, accept AA (4.5:1) if AAA cannot be achieved |
-| `includePrimitives` | `false` | Generates `_primitive_theme.json` — disabled by default since 3.6.3; enabling adds Figma variable primitives |
+| `includePrimitives` | `false` | Generates `_primitive_theme.json` with the raw decomposed palette (all 19 levels × all declared colors). Enable when your Figma file uses Figma Variables directly — not via Tokens Studio — and needs access to primitive palette values. Disabled by default since 3.6.3 because most workflows only need the semantic and foundation layers. |
 | `uiTokens` | `false` | Generates `_ui.json` with component-scoped UI tokens |
 | `borderOffset.palette` | `10` | Border distance from surface (scale 10–190) |
 | `borderOffset.neutrals` | `1` | Distance steps on the neutrals scale |
@@ -254,6 +254,35 @@ See [07-txt-token.md](../02-token-layers/07-txt-token.md) for the full txt contr
 
 ---
 
+## Workspace synchronization checklist
+
+Before publishing or deploying multiple themes, verify that all workspace-wide settings are consistent. Some options affect the shared architecture layers (`mode/`, `surface/`, `semantic/`) — a single divergent theme corrupts the output for all consumers.
+
+| Setting | Scope | Rule |
+|---------|-------|------|
+| `options.interaction.legacyStructure` | **Workspace-wide** | Must be identical across all themes. Controls whether shared layers emit `solid`/`ghost` groups. |
+| `options.interaction.decomposition.method` | **Workspace-wide** | Must be identical. Mixing `system-scale` and `dilution` across themes breaks the semantic layer. |
+| `generation.colorText.*` | **Workspace-wide** | Configured once in `aplica-theme-engine.config.mjs`, not per theme. |
+| `options.baseAdaptation` | **Per-theme** | Can differ between themes. Affects only that theme's `normal`/`default` surfaces. |
+| `options.txtOnStrategy` | **Per-theme** | Can differ between themes. |
+| `options.darkModeChroma` | **Per-theme** | Can differ between themes. |
+| `options.accessibilityLevel` | **Per-theme** | Can differ between themes. |
+
+**Quick check before deploying:**
+
+```bash
+# Confirm all themes declare the same legacyStructure value
+grep -r "legacyStructure" theme-engine/config/
+
+# Confirm all themes declare the same decomposition method
+grep -r "method:" theme-engine/config/
+
+# Validate schema alignment across all themes without writing
+npm run sync:architecture:test
+```
+
+---
+
 ## Interaction Decomposition (since 3.9.0)
 
 By default, `interface.function` and `interface.feedback` generate interaction states (`normal`, `action`, `active`, `focus`) using the engine's palette-level logic. Version 3.9.0 introduces authored control over how those states are derived.
@@ -266,6 +295,17 @@ Configure `options.interaction.decomposition.method` inside the theme config:
 |-------|----------|
 | `'system-scale'` (default) | Legacy behavior, now explicitly named. Palette levels drive state colors (e.g., `active: 120`). All existing themes use this. |
 | `'dilution'` | New. State colors move toward white or black from the base color without rotating hue. Factors drive intensity (e.g., `active: 0.8`, `action: 1.2`). Values above `1.0` invert direction. |
+
+**When to use each method:**
+
+| Scenario | Method | Target | Why |
+|----------|--------|--------|-----|
+| Existing themes, no visual change needed | `system-scale` | — | Fully backward-compatible; palette levels are predictable and explicit |
+| Buttons that adapt naturally to light/dark context | `dilution` + `target: 'canvas'` | — | States dilute toward white on light canvases and black on dark canvases — no manual dark-mode override needed |
+| Brand color must stay chromatic in hover/active states | `dilution` + `target: 'anchor'` | `source: 'palette'` | Keeps interaction states within the same hue family rather than drifting to gray |
+| Custom accent color for interaction states across all surfaces | `dilution` + `target: 'anchor'` | `source: 'hex'` | Pins the dilution destination to a specific color regardless of theme |
+| Interaction states that reference another generated token | `dilution` + `target: 'anchor'` | `source: 'token'` | Links states to a living token — updates automatically when the referenced color changes |
+| `function` and `feedback` need different rules | Any method per group | — | Use `options.interaction.groups` to configure each independently (since 3.12.0) |
 
 ```javascript
 options: {
@@ -415,7 +455,11 @@ options: {
 
 ### Quadrant-aware base adaptation (since 3.13.4)
 
-By default, interaction `normal` surfaces and product `default` surfaces are **fixed** at the authored base color regardless of the active light/dark + positive/negative quadrant. Opt in to quadrant adaptation per theme:
+**Background — what is a quadrant?** Each theme generates four variants determined by two independent axes: light vs dark mode, and positive vs negative surface context. The four combinations are `light-positive`, `light-negative`, `dark-positive`, `dark-negative`. Together they are called the active **quadrant**.
+
+By default, interaction `normal` surfaces and product `default` surfaces are **fixed** at the authored base color regardless of the active quadrant. This means a primary button looks identical in `light-positive` and `dark-positive` — the designer's authored hex is the stable reference in all four contexts.
+
+Opt in to quadrant adaptation per theme:
 
 ```javascript
 options: {
@@ -423,9 +467,28 @@ options: {
 }
 ```
 
-With `baseAdaptation: true`, the engine adjusts `normal` and `default` surfaces based on the resolved quadrant — lightening on light-positive, darkening on dark-negative, etc.
+**Concrete effect:** given a theme with `action_primary: '#C40145'`:
 
-> **Use sparingly.** The fixed-base rule is intentional: `normal` is always the authored brand color, giving designers a stable reference point. `baseAdaptation` is an escape hatch for brands that explicitly need those base surfaces to shift with context. Each theme can independently opt in or out — this option does not need to be consistent across the workspace.
+| Quadrant | `baseAdaptation: false` (default) | `baseAdaptation: true` |
+|----------|-----------------------------------|------------------------|
+| light-positive | `#C40145` | `#C40145` (unchanged — light-positive is the baseline) |
+| light-negative | `#C40145` | slightly lighter shade |
+| dark-positive | `#C40145` | adapted dark shade |
+| dark-negative | `#C40145` | darkest adapted shade |
+
+The adaptation adjusts lightness within OKLCh while preserving hue and chroma — the color family stays the same.
+
+**Tokens affected:** only `interface.function.*.normal.background` and `product.*.default.background` families. All other states (`action`, `active`, `focus`) and all `txtOn`/`border`/`txt` values are unaffected.
+
+**When to use:**
+- The primary button is hard to see in `dark-negative` because its authored color is too close to the canvas
+- The brand explicitly wants base surfaces to shift with context (expressive brands, high visual dynamism)
+
+**When not to use:**
+- Financial or institutional products where the brand color must remain a fixed, recognizable reference
+- When `normal` is used as a color-matching anchor in the UI (e.g., the button matches the brand logo)
+
+> **Per-theme, not workspace-wide.** Unlike `legacyStructure`, `baseAdaptation` is independent per theme — themes in the same workspace can mix `true` and `false` freely without corrupting shared layers.
 
 ---
 

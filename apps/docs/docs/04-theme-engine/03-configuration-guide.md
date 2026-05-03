@@ -205,7 +205,7 @@ options: {
 | `darkModeChroma` | `0.85` | Fator de saturação no dark mode (0.7 = mais suave, 1.0 = igual ao light) |
 | `accessibilityLevel` | `'AA'` | Nível WCAG mínimo: `'AA'` (4.5:1) ou `'AAA'` (7:1) |
 | `acceptAALevelFallback` | `true` | Ao visar AAA, aceita AA (4.5:1) se AAA não puder ser atingido |
-| `includePrimitives` | `false` | Gera `_primitive_theme.json` — desabilitado por padrão desde 3.6.3; habilitando adiciona variáveis primitivas do Figma |
+| `includePrimitives` | `false` | Gera `_primitive_theme.json` com a paleta bruta decomposta (todos os 19 níveis × todas as cores declaradas). Habilite quando o arquivo Figma usa Figma Variables diretamente — não via Tokens Studio — e precisa acessar valores primitivos de paleta. Desabilitado por padrão desde 3.6.3 porque a maioria dos workflows precisa apenas das camadas semântica e foundation. |
 | `uiTokens` | `false` | Gera `_ui.json` com tokens UI com escopo de componente |
 | `borderOffset.palette` | `10` | Distância da borda em relação ao surface (escala 10–190) |
 | `borderOffset.neutrals` | `1` | Passos de distância na escala de neutrals |
@@ -254,6 +254,35 @@ Veja [07-txt-token.md](../02-token-layers/07-txt-token.md) para a documentação
 
 ---
 
+## Checklist de sincronização de workspace
+
+Antes de publicar ou fazer deploy de múltiplos temas, verifique que todas as configurações de workspace estão consistentes. Algumas opções afetam as camadas compartilhadas de arquitetura (`mode/`, `surface/`, `semantic/`) — um único tema divergente corrompe o output para todos os consumidores.
+
+| Configuração | Escopo | Regra |
+|-------------|--------|-------|
+| `options.interaction.legacyStructure` | **Workspace** | Deve ser idêntico em todos os temas. Controla se as camadas compartilhadas emitem grupos `solid`/`ghost`. |
+| `options.interaction.decomposition.method` | **Workspace** | Deve ser idêntico. Misturar `system-scale` e `dilution` entre temas quebra a camada semântica. |
+| `generation.colorText.*` | **Workspace** | Configurado uma vez em `aplica-theme-engine.config.mjs`, não por tema. |
+| `options.baseAdaptation` | **Por tema** | Pode diferir entre temas. Afeta apenas as superfícies `normal`/`default` daquele tema. |
+| `options.txtOnStrategy` | **Por tema** | Pode diferir entre temas. |
+| `options.darkModeChroma` | **Por tema** | Pode diferir entre temas. |
+| `options.accessibilityLevel` | **Por tema** | Pode diferir entre temas. |
+
+**Verificação rápida antes do deploy:**
+
+```bash
+# Confirmar que todos os temas declaram o mesmo valor de legacyStructure
+grep -r "legacyStructure" theme-engine/config/
+
+# Confirmar que todos os temas declaram o mesmo método de decomposição
+grep -r "method:" theme-engine/config/
+
+# Validar o alinhamento de schema em todos os temas sem gravar
+npm run sync:architecture:test
+```
+
+---
+
 ## Decomposição de Interação (desde 3.9.0)
 
 Por padrão, `interface.function` e `interface.feedback` geram estados de interação (`normal`, `action`, `active`, `focus`) usando a lógica de níveis de paleta do engine. A versão 3.9.0 introduz controle autoral sobre como esses estados são derivados.
@@ -266,6 +295,17 @@ Configure `options.interaction.decomposition.method` no config do tema:
 |-------|--------------|
 | `'system-scale'` (padrão) | Comportamento legado, agora nomeado explicitamente. Níveis de paleta controlam os estados (ex.: `active: 120`). Todos os temas existentes usam isso. |
 | `'dilution'` | Novo. Os estados de cor movem a cor base em direção ao branco ou preto sem rotacionar o hue. Fatores controlam a intensidade (ex.: `active: 0.8`, `action: 1.2`). Valores acima de `1.0` invertem a direção. |
+
+**Quando usar cada método:**
+
+| Cenário | Método | Target | Por quê |
+|---------|--------|--------|---------|
+| Temas existentes, sem mudança visual necessária | `system-scale` | — | Totalmente retrocompatível; níveis de paleta são previsíveis e explícitos |
+| Botões que se adaptam naturalmente ao contexto light/dark | `dilution` + `target: 'canvas'` | — | Estados se diluem em direção ao branco em canvas claro e preto em canvas escuro — sem override manual para dark mode |
+| Cor de marca deve permanecer cromática em estados hover/active | `dilution` + `target: 'anchor'` | `source: 'palette'` | Mantém os estados de interação dentro da mesma família de hue em vez de derivar para cinza |
+| Cor de acento customizada para estados em todas as superfícies | `dilution` + `target: 'anchor'` | `source: 'hex'` | Fixa o destino da diluição em uma cor específica independente do tema |
+| Estados que referenciam outro token gerado | `dilution` + `target: 'anchor'` | `source: 'token'` | Vincula os estados a um token vivo — atualiza automaticamente quando a cor referenciada muda |
+| `function` e `feedback` precisam de regras diferentes | Qualquer método por grupo | — | Use `options.interaction.groups` para configurar cada um independentemente (desde 3.12.0) |
 
 ```javascript
 options: {
@@ -415,7 +455,11 @@ options: {
 
 ### Adaptação de base por quadrante (desde 3.13.4)
 
-Por padrão, superfícies `normal` de interação e superfícies `default` de produto são **fixas** na cor base autoral, independente do quadrante ativo (light/dark + positive/negative). Ative a adaptação por quadrante por tema:
+**Contexto — o que é um quadrante?** Cada tema gera quatro variantes determinadas por dois eixos independentes: modo claro vs escuro, e contexto de superfície positivo vs negativo. As quatro combinações são `light-positive`, `light-negative`, `dark-positive`, `dark-negative`. Juntas, elas formam o **quadrante** ativo.
+
+Por padrão, superfícies `normal` de interação e superfícies `default` de produto são **fixas** na cor base autoral, independente do quadrante ativo. Isso significa que um botão primário tem a mesma aparência em `light-positive` e em `dark-positive` — o hex autoral do designer é a referência estável em todos os quatro contextos.
+
+Ative a adaptação por quadrante por tema:
 
 ```javascript
 options: {
@@ -423,9 +467,28 @@ options: {
 }
 ```
 
-Com `baseAdaptation: true`, o engine ajusta as superfícies `normal` e `default` com base no quadrante resolvido — clareando em light-positive, escurecendo em dark-negative, etc.
+**Efeito concreto:** dado um tema com `action_primary: '#C40145'`:
 
-> **Use com parcimônia.** A regra de base fixa é intencional: `normal` é sempre a cor de marca autoral, dando aos designers um ponto de referência estável. `baseAdaptation` é uma válvula de escape para marcas que explicitamente precisam que essas superfícies se adaptem ao contexto. Cada tema pode optar de forma independente — esta opção não precisa ser consistente entre os temas do workspace.
+| Quadrante | `baseAdaptation: false` (padrão) | `baseAdaptation: true` |
+|-----------|----------------------------------|------------------------|
+| light-positive | `#C40145` | `#C40145` (inalterado — light-positive é a linha de base) |
+| light-negative | `#C40145` | tom levemente mais claro |
+| dark-positive | `#C40145` | tom adaptado para escuro |
+| dark-negative | `#C40145` | tom mais escuro adaptado |
+
+A adaptação ajusta a luminosidade dentro do espaço OKLCh preservando hue e croma — a família de cor permanece a mesma.
+
+**Tokens afetados:** apenas as famílias `interface.function.*.normal.background` e `product.*.default.background`. Todos os outros estados (`action`, `active`, `focus`) e todos os valores de `txtOn`/`border`/`txt` não são afetados.
+
+**Quando usar:**
+- O botão primário é difícil de ver em `dark-negative` porque sua cor autoral está muito próxima do canvas
+- A marca explicitamente quer que as superfícies base se adaptem ao contexto (marcas expressivas, alto dinamismo visual)
+
+**Quando não usar:**
+- Produtos financeiros ou institucionais onde a cor de marca deve permanecer uma referência fixa e reconhecível
+- Quando `normal` é usado como âncora de correspondência de cor na UI (ex.: o botão combina com o logotipo da marca)
+
+> **Por tema, não de workspace.** Ao contrário de `legacyStructure`, `baseAdaptation` é independente por tema — temas no mesmo workspace podem misturar `true` e `false` livremente sem corromper as camadas compartilhadas.
 
 ---
 

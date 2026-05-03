@@ -34,10 +34,12 @@ Ao fim deste tutorial você terá:
 Crie o arquivo em:
 
 ```
-dynamic-themes/themes/config/verdana.config.mjs
+theme-engine/config/verdana.config.mjs
 ```
 
 **Construa em estágios, não tudo de uma vez.** As seções abaixo vão do mínimo viável ao config completo. Cada estágio já gera tokens válidos — adicione o próximo apenas quando o anterior compilar limpo.
+
+> **Lembrete — as chaves do mapping são fixas pelo schema.** As chaves do lado esquerdo em `mapping` (`brand.first`, `interface.function.primary`, `interface.feedback.info_default`, etc.) são definidas pelo schema de arquitetura do engine. Você não pode criar papéis personalizados — apenas mapear suas cores para os papéis que já existem. Veja [N2-04 · Anatomia de um tema](../n2-system-designer/04-anatomia-de-um-tema.md#seção-3--mapping) para o contrato completo.
 
 ### 1.0 — Config mínima (gera tokens válidos imediatamente)
 
@@ -225,20 +227,20 @@ Estas opções afetam as camadas compartilhadas de arquitetura (`mode/`, `surfac
 
     // Adaptação de base por quadrante (desde 3.13.4)
     // Faz superfícies interaction.normal e product.default responderem a
-    // light/dark + positive/negative. Exige opt-in de todos os temas.
+    // light/dark + positive/negative. Por tema — outros temas não são afetados.
     // baseAdaptation: true,
   }
 ```
 
-Verdana entrega com ambos comentados — os padrões (`system-scale`, `legacyStructure: true`, sem `baseAdaptation`) são corretos para a maioria dos workspaces. Descomente apenas quando o workspace inteiro estiver pronto para migrar.
+Verdana entrega com ambos comentados. `options.interaction` exige que o workspace inteiro concorde (contrato de workspace). `baseAdaptation` é independente por tema — você pode habilitá-lo na Verdana sem tocar nos outros temas.
 
-Veja [03-configuration-guide.pt-br.md](../../04-theme-engine/03-configuration-guide.md#decomposição-de-interação-desde-390) para o contrato completo sobre opções de workspace.
+Veja [03-configuration-guide.pt-br.md](../../04-theme-engine/03-configuration-guide.md#decomposição-de-interação-desde-390) para os detalhes completos de ambas as opções.
 
 ---
 
 ## Passo 2 — Registrar o tema
 
-Abra `dynamic-themes/themes/config/global/themes.config.json` e adicione a entrada:
+Abra `theme-engine/config/global/themes.config.json` e adicione a entrada:
 
 ```json
 {
@@ -345,6 +347,8 @@ dist/
 
 ### Verificando tokens específicos
 
+> **Usuários Windows:** `grep` é uma ferramenta POSIX. No Windows sem WSL, use a busca do VS Code (Ctrl+Shift+F) com o escopo definido para `dist/css/verdana-light-positive.css` e busque pelo nome do token diretamente.
+
 Confirme que o token de cor primária está correto:
 
 ```bash
@@ -403,6 +407,16 @@ Crie um frame de teste no Figma:
 
 Troque o modo para Dark — ambos devem mudar automaticamente para o equivalente escuro. Se o texto desaparecer ou o contraste parecer incorreto, o par background/txtOn pode estar sendo quebrado — reveja a seção de tokens aplicados.
 
+### Resolução de problemas
+
+| Sintoma | Causa provável | Correção |
+|---------|---------------|----------|
+| Variáveis não criadas após "Create/Update" | Plugin carregou o arquivo JSON errado | Confirme que o caminho aponta para `dist/json/` (não `dist/css/` ou arquivos de token crus) |
+| Todas as variáveis aparecem em uma única coleção | Versão do plugin não suporta output multi-coleção | Atualize o Tokens Studio para ≥ 2.x |
+| Modo Dark não tem efeito | Sets de light e dark carregados como coleções separadas, não como modos da mesma coleção | No Tokens Studio, una-os em um set com dois modos |
+| Token `txtOn` não existe | `includePrimitives` está ativo e o JSON foi carregado como primitivos crus | Recarregue usando o JSON semântico (`verdana-light-positive.json`), não `primitives.json` |
+| Cores parecem desbotadas no Figma | `baseAdaptation` configurado para produto de canvas escuro, mas o frame no Figma tem fundo branco | Defina `baseAdaptation: false` para temas light-positive ou ajuste o fundo do frame |
+
 ---
 
 ## Passo 7 — Foundation customizada (quando necessário)
@@ -418,7 +432,7 @@ Quando criar uma Foundation customizada:
 Para criar:
 
 ```
-dynamic-themes/themes/config/foundations/verdana.config.mjs
+theme-engine/config/foundations/verdana.config.mjs
 ```
 
 Estrutura básica:
@@ -465,7 +479,7 @@ Ao fim deste tutorial você deve saber:
 - [ ] Escrever o bloco de `colors` com a distinção `default` (suave) e `secondary` (saturado) para feedback
 - [ ] Adicionar cores de produto e mapeá-las em `mapping` (estágio 1.1)
 - [ ] Adicionar `options` básicas — `txtOnStrategy`, `darkModeChroma`, `accessibilityLevel` (estágio 1.2)
-- [ ] Entender por que `options.interaction` e `baseAdaptation` são contratos de workspace (estágio 1.3)
+- [ ] Entender por que `options.interaction` é contrato de workspace mas `baseAdaptation` é por tema (estágio 1.3)
 - [ ] Conectar `colors` ao `mapping` sem erros de chave
 - [ ] Registrar o tema em `themes.config.json` com a chave correta
 - [ ] Executar `npm run build:themes` e interpretar o output

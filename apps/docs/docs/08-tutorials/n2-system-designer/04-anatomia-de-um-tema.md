@@ -11,7 +11,9 @@ lang: pt-BR
 
 ## Contexto
 
-Você entende o paradigma Config-First — a decisão de design começa no config, não no Figma. Agora é hora de abrir o arquivo real e entender cada seção.
+**De N2-03:** No paradigma Config-First, as decisões de design começam no arquivo de config, não no Figma. O config é um único arquivo `.mjs` que define cores, roles semânticos, tipografia e opções de geração. O engine lê esse arquivo e produz as cinco camadas automaticamente.
+
+Agora é hora de abrir o arquivo real e entender cada seção.
 
 Este tutorial é uma leitura comentada de um `*.config.mjs`. Ao fim, você saberá criar a estrutura básica de um novo tema do zero, sem consultar documentação para cada campo.
 
@@ -24,7 +26,7 @@ Este tutorial é uma leitura comentada de um `*.config.mjs`. Ao fim, você saber
 Cada tema existe como um único arquivo JavaScript em:
 
 ```
-dynamic-themes/themes/config/{nome-do-tema}.config.mjs
+theme-engine/config/{nome-do-tema}.config.mjs
 ```
 
 O engine lê esse arquivo e gera automaticamente as cinco camadas (Brand, Mode, Surface, Semantic, Foundation) para todas as combinações de modo (light/dark) e superfície (positive/negative).
@@ -132,17 +134,26 @@ O que importa aqui é a **qualidade das cores declaradas**, não os nomes. Cada 
 
 `mapping` é a **ponte** entre os nomes livres do `colors` e os papéis semânticos fixos do sistema.
 
-O lado esquerdo (`brand.first`, `interface.function.primary`) é fixo — definido pelo schema de arquitetura. O lado direito (`'brand_principal'`, `'acao_primaria'`) é o nome que você escolheu em `colors`.
+**Dois lados, duas regras:**
 
-**A separação existe por uma razão:** Diferentes marcas podem usar a mesma estrutura semântica com cores completamente diferentes. O schema garante que `interface.function.primary` existe em todos os temas — o mapping garante que em cada tema ela aponta para a cor certa.
+- **Lado esquerdo** (`brand.first`, `interface.function.primary`, `interface.feedback.info_default`) — fixo. Essas chaves são definidas pelo **schema de arquitetura**, de propriedade do pacote engine. Você não pode criar novos papéis nem renomear os existentes. O schema determina quais papéis existem, quais são obrigatórios e quais são opcionais.
+- **Lado direito** (`'brand_principal'`, `'acao_primaria'`) — seu. É o nome que você declarou em `colors`.
+
+**Por que a separação?** Diferentes marcas podem usar a mesma estrutura semântica com cores completamente diferentes. O schema garante que `interface.function.primary` sempre existe em todos os temas — o mapping garante que em cada tema ela aponta para a cor certa.
+
+> **O que acontece se um papel obrigatório estiver faltando?** O build emite um aviso ou falha com `"Missing required mapping key: interface.feedback.danger_default"`. Todos os oito pares de feedback (4 tipos × `default`/`secondary`) são obrigatórios. Papéis de brand e product são opcionais.
+
+> **Posso adicionar papéis personalizados?** Não diretamente. O schema é fixo pelo pacote. Usuários avançados podem sobrescrever o schema colocando arquivos em `theme-engine/schemas/`, mas isso afeta todos os temas do workspace e exige coordenação cuidadosa.
 
 **Feedback: `default` vs `secondary`**
 
 Cada papel de feedback tem duas variantes:
-- `default` — tom suave, para backgrounds e áreas de baixa saturação
-- `secondary` — tom saturado, para bordas, ícones e texto
+- `default` — tom suave. Use para grandes áreas de fundo: banners de alerta, fundos de badge, backgrounds de notificação.
+- `secondary` — tom saturado. Use para indicadores pequenos: ícones, bordas, texto de status.
 
-A prática correta: para `feedback.info`, o `default` é geralmente o azul claro (usado como fundo de banners informativos) e o `secondary` é o azul saturado (usado em ícones e bordas).
+Regra prática: se a cor cobre mais de 50% da superfície de um componente, ela pertence ao `default`. Se é um ícone de 16 px ou uma borda de 2 px, pertence ao `secondary`.
+
+Para `feedback.info`: o `default` é o azul claro (fundo do banner), o `secondary` é o azul saturado (ícone e borda).
 
 ---
 
@@ -250,7 +261,7 @@ options: {
 | `legacyStructure` | Se as camadas compartilhadas emitem grupos `solid`/`ghost` explícitos | `true` |
 | `baseAdaptation` | Faz as superfícies `interaction.normal` e `product.default` responderem ao quadrante light/dark × positive/negative | `false` |
 
-> **Importante:** `legacyStructure` e `baseAdaptation` devem ser **idênticos em todos os temas**. Misturar valores entre temas corrompe as camadas compartilhadas `mode`, `surface` e `semantic`.
+> **Importante:** `legacyStructure` deve ser **idêntico em todos os temas** — ele controla as camadas compartilhadas `mode`, `surface` e `semantic`. `baseAdaptation` é **por tema** — temas no mesmo workspace podem misturar `true` e `false` livremente.
 
 Para detalhes completos sobre métodos de diluição, opções de `target: 'anchor'` e configuração por grupo, veja [03-configuration-guide.pt-br.md](../../04-theme-engine/03-configuration-guide.md#decomposição-de-interação-desde-390).
 
@@ -307,7 +318,7 @@ Lembre-se do ciclo obrigatório antes de qualquer override: **Estudar → Testar
 Criar o `.config.mjs` não é suficiente. O tema precisa ser registrado em:
 
 ```json
-// dynamic-themes/themes/config/global/themes.config.json
+// theme-engine/config/global/themes.config.json
 {
   "themes": {
     "aplica_joy": {
@@ -329,7 +340,7 @@ Criar o `.config.mjs` não é suficiente. O tema precisa ser registrado em:
 
 ---
 
-## Exemplo guiado
+## Como auditar um config desconhecido
 
 ### Lendo um config pela primeira vez
 
@@ -440,7 +451,7 @@ Ao fim deste tutorial você deve saber:
 - [ ] O padrão `default` + `secondary` para cores de feedback
 - [ ] As três estratégias de `txtOnStrategy` e quando usar cada
 - [ ] A diferença entre opções por tema e opções de workspace
-- [ ] Por que `legacyStructure` e `baseAdaptation` precisam ser idênticos em todos os temas do workspace
+- [ ] Por que `legacyStructure` precisa ser idêntico em todos os temas, mas `baseAdaptation` é por tema
 - [ ] Por que `overrides` deve ser a seção mais rara do config
 - [ ] Como registrar o tema em `themes.config.json` e a regra de consistência de nomes
 - [ ] A armadilha dos gradientes e quando rodar `sync:architecture`

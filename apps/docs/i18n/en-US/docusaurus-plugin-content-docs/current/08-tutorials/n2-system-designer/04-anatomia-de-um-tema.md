@@ -11,9 +11,9 @@ lang: en
 
 ## Context
 
-You understand the Config-First paradigm — the design decision starts in the config, not in Figma. Now it is time to open the actual file and understand each section.
+**From N2-03:** In the Config-First paradigm, design decisions start in the config file, not in Figma. The config is a single `.mjs` file that defines colors, semantic roles, typography, and generation options. The engine reads it and produces all five layers automatically.
 
-This tutorial is an annotated reading of a `*.config.mjs`. By the end, you will know how to create the basic structure of a new theme from scratch, without consulting documentation for every field.
+Now it is time to open the actual file and understand each section. This tutorial is an annotated reading of a `*.config.mjs`. By the end, you will know how to create the basic structure of a new theme from scratch, without consulting documentation for every field.
 
 ---
 
@@ -24,7 +24,7 @@ This tutorial is an annotated reading of a `*.config.mjs`. By the end, you will 
 Each theme exists as a single JavaScript file at:
 
 ```
-dynamic-themes/themes/config/{theme-name}.config.mjs
+theme-engine/config/{theme-name}.config.mjs
 ```
 
 The engine reads this file and automatically generates the five layers (Brand, Mode, Surface, Semantic, Foundation) for all combinations of mode (light/dark) and surface (positive/negative).
@@ -132,17 +132,26 @@ What matters here is the **quality of the declared colors**, not the names. Each
 
 `mapping` is the **bridge** between the free names in `colors` and the system's fixed semantic roles.
 
-The left side (`brand.first`, `interface.function.primary`) is fixed — defined by the architecture schema. The right side (`'brand_primary'`, `'action_primary'`) is the name you chose in `colors`.
+**Two sides, two rules:**
 
-**The separation exists for a reason:** Different brands can use the same semantic structure with completely different colors. The schema guarantees that `interface.function.primary` exists in all themes — the mapping guarantees that in each theme it points to the correct color.
+- **Left side** (`brand.first`, `interface.function.primary`, `interface.feedback.info_default`) — fixed. These keys are defined by the **architecture schema**, which is owned by the engine package. You cannot create new roles or rename existing ones. The schema determines which roles exist, which are required, and which are optional.
+- **Right side** (`'brand_primary'`, `'action_primary'`) — yours. This is the name you declared in `colors`.
+
+**Why the separation?** Different brands can use the same semantic structure with completely different colors. The schema guarantees that `interface.function.primary` always exists in every theme — the mapping guarantees that in each theme it points to the right color.
+
+> **What happens if a required role is missing?** The build emits a warning or fails with `"Missing required mapping key: interface.feedback.danger_default"`. All eight feedback pairs (4 types × `default`/`secondary`) are required. Brand and product roles are optional.
+
+> **Can I add custom roles?** No — not directly. The schema is fixed by the package. Advanced users can override the schema by placing files in `theme-engine/schemas/`, but this affects all themes in the workspace and requires careful coordination.
 
 **Feedback: `default` vs `secondary`**
 
 Each feedback role has two variants:
-- `default` — soft tone, for backgrounds and low-saturation areas
-- `secondary` — saturated tone, for borders, icons, and text
+- `default` — soft tone. Use for large background areas: alert banners, badge fills, notification backgrounds.
+- `secondary` — saturated tone. Use for small indicators: icons, borders, status text.
 
-The correct practice: for `feedback.info`, `default` is typically the light blue (used as the background for informational banners) and `secondary` is the saturated blue (used in icons and borders).
+Rule of thumb: if the color covers more than 50% of a component surface, it belongs in `default`. If it's a 16 px icon or a 2 px border, it belongs in `secondary`.
+
+For `feedback.info`: `default` is the light blue (banner background), `secondary` is the saturated blue (icon and border).
 
 ---
 
@@ -250,7 +259,7 @@ options: {
 | `legacyStructure` | Whether shared layers emit explicit `solid`/`ghost` groups | `true` |
 | `baseAdaptation` | Makes `interaction.normal` and `product.default` surfaces respond to the light/dark × positive/negative quadrant | `false` |
 
-> **Important:** `legacyStructure` and `baseAdaptation` must be **identical in all themes**. Mixing values across themes corrupts the shared `mode`, `surface`, and `semantic` layers.
+> **Important:** `legacyStructure` must be **identical in all themes** — it controls shared `mode`, `surface`, and `semantic` layers. `baseAdaptation` is **per-theme** — themes in the same workspace can mix `true` and `false` freely.
 
 For full detail on dilution methods, `target: 'anchor'` options, and per-group configuration, see [03-configuration-guide.md](../../04-theme-engine/03-configuration-guide.md#interaction-decomposition-since-390).
 
@@ -307,7 +316,7 @@ Remember the mandatory cycle before any override: **Study → Test → Document*
 Creating the `.config.mjs` is not enough. The theme must be registered in:
 
 ```json
-// dynamic-themes/themes/config/global/themes.config.json
+// theme-engine/config/global/themes.config.json
 {
   "themes": {
     "aplica_joy": {
@@ -329,7 +338,7 @@ Creating the `.config.mjs` is not enough. The theme must be registered in:
 
 ---
 
-## Guided example
+## How to audit an unfamiliar config
 
 ### Reading a config for the first time
 
@@ -440,7 +449,7 @@ By the end of this tutorial you should know:
 - [ ] The `default` + `secondary` pattern for feedback colors
 - [ ] The three `txtOnStrategy` options and when to use each
 - [ ] The difference between per-theme options and workspace-wide options
-- [ ] Why `legacyStructure` and `baseAdaptation` must be identical across all themes in the workspace
+- [ ] Why `legacyStructure` must be identical across all themes but `baseAdaptation` is per-theme
 - [ ] Why `overrides` should be the rarest section in the config
 - [ ] How to register the theme in `themes.config.json` and the name consistency rule
 - [ ] The gradients trap and when to run `sync:architecture`

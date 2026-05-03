@@ -143,6 +143,7 @@ Estes são termos cunhados — nomes de paradigmas, produtos ou personas do Apli
 | Modo escuro | Dark mode | — |
 | Superfície positiva | Positive surface | — |
 | Superfície negativa | Negative surface | "inverted surface" é aceitável mas menos preciso |
+| Quadrante | Quadrant | Combinação dos dois eixos: light/dark × positive/negative. As quatro variantes de um tema: `light-positive`, `light-negative`, `dark-positive`, `dark-negative`. Usar sempre "quadrant" em en-US, "quadrante" em pt-BR |
 | Inversão de escala | Scale inversion | — |
 | Cinza / Escala de cinza | Gray / Grayscale | — |
 | Neutros / Neutrals | Neutrals | Manter "neutrals" em ambos os idiomas é aceitável |
