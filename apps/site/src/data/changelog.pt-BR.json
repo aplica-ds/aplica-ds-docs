@@ -1,8 +1,17 @@
 [
   {
-    "version": "v3.13.0–3.13.4",
+    "version": "v3.13.5–3.13.8",
     "date": "Maio 2026",
     "status": "latest",
+    "changes": [
+      "Decomposição de feedback por modo (3.13.6): options.interaction.decomposition.modeResolution aceita 'quadrant' (padrão, comportamento existente) ou 'mode' — quando 'mode', os tokens de feedback seguem semântica light/dark sem inversão de polaridade de quadrante, produzindo as mesmas cores de superfície, texto e borda em superfícies positive e negative dentro do mesmo modo",
+      "Correções de bugs (3.13.5, 3.13.7, 3.13.8): cores derivadas em dilution agora espelham corretamente entre quadrantes (light-positive == dark-negative); texto e bordas de feedback mode-aware alinham com as superfícies; espelhamento por quadrante do feedback padrão (modeResolution: 'quadrant') restaurado após regressão introduzida no 3.13.6"
+    ]
+  },
+  {
+    "version": "v3.13.0–3.13.4",
+    "date": "Maio 2026",
+    "status": "stable",
     "changes": [
       "Preview modo Summary (3.13.0): theme-engine preview ganha dropdown View para alternar entre Detailed (explorador existente) e Summary — o modo Summary exibe uma tabela compacta com background, txtOn, border, txt e contrast ratios para cada família semântica e estado, otimizado para QA rápido entre combinações de tema",
       "Dilution com âncora cromática (3.13.1–3.13.3): o método dilution ganha target: 'anchor' — move os estados de interação em direção a uma cor-âncora configurável em vez de sempre mirar branco/preto ou o canvas; anchor.source aceita 'palette' (família de paleta atual), 'hex' (cor fixa) ou 'token' (outra escala gerada); anchor.canvasAware e anchor.canvasMix permitem que a âncora mantenha seu hue próprio enquanto ainda clareia em canvases claros e escurece em canvases escuros",

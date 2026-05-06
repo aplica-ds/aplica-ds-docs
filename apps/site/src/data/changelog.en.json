@@ -1,8 +1,17 @@
 [
   {
-    "version": "v3.13.0–3.13.4",
+    "version": "v3.13.5–3.13.8",
     "date": "May 2026",
     "status": "latest",
+    "changes": [
+      "Mode-aware feedback decomposition (3.13.6): options.interaction.decomposition.modeResolution accepts 'quadrant' (default, existing behavior) or 'mode' — when set to 'mode', feedback tokens follow light/dark semantics without quadrant polarity inversion, producing the same surface, text, and border colors on positive and negative surfaces within the same mode",
+      "Bug fixes (3.13.5, 3.13.7, 3.13.8): dilution-derived colors now correctly mirror across quadrants (light-positive == dark-negative); mode-aware feedback text and borders align with surface semantics; quadrant mirroring for default feedback (modeResolution: 'quadrant') restored after a regression introduced in 3.13.6"
+    ]
+  },
+  {
+    "version": "v3.13.0–3.13.4",
+    "date": "May 2026",
+    "status": "stable",
     "changes": [
       "Preview Summary view (3.13.0): theme-engine preview now includes a View dropdown to switch between Detailed (existing explorer) and Summary modes — Summary renders a compact table showing background, txtOn, border, txt, and contrast ratios for every semantic family and state, optimized for fast QA across theme combinations",
       "Anchor-aware dilution (3.13.1–3.13.3): dilution method gains target: 'anchor' — moves interaction states toward a configurable chromatic anchor instead of always targeting white/black or the canvas; anchor.source accepts 'palette' (current brand palette family), 'hex' (fixed color), or 'token' (another generated scale); anchor.canvasAware and anchor.canvasMix let the anchor remain hue-stable while still lightening on light canvases and darkening on dark canvases",

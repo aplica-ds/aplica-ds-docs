@@ -263,6 +263,7 @@ Before publishing or deploying multiple themes, verify that all workspace-wide s
 | `options.interaction.legacyStructure` | **Workspace-wide** | Must be identical across all themes. Controls whether shared layers emit `solid`/`ghost` groups. |
 | `options.interaction.decomposition.method` | **Workspace-wide** | Must be identical. Mixing `system-scale` and `dilution` across themes breaks the semantic layer. |
 | `generation.colorText.*` | **Workspace-wide** | Configured once in `aplica-theme-engine.config.mjs`, not per theme. |
+| `options.interaction.decomposition.modeResolution` | **Per-theme** | Can differ between themes. Affects only that theme's feedback surface polarity behavior. |
 | `options.baseAdaptation` | **Per-theme** | Can differ between themes. Affects only that theme's `normal`/`default` surfaces. |
 | `options.txtOnStrategy` | **Per-theme** | Can differ between themes. |
 | `options.darkModeChroma` | **Per-theme** | Can differ between themes. |
@@ -433,6 +434,38 @@ options: {
 Resolution order: theme default → surface-level → group-level → group-surface-level (each layer overrides the previous).
 
 > **`groups.{function|feedback}.levels` is not supported.** Declare state values in `groups.{function|feedback}.surfaces.solid.levels` or `.ghost.levels` instead.
+
+### Mode resolution for feedback (since 3.13.6)
+
+By default, feedback tokens mirror across quadrant polarity: the `dark-positive` surface is the inverse of `light-positive`, and `dark-negative` mirrors `light-negative`. This is `modeResolution: 'quadrant'`.
+
+Some products want feedback to follow light/dark semantics only — the same surface color on positive and negative surfaces within the same mode. Set `modeResolution: 'mode'` to opt in:
+
+```javascript
+options: {
+  interaction: {
+    decomposition: {
+      method: 'dilution',          // modeResolution applies to both methods
+      modeResolution: 'mode',      // 'quadrant' (default) | 'mode'
+    }
+  }
+}
+```
+
+| Value | Surface behavior | Text & border |
+|-------|-----------------|---------------|
+| `'quadrant'` (default) | Positive and negative surfaces are quadrant-mirrored — a dark-positive surface is the inverse of light-positive | Text and borders follow the same quadrant inversion |
+| `'mode'` | Positive and negative surfaces are identical within the same mode — no polarity inversion | Text and borders align with the surface (no inversion) |
+
+**When to use `'mode'`:**
+- Feedback (error, warning, success) should look identical in both positive and negative surface contexts
+- The product's error state is purely informational and must not shift hue or lightness based on surface polarity
+
+**When to keep `'quadrant'` (default):**
+- Feedback colors must adapt to background context — a dark-canvas negative surface needs a clearly distinct treatment
+- Anchor-aware dilution is configured and the anchor is quadrant-specific
+
+> `modeResolution` can also be set per group: `options.interaction.groups.feedback.decomposition.modeResolution: 'mode'` — this applies only to feedback while function keeps its own resolution strategy.
 
 ### Workspace consistency rule
 

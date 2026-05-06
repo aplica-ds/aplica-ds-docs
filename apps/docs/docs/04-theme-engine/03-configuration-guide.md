@@ -263,6 +263,7 @@ Antes de publicar ou fazer deploy de múltiplos temas, verifique que todas as co
 | `options.interaction.legacyStructure` | **Workspace** | Deve ser idêntico em todos os temas. Controla se as camadas compartilhadas emitem grupos `solid`/`ghost`. |
 | `options.interaction.decomposition.method` | **Workspace** | Deve ser idêntico. Misturar `system-scale` e `dilution` entre temas quebra a camada semântica. |
 | `generation.colorText.*` | **Workspace** | Configurado uma vez em `aplica-theme-engine.config.mjs`, não por tema. |
+| `options.interaction.decomposition.modeResolution` | **Por tema** | Pode diferir entre temas. Afeta apenas o comportamento de polaridade de superfície do feedback daquele tema. |
 | `options.baseAdaptation` | **Por tema** | Pode diferir entre temas. Afeta apenas as superfícies `normal`/`default` daquele tema. |
 | `options.txtOnStrategy` | **Por tema** | Pode diferir entre temas. |
 | `options.darkModeChroma` | **Por tema** | Pode diferir entre temas. |
@@ -433,6 +434,38 @@ options: {
 Ordem de resolução: padrão do tema → nível de surface → nível de grupo → nível grupo-surface (cada camada sobrescreve a anterior).
 
 > **`groups.{function|feedback}.levels` não é suportado.** Declare valores de estado em `groups.{function|feedback}.surfaces.solid.levels` ou `.ghost.levels`.
+
+### Resolução de modo para feedback (desde 3.13.6)
+
+Por padrão, os tokens de feedback espelham a polaridade de quadrante: a superfície `dark-positive` é o inverso de `light-positive`, e `dark-negative` espelha `light-negative`. Esse é o `modeResolution: 'quadrant'`.
+
+Alguns produtos querem que o feedback siga apenas a semântica light/dark — mesma cor de superfície em positive e negative dentro do mesmo modo. Use `modeResolution: 'mode'` para isso:
+
+```javascript
+options: {
+  interaction: {
+    decomposition: {
+      method: 'dilution',          // modeResolution funciona com ambos os métodos
+      modeResolution: 'mode',      // 'quadrant' (padrão) | 'mode'
+    }
+  }
+}
+```
+
+| Valor | Comportamento de superfície | Texto e borda |
+|-------|----------------------------|---------------|
+| `'quadrant'` (padrão) | Superfícies positive e negative são espelhadas por quadrante — dark-positive é o inverso de light-positive | Texto e bordas seguem a mesma inversão de quadrante |
+| `'mode'` | Superfícies positive e negative são idênticas dentro do mesmo modo — sem inversão de polaridade | Texto e bordas alinham com a superfície (sem inversão) |
+
+**Quando usar `'mode'`:**
+- O feedback (erro, aviso, sucesso) deve parecer idêntico em contextos de superfície positive e negative
+- O estado de erro do produto é puramente informacional e não deve variar por polaridade de superfície
+
+**Quando manter `'quadrant'` (padrão):**
+- As cores de feedback precisam se adaptar ao contexto de fundo — uma superfície negative de canvas escuro precisa de tratamento distinto
+- Dilution com âncora está configurado e a âncora é específica por quadrante
+
+> `modeResolution` também pode ser definido por grupo: `options.interaction.groups.feedback.decomposition.modeResolution: 'mode'` — aplica-se apenas ao feedback enquanto function mantém sua própria estratégia.
 
 ### Regra de consistência do workspace
 
