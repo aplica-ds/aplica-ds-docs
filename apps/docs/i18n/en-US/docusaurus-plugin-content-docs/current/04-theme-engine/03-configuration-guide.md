@@ -553,6 +553,60 @@ overrides: {
 
 > **Rule:** Overrides are the last resort after exhausting the default semantic options. Validate with `theme-engine sync:architecture:test` after applying overrides to catch reference mismatches before a full build.
 
+### Dynamic interaction state overrides (since 3.14.5)
+
+`overrides.interaction` replaces the legacy `overrides.interface.function.*` flat form. Override colors pass through the full decomposition pipeline — dilution, base adaptation, quadrant mirroring, and accessibility text — instead of being applied as raw patches.
+
+```javascript
+overrides: {
+  interaction: {
+    // Group-level: applies to ALL items in the group
+    function: {
+      states: {
+        active: { color: '#0067FF' }   // all function items, active state
+      }
+    },
+
+    // Item-level: applies to one specific item across its states
+    feedback: {
+      items: {
+        warning_default: {
+          states: {
+            normal: { color: '#FF9900' }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+**Targeting hierarchy — most specific wins:**
+
+| Target | Key path | Example |
+|--------|----------|---------|
+| All items, all presets, one state | `interaction.{group}.states.{state}` | `function.states.active` |
+| All items, one preset, one state | `interaction.{group}.states.{state}.{preset}` | `function.states.active.solid` |
+| One item, all presets, one state | `interaction.{group}.items.{item}.states.{state}` | `feedback.items.warning_default.states.normal` |
+| One item, one preset, one state | `interaction.{group}.items.{item}.states.{state}.{preset}` | `feedback.items.warning_default.states.normal.ghost` |
+
+**Accepted values per state node:**
+
+```javascript
+{ color: '#hex' }                                     // background color only
+{ color: '#hex', txtOn: '#hex', border: '#hex', txt: '#hex' }  // full override
+```
+
+When only `color` is provided, the engine derives `txtOn`, `border`, and `txt` using the configured `txtOnStrategy` and `accessibilityLevel`. Explicit `txtOn`/`border`/`txt` values bypass derivation — use with care.
+
+**Accepted state names:** `normal`, `action`, `active`, `focus`, `disabled`
+
+**Function item keys:** `primary`, `secondary`, `link`
+
+**Feedback item keys:** `info_default`, `info_secondary`, `success_default`, `success_secondary`, `warning_default`, `warning_secondary`, `danger_default`, `danger_secondary`
+
+> **Migration:** The legacy `overrides.interface.function.*` form is still accepted as a compatibility alias for `overrides.interaction.function.states.*`. New configs should use the `overrides.interaction` path.
+
 ---
 
 ## Gradients
@@ -635,6 +689,27 @@ Runs automatically in the correct order:
 | `npm run tokens:foundations` | After changing a foundation config |
 | `npm run tokens:build:all` | Only the Style Dictionary build (when `data/` is already up to date) |
 | `theme-engine validate:data` | Verify data/ integrity before building |
+
+### Brand bundle splitting for Figma (since 3.14.0)
+
+When `figma:generate` is run, the engine evaluates the token count in each brand bundle. If the bundle would exceed Figma's per-collection token limit (default 5,000), it automatically splits `_brand.json` into semantic chunks:
+
+| Chunk file | Contents |
+|------------|----------|
+| `_brand_product.json` | Product/career semantic tokens |
+| `_brand_text.json` | Text tokens |
+| `_brand_interface.json` | Interface function and feedback tokens |
+| `_brand_core.json` | Core brand tokens (when further split needed) |
+
+This is fully automatic — no config change is required. The logical token contract and `dist/` output are unchanged; splitting only affects the intermediate `data/brand/` files that Tokens Studio reads.
+
+To override the token limit (e.g., if your Figma plan has a different collection budget):
+
+```bash
+APLICA_THEME_ENGINE_BRAND_TOKEN_LIMIT=3000 npm run tokens:figma
+```
+
+Workspaces with large product schemas (many career types, many product colors) are most likely to trigger splitting.
 
 ### When to run `sync:architecture`
 

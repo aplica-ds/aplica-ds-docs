@@ -1,8 +1,18 @@
 [
   {
-    "version": "v3.13.5–3.13.8",
+    "version": "v3.14.0–3.14.6",
     "date": "May 2026",
     "status": "latest",
+    "changes": [
+      "Dynamic interaction state overrides (3.14.5): overrides.interaction replaces and extends the legacy overrides.interface.function.* form — overrides can now target function or feedback groups, specific items (e.g. primary, warning_default), solid or ghost presets, and individual states (normal, action, active, focus, disabled); override colors pass through the full decomposition pipeline (dilution, base adaptation, quadrant mirroring, accessibility text) instead of being applied as raw patches",
+      "Figma brand bundle splitting (3.14.0): figma:generate now automatically splits oversized brand token bundles into semantic chunks (_brand_product.json, _brand_text.json, _brand_interface.json) when the token count exceeds the Figma per-collection limit (default 5,000 tokens); the logical token contract and dist/ output are unchanged — splitting only affects the intermediate data/brand/ files consumed by Tokens Studio; override the limit via the APLICA_THEME_ENGINE_BRAND_TOKEN_LIMIT environment variable",
+      "Bug fixes (3.14.1–3.14.4): brand shard groups preserved in figma themes; underscore filename convention adopted for Tokens Studio compatibility; legacy dotted shard names excluded from figma output"
+    ]
+  },
+  {
+    "version": "v3.13.5–3.13.8",
+    "date": "May 2026",
+    "status": "stable",
     "changes": [
       "Mode-aware feedback decomposition (3.13.6): options.interaction.decomposition.modeResolution accepts 'quadrant' (default, existing behavior) or 'mode' — when set to 'mode', feedback tokens follow light/dark semantics without quadrant polarity inversion, producing the same surface, text, and border colors on positive and negative surfaces within the same mode",
       "Bug fixes (3.13.5, 3.13.7, 3.13.8): dilution-derived colors now correctly mirror across quadrants (light-positive == dark-negative); mode-aware feedback text and borders align with surface semantics; quadrant mirroring for default feedback (modeResolution: 'quadrant') restored after a regression introduced in 3.13.6"

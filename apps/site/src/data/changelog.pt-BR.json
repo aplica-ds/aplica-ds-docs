@@ -1,8 +1,18 @@
 [
   {
-    "version": "v3.13.5–3.13.8",
+    "version": "v3.14.0–3.14.6",
     "date": "Maio 2026",
     "status": "latest",
+    "changes": [
+      "Overrides dinâmicos de estado de interação (3.14.5): overrides.interaction substitui e estende o formato legado overrides.interface.function.* — overrides agora podem ter como alvo grupos function ou feedback, itens específicos (ex.: primary, warning_default), presets solid ou ghost, e estados individuais (normal, action, active, focus, disabled); as cores de override passam pelo pipeline de decomposição completo (dilution, base adaptation, espelhamento de quadrante, texto de acessibilidade) em vez de serem aplicadas como patches brutos",
+      "Splitting de bundles de marca para Figma (3.14.0): figma:generate agora divide automaticamente bundles de tokens de marca oversized em chunks semânticos (_brand_product.json, _brand_text.json, _brand_interface.json) quando a contagem de tokens excede o limite por coleção do Figma (padrão 5.000 tokens); o contrato lógico de tokens e o output em dist/ não mudam — a divisão afeta apenas os arquivos intermediários em data/brand/ consumidos pelo Tokens Studio; sobrescreva o limite via a variável de ambiente APLICA_THEME_ENGINE_BRAND_TOKEN_LIMIT",
+      "Correções de bugs (3.14.1–3.14.4): grupos de shards de marca preservados nos temas Figma; convenção de nomes com underscore adotada para compatibilidade com Tokens Studio; nomes de shards com ponto excluídos do output Figma"
+    ]
+  },
+  {
+    "version": "v3.13.5–3.13.8",
+    "date": "Maio 2026",
+    "status": "stable",
     "changes": [
       "Decomposição de feedback por modo (3.13.6): options.interaction.decomposition.modeResolution aceita 'quadrant' (padrão, comportamento existente) ou 'mode' — quando 'mode', os tokens de feedback seguem semântica light/dark sem inversão de polaridade de quadrante, produzindo as mesmas cores de superfície, texto e borda em superfícies positive e negative dentro do mesmo modo",
       "Correções de bugs (3.13.5, 3.13.7, 3.13.8): cores derivadas em dilution agora espelham corretamente entre quadrantes (light-positive == dark-negative); texto e bordas de feedback mode-aware alinham com as superfícies; espelhamento por quadrante do feedback padrão (modeResolution: 'quadrant') restaurado após regressão introduzida no 3.13.6"

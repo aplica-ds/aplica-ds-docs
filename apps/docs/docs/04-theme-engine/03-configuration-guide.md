@@ -553,6 +553,60 @@ overrides: {
 
 > **Regra:** Overrides são a última alternativa após esgotar as opções semânticas padrão. Valide com `theme-engine sync:architecture:test` após aplicar overrides para detectar incompatibilidades de referência antes de um build completo.
 
+### Overrides dinâmicos de estado de interação (desde 3.14.5)
+
+`overrides.interaction` substitui o formato legado `overrides.interface.function.*`. As cores de override passam pelo pipeline de decomposição completo — dilution, base adaptation, espelhamento de quadrante e texto de acessibilidade — em vez de serem aplicadas como patches brutos.
+
+```javascript
+overrides: {
+  interaction: {
+    // Nível de grupo: aplica-se a TODOS os itens do grupo
+    function: {
+      states: {
+        active: { color: '#0067FF' }   // todos os itens de function, estado active
+      }
+    },
+
+    // Nível de item: aplica-se a um item específico em seus estados
+    feedback: {
+      items: {
+        warning_default: {
+          states: {
+            normal: { color: '#FF9900' }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+**Hierarquia de targeting — o mais específico vence:**
+
+| Target | Caminho | Exemplo |
+|--------|---------|---------|
+| Todos os itens, todos os presets, um estado | `interaction.{group}.states.{state}` | `function.states.active` |
+| Todos os itens, um preset, um estado | `interaction.{group}.states.{state}.{preset}` | `function.states.active.solid` |
+| Um item, todos os presets, um estado | `interaction.{group}.items.{item}.states.{state}` | `feedback.items.warning_default.states.normal` |
+| Um item, um preset, um estado | `interaction.{group}.items.{item}.states.{state}.{preset}` | `feedback.items.warning_default.states.normal.ghost` |
+
+**Valores aceitos por nó de estado:**
+
+```javascript
+{ color: '#hex' }                                     // apenas cor de background
+{ color: '#hex', txtOn: '#hex', border: '#hex', txt: '#hex' }  // override completo
+```
+
+Quando apenas `color` é fornecido, o engine deriva `txtOn`, `border` e `txt` usando `txtOnStrategy` e `accessibilityLevel` configurados. Valores explícitos de `txtOn`/`border`/`txt` ignoram a derivação — use com cautela.
+
+**Nomes de estado aceitos:** `normal`, `action`, `active`, `focus`, `disabled`
+
+**Chaves de itens de function:** `primary`, `secondary`, `link`
+
+**Chaves de itens de feedback:** `info_default`, `info_secondary`, `success_default`, `success_secondary`, `warning_default`, `warning_secondary`, `danger_default`, `danger_secondary`
+
+> **Migração:** O formato legado `overrides.interface.function.*` ainda é aceito como alias de compatibilidade para `overrides.interaction.function.states.*`. Novos configs devem usar o caminho `overrides.interaction`.
+
 ---
 
 ## Gradientes
@@ -635,6 +689,27 @@ Executa automaticamente na ordem correta:
 | `npm run tokens:foundations` | Após alterar um config de foundation |
 | `npm run tokens:build:all` | Apenas o build Style Dictionary (quando `data/` já está atualizado) |
 | `theme-engine validate:data` | Verificar integridade de `data/` antes de buildar |
+
+### Splitting de bundles de marca para Figma (desde 3.14.0)
+
+Quando `figma:generate` é executado, o engine avalia a contagem de tokens em cada bundle de marca. Se o bundle exceder o limite de tokens por coleção do Figma (padrão 5.000), ele divide automaticamente `_brand.json` em chunks semânticos:
+
+| Arquivo de chunk | Conteúdo |
+|-----------------|----------|
+| `_brand_product.json` | Tokens semânticos de produto/carreira |
+| `_brand_text.json` | Tokens de texto |
+| `_brand_interface.json` | Tokens de function e feedback de interface |
+| `_brand_core.json` | Tokens de marca central (quando necessária divisão adicional) |
+
+Isso é completamente automático — nenhuma mudança de config é necessária. O contrato lógico de tokens e o output em `dist/` não mudam; a divisão afeta apenas os arquivos intermediários em `data/brand/` que o Tokens Studio lê.
+
+Para sobrescrever o limite de tokens (ex.: se seu plano do Figma tem um orçamento de coleção diferente):
+
+```bash
+APLICA_THEME_ENGINE_BRAND_TOKEN_LIMIT=3000 npm run tokens:figma
+```
+
+Workspaces com esquemas de produto grandes (muitos tipos de carreira, muitas cores de produto) têm maior probabilidade de acionar a divisão.
 
 ### Quando rodar `sync:architecture`
 
