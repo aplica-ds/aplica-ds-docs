@@ -711,6 +711,11 @@ APLICA_THEME_ENGINE_BRAND_TOKEN_LIMIT=3000 npm run tokens:figma
 
 Workspaces with large product schemas (many career types, many product colors) are most likely to trigger splitting.
 
+> **Golden tip — brand token performance.** If your brand bundle exceeds approximately 3,000 tokens, Figma collection performance will start to degrade (sluggish variable picker, slow sync). Automatic splitting (above) is the first line of defense. If performance is still a problem after splitting, consider:
+>
+> 1. **Break large schemas into separate workspaces** — e.g., split a multi-brand workspace into per-brand repos.
+> 2. **Disable the `negative` surface** (extreme measure) — outputting only `positive` quadrants halves the brand file size. Set `options.surfaces: ['positive']` in the workspace config. Only recommended when the product does not use negative-surface UI contexts at all.
+
 ### When to run `sync:architecture`
 
 The sync propagates references between layers. Run when:

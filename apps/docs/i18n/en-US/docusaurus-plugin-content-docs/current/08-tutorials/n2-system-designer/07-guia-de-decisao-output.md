@@ -326,6 +326,8 @@ Do not configure these without an engineer on the decision. They affect file out
 | `options.uiTokens` | Generates component-scoped UI token output | Engineer — integration format |
 | `generation.colorText.txtBaseColorLevel` | Starting palette level for readable text lookup | Engineer — affects algorithm, not visual outcome directly |
 
+> **Golden tip — brand token performance.** If the brand bundle in Figma exceeds approximately 3,000 tokens, the variable picker becomes sluggish and sync slows down. The engine auto-splits `_brand.json` since 3.14.0, which is usually enough. If performance still degrades after splitting, consider: (1) breaking the workspace into per-brand repos; or (2) disabling the `negative` surface (`options.surfaces: ['positive']`) — this halves brand file size and is appropriate only when the product never renders on negative-surface backgrounds.
+
 ---
 
 ## Quick reference

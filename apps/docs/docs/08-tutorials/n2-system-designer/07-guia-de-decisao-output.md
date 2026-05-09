@@ -326,6 +326,8 @@ Não configure essas opções sem um engineer na decisão. Elas afetam o formato
 | `options.uiTokens` | Gera output de token de UI com escopo de componente | Engineer — formato de integração |
 | `generation.colorText.txtBaseColorLevel` | Nível de paleta inicial para lookup de texto legível | Engineer — afeta o algoritmo, não o resultado visual diretamente |
 
+> **Dica de ouro — performance de tokens de marca.** Se o bundle de marca no Figma ultrapassar aproximadamente 3.000 tokens, o seletor de variáveis fica lento e a sincronização trava. O engine divide automaticamente o `_brand.json` desde a 3.14.0, o que normalmente resolve. Se a performance ainda degradar após a divisão, considere: (1) quebrar o workspace em repositórios por marca; ou (2) desabilitar a superfície `negative` (`options.surfaces: ['positive']`) — isso reduz o tamanho do arquivo de marca em 50%, e é adequado apenas quando o produto nunca renderiza em fundos com superfície negativa.
+
 ---
 
 ## Referência rápida

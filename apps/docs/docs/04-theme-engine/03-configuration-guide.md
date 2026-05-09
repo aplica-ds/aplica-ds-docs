@@ -711,6 +711,8 @@ APLICA_THEME_ENGINE_BRAND_TOKEN_LIMIT=3000 npm run tokens:figma
 
 Workspaces com esquemas de produto grandes (muitos tipos de carreira, muitas cores de produto) têm maior probabilidade de acionar a divisão.
 
+> **Dica de ouro — performance de tokens de marca.** Se o bundle de marca no Figma ultrapassar aproximadamente 3.000 tokens, o seletor de variáveis fica lento e a sincronização trava. O engine divide automaticamente o `_brand.json` desde a 3.14.0, o que normalmente resolve. Se a performance ainda degradar após a divisão, considere: (1) quebrar o workspace em repositórios por marca; ou (2) desabilitar a superfície `negative` (`options.surfaces: ['positive']`) — isso reduz o tamanho do arquivo de marca em 50%, e é adequado apenas quando o produto nunca renderiza em fundos com superfície negativa.
+
 ### Quando rodar `sync:architecture`
 
 O sync propaga referências entre camadas. Rode quando:
