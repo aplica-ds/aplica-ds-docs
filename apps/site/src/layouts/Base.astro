@@ -131,7 +131,7 @@ const allJsonLd = [organizationLd, ...jsonLd];
     <!-- Aplica DS — all theme token CSS loaded statically so var() chains resolve before any JS island -->
     <link rel="stylesheet" href="/aplica-package/dist/css/foundation/engine/foundation.css" />
     <link rel="stylesheet" href="/aplica-package/dist/css/foundation/engine/typography.css" />
-    <!-- 16 theme files (4 brands × 2 modes × 2 surfaces) -->
+    <!-- 60 theme files (15 brands × 2 modes × 2 surfaces) -->
     <link rel="stylesheet" href="/aplica-package/dist/css/aplica_tangerine-light-positive.css" />
     <link rel="stylesheet" href="/aplica-package/dist/css/aplica_tangerine-light-negative.css" />
     <link rel="stylesheet" href="/aplica-package/dist/css/aplica_tangerine-dark-positive.css" />
@@ -148,6 +148,51 @@ const allJsonLd = [organizationLd, ...jsonLd];
     <link rel="stylesheet" href="/aplica-package/dist/css/aplica_blue_sky-light-negative.css" />
     <link rel="stylesheet" href="/aplica-package/dist/css/aplica_blue_sky-dark-positive.css" />
     <link rel="stylesheet" href="/aplica-package/dist/css/aplica_blue_sky-dark-negative.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_sky-light-positive.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_sky-light-negative.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_sky-dark-positive.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_sky-dark-negative.css" />
+    <!-- Playground themes -->
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_slate-light-positive.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_slate-light-negative.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_slate-dark-positive.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_slate-dark-negative.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_obsidian-light-positive.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_obsidian-light-negative.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_obsidian-dark-positive.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_obsidian-dark-negative.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_electric-light-positive.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_electric-light-negative.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_electric-dark-positive.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_electric-dark-negative.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_forest-light-positive.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_forest-light-negative.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_forest-dark-positive.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_forest-dark-negative.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_coral-light-positive.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_coral-light-negative.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_coral-dark-positive.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_coral-dark-negative.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_midnight-light-positive.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_midnight-light-negative.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_midnight-dark-positive.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_midnight-dark-negative.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_rose-light-positive.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_rose-light-negative.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_rose-dark-positive.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_rose-dark-negative.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_mono-light-positive.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_mono-light-negative.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_mono-dark-positive.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_mono-dark-negative.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_aurora-light-positive.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_aurora-light-negative.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_aurora-dark-positive.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_aurora-dark-negative.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_ember-light-positive.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_ember-light-negative.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_ember-dark-positive.css" />
+    <link rel="stylesheet" href="/aplica-package/dist/css/aplica_ember-dark-negative.css" />
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-VVFNS1CWQK" is:inline></script>
     <script is:inline>
@@ -158,8 +203,14 @@ const allJsonLd = [organizationLd, ...jsonLd];
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Site UI fonts -->
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Playground theme fonts (loaded on-demand via Google Fonts CDN) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Lato:wght@300;400;700;900&family=Cormorant+Garamond:wght@400;600;700&family=Source+Code+Pro:wght@300;400;600;700&family=Barlow:wght@300;400;600;700&family=Rajdhani:wght@400;600;700&family=Nunito+Sans:wght@300;400;600;700;900&family=DM+Serif+Display&family=Nunito:wght@300;400;600;700;900&family=Quicksand:wght@300;400;600;700&family=Space+Mono:wght@400;700&family=Montserrat:wght@300;400;600;700;900&family=Libre+Baskerville:wght@400;700&family=Bebas+Neue&family=Fira+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=Playfair+Display:wght@400;600;700;900&family=Fira+Code:wght@300;400;500;600;700&family=Lora:wght@400;600;700&family=Abril+Fatface&family=Courier+Prime:wght@400;700&display=swap"
       rel="stylesheet"
     />
     <style is:global>

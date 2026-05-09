@@ -3,20 +3,45 @@ import { Play, RotateCcw } from "lucide-react";
 
 type Lang = "pt-br" | "en";
 
-export type TokenResolutionBrand = "joy" | "tangerine" | "grinch" | "blue_sky";
+export type TokenResolutionBrand =
+  | "joy" | "tangerine" | "grinch" | "blue_sky" | "sky"
+  | "slate" | "obsidian" | "electric" | "forest" | "coral"
+  | "midnight" | "rose" | "mono" | "aurora" | "ember";
 
 const BRAND_COLORS: Record<TokenResolutionBrand, string> = {
-  joy: "#e7398a",
+  joy:       "#e7398a",
   tangerine: "#FFAE03",
-  grinch: "#58bd59",
-  blue_sky: "#265ed9",
+  grinch:    "#58bd59",
+  blue_sky:  "#265ed9",
+  sky:       "#265ed9",
+  slate:     "#2b4c7e",
+  obsidian:  "#1a1a2e",
+  electric:  "#1d4ed8",
+  forest:    "#1b5e20",
+  coral:     "#f4845f",
+  midnight:  "#3730a3",
+  rose:      "#e11d48",
+  mono:      "#374151",
+  aurora:    "#7c3aed",
+  ember:     "#c2410c",
 };
 
 const BRAND_LABELS: Record<TokenResolutionBrand, string> = {
-  joy: "Joy",
+  joy:       "Joy",
   tangerine: "Tangerine",
-  grinch: "Grinch",
-  blue_sky: "Blue Sky",
+  grinch:    "Grinch",
+  blue_sky:  "Blue Sky",
+  sky:       "Sky",
+  slate:     "Slate",
+  obsidian:  "Obsidian",
+  electric:  "Electric",
+  forest:    "Forest",
+  coral:     "Coral",
+  midnight:  "Midnight",
+  rose:      "Rose",
+  mono:      "Mono",
+  aurora:    "Aurora",
+  ember:     "Ember",
 };
 
 const LAYER_COLORS: Record<string, string> = {

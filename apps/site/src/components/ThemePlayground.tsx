@@ -2,7 +2,9 @@ import { useState, useEffect } from "react";
 import { TokenResolutionWidget } from "./TokenResolution";
 
 type Lang     = "pt-br" | "en";
-type Brand    = "tangerine" | "joy" | "grinch" | "blue_sky";
+type Brand    = "tangerine" | "joy" | "grinch" | "blue_sky" | "sky"
+              | "slate" | "obsidian" | "electric" | "forest" | "coral"
+              | "midnight" | "rose" | "mono" | "aurora" | "ember";
 type Mode     = "light" | "dark";
 type Surface  = "positive" | "negative";
 
@@ -11,6 +13,17 @@ const BRANDS: { id: Brand; label: string; hex: string }[] = [
   { id: "tangerine", label: "Tangerine", hex: "#ffae03" },
   { id: "grinch",    label: "Grinch",    hex: "#58bd59" },
   { id: "blue_sky",  label: "Blue Sky",  hex: "#265ed9" },
+  { id: "sky",       label: "Sky",       hex: "#265ed9" },
+  { id: "slate",     label: "Slate",     hex: "#2b4c7e" },
+  { id: "obsidian",  label: "Obsidian",  hex: "#1a1a2e" },
+  { id: "electric",  label: "Electric",  hex: "#1d4ed8" },
+  { id: "forest",    label: "Forest",    hex: "#1b5e20" },
+  { id: "coral",     label: "Coral",     hex: "#f4845f" },
+  { id: "midnight",  label: "Midnight",  hex: "#3730a3" },
+  { id: "rose",      label: "Rose",      hex: "#e11d48" },
+  { id: "mono",      label: "Mono",      hex: "#374151" },
+  { id: "aurora",    label: "Aurora",    hex: "#7c3aed" },
+  { id: "ember",     label: "Ember",     hex: "#c2410c" },
 ];
 
 // bg utility class → txtOn utility class → label + token name shown inside swatch
@@ -71,23 +84,89 @@ const UI = {
 
 // ── CSS helpers ───────────────────────────────────────────────────────────
 
+const F = '/aplica-package/dist/assets/fonts';
+const FONT_FACES = `
+  /* ── Original themes ── */
+  @font-face{font-family:'Roboto';font-weight:100 900;font-style:normal;src:url('${F}/Roboto/Roboto-VariableFont_wdth,wght.ttf')format('truetype')}
+  @font-face{font-family:'Roboto';font-weight:100 900;font-style:italic;src:url('${F}/Roboto/Roboto-Italic-VariableFont_wdth,wght.ttf')format('truetype')}
+  @font-face{font-family:'Sansita';font-weight:400;src:url('${F}/Sansita/Sansita-Regular.ttf')format('truetype')}
+  @font-face{font-family:'Sansita';font-weight:700;src:url('${F}/Sansita/Sansita-Bold.ttf')format('truetype')}
+  @font-face{font-family:'Sansita';font-weight:800;src:url('${F}/Sansita/Sansita-ExtraBold.ttf')format('truetype')}
+  @font-face{font-family:'Poppins';font-weight:300;src:url('${F}/Poppins/Poppins-Light.ttf')format('truetype')}
+  @font-face{font-family:'Poppins';font-weight:400;src:url('${F}/Poppins/Poppins-Regular.ttf')format('truetype')}
+  @font-face{font-family:'Poppins';font-weight:600;src:url('${F}/Poppins/Poppins-SemiBold.ttf')format('truetype')}
+  @font-face{font-family:'Poppins';font-weight:700;src:url('${F}/Poppins/Poppins-Bold.ttf')format('truetype')}
+  @font-face{font-family:'Poppins';font-weight:800;src:url('${F}/Poppins/Poppins-ExtraBold.ttf')format('truetype')}
+  @font-face{font-family:'Noto Sans';font-weight:100 900;font-style:normal;src:url('${F}/Noto_Sans/NotoSans-VariableFont_wdth,wght.ttf')format('truetype')}
+  @font-face{font-family:'Noto Sans';font-weight:100 900;font-style:italic;src:url('${F}/Noto_Sans/NotoSans-Italic-VariableFont_wdth,wght.ttf')format('truetype')}
+  @font-face{font-family:'IBM Plex Mono';font-weight:300;src:url('${F}/IBM_Plex_Mono/IBMPlexMono-Light.ttf')format('truetype')}
+  @font-face{font-family:'IBM Plex Mono';font-weight:400;src:url('${F}/IBM_Plex_Mono/IBMPlexMono-Regular.ttf')format('truetype')}
+  @font-face{font-family:'IBM Plex Mono';font-weight:600;src:url('${F}/IBM_Plex_Mono/IBMPlexMono-SemiBold.ttf')format('truetype')}
+  @font-face{font-family:'IBM Plex Mono';font-weight:700;src:url('${F}/IBM_Plex_Mono/IBMPlexMono-Bold.ttf')format('truetype')}
+  @font-face{font-family:'Fira Code';font-weight:300 700;src:url('${F}/Fira_Code/FiraCode-VariableFont_wght.ttf')format('truetype')}
+  @font-face{font-family:'Montserrat';font-weight:100 900;font-style:normal;src:url('${F}/Montserrat/Montserrat-VariableFont_wght.ttf')format('truetype')}
+  @font-face{font-family:'Montserrat';font-weight:100 900;font-style:italic;src:url('${F}/Montserrat/Montserrat-Italic-VariableFont_wght.ttf')format('truetype')}
+
+  /* ── Playground themes ── */
+  @font-face{font-family:'Inter';font-weight:100 900;font-style:normal;src:url('${F}/Inter/Inter[opsz,wght].ttf')format('truetype')}
+  @font-face{font-family:'Inter';font-weight:100 900;font-style:italic;src:url('${F}/Inter/Inter-Italic[opsz,wght].ttf')format('truetype')}
+  @font-face{font-family:'Space Grotesk';font-weight:300 700;src:url('${F}/Space_Grotesk/SpaceGrotesk[wght].ttf')format('truetype')}
+  @font-face{font-family:'JetBrains Mono';font-weight:100 800;font-style:normal;src:url('${F}/JetBrains_Mono/JetBrainsMono[wght].ttf')format('truetype')}
+  @font-face{font-family:'JetBrains Mono';font-weight:100 800;font-style:italic;src:url('${F}/JetBrains_Mono/JetBrainsMono-Italic[wght].ttf')format('truetype')}
+  @font-face{font-family:'Lato';font-weight:300;src:url('${F}/Lato/Lato-Light.ttf')format('truetype')}
+  @font-face{font-family:'Lato';font-weight:400;src:url('${F}/Lato/Lato-Regular.ttf')format('truetype')}
+  @font-face{font-family:'Lato';font-weight:700;src:url('${F}/Lato/Lato-Bold.ttf')format('truetype')}
+  @font-face{font-family:'Lato';font-weight:900;src:url('${F}/Lato/Lato-Black.ttf')format('truetype')}
+  @font-face{font-family:'Cormorant Garamond';font-weight:300 700;font-style:normal;src:url('${F}/Cormorant_Garamond/CormorantGaramond[wght].ttf')format('truetype')}
+  @font-face{font-family:'Cormorant Garamond';font-weight:300 700;font-style:italic;src:url('${F}/Cormorant_Garamond/CormorantGaramond-Italic[wght].ttf')format('truetype')}
+  @font-face{font-family:'Source Code Pro';font-weight:200 900;font-style:normal;src:url('${F}/Source_Code_Pro/SourceCodePro[wght].ttf')format('truetype')}
+  @font-face{font-family:'Source Code Pro';font-weight:200 900;font-style:italic;src:url('${F}/Source_Code_Pro/SourceCodePro-Italic[wght].ttf')format('truetype')}
+  @font-face{font-family:'Barlow';font-weight:300;src:url('${F}/Barlow/Barlow-Light.ttf')format('truetype')}
+  @font-face{font-family:'Barlow';font-weight:400;src:url('${F}/Barlow/Barlow-Regular.ttf')format('truetype')}
+  @font-face{font-family:'Barlow';font-weight:600;src:url('${F}/Barlow/Barlow-SemiBold.ttf')format('truetype')}
+  @font-face{font-family:'Barlow';font-weight:700;src:url('${F}/Barlow/Barlow-Bold.ttf')format('truetype')}
+  @font-face{font-family:'Barlow';font-weight:900;src:url('${F}/Barlow/Barlow-Black.ttf')format('truetype')}
+  @font-face{font-family:'Rajdhani';font-weight:300;src:url('${F}/Rajdhani/Rajdhani-Light.ttf')format('truetype')}
+  @font-face{font-family:'Rajdhani';font-weight:400;src:url('${F}/Rajdhani/Rajdhani-Regular.ttf')format('truetype')}
+  @font-face{font-family:'Rajdhani';font-weight:600;src:url('${F}/Rajdhani/Rajdhani-SemiBold.ttf')format('truetype')}
+  @font-face{font-family:'Rajdhani';font-weight:700;src:url('${F}/Rajdhani/Rajdhani-Bold.ttf')format('truetype')}
+  @font-face{font-family:'Nunito Sans';font-weight:200 900;font-style:normal;src:url('${F}/Nunito_Sans/NunitoSans[YTLC,opsz,wdth,wght].ttf')format('truetype')}
+  @font-face{font-family:'Nunito Sans';font-weight:200 900;font-style:italic;src:url('${F}/Nunito_Sans/NunitoSans-Italic[YTLC,opsz,wdth,wght].ttf')format('truetype')}
+  @font-face{font-family:'DM Serif Display';font-weight:400;font-style:normal;src:url('${F}/DM_Serif_Display/DMSerifDisplay-Regular.ttf')format('truetype')}
+  @font-face{font-family:'DM Serif Display';font-weight:400;font-style:italic;src:url('${F}/DM_Serif_Display/DMSerifDisplay-Italic.ttf')format('truetype')}
+  @font-face{font-family:'Nunito';font-weight:200 900;font-style:normal;src:url('${F}/Nunito/Nunito[wght].ttf')format('truetype')}
+  @font-face{font-family:'Nunito';font-weight:200 900;font-style:italic;src:url('${F}/Nunito/Nunito-Italic[wght].ttf')format('truetype')}
+  @font-face{font-family:'Quicksand';font-weight:300 700;src:url('${F}/Quicksand/Quicksand[wght].ttf')format('truetype')}
+  @font-face{font-family:'DM Sans';font-weight:100 900;font-style:normal;src:url('${F}/DM_Sans/DMSans[opsz,wght].ttf')format('truetype')}
+  @font-face{font-family:'DM Sans';font-weight:100 900;font-style:italic;src:url('${F}/DM_Sans/DMSans-Italic[opsz,wght].ttf')format('truetype')}
+  @font-face{font-family:'Space Mono';font-weight:400;font-style:normal;src:url('${F}/Space_Mono/SpaceMono-Regular.ttf')format('truetype')}
+  @font-face{font-family:'Space Mono';font-weight:400;font-style:italic;src:url('${F}/Space_Mono/SpaceMono-Italic.ttf')format('truetype')}
+  @font-face{font-family:'Space Mono';font-weight:700;font-style:normal;src:url('${F}/Space_Mono/SpaceMono-Bold.ttf')format('truetype')}
+  @font-face{font-family:'Space Mono';font-weight:700;font-style:italic;src:url('${F}/Space_Mono/SpaceMono-BoldItalic.ttf')format('truetype')}
+  @font-face{font-family:'Libre Baskerville';font-weight:400 700;font-style:normal;src:url('${F}/Libre_Baskerville/LibreBaskerville[wght].ttf')format('truetype')}
+  @font-face{font-family:'Libre Baskerville';font-weight:400 700;font-style:italic;src:url('${F}/Libre_Baskerville/LibreBaskerville-Italic[wght].ttf')format('truetype')}
+  @font-face{font-family:'Bebas Neue';font-weight:400;src:url('${F}/Bebas_Neue/BebasNeue-Regular.ttf')format('truetype')}
+  @font-face{font-family:'Fira Mono';font-weight:400;src:url('${F}/Fira_Mono/FiraMono-Regular.ttf')format('truetype')}
+  @font-face{font-family:'Fira Mono';font-weight:500;src:url('${F}/Fira_Mono/FiraMono-Medium.ttf')format('truetype')}
+  @font-face{font-family:'Fira Mono';font-weight:700;src:url('${F}/Fira_Mono/FiraMono-Bold.ttf')format('truetype')}
+  @font-face{font-family:'Plus Jakarta Sans';font-weight:200 800;font-style:normal;src:url('${F}/Plus_Jakarta_Sans/PlusJakartaSans[wght].ttf')format('truetype')}
+  @font-face{font-family:'Plus Jakarta Sans';font-weight:200 800;font-style:italic;src:url('${F}/Plus_Jakarta_Sans/PlusJakartaSans-Italic[wght].ttf')format('truetype')}
+  @font-face{font-family:'Playfair Display';font-weight:400 900;font-style:normal;src:url('${F}/Playfair_Display/PlayfairDisplay[wght].ttf')format('truetype')}
+  @font-face{font-family:'Playfair Display';font-weight:400 900;font-style:italic;src:url('${F}/Playfair_Display/PlayfairDisplay-Italic[wght].ttf')format('truetype')}
+  @font-face{font-family:'Lora';font-weight:400 700;font-style:normal;src:url('${F}/Lora/Lora[wght].ttf')format('truetype')}
+  @font-face{font-family:'Lora';font-weight:400 700;font-style:italic;src:url('${F}/Lora/Lora-Italic[wght].ttf')format('truetype')}
+  @font-face{font-family:'Abril Fatface';font-weight:400;src:url('${F}/Abril_Fatface/AbrilFatface-Regular.ttf')format('truetype')}
+  @font-face{font-family:'Courier Prime';font-weight:400;font-style:normal;src:url('${F}/Courier_Prime/CourierPrime-Regular.ttf')format('truetype')}
+  @font-face{font-family:'Courier Prime';font-weight:400;font-style:italic;src:url('${F}/Courier_Prime/CourierPrime-Italic.ttf')format('truetype')}
+  @font-face{font-family:'Courier Prime';font-weight:700;font-style:normal;src:url('${F}/Courier_Prime/CourierPrime-Bold.ttf')format('truetype')}
+  @font-face{font-family:'Courier Prime';font-weight:700;font-style:italic;src:url('${F}/Courier_Prime/CourierPrime-BoldItalic.ttf')format('truetype')}
+`;
+
 function injectFonts() {
   if (typeof document === "undefined" || document.getElementById("aplica-playground-fonts")) return;
   const s = document.createElement("style");
   s.id = "aplica-playground-fonts";
-  s.textContent = `
-    @font-face{font-family:'Sansita';font-weight:400;src:url('/aplica-package/dist/assets/fonts/Sansita/Sansita-Regular.ttf')format('truetype')}
-    @font-face{font-family:'Sansita';font-weight:700;src:url('/aplica-package/dist/assets/fonts/Sansita/Sansita-Bold.ttf')format('truetype')}
-    @font-face{font-family:'Sansita';font-weight:800;src:url('/aplica-package/dist/assets/fonts/Sansita/Sansita-ExtraBold.ttf')format('truetype')}
-    @font-face{font-family:'Poppins';font-weight:400;src:url('/aplica-package/dist/assets/fonts/Poppins/Poppins-Regular.ttf')format('truetype')}
-    @font-face{font-family:'Poppins';font-weight:600;src:url('/aplica-package/dist/assets/fonts/Poppins/Poppins-SemiBold.ttf')format('truetype')}
-    @font-face{font-family:'Poppins';font-weight:700;src:url('/aplica-package/dist/assets/fonts/Poppins/Poppins-Bold.ttf')format('truetype')}
-    @font-face{font-family:'Poppins';font-weight:800;src:url('/aplica-package/dist/assets/fonts/Poppins/Poppins-ExtraBold.ttf')format('truetype')}
-    @font-face{font-family:'Roboto';font-weight:100 900;src:url('/aplica-package/dist/assets/fonts/Roboto/Roboto-VariableFont_wdth,wght.ttf')format('truetype')}
-    @font-face{font-family:'Noto Sans';font-weight:100 900;src:url('/aplica-package/dist/assets/fonts/Noto_Sans/NotoSans-VariableFont_wdth,wght.ttf')format('truetype')}
-    @font-face{font-family:'IBM Plex Mono';font-weight:400;src:url('/aplica-package/dist/assets/fonts/IBM_Plex_Mono/IBMPlexMono-Regular.ttf')format('truetype')}
-    @font-face{font-family:'IBM Plex Mono';font-weight:600;src:url('/aplica-package/dist/assets/fonts/IBM_Plex_Mono/IBMPlexMono-SemiBold.ttf')format('truetype')}
-  `;
+  s.textContent = FONT_FACES;
   document.head.appendChild(s);
 }
 
@@ -105,13 +184,24 @@ function injectPlaygroundLayer() {
   const s = document.createElement("style");
   s.id = ID;
   // The attribute selector matches any element whose class attribute contains
-  // a token starting with "aplica-" so it covers all 16 theme classes.
+  // a token starting with "aplica-" so it covers all 60 theme classes.
   s.textContent = `
     /* ── Foundation aliases re-declared on every aplica-* element ──────── */
     [class*="aplica-tangerine-"],
     [class*="aplica-joy-"],
     [class*="aplica-grinch-"],
-    [class*="aplica-blue-sky-"] {
+    [class*="aplica-blue-sky-"],
+    [class*="aplica-sky-"],
+    [class*="aplica-slate-"],
+    [class*="aplica-obsidian-"],
+    [class*="aplica-electric-"],
+    [class*="aplica-forest-"],
+    [class*="aplica-coral-"],
+    [class*="aplica-midnight-"],
+    [class*="aplica-rose-"],
+    [class*="aplica-mono-"],
+    [class*="aplica-aurora-"],
+    [class*="aplica-ember-"] {
       --foundation-txt-title:              var(--semantic-color-text-title);
       --foundation-txt-body:               var(--semantic-color-text-body);
       --foundation-txt-muted:              var(--semantic-color-text-muted);
@@ -179,7 +269,7 @@ export function ThemePlayground({ lang = "pt-br" }: Props) {
   const t = UI[lang];
   const ab = BRANDS.find((b) => b.id === brand)!;
 
-  // cssClass: blue_sky → aplica-blue-sky-* (file uses underscore, class uses hyphens)
+  // cssClass: blue_sky → aplica-blue-sky-* (underscore in brand id → hyphen in CSS class)
   const cssClass = `aplica-${brand.replace(/_/g, "-")}-${mode}-${surface}`;
 
   // ── Load CSS on mount ──────────────────────────────────────────────────
