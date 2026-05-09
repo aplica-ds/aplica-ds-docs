@@ -28,6 +28,7 @@ Após a instalação, a CLI fica disponível como `theme-engine` (ou via `npx th
 | [Architecture](#comandos-de-arquitetura) | Sincroniza referências de tokens entre camadas |
 | [Validate](#comandos-de-validação) | Valida o contrato de `data/` antes do build |
 | [Setup](#comandos-de-setup) | Monta o workspace de consumidor e schemas |
+| [Playground](#comandos-de-playground) | Copia temas de referência e baixa fontes OFL |
 | [AI Skills](#comandos-de-ai-skills) | Injeta integrações de editor de IA no workspace do consumidor |
 | [Migration](#comandos-de-migração) | Migra projetos monolíticos para o modelo de pacote |
 
@@ -235,9 +236,10 @@ Monta um novo workspace de consumidor. Execute uma vez após instalar o pacote.
 theme-engine init
 ```
 
-Oferece dois caminhos de entrada:
+Oferece três caminhos de entrada:
 - **Load starter template** — workspace pronto para rodar com um tema inicial
 - **Create using the wizard** — mesma base + gera `theme-engine/schemas/architecture.mjs` com base em respostas guiadas
+- **Load playground themes** — copia as 15 configurações de referência do Aplica DS (equivalente a `theme-engine init:playground`)
 
 > `init` e `consumer:init` são aliases.
 
@@ -260,6 +262,40 @@ O helper pergunta sobre:
 - Nomes de gradiente
 
 > `schemas:helper` e `schemas:init` são aliases.
+
+---
+
+## Comandos de playground
+
+### `init:playground`
+
+Copia as 15 configurações de tema de referência do Aplica DS no diretório de config do workspace do consumidor. Útil para explorar o modelo de configuração do engine, inspecionar como cada eixo de configuração é exercitado, ou iniciar um projeto a partir de um conjunto completo de exemplos.
+
+```bash
+theme-engine init:playground
+```
+
+Copia os arquivos `config/aplica-*.config.mjs` do pacote publicado para `theme-engine/config/` no workspace do consumidor. Não sobrescreve arquivos existentes com o mesmo nome.
+
+**Temas copiados:** `aplica_blue_sky`, `aplica_sky`, `aplica_joy`, `aplica_tangerine`, `aplica_grinch`, `aplica_slate`, `aplica_forest`, `aplica_aurora`, `aplica_obsidian`, `aplica_coral`, `aplica_midnight`, `aplica_rose`, `aplica_mono`, `aplica_ember`, `aplica_electric`.
+
+> `init:playground` e `themes:examples` são aliases.
+
+---
+
+### `fonts:download`
+
+Baixa as famílias de fontes OFL usadas pelos temas de playground do repositório canônico `google/fonts` no GitHub para `assets/fonts/` no workspace do consumidor.
+
+```bash
+theme-engine fonts:download
+```
+
+**Famílias baixadas (22):** Abril Fatface, Barlow, Bebas Neue, Cormorant Garamond, Courier Prime, DM Sans, DM Serif Display, Fira Code, Fira Mono, Inter, JetBrains Mono, Lato, Libre Baskerville, Lora, Montserrat, Nunito, Nunito Sans, Plus Jakarta Sans, Playfair Display, Quicksand, Rajdhani, Source Code Pro, Space Grotesk, Space Mono.
+
+Requer acesso à internet (github.com/google/fonts).
+
+> `fonts:download` e `playground:fonts` são aliases.
 
 ---
 

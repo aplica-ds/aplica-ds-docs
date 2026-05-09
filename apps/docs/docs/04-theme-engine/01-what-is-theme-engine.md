@@ -17,7 +17,7 @@ O **Aplica Tokens Theme Engine** é o sistema de geração de design tokens do A
 
 O problema que o engine resolve é **escala com coerência**.
 
-Sem um engine centralizado, cada novo tema — ou qualquer mudança de cor — exige atualização manual em dezenas de arquivos. Com 4 brands × 2 modos × 2 superfícies × 3 dimensões = **48 variantes de tema**, a manutenção manual é inviável.
+Sem um engine centralizado, cada novo tema — ou qualquer mudança de cor — exige atualização manual em dezenas de arquivos. Com 15 marcas aplica × 2 modos × 2 superfícies × 3 dimensões = **90 variantes de tema**, a manutenção manual é inviável.
 
 O engine inverte essa responsabilidade:
 

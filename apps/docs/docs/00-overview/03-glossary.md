@@ -72,6 +72,8 @@ São nomes de código. Aparecem exatamente assim em pt-BR e em en-US.
 | `options.interaction.decomposition.target` | Chave de config | "destino do dilution: `'canvas'` (padrão — move em direção ao canvas do quadrante ativo) ou `'anchor'` (desde 3.13.1 — move em direção a uma âncora cromática configurável)" |
 | `options.interaction.decomposition.anchor` | Chave de config | "config da âncora para `target: 'anchor'`; `anchor.source`: `'palette' \| 'hex' \| 'token'`; `anchor.canvasAware`: âncora responde ao quadrante; `anchor.canvasMix`: intensidade da resposta (0.0–1.0) — desde 3.13.1" |
 | `options.baseAdaptation` | Chave de config | "quando `true`, superfícies `normal` de interaction e `default` de produto respondem ao quadrante ativo (light/dark + positive/negative); por padrão essas superfícies permanecem fixas na cor base autoral — desde 3.13.4" |
+| `theme-engine init:playground` | Comando CLI | "`npx theme-engine init:playground` — copia as 15 configurações de tema de referência do Aplica DS para `theme-engine/config/` do workspace do consumidor; útil para explorar o engine ou iniciar com exemplos reais; alias: `themes:examples` — desde 3.14.x" |
+| `theme-engine fonts:download` | Comando CLI | "`npx theme-engine fonts:download` — baixa 22 famílias OFL dos temas de playground de `google/fonts` (GitHub) para `assets/fonts/`; requer internet; alias: `playground:fonts` — desde 3.14.x" |
 | `theme-engine ai:init` | Comando CLI | "injeta arquivos de contexto do pacote publicado no workspace consumidor; desde 3.10.0, distribui `AI_CONTEXT.md` e `THEME_CONFIG_REFERENCE.md` diretamente do pacote, atualizados a cada upgrade" |
 | `mode.productBySurface` | Branch interno do engine | "branch gerado pelo sync:architecture para garantir que readable text de produto respeite a polaridade positive/negative — desde 3.8.4" |
 | `mode.brand.brandingBySurface` | Branch interno do engine | "branch gerado pelo sync:architecture para que branding não colapse light-positive e light-negative — desde 3.8.2" |
@@ -307,6 +309,7 @@ O Aplica DS usa metáforas específicas para explicar conceitos. Estas metáfora
 
 | Data | Mudança |
 |------|---------|
+| 2026-05-09 | Adicionados termos 3.14.x: `theme-engine init:playground`, `theme-engine fonts:download` |
 | 2026-05-03 | Adicionados termos 3.13.x: `options.interaction.decomposition.target`, `options.interaction.decomposition.anchor`, `options.baseAdaptation`; atualizado `theme-engine preview` (Summary view 3.13.0) |
 | 2026-04-30 | Adicionados termos 3.10.0–3.12.0: `options.interaction.groups`, `theme-engine ai:init`; atualizado `theme-engine preview` (live reload 3.11.0) |
 | 2026-04-28 | Adicionados termos 3.8.x–3.9.0: `theme-engine preview`, `options.interaction.decomposition.method`, `system-scale`, `dilution`, `options.interaction.legacyStructure`, `mode.productBySurface`, `mode.brand.brandingBySurface` |
