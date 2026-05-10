@@ -74,7 +74,10 @@ São nomes de código. Aparecem exatamente assim em pt-BR e em en-US.
 | `options.baseAdaptation` | Chave de config | "quando `true`, superfícies `normal` de interaction e `default` de produto respondem ao quadrante ativo (light/dark + positive/negative); por padrão essas superfícies permanecem fixas na cor base autoral — desde 3.13.4" |
 | `theme-engine init:playground` | Comando CLI | "`npx theme-engine init:playground` — copia as 15 configurações de tema de referência do Aplica DS para `theme-engine/config/` do workspace do consumidor; útil para explorar o engine ou iniciar com exemplos reais; alias: `themes:examples` — desde 3.14.x" |
 | `theme-engine fonts:download` | Comando CLI | "`npx theme-engine fonts:download` — baixa 22 famílias OFL dos temas de playground de `google/fonts` (GitHub) para `assets/fonts/`; requer internet; alias: `playground:fonts` — desde 3.14.x" |
-| `theme-engine ai:init` | Comando CLI | "injeta arquivos de contexto do pacote publicado no workspace consumidor; desde 3.10.0, distribui `AI_CONTEXT.md` e `THEME_CONFIG_REFERENCE.md` diretamente do pacote, atualizados a cada upgrade" |
+| `theme-engine design:md` | Comando CLI | "`npx theme-engine design:md [--brand <nome>]` — gera `DESIGN.md` (spec Google Stitch: YAML frontmatter + markdown) com valores reais do brand resolvidos de `dist/json/`; também grava JSON intermediário em `data/foundation/<brand>/design-md.json`; aliases: `design-md`, `design:generate` — desde 3.15.x" |
+| `theme-engine contracts:generate` | Comando CLI | "`npx theme-engine contracts:generate [--brand <nome>] [--all]` — extrai snapshot estrutural de paths+tipos de `dist/json/` para `dist/contracts/<brand>-contract.json`; publicado no NPM para uso por `contracts:diff` — desde 3.15.x" |
+| `theme-engine contracts:diff` | Comando CLI | "`npx theme-engine contracts:diff --contract <arquivo>` — compara contrato commitado na biblioteca de componentes com o do pacote instalado; retorna GREEN (0) / ALERT (0) / ERROR (1); template de GitHub Action em `templates/github-actions/contracts-check.yml` — desde 3.15.x" |
+| `theme-engine ai:init` | Comando CLI | "injeta arquivos de contexto do pacote publicado no workspace consumidor; desde 3.10.0, distribui `AI_CONTEXT.md` e `THEME_CONFIG_REFERENCE.md` diretamente do pacote, atualizados a cada upgrade; desde 3.15.x, também copia `DESIGN.md` estático" |
 | `mode.productBySurface` | Branch interno do engine | "branch gerado pelo sync:architecture para garantir que readable text de produto respeite a polaridade positive/negative — desde 3.8.4" |
 | `mode.brand.brandingBySurface` | Branch interno do engine | "branch gerado pelo sync:architecture para que branding não colapse light-positive e light-negative — desde 3.8.2" |
 | OKLCh | Espaço de cor | "o pipeline OKLCh" |
@@ -309,6 +312,7 @@ O Aplica DS usa metáforas específicas para explicar conceitos. Estas metáfora
 
 | Data | Mudança |
 |------|---------|
+| 2026-05-10 | Adicionados termos 3.15.x: `theme-engine design:md`, `theme-engine contracts:generate`, `theme-engine contracts:diff`; atualizado `theme-engine ai:init` |
 | 2026-05-09 | Adicionados termos 3.14.x: `theme-engine init:playground`, `theme-engine fonts:download` |
 | 2026-05-03 | Adicionados termos 3.13.x: `options.interaction.decomposition.target`, `options.interaction.decomposition.anchor`, `options.baseAdaptation`; atualizado `theme-engine preview` (Summary view 3.13.0) |
 | 2026-04-30 | Adicionados termos 3.10.0–3.12.0: `options.interaction.groups`, `theme-engine ai:init`; atualizado `theme-engine preview` (live reload 3.11.0) |

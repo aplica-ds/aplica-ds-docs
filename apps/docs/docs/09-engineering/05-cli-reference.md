@@ -30,6 +30,8 @@ Após a instalação, a CLI fica disponível como `theme-engine` (ou via `npx th
 | [Setup](#comandos-de-setup) | Monta o workspace de consumidor e schemas |
 | [Playground](#comandos-de-playground) | Copia temas de referência e baixa fontes OFL |
 | [AI Skills](#comandos-de-ai-skills) | Injeta integrações de editor de IA no workspace do consumidor |
+| [Design.md](#comandos-de-designmd) | Gera `DESIGN.md` (spec Google Stitch) com valores reais do brand |
+| [Contracts](#comandos-de-contratos) | Gera e compara snapshots de contrato para segurança de deploy |
 | [Migration](#comandos-de-migração) | Migra projetos monolíticos para o modelo de pacote |
 
 ---
@@ -320,7 +322,96 @@ theme-engine ai:init
 
 Todos os arquivos são copiados do diretório versionado `templates/ai-skills/` do pacote. Re-executar o comando sobrescreve os arquivos existentes — seguro de executar após cada atualização do pacote para manter a guidance de IA sincronizada com o contrato de tokens atual.
 
+A partir da versão 3.15, `ai:init` também copia um `DESIGN.md` estático para a raiz do workspace. Use `theme-engine design:md` para regenerar com os valores reais do seu brand.
+
 > `ai:init`, `ai:setup`, `skills` e `skills:init` são todos aliases do mesmo comando.
+
+---
+
+## Comandos de Design.md
+
+O `DESIGN.md` é um arquivo de especificação de design system no formato [Google Stitch](https://stitch.withgoogle.com/docs/design-md/overview): YAML frontmatter legível por máquina (cores, tipografia, espaçamento, componentes) + corpo markdown legível por humanos. Qualquer AI coding tool que siga a spec (Cursor, Claude Code, GitHub Copilot, Gemini) usa este arquivo para gerar UI coerente com o sistema.
+
+### `design:md`
+
+Gera o `DESIGN.md` para o workspace atual com os valores reais do brand — resolvendo tokens de `dist/json/<brand>-light-positive.json` e `data/foundation/<brand>/styles/typography_styles.json`.
+
+```bash
+# Brand primário (detectado de themes.config.json)
+theme-engine design:md
+
+# Brand específico
+theme-engine design:md --brand aplica_slate
+```
+
+**Arquivos produzidos:**
+
+| Arquivo | Finalidade |
+|---------|-----------|
+| `DESIGN.md` | Spec completa na raiz do workspace — use com AI tools |
+| `data/foundation/<brand>/design-md.json` | JSON intermediário resolvido (versionável, para ferramentas programáticas) |
+
+**Personalização:** Edite `config/foundations/design-md.json` para substituir as descrições padrão dos slots. O engine usa os defaults de `schemas/design-md.mjs` para qualquer slot não sobrescrito. Quando a arquitetura de tokens evolui, `schemas/design-md.mjs` é atualizado na mesma PR — as associações ficam sempre pareadas.
+
+**Validação:**
+
+```bash
+npx @google/design.md lint DESIGN.md
+```
+
+> `design:md`, `design-md` e `design:generate` são aliases.
+
+---
+
+## Comandos de Contratos
+
+Os contratos de token garantem que releases do Theme Engine não quebrem silenciosamente a biblioteca de componentes. O fluxo é:
+
+1. O repositório de configuração gera o contrato após o build e o publica no NPM junto com `dist/`.
+2. A biblioteca de componentes faz o diff em CI sempre que o pacote de tokens é atualizado.
+
+### `contracts:generate`
+
+Extrai um snapshot estrutural (paths de token + tipos, sem valores) de `dist/json/<brand>-light-positive.json` e grava em `dist/contracts/<brand>-contract.json`.
+
+```bash
+# Brand primário
+theme-engine contracts:generate
+
+# Brand específico
+theme-engine contracts:generate --brand aplica_slate
+
+# Todos os brands
+theme-engine contracts:generate --all
+```
+
+Execute após `theme-engine build` e antes de `npm publish`. O arquivo gerado é publicado no pacote NPM para que bibliotecas de componentes o localizem via `node_modules`.
+
+---
+
+### `contracts:diff`
+
+Compara o contrato commitado na biblioteca de componentes com o contrato do pacote instalado e retorna um dos três estados:
+
+| Estado | Condição | Exit code |
+|--------|----------|-----------|
+| ✅ **Green** | Nenhuma mudança estrutural | `0` |
+| ⚠️ **Alert** | Paths novos adicionados (não-breaking) | `0` (com aviso) |
+| ❌ **Error** | Paths removidos ou tipos alterados (breaking) | `1` |
+
+```bash
+# Comparar contrato local com o do pacote instalado
+theme-engine contracts:diff --contract ./contracts/aplica_blue_sky-contract.json
+
+# Gerar relatório em arquivo
+theme-engine contracts:diff \
+  --contract ./contracts/aplica_blue_sky-contract.json \
+  --output ./contracts/diff-report.json
+```
+
+O engine localiza o contrato do pacote em `node_modules/@aplica/aplica-theme-engine/dist/contracts/<brand>-contract.json`.
+
+**GitHub Action:** Copie `templates/github-actions/contracts-check.yml` do pacote para `.github/workflows/` na sua biblioteca de componentes. O workflow roda `contracts:diff` em PRs que atualizam o `package.json`.
 
 ---
 
