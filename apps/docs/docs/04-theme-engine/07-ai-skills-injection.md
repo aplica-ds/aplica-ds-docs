@@ -36,6 +36,8 @@ Execute uma vez após a instalação. Re-execute após cada atualização do pac
 
 Todos os arquivos são versionados dentro do pacote em `templates/ai-skills/`. O comando os copia literalmente para o workspace do consumidor.
 
+A partir da versão 3.15, `ai:init` também copia um `DESIGN.md` estático para a raiz do workspace — um snapshot de valores resolvidos do brand de referência (cores, tipografia, espaçamento, componentes) no formato Google Stitch. Ferramentas de IA compatíveis com a spec usam este arquivo automaticamente. Para gerar com os valores reais do seu brand, use [`theme-engine design:md`](./08-design-file-format.md).
+
 ---
 
 ## O que a orientação injetada cobre
@@ -74,3 +76,4 @@ Re-execute `ai:init` sempre que atualizar o pacote `@aplica/aplica-theme-engine`
 - Referência da CLI (lista completa de comandos): [../09-engineering/05-cli-reference.md](../09-engineering/05-cli-reference.md)
 - Foundation Styles (caminho de consumo preferido): [06-foundation-styles.md](./06-foundation-styles.md)
 - AI UI Integration Program: [../05-components-theory/04-ai-ui-integration.md](../05-components-theory/04-ai-ui-integration.md)
+- Design.md — contexto de valores resolvidos para ferramentas de IA: [08-design-file-format.md](./08-design-file-format.md)
