@@ -378,8 +378,8 @@ Mudanças são documentadas no `CHANGELOG.md` do engine, que especifica: caminho
 
 - Camada Semantic em detalhe: [04-semantic-layer.md](../02-token-layers/04-semantic-layer.md)
 - Camada Foundation: [05-foundation-layer.md](../02-token-layers/05-foundation-layer.md)
-- Taxonomia canônica e naming: [canonical-taxonomy-and-naming-contract.md](../../references/aplica-tokens-theme-engine/docs/context/tokens/canonical-taxonomy-and-naming-contract.md)
-- Uso de tokens para componentes e Figma: [token-usage-for-components-and-figma.md](../../references/aplica-tokens-theme-engine/docs/context/tokens/token-usage-for-components-and-figma.md)
+- Taxonomia canônica e naming: [canonical-taxonomy-and-naming-contract.md](https://github.com/aplica-ds/aplica-tokens-theme-engine/blob/main/docs/context/tokens/canonical-taxonomy-and-naming-contract.md)
+- Uso de tokens para componentes e Figma: [token-usage-for-components-and-figma.md](https://github.com/aplica-ds/aplica-tokens-theme-engine/blob/main/docs/context/tokens/token-usage-for-components-and-figma.md)
 - Formatos de output e variáveis CSS: [05-output-formats.md](../04-theme-engine/05-output-formats.md)
 - Variantes e estados por componente: [02-component-variants.md](./02-component-variants.md)
 - Padrões de dark mode: [03-dark-mode-patterns.md](./03-dark-mode-patterns.md)

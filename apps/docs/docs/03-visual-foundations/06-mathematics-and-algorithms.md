@@ -217,9 +217,9 @@ A separação entre unidade de cálculo (pt) e unidade de output (rem/px) garant
 
 ## Referências
 
-- Script de dimensões: [dimension-scale.mjs](../../references/aplica-tokens-theme-engine/dynamic-themes/scripts/dimension-scale.mjs)
-- Script de cores: [color-decomposer.mjs](../../references/aplica-tokens-theme-engine/dynamic-themes/scripts/color-decomposer.mjs)
-- Script de sincronização: [sync-architecture.mjs](../../references/aplica-tokens-theme-engine/dynamic-themes/scripts/sync-architecture.mjs)
-- Spec de decomposição de cor: [COLOR-DECOMPOSITION-SPEC.md](../../references/aplica-tokens-theme-engine/docs/context/dynamic-themes-reference/COLOR-DECOMPOSITION-SPEC.md)
-- Verificação de contraste: [verify-aa-compliance.mjs](../../references/aplica-tokens-theme-engine/dynamic-themes/scripts/verify-aa-compliance.mjs)
-- Configuração global: [themes.config.json](../../references/aplica-tokens-theme-engine/config/global/themes.config.json)
+- Script de dimensões: [dimension-scale.mjs](https://github.com/aplica-ds/aplica-tokens-theme-engine/blob/main/dynamic-themes/scripts/dimension-scale.mjs)
+- Script de cores: [color-decomposer.mjs](https://github.com/aplica-ds/aplica-tokens-theme-engine/blob/main/dynamic-themes/scripts/color-decomposer.mjs)
+- Script de sincronização: [sync-architecture.mjs](https://github.com/aplica-ds/aplica-tokens-theme-engine/blob/main/dynamic-themes/scripts/sync-architecture.mjs)
+- Spec de decomposição de cor: [COLOR-DECOMPOSITION-SPEC.md](https://github.com/aplica-ds/aplica-tokens-theme-engine/blob/main/docs/context/dynamic-themes-reference/COLOR-DECOMPOSITION-SPEC.md)
+- Verificação de contraste: [verify-aa-compliance.mjs](https://github.com/aplica-ds/aplica-tokens-theme-engine/blob/main/dynamic-themes/scripts/verify-aa-compliance.mjs)
+- Configuração global: [themes.config.json](https://github.com/aplica-ds/aplica-tokens-theme-engine/blob/main/config/global/themes.config.json)
