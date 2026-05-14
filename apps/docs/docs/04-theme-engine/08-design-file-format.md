@@ -135,4 +135,4 @@ A CLI do Google Stitch verifica se o arquivo é válido: YAML parseável, token 
 
 - Referência da CLI — comandos `design:md`, `ai:init`: [../09-engineering/05-cli-reference.md](../09-engineering/05-cli-reference.md)
 - AI Skills Injection — orientação de consumo injetada nas ferramentas: [07-ai-skills-injection.md](./07-ai-skills-injection.md)
-- Contratos de deploy — complementar ao Design.md para segurança de release: [../09-engineering/05-cli-reference.md#comandos-de-contratos](../09-engineering/05-cli-reference.md#comandos-de-contratos)
+- Contratos de deploy — complementar ao Design.md para segurança de release: [09-deploy-safety-contracts.md](./09-deploy-safety-contracts.md)
