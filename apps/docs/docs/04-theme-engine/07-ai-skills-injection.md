@@ -38,6 +38,8 @@ Todos os arquivos são versionados dentro do pacote em `templates/ai-skills/`. O
 
 A partir da versão 3.15, `ai:init` também copia um `DESIGN.md` estático para a raiz do workspace — um snapshot de valores resolvidos do brand de referência (cores, tipografia, espaçamento, componentes) no formato Google Stitch. Ferramentas de IA compatíveis com a spec usam este arquivo automaticamente. Para gerar com os valores reais do seu brand, use [`theme-engine design:md`](./08-design-file-format.md).
 
+A partir da versão 3.16, `ai:init` também instala o **Knowledge Guide** (`aplica-knowledge-guide`) em todos os AI tools — uma skill conversacional que habilita o assistente a responder perguntas de configuração, explicar a arquitetura e diagnosticar tokens. Para instalar apenas a skill conversacional, use [`theme-engine ai:knowledge`](./10-knowledge-guide.md).
+
 ---
 
 ## O que a orientação injetada cobre
@@ -77,3 +79,4 @@ Re-execute `ai:init` sempre que atualizar o pacote `@aplica/aplica-theme-engine`
 - Foundation Styles (caminho de consumo preferido): [06-foundation-styles.md](./06-foundation-styles.md)
 - AI UI Integration Program: [../05-components-theory/04-ai-ui-integration.md](../05-components-theory/04-ai-ui-integration.md)
 - Design.md — contexto de valores resolvidos para ferramentas de IA: [08-design-file-format.md](./08-design-file-format.md)
+- Knowledge Guide — skill conversacional para configuração e diagnóstico: [10-knowledge-guide.md](./10-knowledge-guide.md)
