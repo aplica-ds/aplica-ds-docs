@@ -263,7 +263,7 @@ Se `sync:architecture` não rodar após `themes:generate`, a seção `semantic.c
 
 ---
 
-## Preview Visual (desde 3.9.0)
+## Preview Visual (desde 3.9.0 · redesenhado em 3.17.0)
 
 Após o build do Style Dictionary, `theme-engine preview` gera um relatório HTML estático local que renderiza todas as combinações de tema geradas — antes de qualquer sync com Figma ou integração no browser.
 
@@ -274,11 +274,11 @@ theme-engine preview
 # Reconstruir dist/ antes e então gerar o preview
 theme-engine preview --build
 
-# Reconstruir, gerar e servir via servidor estático local com live reload (desde 3.11.0)
+# Reconstruir, gerar e servir via servidor estático local com live reload
 theme-engine preview --build --serve
 ```
 
-Desde **3.11.0**, `--serve` adiciona live reload: a aba do browser atualiza automaticamente quando `dist/` muda. Isso permite um ciclo de feedback direto — rode `npm run tokens:themes && npm run tokens:build:all` em outro terminal e o preview atualiza sem reloads manuais.
+`--serve` adiciona live reload: a aba do browser atualiza automaticamente quando `dist/` muda. Isso permite um ciclo de feedback direto — rode `npm run tokens:themes && npm run tokens:build:all` em outro terminal e o preview atualiza sem reloads manuais.
 
 **O que o preview renderiza:**
 
@@ -288,16 +288,24 @@ Desde **3.11.0**, `--serve` adiciona live reload: a aba do browser atualiza auto
 | Tipografia | Todas as classes foundation de tipografia aplicadas a texto de exemplo real |
 | Elevação | Todas as classes de elevação renderizadas como superfícies de cards elevados |
 
-**Modos de visualização (desde 3.13.0):**
+**Modos de visualização e navegação (desde 3.17.0):**
 
-A interface do preview no browser inclui um dropdown **View**:
+A v3.17 redesenhou a interface do preview com três melhorias principais:
+
+| Recurso | Descrição |
+|---------|-----------|
+| **Reference layout** | Layout de referência com hierarquia semântica clara — seções na nav direita seguem a ordem canônica (Brand → Mode → Surface → Semantic) |
+| **Compact mode** | Modo compacto para inspeção rápida de todos os tokens sem scroll excessivo; ideal para QA visual de múltiplos brands |
+| **Search filters** | Campo de busca filtra tokens em tempo real pelo nome da família semântica — útil em workspaces com muitos brands |
+
+O dropdown **View** oferece:
 
 | Modo | Descrição |
 |------|-----------|
 | **Detailed** (padrão) | Explorador em cards — um card por família semântica e estado, com as quatro propriedades de cor renderizadas visualmente |
 | **Summary** | Tabela compacta — `background`, `txtOn`, `border`, `txt` e contrast ratios WCAG para todas as famílias e estados; otimizado para QA entre combinações |
 
-Use o modo Summary para comparar rapidamente as cores geradas entre os quadrantes light/dark e positive/negative antes de sincronizar com o Figma.
+Use o modo Summary com o filtro de busca para isolar rapidamente uma família específica (ex: `branding.first`) e comparar os quadrantes light/dark e positive/negative antes de sincronizar com o Figma.
 
 **Output gerado em:**
 

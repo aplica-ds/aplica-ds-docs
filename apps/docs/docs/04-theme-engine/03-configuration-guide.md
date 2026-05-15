@@ -198,6 +198,38 @@ options: {
 }
 ```
 
+#### Opções avançadas do `brand-tint` (desde v3.18)
+
+Quando `txtOnStrategy: 'brand-tint'` está ativo, duas opções complementares controlam o comportamento do walk de paleta:
+
+**`colorContrastDecompose`** — direção do walk e extremo de fallback
+
+| Valor | Comportamento |
+|-------|--------------|
+| `'startDark'` (padrão) | Percorre a paleta priorizando tons escuros; extremo = preto (`#000000`) |
+| `'startLight'` | Percorre a paleta priorizando tons claros; extremo = branco (`#ffffff`) |
+
+O valor também determina qual extremo (preto ou branco) é usado quando `overlap` está ativo.
+
+**`overlap`** — ignorar o walk em níveis saturados
+
+```javascript
+options: {
+  txtOnStrategy: 'brand-tint',
+  colorContrastDecompose: 'startDark',
+
+  // Superfícies de paleta no nível ≥ 120 pulam o walk e vão direto
+  // para o extremo definido por colorContrastDecompose.
+  // Use quando cores muito saturadas tornam o texto "tintado" menos legível
+  // do que preto ou branco puro.
+  overlap: { level: 120 }
+}
+```
+
+Superfícies **abaixo** do threshold usam o walk normal de brand-tint. Superfícies **no nível ou acima** saltam diretamente para o extremo (preto se `startDark`, branco se `startLight`). O fallback WCAG é preservado — acessibilidade nunca é silenciosamente quebrada.
+
+**Referência:** `aplica_ember` demonstra a combinação completa — `colorContrastDecompose: 'startDark'` + `overlap: { level: 120 }` — para um tema culinário onde texto preto em superfícies laranja saturadas é mais editorial e legível do que um tint da paleta.
+
 ### Outras opções relevantes
 
 | Propriedade | Padrão | Descrição |
