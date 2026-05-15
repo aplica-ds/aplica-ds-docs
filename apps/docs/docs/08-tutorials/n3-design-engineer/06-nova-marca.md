@@ -234,7 +234,7 @@ Estas opções afetam as camadas compartilhadas de arquitetura (`mode/`, `surfac
 
 Verdana entrega com ambos comentados. `options.interaction` exige que o workspace inteiro concorde (contrato de workspace). `baseAdaptation` é independente por tema — você pode habilitá-lo na Verdana sem tocar nos outros temas.
 
-Veja [03-configuration-guide.pt-br.md](../../04-theme-engine/03-configuration-guide.md#decomposição-de-interação-desde-390) para os detalhes completos de ambas as opções.
+Veja [03-configuration-guide.md](../../04-theme-engine/03-configuration-guide.md#decomposição-de-interação-desde-390) para os detalhes completos de ambas as opções.
 
 ---
 

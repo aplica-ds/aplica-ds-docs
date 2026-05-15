@@ -263,7 +263,7 @@ options: {
 
 > **Importante:** `legacyStructure` deve ser **idêntico em todos os temas** — ele controla as camadas compartilhadas `mode`, `surface` e `semantic`. `baseAdaptation` é **por tema** — temas no mesmo workspace podem misturar `true` e `false` livremente.
 
-Para detalhes completos sobre métodos de diluição, opções de `target: 'anchor'` e configuração por grupo, veja [03-configuration-guide.pt-br.md](../../04-theme-engine/03-configuration-guide.md#decomposição-de-interação-desde-390).
+Para detalhes completos sobre métodos de diluição, opções de `target: 'anchor'` e configuração por grupo, veja [03-configuration-guide.md](../../04-theme-engine/03-configuration-guide.md#decomposição-de-interação-desde-390).
 
 ---
 

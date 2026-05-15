@@ -257,7 +257,7 @@ export default defineThemeEngineConfig({
 
 > `txtBaseColorLevel` também pode ser sobrescrito por marca em `options.txtBaseColorLevel`.
 
-Veja o [guia de configuração](../04-theme-engine/03-configuration-guide.pt-br.md) e o [token txt](../02-token-layers/07-txt-token.md) para o contrato completo.
+Veja o [guia de configuração](../04-theme-engine/03-configuration-guide.md) e o [token txt](../02-token-layers/07-txt-token.md) para o contrato completo.
 
 ---
 

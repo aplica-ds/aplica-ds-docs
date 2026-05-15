@@ -83,7 +83,7 @@ Declara todas as marcas e suas configurações globais de build.
 
 Controla a escala espacial (espaçamento, tamanho, border radius). O engine gera três variantes de escala — `minor`, `normal` e `major` — a partir desta definição única.
 
-Veja [03-theme-configuration.pt-br.md](./03-theme-configuration.pt-br.md) para o formato completo deste arquivo.
+Veja [03-theme-configuration.md](./03-theme-configuration.md) para o formato completo deste arquivo.
 
 ---
 
@@ -104,7 +104,7 @@ Um arquivo por marca. Define os valores primitivos que o engine usa para gerar o
 
 O nome do arquivo deve corresponder ao ID de marca declarado em `themes.config.json`.
 
-Veja [03-theme-configuration.pt-br.md](./03-theme-configuration.pt-br.md) para um exemplo anotado.
+Veja [03-theme-configuration.md](./03-theme-configuration.md) para um exemplo anotado.
 
 ---
 
@@ -144,7 +144,7 @@ export default defineTransformersConfig({
 });
 ```
 
-Veja [04-transformers-configuration.pt-br.md](./04-transformers-configuration.pt-br.md) para a referência completa da API.
+Veja [04-transformers-configuration.md](./04-transformers-configuration.md) para a referência completa da API.
 
 ---
 

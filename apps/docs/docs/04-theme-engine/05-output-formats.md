@@ -153,7 +153,7 @@ export default defineTransformersConfig({
 
 `jsonTyped` é aditivo: consumidores `json` existentes não são afetados. Habilite ambas as plataformas na mesma camada se precisar das duas.
 
-Veja [`formatOptions.jsonTyped`](../09-engineering/04-transformers-configuration.pt-br.md) para a referência completa de campos.
+Veja [`formatOptions.jsonTyped`](../09-engineering/04-transformers-configuration.md) para a referência completa de campos.
 
 ---
 
@@ -453,7 +453,7 @@ Veja [06-foundation-styles.md](./06-foundation-styles.md) para o guia completo s
 
 ## Referências
 
-- Pipeline de build: [04-build-pipeline.pt-br.md](./04-build-pipeline.pt-br.md)
-- Workflow do designer (Figma): [02-designer-workflow.pt-br.md](./02-designer-workflow.pt-br.md)
-- Consumindo tokens de dist/: [07-implementation/03-consuming-dist-tokens.pt-br.md](../07-implementation/03-consuming-dist-tokens.pt-br.md)
-- Configuração de transformers (diretórios de output): [09-engineering/04-transformers-configuration.pt-br.md](../09-engineering/04-transformers-configuration.pt-br.md)
+- Pipeline de build: [04-build-pipeline.md](./04-build-pipeline.md)
+- Workflow do designer (Figma): [02-designer-workflow.md](./02-designer-workflow.md)
+- Consumindo tokens de dist/: [07-implementation/03-consuming-dist-tokens.md](../07-implementation/03-consuming-dist-tokens.md)
+- Configuração de transformers (diretórios de output): [09-engineering/04-transformers-configuration.md](../09-engineering/04-transformers-configuration.md)

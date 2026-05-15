@@ -26,9 +26,10 @@ Após a instalação, a CLI fica disponível como `theme-engine` (ou via `npx th
 | [Build](#comandos-de-build) | Transforma `data/` em `dist/` |
 | [Generate](#comandos-de-geração) | Gera `data/` a partir da config |
 | [Architecture](#comandos-de-arquitetura) | Sincroniza referências de tokens entre camadas |
-| [Validate](#comandos-de-validação) | Valida o contrato de `data/` antes do build |
+| [Validate](#comandos-de-validação) | Valida o contrato de `data/` e audita acessibilidade |
 | [Setup](#comandos-de-setup) | Monta o workspace de consumidor e schemas |
 | [Playground](#comandos-de-playground) | Copia temas de referência e baixa fontes OFL |
+| [Preview](#comandos-de-preview) | Gera e serve uma visualização HTML do `dist/` atual |
 | [AI Skills](#comandos-de-ai-skills) | Injeta integrações de editor de IA no workspace do consumidor |
 | [Design.md](#comandos-de-designmd) | Gera `DESIGN.md` (spec Google Stitch) com valores reais do brand |
 | [Contracts](#comandos-de-contratos) | Gera e compara snapshots de contrato para segurança de deploy |
@@ -228,6 +229,20 @@ Execute antes de `build:all` no CI para capturar erros de geração antes do bui
 
 ---
 
+### `audit:accessibility`
+
+Audita todas as combinações de cor de todos os brands no workspace atual contra os critérios de contraste WCAG 2.1. Para cada par background/foreground no `dist/`, calcula a taxa de contraste e classifica como AA, AAA ou FAIL.
+
+```bash
+theme-engine audit:accessibility
+```
+
+**Output:** Relatório tabulado no terminal com taxa de contraste e classificação por par de cores. Útil antes de um release para confirmar que ajustes de cor não introduziram problemas de acessibilidade.
+
+> Requer `dist/` gerado — execute `theme-engine build` primeiro.
+
+---
+
 ## Comandos de setup
 
 ### `init`
@@ -264,6 +279,37 @@ O helper pergunta sobre:
 - Nomes de gradiente
 
 > `schemas:helper` e `schemas:init` são aliases.
+
+---
+
+## Comandos de preview
+
+### `preview`
+
+Gera uma visualização HTML estática do `dist/` atual — útil para inspecionar visualmente os tokens gerados sem precisar integrar em um projeto de componentes.
+
+```bash
+# Apenas gerar a visualização
+theme-engine preview
+
+# Gerar e servir localmente (abre browser)
+theme-engine preview --serve
+
+# Fazer build completo antes de gerar (útil em CI)
+theme-engine preview --build
+
+# Build completo + gerar + servir
+theme-engine preview --build --serve
+```
+
+**Flags:**
+
+| Flag | Descrição |
+|------|-----------|
+| `--build` | Executa `theme-engine build` antes de gerar a preview |
+| `--serve` | Inicia um servidor local para visualizar no browser após a geração |
+
+O arquivo gerado vive em `temp/preview/` no workspace do consumidor.
 
 ---
 
@@ -324,7 +370,36 @@ Todos os arquivos são copiados do diretório versionado `templates/ai-skills/` 
 
 A partir da versão 3.15, `ai:init` também copia um `DESIGN.md` estático para a raiz do workspace. Use `theme-engine design:md` para regenerar com os valores reais do seu brand.
 
+A partir da versão 3.16, `ai:init` também instala o **Knowledge Guide** em todas as ferramentas de IA — veja [`ai:knowledge`](#aiknowledge) abaixo.
+
 > `ai:init`, `ai:setup`, `skills` e `skills:init` são todos aliases do mesmo comando.
+
+---
+
+### `ai:knowledge`
+
+Instala a skill conversacional **Knowledge Guide** nas ferramentas de IA do workspace. Habilita o assistente a responder perguntas de configuração, explicar a arquitetura de 5 camadas, diagnosticar problemas de token e guiar workflows passo a passo — sem executar código.
+
+```bash
+theme-engine ai:knowledge
+```
+
+**Arquivos injetados:**
+
+| Destino | Ferramenta |
+|---------|-----------|
+| `.claude/skills/aplica-knowledge-guide/SKILL.md` | Claude Code |
+| `.cursor/rules/aplica-knowledge-guide.mdc` | Cursor |
+| `.github/instructions/aplica-knowledge.instructions.md` | GitHub Copilot |
+| `docs/context/aplica-knowledge-guide.md` | Todas as surfaces (agnóstico) |
+
+**Diferença vs `ai:init`:** `ai:init` ensina o AI *como gerar código* que consome tokens. `ai:knowledge` ensina o AI *como guiar o usuário* em configuração, arquitetura e aprendizado conversacional. Ambas as skills coexistem e se complementam.
+
+> `ai:knowledge`, `ai:guide` e `knowledge:init` são todos aliases do mesmo comando.
+>
+> O Knowledge Guide também é incluído automaticamente quando você roda `ai:init`.
+
+Para mais detalhes, consulte [Knowledge Guide](../04-theme-engine/10-knowledge-guide.md).
 
 ---
 

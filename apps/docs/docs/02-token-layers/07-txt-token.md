@@ -159,5 +159,5 @@ A partir da 3.6.3, o workspace gerado pelo `theme-engine init` usa `includePrimi
 ## Veja também
 
 - [Camada Semantic](./04-semantic-layer.md) — contrato completo de cor semântica
-- [Guia de Configuração](../04-theme-engine/03-configuration-guide.pt-br.md) — opções de workspace e tema
+- [Guia de Configuração](../04-theme-engine/03-configuration-guide.md) — opções de workspace e tema
 - [Camada Foundation](./05-foundation-layer.md) — aliases de foundation

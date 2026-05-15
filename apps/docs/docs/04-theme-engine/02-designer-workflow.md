@@ -76,8 +76,8 @@ Com as variáveis sincronizadas, o designer pode:
 
 ## Referências
 
-- O que é o Theme Engine: [01-what-is-theme-engine.pt-br.md](./01-what-is-theme-engine.pt-br.md)
-- Guia de configuração: [03-configuration-guide.pt-br.md](./03-configuration-guide.pt-br.md)
-- Formatos de output: [05-output-formats.pt-br.md](./05-output-formats.pt-br.md)
-- Camada Foundation (por que Figma consome Foundation): [05-foundation-layer.pt-br.md](../02-token-layers/05-foundation-layer.pt-br.md)
-- Quick start de engenharia: [09-engineering/01-quick-start.pt-br.md](../09-engineering/01-quick-start.pt-br.md)
+- O que é o Theme Engine: [01-what-is-theme-engine.md](./01-what-is-theme-engine.md)
+- Guia de configuração: [03-configuration-guide.md](./03-configuration-guide.md)
+- Formatos de output: [05-output-formats.md](./05-output-formats.md)
+- Camada Foundation (por que Figma consome Foundation): [05-foundation-layer.md](../02-token-layers/05-foundation-layer.md)
+- Quick start de engenharia: [09-engineering/01-quick-start.md](../09-engineering/01-quick-start.md)
