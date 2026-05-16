@@ -362,15 +362,25 @@ theme-engine ai:init
 | Destino | Finalidade |
 |---------|-----------|
 | `docs/context/aplica-ui-integration.md` | Guia de integração de UI agnóstico para qualquer surface de IA |
+| `docs/context/theme-engine-playbook.md` | Playbook central SSOT — arquitetura, config keys, CLI, outputs, diagnósticos |
 | `.cursor/rules/aplica-ui-integration.mdc` | Regra específica para Cursor que ativa geração de código ciente de tokens |
+| `.cursor/rules/aplica-knowledge-guide.mdc` | Wrapper Cursor para o playbook central |
 | `.claude/skills/aplica-ui-integration/SKILL.md` | Skill do Claude Code para padrões sancionados de consumo de tokens |
+| `.claude/skills/aplica-knowledge-guide/SKILL.md` | Skill conversacional Claude Code — lê o playbook e sugere o slash command adequado |
+| `.claude/commands/` | 6 slash commands de workflow guiado para Claude Code |
+| `CLAUDE.md` | Contexto operacional do workspace para Claude Code (soft copy — não sobrescrito se já existir) |
 | `.github/instructions/aplica-ui.instructions.md` | Instruções do GitHub Copilot para completions cientes de tokens |
+| `.github/instructions/aplica-knowledge.instructions.md` | Wrapper Copilot para o playbook central |
 
 Todos os arquivos são copiados do diretório versionado `templates/ai-skills/` do pacote. Re-executar o comando sobrescreve os arquivos existentes — seguro de executar após cada atualização do pacote para manter a guidance de IA sincronizada com o contrato de tokens atual.
+
+**Comportamento especial do `CLAUDE.md`:** se o arquivo já existe na raiz do workspace, o comando o pula e exibe uma mensagem informativa. Isso preserva customizações feitas pelo time. Re-instale manualmente apenas quando necessário.
 
 A partir da versão 3.15, `ai:init` também copia um `DESIGN.md` estático para a raiz do workspace. Use `theme-engine design:md` para regenerar com os valores reais do seu brand.
 
 A partir da versão 3.16, `ai:init` também instala o **Knowledge Guide** em todas as ferramentas de IA — veja [`ai:knowledge`](#aiknowledge) abaixo.
+
+A partir da versão 3.19, `ai:init` instala o **playbook central** (`docs/context/theme-engine-playbook.md`), **6 slash commands** (`.claude/commands/`) e o **`CLAUDE.md`** de workspace. As skills existentes passaram a ser wrappers finos que leem o playbook — eliminando duplicação de conteúdo entre plataformas.
 
 > `ai:init`, `ai:setup`, `skills` e `skills:init` são todos aliases do mesmo comando.
 
