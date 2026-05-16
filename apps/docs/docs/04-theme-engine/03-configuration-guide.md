@@ -372,6 +372,39 @@ options: {
 
 `normal` sempre permanece na cor base autoral — nenhum override é esperado para ele.
 
+### `ghostNormalTxtOnStrategy` — texto no estado ghost normal (desde v3.15.1)
+
+O estado `ghost.normal` tem background **transparente** — o texto legível (`txtOn`) precisa ser calculado contra o canvas de página, não contra uma cor sólida. `ghostNormalTxtOnStrategy` controla como esse cálculo é feito:
+
+| Valor | Comportamento |
+|-------|--------------|
+| `'txt'` **(padrão)** | Usa a cor de texto interativo acessível da paleta contra o canvas — o mesmo valor calculado para `txt[normal]`. Mais consistente e previsível. |
+| `'surface'` | Executa `txtOnStrategy` (high-contrast / custom-tint / brand-tint) contra o canvas background — era o comportamento implícito antes da v3.15.1. |
+
+```javascript
+options: {
+  interaction: {
+    surfaces: {
+      ghost: {
+        ghostNormalTxtOnStrategy: 'txt'  // padrão
+      }
+    },
+    // Override por grupo (ex: apenas feedback usa 'surface')
+    groups: {
+      feedback: {
+        surfaces: {
+          ghost: {
+            ghostNormalTxtOnStrategy: 'surface'
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+Use `'surface'` quando a cor de texto ghost precisar seguir a lógica de `txtOnStrategy` do tema (ex: manter brand tint no estado ghost). Use `'txt'` (padrão) para comportamento mais previsível que não depende da paleta de marca.
+
 ### Compatibilidade retroativa
 
 - Temas sem config `interaction` geram exatamente como antes — `system-scale` é o padrão implícito.
