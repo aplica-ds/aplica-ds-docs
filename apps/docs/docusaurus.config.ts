@@ -112,9 +112,9 @@ const config: Config = {
         {
           title: 'Tutoriais',
           items: [
-            { label: 'N1 · Product Designer',  to: '/tutorials/n1-product-designer/o-que-sao-tokens' },
-            { label: 'N2 · System Designer',   to: '/tutorials/n2-system-designer/modelo-mental-5-camadas' },
-            { label: 'N3 · Design Engineer',   to: '/tutorials/n3-design-engineer/contrato-de-tokens' },
+            { label: 'N1 · Product Designer',  to: '/tutorials/n1-product-designer/N1-01' },
+            { label: 'N2 · System Designer',   to: '/tutorials/n2-system-designer/N2-01' },
+            { label: 'N3 · Design Engineer',   to: '/tutorials/n3-design-engineer/N3-01' },
           ],
         },
         {
