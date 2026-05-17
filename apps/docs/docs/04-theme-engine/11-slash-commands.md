@@ -19,7 +19,7 @@ Os comandos ficam instalados em `.claude/commands/` na raiz do workspace do cons
 
 **Audiência:** qualquer pessoa que acabou de instalar ou configurar o workspace.
 
-O comando lê `docs/context/theme-engine-playbook.md` (arquitetura e CLI), depois lê os arquivos de configuração reais do workspace (`themes.config.json`, `aplica-theme-engine.config.mjs`) e responde com:
+O comando lê `docs/context/token-concepts.md` (conceitos e arquitetura), depois lê os arquivos de configuração reais do workspace (`themes.config.json`, `aplica-theme-engine.config.mjs`) e responde com:
 
 1. **O que existe** — brands configurados, caminhos de config, status do `dist/`.
 2. **O que está faltando** — se não há config, recomenda `theme-engine init`; se há config mas `dist/` está vazio, recomenda `theme-engine build`.
@@ -34,7 +34,7 @@ O comando lê `docs/context/theme-engine-playbook.md` (arquitetura e CLI), depoi
 
 **Audiência:** System Designer que quer um resultado visual específico (hover mais escuro, dark mode mais saturado, texto legível em superfície colorida).
 
-O comando mapeia a intenção visual para a `config key` correta usando a referência do playbook, lê o arquivo de config do brand relevante, e propõe a mudança exata — arquivo, caminho da chave, e valor.
+O comando mapeia a intenção visual para a `config key` correta usando `docs/context/token-concepts.md` como referência, lê o arquivo de config do brand relevante, e propõe a mudança exata — arquivo, caminho da chave, e valor.
 
 ---
 
@@ -57,7 +57,7 @@ Cobre:
 Uso: `/debug hover color too similar to default`
 
 O comando:
-1. Lê a seção "Common diagnostics" do playbook.
+1. Lê a seção de diagnósticos em `docs/context/token-concepts.md`.
 2. Lê os arquivos de config e outputs relevantes para a categoria do problema.
 3. Diagnostica com base nos dados reais — não em suposições.
 4. Propõe **uma mudança de cada vez** com instrução de verificação.
@@ -85,7 +85,7 @@ Exemplos:
 - `/explain-semantic txtOnStrategy`
 - `/explain-semantic brand layer`
 
-O comando lê o playbook e as fontes relevantes antes de explicar. Inclui o caminho do arquivo usado na resposta.
+O comando lê `docs/context/token-concepts.md` e as fontes relevantes antes de explicar. Inclui o caminho do arquivo usado na resposta.
 
 ---
 
@@ -93,20 +93,27 @@ O comando lê o playbook e as fontes relevantes antes de explicar. Inclui o cami
 
 **Audiência:** Engenheiro que vai escrever código de componente com tokens Aplica.
 
-O comando lê `docs/context/aplica-ui-integration.md` (contrato de tokens para UI) e `dist/json/<brand>-light-positive.json` (nomes reais das variáveis geradas) antes de escrever qualquer código. Nunca hardcoda valores — usa exclusivamente variáveis CSS de `dist/css/`.
+O comando lê `docs/context/engineering-guide.md` (padrões de consumo de tokens para UI) e `dist/json/<brand>-light-positive.json` (nomes reais das variáveis geradas) antes de escrever qualquer código. Nunca hardcoda valores — usa exclusivamente variáveis CSS de `dist/css/`.
 
 ---
 
-## Playbook SSOT
+## Fontes de conhecimento local
 
-Todos os 6 comandos referenciam `docs/context/theme-engine-playbook.md` como fonte primária. Este arquivo é instalado por `ai:init` e contém:
+Os 6 comandos operam sobre os arquivos reais do workspace e leem dois docs de referência instalados por `ai:init`:
 
-- Arquitetura em 5 camadas (Brand → Mode → Surface → Semantic → Foundation)
-- Tabela de referência de config keys (11 chaves com descrição e localização)
-- Tabela de comandos CLI (13 comandos com quando usar)
-- Mapa de outputs do workspace após `theme-engine build`
-- Matriz tópico → arquivo (para o agente saber onde ler antes de responder)
-- 6 diagnósticos comuns com causa raiz e solução
+**`docs/context/token-concepts.md`** — referência N1/N2, usada pelos comandos de conceito e diagnóstico:
+- O que é um token e anatomia do caminho semântico
+- As 4 categorias de cor com árvore de decisão
+- Escala dimensional (nano → tera) e densidades
+- Categorias tipográficas
+
+**`docs/context/engineering-guide.md`** — referência N3, usada pelos comandos de implementação:
+- Consumo de CSS variables a partir de `dist/css/`
+- Implementação de dark mode
+- Portal pattern para headless UI (Radix/Base UI)
+- Pipeline de build e garantias do contrato de tokens
+
+Nenhum comando depende de documento externo — tudo resolvido localmente.
 
 ---
 

@@ -361,16 +361,16 @@ theme-engine ai:init
 
 | Destino | Finalidade |
 |---------|-----------|
-| `docs/context/aplica-ui-integration.md` | Guia de integração de UI agnóstico para qualquer surface de IA |
-| `docs/context/theme-engine-playbook.md` | Playbook central SSOT — arquitetura, config keys, CLI, outputs, diagnósticos |
-| `.cursor/rules/aplica-ui-integration.mdc` | Regra específica para Cursor que ativa geração de código ciente de tokens |
-| `.cursor/rules/aplica-knowledge-guide.mdc` | Wrapper Cursor para o playbook central |
-| `.claude/skills/aplica-ui-integration/SKILL.md` | Skill do Claude Code para padrões sancionados de consumo de tokens |
-| `.claude/skills/aplica-knowledge-guide/SKILL.md` | Skill conversacional Claude Code — lê o playbook e sugere o slash command adequado |
+| `docs/context/token-concepts.md` | Referência N1 — conceitos de tokens, as 4 categorias de cor, escala dimensional, tipografia |
+| `docs/context/engineering-guide.md` | Referência N3 — consumo de CSS variables, dark mode, portal pattern, build pipeline, contrato de tokens |
+| `.cursor/rules/theme-engine.mdc` | Mirror da skill `theme-engine` para Cursor |
+| `.cursor/rules/aplica-components.mdc` | Mirror da skill `aplica-components` para Cursor |
+| `.claude/skills/theme-engine/SKILL.md` | Expert do engine — detecta N1/N2/N3 pelo vocabulário, responde conceitos, config keys, CLI e diagnósticos |
+| `.claude/skills/aplica-components/SKILL.md` | Engineer de componentes — CSS variables, dark mode, portal pattern para headless UI, archetypes |
 | `.claude/commands/` | 6 slash commands de workflow guiado para Claude Code |
 | `CLAUDE.md` | Contexto operacional do workspace para Claude Code (soft copy — não sobrescrito se já existir) |
-| `.github/instructions/aplica-ui.instructions.md` | Instruções do GitHub Copilot para completions cientes de tokens |
-| `.github/instructions/aplica-knowledge.instructions.md` | Wrapper Copilot para o playbook central |
+| `.github/instructions/theme-engine.instructions.md` | Mirror da skill `theme-engine` para GitHub Copilot |
+| `.github/instructions/aplica-components.instructions.md` | Mirror da skill `aplica-components` para GitHub Copilot |
 
 Todos os arquivos são copiados do diretório versionado `templates/ai-skills/` do pacote. Re-executar o comando sobrescreve os arquivos existentes — seguro de executar após cada atualização do pacote para manter a guidance de IA sincronizada com o contrato de tokens atual.
 
@@ -380,7 +380,7 @@ A partir da versão 3.15, `ai:init` também copia um `DESIGN.md` estático para 
 
 A partir da versão 3.16, `ai:init` também instala o **Knowledge Guide** em todas as ferramentas de IA — veja [`ai:knowledge`](#aiknowledge) abaixo.
 
-A partir da versão 3.19, `ai:init` instala o **playbook central** (`docs/context/theme-engine-playbook.md`), **6 slash commands** (`.claude/commands/`) e o **`CLAUDE.md`** de workspace. As skills existentes passaram a ser wrappers finos que leem o playbook — eliminando duplicação de conteúdo entre plataformas.
+A partir da versão 3.19.2, `ai:init` distribui **skills auto-contidas com conhecimento embutido** (`theme-engine` e `aplica-components`) e **6 slash commands** (`.claude/commands/`) — tudo resolvido localmente, sem dependência de doc externa.
 
 > `ai:init`, `ai:setup`, `skills` e `skills:init` são todos aliases do mesmo comando.
 
