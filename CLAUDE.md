@@ -31,3 +31,29 @@ Before proposing or changing `.gitignore`, ask whether files should be shared or
 - Local/personal artifacts should go under `.cursor/local/` or `.claude/local/` (ignored by git).
 
 See also `@README.md` for repository structure and `aplica-ds-concept` content flow.
+
+## Privacy & Compliance
+
+### Mandatory rules when adding or modifying tracking, analytics, or third-party scripts
+
+1. **Never add third-party scripts without a consent gate.** Any script that sends data to external servers must be loaded conditionally via `localStorage['aplica-consent']` check. GA4 is the only analytics service in use — any new service requires the same treatment.
+
+2. **New data processors** → update the Privacy Policy at `apps/site/src/pages/privacy.astro` (PT-BR) and `apps/site/src/pages/en/privacy.astro` (EN), specifically section 4 (processors) and section 5 (retention).
+
+3. **New pages in the Astro site** → always use `Base.astro` as the layout. `CookieConsent.astro` is injected automatically by `Base.astro` — do not add it manually to individual pages.
+
+4. **Forms that collect personal data** → any form collecting name, email, or other personal data requires: (a) a privacy policy link adjacent to the form, and (b) the data processor documented in the privacy policy.
+
+5. **Google Fonts** → already served via CDN (Google receives IPs). If adding new fonts, prefer self-hosting. If using CDN, document the processor in the privacy policy.
+
+### Existing compliance artifacts
+
+| Artifact | Purpose |
+|----------|---------|
+| `apps/site/src/components/CookieConsent.astro` | Cookie consent banner (Astro site) |
+| `apps/docs/src/clientModules/cookieConsent.js` | Cookie consent banner (Docusaurus docs) |
+| `apps/site/src/pages/privacy.astro` | Privacy Policy — PT-BR |
+| `apps/site/src/pages/en/privacy.astro` | Privacy Policy — EN |
+
+Consent key: `localStorage['aplica-consent']` → `{ analytics: boolean, ts: ISO-string, v: "1" }`  
+Contact for data requests: privacy@aplica.me

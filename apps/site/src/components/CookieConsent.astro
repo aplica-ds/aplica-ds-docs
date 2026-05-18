@@ -1,0 +1,111 @@
+---
+interface Props {
+  lang?: string;
+}
+const { lang = 'pt-BR' } = Astro.props;
+const isPt = lang.toLowerCase().startsWith('pt');
+
+const t = isPt
+  ? {
+      title:       'Este site usa cookies',
+      description: 'Usamos o Google Analytics para entender como o site é usado e melhorar a experiência. Cookies funcionais (tema, idioma) são sempre ativos.',
+      accept:      'Aceitar analytics',
+      reject:      'Rejeitar',
+      privacy:     'Política de Privacidade',
+      privacyHref: '/privacy',
+    }
+  : {
+      title:       'This site uses cookies',
+      description: 'We use Google Analytics to understand how the site is used and improve the experience. Functional cookies (theme, language) are always active.',
+      accept:      'Accept analytics',
+      reject:      'Reject',
+      privacy:     'Privacy Policy',
+      privacyHref: '/en/privacy',
+    };
+---
+
+<div
+  id="aplica-cookie-banner"
+  role="dialog"
+  aria-modal="false"
+  aria-label={isPt ? 'Aviso de cookies' : 'Cookie notice'}
+  style="display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 9998; background: var(--color-bg-card, #ffffff); border-top: 1px solid var(--color-border, #e5e7eb); padding: 1rem 1.5rem; box-shadow: 0 -4px 24px rgba(0,0,0,0.08); align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;"
+>
+  <div style="flex: 1; min-width: 0;">
+    <p style="font-weight: 600; font-size: 0.9375rem; color: var(--color-text, #111827); margin-bottom: 0.25rem;">{t.title}</p>
+    <p style="font-size: 0.8125rem; color: var(--color-text-muted, #6b7280); line-height: 1.5; margin: 0;">
+      {t.description}
+      <a href={t.privacyHref} style="color: var(--color-accent, #f97316); text-decoration: underline; margin-left: 0.25rem;">{t.privacy}</a>.
+    </p>
+  </div>
+  <div style="display: flex; gap: 0.75rem; flex-shrink: 0; flex-wrap: wrap;">
+    <button
+      id="aplica-consent-reject"
+      style="padding: 0.5rem 1rem; border: 1px solid var(--color-border, #e5e7eb); background: transparent; color: var(--color-text-muted, #6b7280); border-radius: 0.5rem; font-size: 0.875rem; cursor: pointer; font-family: inherit; transition: border-color 0.15s, color 0.15s;"
+      onmouseover="this.style.borderColor='var(--color-text-muted)';this.style.color='var(--color-text)'"
+      onmouseout="this.style.borderColor='var(--color-border)';this.style.color='var(--color-text-muted)'"
+    >{t.reject}</button>
+    <button
+      id="aplica-consent-accept"
+      style="padding: 0.5rem 1rem; background: var(--color-accent, #f97316); color: #ffffff; border: none; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 600; cursor: pointer; font-family: inherit; transition: opacity 0.15s;"
+      onmouseover="this.style.opacity='0.88'"
+      onmouseout="this.style.opacity='1'"
+    >{t.accept}</button>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    var banner = document.getElementById('aplica-cookie-banner');
+    if (!banner) return;
+
+    function saveConsent(analytics) {
+      try {
+        localStorage.setItem('aplica-consent', JSON.stringify({ analytics: analytics, ts: new Date().toISOString(), v: '1' }));
+      } catch (e) {}
+    }
+
+    function loadGA() {
+      if (window.__aplica_ga_loaded) return;
+      window.__aplica_ga_loaded = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-VVFNS1CWQK';
+      document.head.appendChild(s);
+      s.onload = function () {
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        window.gtag = gtag;
+        gtag('js', new Date());
+        gtag('config', 'G-VVFNS1CWQK', { anonymize_ip: true });
+      };
+    }
+
+    function hideBanner() {
+      banner.style.display = 'none';
+    }
+
+    document.getElementById('aplica-consent-accept').addEventListener('click', function () {
+      saveConsent(true);
+      loadGA();
+      hideBanner();
+    });
+
+    document.getElementById('aplica-consent-reject').addEventListener('click', function () {
+      saveConsent(false);
+      hideBanner();
+    });
+
+    // Show banner only if no stored consent
+    try {
+      var stored = JSON.parse(localStorage.getItem('aplica-consent') || 'null');
+      if (!stored) {
+        banner.style.display = 'flex';
+      } else if (stored.analytics === true) {
+        loadGA();
+      }
+    } catch (e) {
+      banner.style.display = 'flex';
+    }
+  })();
+</script>

@@ -19,7 +19,7 @@ const config: Config = {
 
   onBrokenLinks: 'warn',
 
-  clientModules: ['./src/clientModules/langRedirect.js'],
+  clientModules: ['./src/clientModules/langRedirect.js', './src/clientModules/cookieConsent.js'],
 
   // Treat .md files as standard Markdown (not MDX).
   // Our KB content uses { } in code examples and error messages — MDX would
@@ -54,10 +54,6 @@ const config: Config = {
         blog: false,
         theme: {
           customCss: './src/css/custom.css',
-        },
-        gtag: {
-          trackingID: 'G-VVFNS1CWQK',
-          anonymizeIP: true,
         },
       } satisfies Preset.Options,
     ],

@@ -10,26 +10,30 @@ const r = routes[lang];
 
 const ft = {
   'pt-br': {
-    tagline:   'Design tokens que escalam com o produto. Arquitetura de 5 camadas, open source, licença Apache-2.0.',
-    docsCol:   'Documentação',
-    overview:  'Visão geral',
-    n1:        'Tutoriais N1',
-    engine:    'Theme Engine',
-    projCol:   'Projeto',
-    about:     'Sobre',
-    changelog: 'Changelog',
-    license:   `© ${new Date().getFullYear()} Aplica DS — Apache-2.0`,
+    tagline:        'Design tokens que escalam com o produto. Arquitetura de 5 camadas, open source, licença Apache-2.0.',
+    docsCol:        'Documentação',
+    overview:       'Visão geral',
+    n1:             'Tutoriais N1',
+    engine:         'Theme Engine',
+    projCol:        'Projeto',
+    about:          'Sobre',
+    changelog:      'Changelog',
+    privacy:        'Privacidade',
+    cookiePrefs:    'Preferências de cookies',
+    license:        `© ${new Date().getFullYear()} Aplica DS — Apache-2.0`,
   },
   en: {
-    tagline:   'Design tokens that scale with your product. 5-layer architecture, open source, Apache-2.0 license.',
-    docsCol:   'Documentation',
-    overview:  'Overview',
-    n1:        'N1 Tutorials',
-    engine:    'Theme Engine',
-    projCol:   'Project',
-    about:     'About',
-    changelog: 'Changelog',
-    license:   `© ${new Date().getFullYear()} Aplica DS — Apache-2.0`,
+    tagline:        'Design tokens that scale with your product. 5-layer architecture, open source, Apache-2.0 license.',
+    docsCol:        'Documentation',
+    overview:       'Overview',
+    n1:             'N1 Tutorials',
+    engine:         'Theme Engine',
+    projCol:        'Project',
+    about:          'About',
+    changelog:      'Changelog',
+    privacy:        'Privacy',
+    cookiePrefs:    'Cookie preferences',
+    license:        `© ${new Date().getFullYear()} Aplica DS — Apache-2.0`,
   },
 }[lang];
 ---
@@ -61,6 +65,7 @@ const ft = {
         <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.625rem;">
           <li><a href={r.sobre} style="color: var(--color-text-muted); font-size: 0.875rem; text-decoration: none; transition: color 0.15s;" onmouseover="this.style.color='var(--color-text)'" onmouseout="this.style.color='var(--color-text-muted)'">{ft.about}</a></li>
           <li><a href={r.changelog} style="color: var(--color-text-muted); font-size: 0.875rem; text-decoration: none; transition: color 0.15s;" onmouseover="this.style.color='var(--color-text)'" onmouseout="this.style.color='var(--color-text-muted)'">{ft.changelog}</a></li>
+          <li><a href={r.privacy} style="color: var(--color-text-muted); font-size: 0.875rem; text-decoration: none; transition: color 0.15s;" onmouseover="this.style.color='var(--color-text)'" onmouseout="this.style.color='var(--color-text-muted)'">{ft.privacy}</a></li>
           <li><a href="https://github.com/aplica-ds/aplica-tokens-themes-sample" style="color: var(--color-text-muted); font-size: 0.875rem; text-decoration: none; transition: color 0.15s;" onmouseover="this.style.color='var(--color-text)'" onmouseout="this.style.color='var(--color-text-muted)'">GitHub (exemplo)</a></li>
           <li><a href="https://www.npmjs.com/package/@aplica/aplica-theme-engine" style="color: var(--color-text-muted); font-size: 0.875rem; text-decoration: none; transition: color 0.15s;" onmouseover="this.style.color='var(--color-text)'" onmouseout="this.style.color='var(--color-text-muted)'">npm</a></li>
           <li><a href="https://ko-fi.com/aplicadesign" style="color: var(--color-text-muted); font-size: 0.875rem; text-decoration: none; transition: color 0.15s;" onmouseover="this.style.color='var(--color-text)'" onmouseout="this.style.color='var(--color-text-muted)'">{lang === 'pt-br' ? 'Apoiar via Ko-fi' : 'Support on Ko-fi'}</a></li>
@@ -73,9 +78,15 @@ const ft = {
       <p style="color: var(--color-text-muted); font-size: 0.8125rem;">
         {ft.license}
       </p>
-      <div style="display: flex; gap: 1.5rem;">
+      <div style="display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap;">
         <a href="https://github.com/aplica-ds/aplica-tokens-themes-sample" style="color: var(--color-text-muted); font-size: 0.8125rem; text-decoration: none; transition: color 0.15s;" onmouseover="this.style.color='var(--color-text)'" onmouseout="this.style.color='var(--color-text-muted)'">GitHub</a>
         <a href={r.docs} style="color: var(--color-text-muted); font-size: 0.8125rem; text-decoration: none; transition: color 0.15s;" onmouseover="this.style.color='var(--color-text)'" onmouseout="this.style.color='var(--color-text-muted)'">Docs</a>
+        <button
+          onclick="try{localStorage.removeItem('aplica-consent');document.getElementById('aplica-cookie-banner').style.display='flex';}catch(e){}"
+          style="background: none; border: none; cursor: pointer; color: var(--color-text-muted); font-size: 0.8125rem; padding: 0; text-decoration: none; transition: color 0.15s; font-family: inherit;"
+          onmouseover="this.style.color='var(--color-text)'"
+          onmouseout="this.style.color='var(--color-text-muted)'"
+        >{ft.cookiePrefs}</button>
       </div>
     </div>
   </div>
