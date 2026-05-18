@@ -29,35 +29,184 @@ const t = isPt
   role="dialog"
   aria-modal="false"
   aria-label={isPt ? 'Aviso de cookies' : 'Cookie notice'}
-  style="display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 9998; background: var(--color-bg-card, #ffffff); border-top: 1px solid var(--color-border, #e5e7eb); padding: 1rem 1.5rem; box-shadow: 0 -4px 24px rgba(0,0,0,0.08); align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;"
+  class="cookie-banner"
+  style="display: none;"
 >
-  <div style="flex: 1; min-width: 0;">
-    <p style="font-weight: 600; font-size: 0.9375rem; color: var(--color-text, #111827); margin-bottom: 0.25rem;">{t.title}</p>
-    <p style="font-size: 0.8125rem; color: var(--color-text-muted, #6b7280); line-height: 1.5; margin: 0;">
+  <div class="cookie-content">
+    <p class="cookie-title">{t.title}</p>
+    <p class="cookie-desc">
       {t.description}
-      <a href={t.privacyHref} style="color: var(--color-accent, #f97316); text-decoration: underline; margin-left: 0.25rem;">{t.privacy}</a>.
+      <a href={t.privacyHref} class="cookie-link">{t.privacy}</a>.
     </p>
   </div>
-  <div style="display: flex; gap: 0.75rem; flex-shrink: 0; flex-wrap: wrap;">
-    <button
-      id="aplica-consent-reject"
-      style="padding: 0.5rem 1rem; border: 1px solid var(--color-border, #e5e7eb); background: transparent; color: var(--color-text-muted, #6b7280); border-radius: 0.5rem; font-size: 0.875rem; cursor: pointer; font-family: inherit; transition: border-color 0.15s, color 0.15s;"
-      onmouseover="this.style.borderColor='var(--color-text-muted)';this.style.color='var(--color-text)'"
-      onmouseout="this.style.borderColor='var(--color-border)';this.style.color='var(--color-text-muted)'"
-    >{t.reject}</button>
-    <button
-      id="aplica-consent-accept"
-      style="padding: 0.5rem 1rem; background: var(--color-accent, #f97316); color: #ffffff; border: none; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 600; cursor: pointer; font-family: inherit; transition: opacity 0.15s;"
-      onmouseover="this.style.opacity='0.88'"
-      onmouseout="this.style.opacity='1'"
-    >{t.accept}</button>
+  <div class="cookie-actions">
+    <button id="aplica-consent-reject" class="cookie-btn-reject">{t.reject}</button>
+    <button id="aplica-consent-accept" class="cookie-btn-accept">{t.accept}</button>
   </div>
 </div>
+
+<style>
+  .cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9998;
+    border-top: 1px solid #374151;
+    padding: 1rem 1.5rem;
+    box-shadow: 0 -4px 32px rgba(0, 0, 0, 0.3);
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    /* Light mode: black background */
+    background: #111827;
+  }
+
+  :global(html.dark) .cookie-banner {
+    /* Dark mode: white background */
+    background: #ffffff;
+    border-top-color: #e5e7eb;
+    box-shadow: 0 -4px 32px rgba(0, 0, 0, 0.12);
+  }
+
+  .cookie-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .cookie-title {
+    font-weight: 600;
+    font-size: 0.9375rem;
+    margin-bottom: 0.25rem;
+    color: #f9fafb;
+  }
+
+  :global(html.dark) .cookie-title {
+    color: #111827;
+  }
+
+  .cookie-desc {
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    margin: 0;
+    color: #9ca3af;
+  }
+
+  :global(html.dark) .cookie-desc {
+    color: #6b7280;
+  }
+
+  .cookie-link {
+    color: #f97316;
+    text-decoration: underline;
+    margin-left: 0.25rem;
+  }
+
+  .cookie-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+  }
+
+  .cookie-btn-reject {
+    padding: 0.5rem 1rem;
+    border: 1px solid #4b5563;
+    background: transparent;
+    color: #9ca3af;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    cursor: pointer;
+    font-family: inherit;
+    transition: border-color 0.15s, color 0.15s;
+    white-space: nowrap;
+  }
+
+  .cookie-btn-reject:hover {
+    border-color: #9ca3af;
+    color: #f9fafb;
+  }
+
+  :global(html.dark) .cookie-btn-reject {
+    border-color: #d1d5db;
+    color: #6b7280;
+  }
+
+  :global(html.dark) .cookie-btn-reject:hover {
+    border-color: #6b7280;
+    color: #111827;
+  }
+
+  .cookie-btn-accept {
+    padding: 0.5rem 1.25rem;
+    background: #f97316;
+    color: #ffffff;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: opacity 0.15s;
+    white-space: nowrap;
+  }
+
+  .cookie-btn-accept:hover {
+    opacity: 0.88;
+  }
+
+  /* Mobile: stack vertically */
+  @media (max-width: 600px) {
+    .cookie-banner {
+      flex-direction: column;
+      align-items: stretch;
+      padding: 1rem 1rem 1.25rem;
+    }
+
+    .cookie-actions {
+      flex-direction: row;
+      gap: 0.625rem;
+    }
+
+    .cookie-btn-reject,
+    .cookie-btn-accept {
+      flex: 1;
+      text-align: center;
+    }
+  }
+</style>
 
 <script is:inline>
   (function () {
     var banner = document.getElementById('aplica-cookie-banner');
+    var kofi = document.getElementById('kofi-float');
     if (!banner) return;
+
+    function getBannerHeight() {
+      return banner.offsetHeight || 0;
+    }
+
+    function pushKofi() {
+      if (!kofi) return;
+      kofi.style.bottom = (getBannerHeight() + 16) + 'px';
+    }
+
+    function resetKofi() {
+      if (!kofi) return;
+      kofi.style.bottom = '1.5rem';
+    }
+
+    function showBanner() {
+      banner.style.display = 'flex';
+      // Wait one frame so offsetHeight is computed after display:flex
+      requestAnimationFrame(pushKofi);
+    }
+
+    function hideBanner() {
+      banner.style.display = 'none';
+      resetKofi();
+    }
 
     function saveConsent(analytics) {
       try {
@@ -81,10 +230,6 @@ const t = isPt
       };
     }
 
-    function hideBanner() {
-      banner.style.display = 'none';
-    }
-
     document.getElementById('aplica-consent-accept').addEventListener('click', function () {
       saveConsent(true);
       loadGA();
@@ -100,12 +245,12 @@ const t = isPt
     try {
       var stored = JSON.parse(localStorage.getItem('aplica-consent') || 'null');
       if (!stored) {
-        banner.style.display = 'flex';
+        showBanner();
       } else if (stored.analytics === true) {
         loadGA();
       }
     } catch (e) {
-      banner.style.display = 'flex';
+      showBanner();
     }
   })();
 </script>
