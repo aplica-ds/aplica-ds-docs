@@ -679,6 +679,37 @@ Cada leaf deve declarar pelo menos um campo — um leaf vazio lança erro em par
 
 > **Nota v3.21.0:** antes da v3.21, quando apenas `background` era declarado sem `txtOn` explícito, o engine derivava o `txtOn` usando a paleta da cor original do item (hue incorreto). A partir da v3.21, o `txtOn` é derivado da paleta gerada a partir do próprio hex declarado como `background`. Se precisar de um tom específico, declare `txtOn` explicitamente — o valor explícito tem sempre prioridade sobre o auto-computado.
 
+**Formato por modo (desde v3.22.0):**
+
+Desde v3.22.0, preset leaves aceitam valores diferentes por modo. Três formatos disponíveis — todos retrocompatíveis:
+
+```javascript
+// Global — mesmo valor em ambos os modos (comportamento existente, sem mudança)
+active: {
+  solid: { background: '#C73C9E' }
+}
+
+// Modo-específico duplo — valor diferente por modo
+active: {
+  solid: {
+    light: { background: '#C73C9E' },
+    dark:  { background: '#AD2385' }
+  }
+}
+
+// Modo-específico parcial — um modo explícito, o outro auto-gerado
+active: {
+  solid: {
+    light: { background: '#C73C9E' }
+    // dark omitido → auto-gerado pelo engine
+  }
+}
+```
+
+**Regra de detecção:** se o valor de um preset contiver chave `light` ou `dark`, é tratado como modo-específico. Do contrário, é tratado como leaf global. Consistente com a convenção `{ light, dark }` já usada em `overrides.grayscale`, `overrides.neutrals` e `options.txtOnCustomTint`.
+
+Antes dessa release, a única forma de ter cores diferentes no dark mode era declarar um override global e aceitar que a mesma cor (muitas vezes otimizada para light) fosse forçada no dark mode — gerando warnings `[override:accessibility]` que o engine então contornava silenciosamente. Leaves por modo eliminam essa classe de warning inteiramente.
+
 **Chaves de itens de function:** `primary`, `secondary`, `link`
 
 **Chaves de itens de feedback:** `info_default`, `info_secondary`, `success_default`, `success_secondary`, `warning_default`, `warning_secondary`, `danger_default`, `danger_secondary`

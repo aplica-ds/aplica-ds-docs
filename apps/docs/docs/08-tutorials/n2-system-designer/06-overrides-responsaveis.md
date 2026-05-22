@@ -98,6 +98,34 @@ overrides: {
 
 > **A partir da v3.21:** quando apenas `background` é declarado sem `txtOn` explícito, o `txtOn` é derivado da paleta gerada a partir do próprio hex declarado — não mais da paleta da cor original do item. Se precisar de um tom específico, declare `txtOn` explicitamente.
 
+**Formato por modo (desde v3.22.0):**
+
+Preset leaves agora aceitam valores diferentes para light e dark mode:
+
+```javascript
+active: {
+  // Global — mesmo valor em ambos os modos (comportamento anterior, sem mudança)
+  solid: { background: '#C73C9E' }
+}
+
+active: {
+  // Modo-específico duplo — cor diferente por modo
+  solid: {
+    light: { background: '#C73C9E' },
+    dark:  { background: '#AD2385' }
+  }
+}
+
+active: {
+  // Modo-específico parcial — light explícito, dark auto-gerado
+  solid: {
+    light: { background: '#C73C9E' }
+  }
+}
+```
+
+Regra de detecção: se o preset contiver chave `light` ou `dark`, é modo-específico. Do contrário, é global. Todos os configs existentes continuam funcionando sem mudança.
+
 ### O ciclo obrigatório: Estudar → Testar → Documentar
 
 Antes de aplicar qualquer override, siga as três etapas:
@@ -225,6 +253,7 @@ Ao fim deste tutorial você deve saber:
 - [ ] Por que nunca editar `data/semantic/` manualmente
 - [ ] A diferença entre `color` e `background` no leaf de override de interação
 - [ ] Como o warning `[override:accessibility]` funciona — e por que o engine preserva o valor seguro
+- [ ] Quando usar o formato por modo (`light`/`dark` no preset) versus o formato global
 - [ ] Distinguir um override legítimo de um desnecessário e de um problemático
 
 ---
