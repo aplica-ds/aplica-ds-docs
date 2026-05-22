@@ -64,6 +64,29 @@ Valide os dados gerados antes de construir. Captura violações de schema antes 
 npm run tokens:validate && npm run tokens:build:all
 ```
 
+### Estratégia D — Gate de testes antes do build de temas (v3.20+)
+
+A partir da v3.20, o script `build:themes` executa `test:theme-engine` automaticamente antes de qualquer geração. Se qualquer teste falhar, o build não avança.
+
+```bash
+npm run build:themes   # testa → gera; aborta se testes falharem
+```
+
+Para o gate completo antes de cortar um release, use `prerelease:check` — que agrega `test:theme-engine`, `test:override-validation` e `test:quick`:
+
+```bash
+npm run prerelease:check
+```
+
+Os quatro conjuntos de teste cobertos por `test:theme-engine`:
+
+| Script | Cobertura | Testes |
+|--------|-----------|--------|
+| `test:interaction-overrides` | Todos os caminhos de override (`background`, `txtOnly`, `color`, `border`, validação) | 9 |
+| `test:config-matrix` | 15 configs reais `aplica-*` × solid/ghost × light/dark × function/feedback × WCAG AA | 120 |
+| `test:txtOn-strategies` | `high-contrast`, `brand-tint`, `custom-tint`, `accessibilityLevel` AA/AAA, validação de erro | 14 |
+| `test:decomposition-variants` | `system-scale`, dilution direction/target/anchor, `modeResolution`, ghost integer/dilution, negative surface, ambient-neutral fallback | 17 |
+
 ---
 
 ## Integração CI/CD

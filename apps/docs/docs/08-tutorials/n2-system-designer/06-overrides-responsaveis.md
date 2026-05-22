@@ -56,6 +56,41 @@ overrides: {
 }
 ```
 
+**3. Interaction states** — superfície direta de um estado de interação
+A partir da v3.20, o leaf de override de interação aceita um quarto campo: `background`. Diferente de `color` (que alimenta o pipeline completo de dilução e gera variantes por estado), `background` substitui a surface de um estado específico diretamente.
+
+Quando `background` é declarado:
+- `txtOn` é auto-computado com WCAG AA garantido contra o hex fornecido
+- `border` é derivada automaticamente
+- Nenhum dado de paleta é necessário
+
+Ideal para substituições de cor de marca sem variantes na paleta.
+
+```javascript
+overrides: {
+  interaction: {
+    function: {
+      items: {
+        primary: {
+          states: {
+            active: {
+              solid: { background: '#C73C9E' }  // surface direta; txtOn auto-computado WCAG AA
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+**Diferença entre `color` e `background`:**
+
+| Campo | Entrada para | Gera |
+|-------|-------------|------|
+| `color` | Pipeline de dilução completo | Variantes de surface por estado |
+| `background` | Substituição direta | Surface única; `txtOn` e `border` automáticos |
+
 ### O ciclo obrigatório: Estudar → Testar → Documentar
 
 Antes de aplicar qualquer override, siga as três etapas:
@@ -72,7 +107,12 @@ Antes de aplicar qualquer override, siga as três etapas:
 
 **Tokens Semantic diretamente.** A camada Semantic é gerada pelo `sync:architecture` — qualquer edição manual em `data/semantic/default.json` é sobrescrita na próxima execução. Se você precisa mudar o comportamento de um token Semantic, a mudança precisa acontecer no schema ou no config do tema, não no arquivo gerado.
 
-**Valores calculados de txtOn.** O `txtOn` é calculado para garantir WCAG AA. Sobrepô-lo manualmente para "parecer melhor visualmente" remove a garantia de acessibilidade. Se você precisa de uma estratégia diferente, use `txtOnStrategy: 'brand-tint'` ou `'custom-tint'` no config — não sobreponha o txtOn diretamente.
+**Valores calculados de txtOn sem considerar o contraste.** O `txtOn` é calculado para garantir WCAG AA. Se você configurar um override de `txtOn` e ele reprovar o contraste mínimo (4.5:1), o engine emite o warning nomeado `[override:accessibility]` com o ratio exato e a surface, e preserva o valor auto-computado — o override configurado é ignorado silenciosamente substituído pelo valor seguro. Se você precisa de uma estratégia diferente, use `txtOnStrategy: 'brand-tint'` ou `'custom-tint'` no config.
+
+```
+⚠ [override:accessibility] action_primary.function.ghost.action.txtOn:
+  '#010101' fails WCAG AA (1.05:1) on surface #2d1a0e [dark] — skipped, auto-computed preserved.
+```
 
 ---
 
@@ -173,10 +213,11 @@ overrides: {
 
 Ao fim deste tutorial você deve saber:
 
-- [ ] Em quais pontos o engine aceita overrides (grayscale, neutrals)
+- [ ] Em quais pontos o engine aceita overrides (grayscale, neutrals, interaction states)
 - [ ] O ciclo Estudar → Testar → Documentar antes de qualquer override
 - [ ] Por que nunca editar `data/semantic/` manualmente
-- [ ] Por que não sobrepor `txtOn` diretamente — usar `txtOnStrategy` em vez disso
+- [ ] A diferença entre `color` e `background` no leaf de override de interação
+- [ ] Como o warning `[override:accessibility]` funciona — e por que o engine preserva o valor seguro
 - [ ] Distinguir um override legítimo de um desnecessário e de um problemático
 
 ---
