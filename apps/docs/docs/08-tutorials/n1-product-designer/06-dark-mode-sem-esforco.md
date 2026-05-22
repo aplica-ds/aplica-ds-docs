@@ -120,11 +120,11 @@ Ao fim deste tutorial você deve saber:
 
 ## Próximo passo
 
-[N1-04 · Tokens no Figma — workflow do dia a dia](./04-tokens-no-figma.md)
+Você concluiu o N1. Você sabe usar tokens no Figma, garantir acessibilidade automaticamente e entregar designs que funcionam em dark mode sem nenhum trabalho extra.
 
-Você tem o vocabulário, entende acessibilidade e dark mode. Agora vamos fechar o ciclo: como o Figma fica sincronizado com o sistema, e qual é o fluxo correto para aplicar tokens em um componente novo.
+[N2-01 · O modelo mental das 5 camadas](../n2-system-designer/01-modelo-mental-5-camadas.md)
 
-*(Este tutorial inclui prints e será publicado em breve.)*
+Se quiser entender **por que** o sistema foi construído desta forma — a arquitetura interna, o pipeline OKLCh e o paradigma Config-First — a trilha N2 começa aqui.
 
 ---
 

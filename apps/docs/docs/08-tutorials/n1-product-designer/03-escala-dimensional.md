@@ -190,9 +190,9 @@ Ao fim deste tutorial você deve saber:
 
 ## Próximo passo
 
-[N1-05 · Acessibilidade por construção](./05-acessibilidade-por-construcao.md)
+[N1-04 · Tokens no Figma — workflow do dia a dia](./04-tokens-no-figma.md)
 
-Você já sabe usar tokens de cor, espaçamento e tipografia. O próximo passo é entender por que usar os tokens certos não é só consistência — é o que garante que sua interface seja acessível para todos os usuários.
+Você sabe o vocabulário de cor, espaço e tipografia. O próximo passo é aplicar tudo isso no Figma: como os tokens chegam, como vinculá-los em fills e paddings, e como verificar o dark mode antes de entregar.
 
 ---
 

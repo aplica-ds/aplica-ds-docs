@@ -185,9 +185,9 @@ Ao fim deste tutorial você deve saber:
 
 ## Próximo passo
 
-[N1-05 · Acessibilidade por construção](./05-acessibilidade-por-construcao.md)
+[N1-03 · Espaçamento e tipografia — a escala dimensional](./03-escala-dimensional.md)
 
-Você tem o vocabulário. Antes de aprender a aplicá-lo no Figma, existe uma regra fundamental que torna cada decisão de cor automaticamente acessível — e que é muito mais simples do que parece.
+Você tem o vocabulário de cores. O próximo passo é o vocabulário de espaço e texto: como o sistema nomeia distâncias e estilos tipográficos para que duas equipes nunca cheguem a valores diferentes.
 
 ---
 
