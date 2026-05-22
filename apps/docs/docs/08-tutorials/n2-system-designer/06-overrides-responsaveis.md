@@ -56,15 +56,18 @@ overrides: {
 }
 ```
 
-**3. Interaction states** — superfície direta de um estado de interação
-A partir da v3.20, o leaf de override de interação aceita um quarto campo: `background`. Diferente de `color` (que alimenta o pipeline completo de dilução e gera variantes por estado), `background` substitui a surface de um estado específico diretamente.
+**3. Interaction states** — substituição de estados de interação específicos
+A partir da v3.20, o leaf de override de interação aceita cinco campos. Cada um afeta uma parte diferente do visual do estado:
 
-Quando `background` é declarado:
-- `txtOn` é auto-computado com WCAG AA garantido contra o hex fornecido
-- `border` é derivada automaticamente
-- Nenhum dado de paleta é necessário
+| Campo | O que substitui | Checagem de contraste |
+|-------|-----------------|----------------------|
+| `background` | A surface do estado diretamente pelo hex declarado. `txtOn` é auto-computado com WCAG AA e `border` é derivado a partir desse hex. | `txtOn` auto sempre passa AA |
+| `color` | A cor-fonte do estado, que passa pelo pipeline de dilução completo. A surface é diluída — não é o hex bruto. | derivado pela estratégia do tema |
+| `txtOn` | O texto/ícone sobre a surface. **Só é aplicado se o valor passar WCAG AA** (4.5:1). Se reprovar, o engine emite `[override:accessibility]` com o ratio exato e preserva o valor auto-computado. | enforced |
+| `txt` | O texto de leitura ambiente sobre o canvas da página. Só relevante quando `generateTxt: true` está ativo no workspace. | enforced |
+| `border` | A cor de borda do estado. Aplicado incondicionalmente, sem checagem de contraste. | nenhuma |
 
-Ideal para substituições de cor de marca sem variantes na paleta.
+Cada leaf deve declarar pelo menos um campo — um leaf vazio causa erro em parse time. Estados válidos: `normal`, `action`, `active`, `focus`.
 
 ```javascript
 overrides: {
@@ -74,7 +77,16 @@ overrides: {
         primary: {
           states: {
             active: {
-              solid: { background: '#C73C9E' }  // surface direta; txtOn auto-computado WCAG AA
+              // Cor de marca diretamente no estado active — txtOn auto-computado WCAG AA
+              solid: { background: '#C73C9E' }
+            },
+            action: {
+              // Redirecionar via pipeline de dilução — surface é diluída, não o hex bruto
+              solid: { color: '#0067FF' }
+            },
+            focus: {
+              // Só borda — sem alterar surface ou texto
+              solid: { border: '#8B5CF6' }
             }
           }
         }
@@ -84,12 +96,7 @@ overrides: {
 }
 ```
 
-**Diferença entre `color` e `background`:**
-
-| Campo | Entrada para | Gera |
-|-------|-------------|------|
-| `color` | Pipeline de dilução completo | Variantes de surface por estado |
-| `background` | Substituição direta | Surface única; `txtOn` e `border` automáticos |
+> **A partir da v3.21:** quando apenas `background` é declarado sem `txtOn` explícito, o `txtOn` é derivado da paleta gerada a partir do próprio hex declarado — não mais da paleta da cor original do item. Se precisar de um tom específico, declare `txtOn` explicitamente.
 
 ### O ciclo obrigatório: Estudar → Testar → Documentar
 

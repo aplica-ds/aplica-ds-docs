@@ -655,16 +655,29 @@ overrides: {
 | Um item, todos os presets, um estado | `interaction.{group}.items.{item}.states.{state}` | `feedback.items.warning_default.states.normal` |
 | Um item, um preset, um estado | `interaction.{group}.items.{item}.states.{state}.{preset}` | `feedback.items.warning_default.states.normal.ghost` |
 
-**Valores aceitos por nó de estado:**
+**Campos disponíveis no leaf de estado (v3.20+):**
+
+| Campo | O que faz | Checagem WCAG |
+|-------|-----------|---------------|
+| `background` | Substitui a surface gerada pelo hex declarado diretamente. Engine auto-computa `txtOn` (WCAG AA) e deriva `border` a partir desse hex. Use quando uma cor de marca deve aparecer diretamente num estado sem pipeline de dilução. | `txtOn` auto sempre passa AA |
+| `color` | Passa o hex pelo pipeline de decomposição completo como cor-fonte do estado. A surface é diluída, não é o hex bruto. Use para redirecionar um estado a outra cor de marca mantendo o comportamento de diluição. | derivado por estratégia |
+| `txtOn` | Sobrepõe o texto/ícone sobre a surface (solid) ou canvas (ghost transparente). **Só é aplicado se passar WCAG AA.** Se reprovar, o engine emite `[override:accessibility]` com o ratio exato e preserva o valor auto-computado. | enforced |
+| `txt` | Sobrepõe o texto de leitura ambiente. Só relevante quando `generateTxt: true` está ativo no workspace config. | enforced |
+| `border` | Sobrepõe a cor de borda incondicionalmente. Sem checagem de contraste. | nenhuma |
+
+Cada leaf deve declarar pelo menos um campo — um leaf vazio lança erro em parse time.
 
 ```javascript
-{ color: '#hex' }                                     // apenas cor de background
-{ color: '#hex', txtOn: '#hex', border: '#hex', txt: '#hex' }  // override completo
+// Exemplos de combinações válidas
+{ background: '#C73C9E' }                                // surface direta; txtOn e border automáticos
+{ color: '#0067FF' }                                     // redireciona via pipeline de dilução
+{ txtOn: '#FFFFFF', border: '#D0D5DD' }                  // só texto e borda, sem alterar surface
+{ color: '#FF0000', txtOn: '#FFFFFF' }                   // cor + texto fixo explícito
 ```
 
-Quando apenas `color` é fornecido, o engine deriva `txtOn`, `border` e `txt` usando `txtOnStrategy` e `accessibilityLevel` configurados. Valores explícitos de `txtOn`/`border`/`txt` ignoram a derivação — use com cautela.
+**Nomes de estado aceitos:** `normal`, `action`, `active`, `focus`
 
-**Nomes de estado aceitos:** `normal`, `action`, `active`, `focus`, `disabled`
+> **Nota v3.21.0:** antes da v3.21, quando apenas `background` era declarado sem `txtOn` explícito, o engine derivava o `txtOn` usando a paleta da cor original do item (hue incorreto). A partir da v3.21, o `txtOn` é derivado da paleta gerada a partir do próprio hex declarado como `background`. Se precisar de um tom específico, declare `txtOn` explicitamente — o valor explícito tem sempre prioridade sobre o auto-computado.
 
 **Chaves de itens de function:** `primary`, `secondary`, `link`
 
