@@ -22,17 +22,15 @@ function isDarkMode() {
 function loadGA() {
   if (window.__aplica_ga_loaded) return;
   window.__aplica_ga_loaded = true;
+  // dataLayer and gtag must exist before the GA script runs
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function() { window.dataLayer.push(arguments); };
+  window.gtag('js', new Date());
+  window.gtag('config', GA_ID, { anonymize_ip: true });
   var s = document.createElement('script');
   s.async = true;
   s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
   document.head.appendChild(s);
-  s.onload = function () {
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { window.dataLayer.push(arguments); }
-    window.gtag = gtag;
-    gtag('js', new Date());
-    gtag('config', GA_ID, { anonymize_ip: true });
-  };
 }
 
 function saveConsent(analytics) {
