@@ -40,6 +40,20 @@ const config: Config = {
     },
   },
 
+  themes: [
+    [
+      require.resolve('@easyops-cn/docusaurus-search-local'),
+      {
+        hashed: true,
+        language: ['pt', 'en'],
+        indexDocs: true,
+        indexBlog: false,
+        docsRouteBasePath: '/',
+        // When Algolia is enabled, remove this plugin
+      },
+    ],
+  ],
+
   presets: [
     [
       'classic',
