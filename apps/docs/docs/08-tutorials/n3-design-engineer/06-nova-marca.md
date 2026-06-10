@@ -451,6 +451,23 @@ export default {
 }
 ```
 
+Para expor tokens além dos grupos padrão (`bg`, `spacing`, `borderWidth`, etc.) use o **alias pass genérico** — qualquer chave com três campos é processada automaticamente:
+
+```javascript
+structure: {
+  bg: { /* ... */ },
+
+  // Expõe famílias tipográficas como foundation.fontFamilies.*
+  fontFamilies: {
+    semanticPath: 'semantic.typography.fontFamilies',
+    type: 'fontFamilies',
+    items: ['main', 'content', 'display', 'code']
+  }
+}
+```
+
+O path em `semanticPath` deve existir em `data/semantic/default.json`. Consulte o [Guia de Configuração](../../04-theme-engine/03-configuration-guide.md#alias-pass-genérico-desde-v3230) para a lista de tipos comuns.
+
 Em seguida, vincule no `themes.config.json`:
 
 ```json

@@ -877,6 +877,49 @@ structure: {
 
 > **`borderWidth` e `borderRadius` são frequentemente omitidos por engano.** Os tokens `semantic.border.width.*` e `semantic.border.radii.*` já existem no output semântico — eles só precisam ser declarados no `structure` da foundation para ficarem disponíveis como aliases simples (`foundation.borderWidth.medium`, `foundation.borderRadius.circular`). Nenhuma mudança no engine é necessária.
 
+### Alias pass genérico (desde v3.23.0)
+
+Qualquer chave em `structure` que **não seja** um dos grupos acima pode declarar três campos para expor tokens semânticos como aliases de foundation sem precisar de mudanças no engine:
+
+| Campo | O que faz |
+|-------|-----------|
+| `semanticPath` | Path base na camada semântica. O item é concatenado: `semanticPath.item` |
+| `type` | Tipo do token para Tokens Studio / Style Dictionary |
+| `items` | Array de nomes dos tokens a expor |
+
+```javascript
+// Expõe semantic.typography.fontFamilies.* como foundation.fontFamilies.*
+fontFamilies: {
+  semanticPath: 'semantic.typography.fontFamilies',
+  type: 'fontFamilies',
+  items: ['main', 'content', 'display', 'code']
+}
+```
+
+Gera em CSS:
+
+```css
+--foundation-fontFamilies-main:    var(--semantic-typography-fontFamilies-main);
+--foundation-fontFamilies-content: var(--semantic-typography-fontFamilies-content);
+--foundation-fontFamilies-display: var(--semantic-typography-fontFamilies-display);
+--foundation-fontFamilies-code:    var(--semantic-typography-fontFamilies-code);
+```
+
+**Tipos comuns para o campo `type`:**
+
+| O que expor | `type` | `semanticPath` provável |
+|-------------|--------|------------------------|
+| Famílias tipográficas | `fontFamilies` | `semantic.typography.fontFamilies` |
+| Tamanhos de fonte | `fontSizes` | `semantic.dimension.fontSizes` |
+| Alturas de linha | `lineHeights` | `semantic.typography.lineHeights` |
+| Pesos de fonte | `fontWeights` | `semantic.typography.fontWeights` |
+| Espaçamento de letras | `letterSpacing` | `semantic.typography.letterSpacing` |
+| Qualquer dimensão custom | `dimension` | path específico do workspace |
+
+> **Pré-requisito:** o path declarado em `semanticPath` deve existir em `data/semantic/default.json`. O mecanismo cria aliases — não gera valores.
+
+> **Atenção:** `borderWidth` e `borderRadius` têm handlers dedicados e não usam a sintaxe genérica — funcionam com `items` apenas (como documentado acima).
+
 ---
 
 ## Referência Rápida
