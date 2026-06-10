@@ -843,6 +843,40 @@ Quando o conjunto padrão de aliases não é suficiente para um consumidor espec
 3. Execute `npm run tokens:foundations`
 4. Vincule ao tema em `themes.config.json`: `"foundation": { "brand": "minha-foundation", ... }`
 
+### Grupos disponíveis em `structure`
+
+A chave `structure` aceita os seguintes grupos. Cada grupo é opcional — inclua apenas o que o consumidor precisa expor:
+
+| Grupo | O que expõe | Exemplo de item |
+|-------|-------------|-----------------|
+| `bg` | Superfícies de cor (background, border, txtOn, txt) | `primary`, `secondary`, `feedback.success` |
+| `border` | Tokens de borda derivados de superfície | `primary` |
+| `txt` | Tokens de texto legível sobre canvas | `primary` |
+| `opacity` | Tokens de opacidade (`surface.opacity.*`) | `light`, `dark` |
+| `spacing` | Escala dimensional de espaçamento | `small`, `medium`, `large` |
+| `sizing` | Escala dimensional de tamanhos | `icon`, `avatar` |
+| `borderWidth` | Espessura de borda (`semantic.border.width.*`) — 5 níveis | `none`, `small`, `medium`, `large`, `extraLarge` |
+| `borderRadius` | Raio de borda (`semantic.border.radii.*`) — 9 níveis | `straight`, `small`, `medium`, `circular` |
+| `typography` | Estilos tipográficos compostos | `heading`, `body`, `action` |
+| `gradient` | Gradientes de marca | `primary`, `secondary` |
+
+```javascript
+// config/foundations/minha-foundation.config.mjs → structure:
+structure: {
+  borderWidth: {
+    items: ['none', 'small', 'medium', 'large', 'extraLarge']
+  },
+  borderRadius: {
+    items: ['straight', 'micro', 'extraSmall', 'small', 'medium', 'large', 'extraLarge', 'mega', 'circular']
+  },
+  bg: {
+    items: ['primary', 'secondary']
+  }
+}
+```
+
+> **`borderWidth` e `borderRadius` são frequentemente omitidos por engano.** Os tokens `semantic.border.width.*` e `semantic.border.radii.*` já existem no output semântico — eles só precisam ser declarados no `structure` da foundation para ficarem disponíveis como aliases simples (`foundation.borderWidth.medium`, `foundation.borderRadius.circular`). Nenhuma mudança no engine é necessária.
+
 ---
 
 ## Referência Rápida
