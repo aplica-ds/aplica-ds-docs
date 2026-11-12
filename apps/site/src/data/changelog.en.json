@@ -1,8 +1,16 @@
 [
   {
-    "version": "v3.24.0",
+    "version": "v3.24.1",
     "date": "November 2026",
     "status": "latest",
+    "changes": [
+      "Documentation patch: the docs installed by ai:init and ai:knowledge (knowledge-guide, engineering-guide, token-concepts, components-guide, aplica-ui-integration) now cover the 3.24.0 opt-in opacity families, alpha vs raw, opacityStrategy, jsonTyped.colorFormat and structure.opacityColors; no generated output changes"
+    ]
+  },
+  {
+    "version": "v3.24.0",
+    "date": "November 2026",
+    "status": "stable",
     "changes": [
       "Opacity color families (opt-in): global.opacityColors (brand, feedback, product, function) adds semantic.opacity.color.<family>.<item>.<step>; items and colors come from the workspace schema and theme mapping, never from a fixed list",
       "rgba-ref strategy: global.opacityStrategy: 'rgba-ref' writes rgba({base color}, {semantic.opacity.alpha.<step>}) with unitless 0-1 number alpha tokens, so Tokens Studio ≥ 2.13.0 links color and opacity variables in Figma; CSS/JS/JSON output is identical to modify mode",
