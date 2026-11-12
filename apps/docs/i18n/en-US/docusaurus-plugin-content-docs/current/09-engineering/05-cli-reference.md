@@ -26,9 +26,13 @@ After installation, the CLI is available as `theme-engine` (or via `npx theme-en
 | [Build](#build-commands) | Transform `data/` into `dist/` |
 | [Generate](#generate-commands) | Generate `data/` from config |
 | [Architecture](#architecture-commands) | Sync token references across layers |
-| [Validate](#validate-commands) | Validate `data/` contract before build |
+| [Validate](#validate-commands) | Validate the `data/` contract and audit accessibility |
 | [Setup](#setup-commands) | Scaffold consumer workspace and schemas |
+| [Playground](#playground-commands) | Copy reference themes and download OFL fonts |
+| [Preview](#preview-commands) | Generate and serve an HTML preview of the current `dist/` |
 | [AI Skills](#ai-skills-commands) | Inject AI editor integrations into consumer workspace |
+| [Design.md](#designmd-commands) | Generate `DESIGN.md` (Google Stitch spec) with real brand values |
+| [Contracts](#contracts-commands) | Generate and diff contract snapshots for deploy safety |
 | [Migration](#migration-commands) | Migrate monolithic projects to package model |
 
 ---
@@ -225,6 +229,20 @@ Run this before `build:all` in CI to catch generation errors before the Style Di
 
 ---
 
+### `audit:accessibility`
+
+Audits every color combination of every brand in the current workspace against the WCAG 2.1 contrast criteria. For each background/foreground pair in `dist/`, it computes the contrast ratio and classifies it as AA, AAA or FAIL.
+
+```bash
+theme-engine audit:accessibility
+```
+
+**Output:** A tabular terminal report with the contrast ratio and classification per color pair. Useful before a release to confirm that color adjustments did not introduce accessibility problems.
+
+> Requires a generated `dist/` — run `theme-engine build` first.
+
+---
+
 ## Setup commands
 
 ### `init`
@@ -235,9 +253,10 @@ Scaffolds a new consumer workspace. Run this once after installing the package.
 theme-engine init
 ```
 
-Offers two onboarding paths:
+Offers three onboarding paths:
 - **Load starter template** — ready-to-run workspace with one starter theme
 - **Create using the wizard** — same base + generates `theme-engine/schemas/architecture.mjs` from guided answers
+- **Load playground themes** — copies the 15 Aplica DS reference configurations (equivalent to `theme-engine init:playground`)
 
 > `init` and `consumer:init` are aliases.
 
@@ -263,6 +282,71 @@ The helper asks about:
 
 ---
 
+## Preview commands
+
+### `preview`
+
+Generates a static HTML view of the current `dist/` — useful for visually inspecting the generated tokens without integrating them into a component project.
+
+```bash
+# Only generate the preview
+theme-engine preview
+
+# Generate and serve locally (opens the browser)
+theme-engine preview --serve
+
+# Run a full build before generating (useful in CI)
+theme-engine preview --build
+
+# Full build + generate + serve
+theme-engine preview --build --serve
+```
+
+**Flags:**
+
+| Flag | Description |
+|------|-------------|
+| `--build` | Runs `theme-engine build` before generating the preview |
+| `--serve` | Starts a local server to view the result in the browser after generation |
+
+The generated file lives in `temp/preview/` in the consumer workspace.
+
+---
+
+## Playground commands
+
+### `init:playground`
+
+Copies the 15 Aplica DS reference theme configurations into the consumer workspace's config directory. Useful for exploring the engine's configuration model, inspecting how each configuration axis is exercised, or starting a project from a complete set of examples.
+
+```bash
+theme-engine init:playground
+```
+
+Copies the `config/aplica-*.config.mjs` files from the published package into `theme-engine/config/` in the consumer workspace. It does not overwrite existing files with the same name.
+
+**Themes copied:** `aplica_blue_sky`, `aplica_sky`, `aplica_joy`, `aplica_tangerine`, `aplica_grinch`, `aplica_slate`, `aplica_forest`, `aplica_aurora`, `aplica_obsidian`, `aplica_coral`, `aplica_midnight`, `aplica_rose`, `aplica_mono`, `aplica_ember`, `aplica_electric`.
+
+> `init:playground` and `themes:examples` are aliases.
+
+---
+
+### `fonts:download`
+
+Downloads the OFL font families used by the playground themes from the canonical `google/fonts` GitHub repository into `assets/fonts/` in the consumer workspace.
+
+```bash
+theme-engine fonts:download
+```
+
+**Families downloaded (22):** Abril Fatface, Barlow, Bebas Neue, Cormorant Garamond, Courier Prime, DM Sans, DM Serif Display, Fira Code, Fira Mono, Inter, JetBrains Mono, Lato, Libre Baskerville, Lora, Montserrat, Nunito, Nunito Sans, Plus Jakarta Sans, Playfair Display, Quicksand, Rajdhani, Source Code Pro, Space Grotesk, Space Mono.
+
+Requires internet access (github.com/google/fonts).
+
+> `fonts:download` and `playground:fonts` are aliases.
+
+---
+
 ## AI Skills commands
 
 ### `ai:init`
@@ -277,14 +361,142 @@ theme-engine ai:init
 
 | Destination | Purpose |
 |-------------|---------|
-| `docs/context/aplica-ui-integration.md` | Agnostic UI integration guide for any AI surface |
-| `.cursor/rules/aplica-ui-integration.mdc` | Cursor-specific rule activating token-aware code generation |
-| `.claude/skills/aplica-ui-integration/SKILL.md` | Claude Code skill for sanctioned token consumption patterns |
-| `.github/instructions/aplica-ui.instructions.md` | GitHub Copilot instructions for token-aware completions |
+| `docs/context/token-concepts.md` | N1 reference — token concepts, the 4 color categories, dimension scale, typography |
+| `docs/context/engineering-guide.md` | N3 reference — CSS variable consumption, dark mode, portal pattern, build pipeline, token contract |
+| `.cursor/rules/theme-engine.mdc` | Mirror of the `theme-engine` skill for Cursor |
+| `.cursor/rules/aplica-components.mdc` | Mirror of the `aplica-components` skill for Cursor |
+| `.claude/skills/theme-engine/SKILL.md` | Engine expert — detects N1/N2/N3 from vocabulary, answers concepts, config keys, CLI and diagnostics |
+| `.claude/skills/aplica-components/SKILL.md` | Component engineer — CSS variables, dark mode, portal pattern for headless UI, archetypes |
+| `.claude/commands/` | 6 guided-workflow slash commands for Claude Code |
+| `CLAUDE.md` | Workspace operating context for Claude Code (soft copy — not overwritten if it already exists) |
+| `.github/instructions/theme-engine.instructions.md` | Mirror of the `theme-engine` skill for GitHub Copilot |
+| `.github/instructions/aplica-components.instructions.md` | Mirror of the `aplica-components` skill for GitHub Copilot |
 
 All files are copied from the package's versioned `templates/ai-skills/` directory. Re-running the command overwrites existing files — safe to run after every package upgrade to keep AI guidance in sync with the current token contract.
 
+**Special `CLAUDE.md` behavior:** if the file already exists at the workspace root, the command skips it and prints an informational message. This preserves customizations made by the team. Reinstall manually only when needed.
+
+Since version 3.15, `ai:init` also copies a static `DESIGN.md` to the workspace root. Use `theme-engine design:md` to regenerate it with your brand's real values.
+
+Since version 3.16, `ai:init` also installs the **Knowledge Guide** in every AI tool — see [`ai:knowledge`](#aiknowledge) below.
+
+Since version 3.19.2, `ai:init` ships **self-contained skills with embedded knowledge** (`theme-engine` and `aplica-components`) and **6 slash commands** (`.claude/commands/`) — everything resolved locally, with no external doc dependency.
+
 > `ai:init`, `ai:setup`, `skills`, and `skills:init` are all aliases for the same command.
+
+---
+
+### `ai:knowledge`
+
+Installs the conversational **Knowledge Guide** skill into the workspace's AI tools. It enables the assistant to answer configuration questions, explain the 5-layer architecture, diagnose token problems and guide workflows step by step — without executing code.
+
+```bash
+theme-engine ai:knowledge
+```
+
+**Files injected:**
+
+| Destination | Tool |
+|-------------|------|
+| `.claude/skills/aplica-knowledge-guide/SKILL.md` | Claude Code |
+| `.cursor/rules/aplica-knowledge-guide.mdc` | Cursor |
+| `.github/instructions/aplica-knowledge.instructions.md` | GitHub Copilot |
+| `docs/context/aplica-knowledge-guide.md` | All surfaces (agnostic) |
+
+**Difference vs `ai:init`:** `ai:init` teaches the AI *how to generate code* that consumes tokens. `ai:knowledge` teaches the AI *how to guide the user* through configuration, architecture and conversational learning. Both skills coexist and complement each other.
+
+> `ai:knowledge`, `ai:guide` and `knowledge:init` are all aliases for the same command.
+>
+> The Knowledge Guide is also included automatically when you run `ai:init`.
+
+For more detail, see [Knowledge Guide](../04-theme-engine/10-knowledge-guide.md).
+
+---
+
+## Design.md commands
+
+`DESIGN.md` is a design system specification file in the [Google Stitch](https://stitch.withgoogle.com/docs/design-md/overview) format: machine-readable YAML frontmatter (colors, typography, spacing, components) + a human-readable markdown body. Any AI coding tool that follows the spec (Cursor, Claude Code, GitHub Copilot, Gemini) uses this file to generate UI consistent with the system.
+
+### `design:md`
+
+Generates the `DESIGN.md` for the current workspace with the brand's real values — resolving tokens from `dist/json/<brand>-light-positive.json` and `data/foundation/<brand>/styles/typography_styles.json`.
+
+```bash
+# Primary brand (detected from themes.config.json)
+theme-engine design:md
+
+# A specific brand
+theme-engine design:md --brand aplica_slate
+```
+
+**Files produced:**
+
+| File | Purpose |
+|------|---------|
+| `DESIGN.md` | Full spec at the workspace root — use it with AI tools |
+| `data/foundation/<brand>/design-md.json` | Resolved intermediate JSON (versionable, for programmatic tools) |
+
+**Customization:** Edit `config/foundations/design-md.json` to override the default slot descriptions. The engine uses the defaults from `schemas/design-md.mjs` for any slot not overridden. When the token architecture evolves, `schemas/design-md.mjs` is updated in the same PR — the pairings always stay in sync.
+
+**Validation:**
+
+```bash
+npx @google/design.md lint DESIGN.md
+```
+
+> `design:md`, `design-md` and `design:generate` are aliases.
+
+---
+
+## Contracts commands
+
+Token contracts guarantee that Theme Engine releases do not silently break the component library. The flow is:
+
+1. The config repository generates the contract after the build and publishes it to NPM together with `dist/`.
+2. The component library diffs it in CI whenever the token package is updated.
+
+### `contracts:generate`
+
+Extracts a structural snapshot (token paths + types, no values) from `dist/json/<brand>-light-positive.json` and writes it to `dist/contracts/<brand>-contract.json`.
+
+```bash
+# Primary brand
+theme-engine contracts:generate
+
+# A specific brand
+theme-engine contracts:generate --brand aplica_slate
+
+# All brands
+theme-engine contracts:generate --all
+```
+
+Run after `theme-engine build` and before `npm publish`. The generated file ships in the NPM package so component libraries can find it via `node_modules`.
+
+---
+
+### `contracts:diff`
+
+Compares the contract committed in the component library with the installed package's contract and returns one of three states:
+
+| State | Condition | Exit code |
+|-------|-----------|-----------|
+| ✅ **Green** | No structural change | `0` |
+| ⚠️ **Alert** | New paths added (non-breaking) | `0` (with a warning) |
+| ❌ **Error** | Paths removed or types changed (breaking) | `1` |
+
+```bash
+# Compare the local contract with the installed package's
+theme-engine contracts:diff --contract ./contracts/aplica_blue_sky-contract.json
+
+# Write a report file
+theme-engine contracts:diff \
+  --contract ./contracts/aplica_blue_sky-contract.json \
+  --output ./contracts/diff-report.json
+```
+
+The engine locates the package contract at `node_modules/@aplica/aplica-theme-engine/dist/contracts/<brand>-contract.json`.
+
+**GitHub Action:** Copy `templates/github-actions/contracts-check.yml` from the package into `.github/workflows/` in your component library. The workflow runs `contracts:diff` on PRs that update `package.json`.
 
 ---
 

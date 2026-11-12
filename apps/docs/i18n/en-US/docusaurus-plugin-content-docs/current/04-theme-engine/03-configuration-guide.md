@@ -198,6 +198,38 @@ options: {
 }
 ```
 
+#### Advanced `brand-tint` options (since v3.18)
+
+When `txtOnStrategy: 'brand-tint'` is active, two complementary options control the palette walk:
+
+**`colorContrastDecompose`** — walk direction and fallback extreme
+
+| Value | Behavior |
+|-------|----------|
+| `'startDark'` (default) | Walks the palette favoring dark tones; extreme = black (`#000000`) |
+| `'startLight'` | Walks the palette favoring light tones; extreme = white (`#ffffff`) |
+
+The value also determines which extreme (black or white) is used when `overlap` is active.
+
+**`overlap`** — skip the walk at saturated levels
+
+```javascript
+options: {
+  txtOnStrategy: 'brand-tint',
+  colorContrastDecompose: 'startDark',
+
+  // Palette surfaces at level >= 120 skip the walk and go straight
+  // to the extreme defined by colorContrastDecompose.
+  // Use it when very saturated colors make "tinted" text less legible
+  // than pure black or white.
+  overlap: { level: 120 }
+}
+```
+
+Surfaces **below** the threshold use the normal brand-tint walk. Surfaces **at or above** the level jump straight to the extreme (black if `startDark`, white if `startLight`). The WCAG fallback is preserved — accessibility is never silently broken.
+
+**Reference:** `aplica_ember` demonstrates the full combination — `colorContrastDecompose: 'startDark'` + `overlap: { level: 120 }` — for a culinary theme where black text on saturated orange surfaces is more editorial and legible than a palette tint.
+
 ### Other relevant options
 
 | Property | Default | Description |
@@ -339,6 +371,39 @@ options: {
 ```
 
 `normal` always stays on the authored base color — no override is needed or expected.
+
+### `ghostNormalTxtOnStrategy` — text in the ghost normal state (since v3.15.1)
+
+The `ghost.normal` state has a **transparent** background — the readable text (`txtOn`) has to be computed against the page canvas, not against a solid color. `ghostNormalTxtOnStrategy` controls how that calculation is done:
+
+| Value | Behavior |
+|-------|----------|
+| `'txt'` **(default)** | Uses the palette's accessible interactive text color against the canvas — the same value computed for `txt[normal]`. More consistent and predictable. |
+| `'surface'` | Runs `txtOnStrategy` (high-contrast / custom-tint / brand-tint) against the canvas background — this was the implicit behavior before v3.15.1. |
+
+```javascript
+options: {
+  interaction: {
+    surfaces: {
+      ghost: {
+        ghostNormalTxtOnStrategy: 'txt'  // default
+      }
+    },
+    // Per-group override (e.g. only feedback uses 'surface')
+    groups: {
+      feedback: {
+        surfaces: {
+          ghost: {
+            ghostNormalTxtOnStrategy: 'surface'
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+Use `'surface'` when the ghost text color must follow the theme's `txtOnStrategy` logic (e.g. keep the brand tint in the ghost state). Use `'txt'` (default) for more predictable behavior that does not depend on the brand palette.
 
 ### Backward compatibility
 
@@ -590,16 +655,72 @@ overrides: {
 | One item, all presets, one state | `interaction.{group}.items.{item}.states.{state}` | `feedback.items.warning_default.states.normal` |
 | One item, one preset, one state | `interaction.{group}.items.{item}.states.{state}.{preset}` | `feedback.items.warning_default.states.normal.ghost` |
 
-**Accepted values per state node:**
+**Accepted fields per state leaf (since v3.20.0):**
+
+| Field | What it overrides | Contrast check |
+|-------|-------------------|----------------|
+| `background` | Surface directly via the declared hex. `txtOn` is auto-computed to WCAG AA; `border` is derived from this hex. | `txtOn` always passes AA |
+| `color` | The source color that runs through the full decomposition pipeline. Surface is diluted — not the raw hex. | derived by theme strategy |
+| `txtOn` | Text/icon on the surface. **Only applied if the value passes WCAG AA (4.5:1).** If it fails, the engine emits `[override:accessibility]` with the exact ratio and preserves the auto-computed value. | enforced |
+| `txt` | Ambient reading text on the page canvas. Only relevant when `generateTxt: true` is active in the workspace. | enforced |
+| `border` | State border color. Applied unconditionally, no contrast check. | none |
+
+Each leaf must declare at least one field — an empty leaf is a parse-time error.
 
 ```javascript
-{ color: '#hex' }                                     // background color only
-{ color: '#hex', txtOn: '#hex', border: '#hex', txt: '#hex' }  // full override
+overrides: {
+  interaction: {
+    function: {
+      items: {
+        primary: {
+          states: {
+            active: {
+              solid: { background: '#C73C9E' }   // direct surface, txtOn auto WCAG AA
+            },
+            action: {
+              solid: { color: '#0067FF' }         // dilution pipeline, not raw hex
+            },
+            focus: {
+              solid: { border: '#8B5CF6' }        // border only, no surface change
+            }
+          }
+        }
+      }
+    }
+  }
+}
 ```
 
-When only `color` is provided, the engine derives `txtOn`, `border`, and `txt` using the configured `txtOnStrategy` and `accessibilityLevel`. Explicit `txtOn`/`border`/`txt` values bypass derivation — use with care.
+> **v3.21.0:** When only `background` is declared without an explicit `txtOn`, `txtOn` is derived from the palette generated from the declared background hex — not from the original item color palette. Declare `txtOn` explicitly to pin a specific tone.
 
-**Accepted state names:** `normal`, `action`, `active`, `focus`, `disabled`
+**Per-mode format (since v3.22.0):**
+
+Preset leaves now accept different values per mode. Three formats — all backward-compatible:
+
+```javascript
+// Global — same value in both modes (existing behavior, unchanged)
+active: { solid: { background: '#C73C9E' } }
+
+// Mode-specific both — different value per mode
+active: {
+  solid: {
+    light: { background: '#C73C9E' },
+    dark:  { background: '#AD2385' }
+  }
+}
+
+// Mode-specific partial — one mode explicit, other auto-generated
+active: {
+  solid: {
+    light: { background: '#C73C9E' }
+    // dark omitted → auto-generated by the engine
+  }
+}
+```
+
+Detection rule: if a preset value contains a `light` or `dark` key → mode-specific; otherwise → global leaf. Consistent with the `{ light, dark }` convention already used in `overrides.grayscale`, `overrides.neutrals`, and `options.txtOnCustomTint`.
+
+**Accepted state names:** `normal`, `action`, `active`, `focus`
 
 **Function item keys:** `primary`, `secondary`, `link`
 
@@ -736,6 +857,86 @@ When the default alias set is insufficient for a specific consumer:
 2. Define `name`, `outputPath`, `structure` (sections and items), and `references` (mapping to Semantic)
 3. Run `npm run tokens:foundations`
 4. Link to the theme in `themes.config.json`: `"foundation": { "brand": "my-foundation", ... }`
+
+### Available groups in `structure`
+
+The `structure` key accepts the following groups. Each is optional — include only what the consumer needs to expose:
+
+| Group | What it exposes | Example items |
+|-------|-----------------|---------------|
+| `bg` | Color surfaces (background, border, txtOn, txt) | `primary`, `secondary`, `feedback.success` |
+| `border` | Border tokens derived from surface | `primary` |
+| `txt` | Readable text tokens over canvas | `primary` |
+| `opacity` | Opacity tokens (`surface.opacity.*`) | `light`, `dark` |
+| `opacityColors` | Opt-in (since 3.24.0): `true` or an array of families (`brand`, `feedback`, `product`, `function`) aliased into `foundation.opacity.color.*` | `true`, `['brand', 'feedback']` |
+| `spacing` | Dimensional spacing scale | `small`, `medium`, `large` |
+| `sizing` | Dimensional sizing scale | `icon`, `avatar` |
+| `borderWidth` | Border thickness (`semantic.border.width.*`) — 5 levels | `none`, `small`, `medium`, `large`, `extraLarge` |
+| `borderRadius` | Border radius (`semantic.border.radii.*`) — 9 levels | `straight`, `small`, `medium`, `circular` |
+| `typography` | Composite typography styles | `heading`, `body`, `action` |
+| `gradient` | Brand gradients | `primary`, `secondary` |
+
+> **`opacityColors` is not a group with `items`.** It takes `true` or a list of families, and only exposes what `global.opacityColors` already generated. See [Opacity Color Families](../03-visual-foundations/05-opacity.md#opacity-color-families-since-3240).
+
+```javascript
+// config/foundations/my-foundation.config.mjs → structure:
+structure: {
+  borderWidth: {
+    items: ['none', 'small', 'medium', 'large', 'extraLarge']
+  },
+  borderRadius: {
+    items: ['straight', 'micro', 'extraSmall', 'small', 'medium', 'large', 'extraLarge', 'mega', 'circular']
+  },
+  bg: {
+    items: ['primary', 'secondary']
+  }
+}
+```
+
+> **`borderWidth` and `borderRadius` are often omitted by mistake.** The `semantic.border.width.*` and `semantic.border.radii.*` tokens already exist in the semantic output — they only need to be declared in the foundation `structure` to become available as simple aliases (`foundation.borderWidth.medium`, `foundation.borderRadius.circular`). No engine changes required.
+
+### Generic alias pass (since v3.23.0)
+
+Any `structure` key that is **not** one of the groups above can declare three fields to expose semantic tokens as foundation aliases without engine changes:
+
+| Field | Purpose |
+|-------|---------|
+| `semanticPath` | Base path in the semantic layer. Item is appended: `semanticPath.item` |
+| `type` | Token type for Tokens Studio / Style Dictionary |
+| `items` | Array of token names to expose |
+
+```javascript
+// Exposes semantic.typography.fontFamilies.* as foundation.fontFamilies.*
+fontFamilies: {
+  semanticPath: 'semantic.typography.fontFamilies',
+  type: 'fontFamilies',
+  items: ['main', 'content', 'display', 'code']
+}
+```
+
+Generated CSS:
+
+```css
+--foundation-fontFamilies-main:    var(--semantic-typography-fontFamilies-main);
+--foundation-fontFamilies-content: var(--semantic-typography-fontFamilies-content);
+--foundation-fontFamilies-display: var(--semantic-typography-fontFamilies-display);
+--foundation-fontFamilies-code:    var(--semantic-typography-fontFamilies-code);
+```
+
+**Common types for the `type` field:**
+
+| What to expose | `type` | Likely `semanticPath` |
+|---------------|--------|----------------------|
+| Font families | `fontFamilies` | `semantic.typography.fontFamilies` |
+| Font sizes | `fontSizes` | `semantic.dimension.fontSizes` |
+| Line heights | `lineHeights` | `semantic.typography.lineHeights` |
+| Font weights | `fontWeights` | `semantic.typography.fontWeights` |
+| Letter spacing | `letterSpacing` | `semantic.typography.letterSpacing` |
+| Any custom dimension | `dimension` | workspace-specific path |
+
+> **Prerequisite:** the path declared in `semanticPath` must exist in `data/semantic/default.json`. The mechanism creates aliases — it does not generate values.
+
+> **Note:** `borderWidth` and `borderRadius` have dedicated handlers and do not use the generic syntax — they work with `items` only (as documented above).
 
 ---
 

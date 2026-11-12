@@ -263,7 +263,7 @@ If `sync:architecture` does not run after `themes:generate`, the `semantic.color
 
 ---
 
-## Visual Preview (since 3.9.0)
+## Visual Preview (since 3.9.0 · redesigned in 3.17.0)
 
 After the Style Dictionary build, `theme-engine preview` generates a workspace-local static HTML report that renders every generated theme combination — before any Figma sync or browser integration.
 
@@ -274,11 +274,11 @@ theme-engine preview
 # Rebuild dist/ first, then generate the preview
 theme-engine preview --build
 
-# Rebuild, generate, and serve via a local static server with live reload (since 3.11.0)
+# Rebuild, generate, and serve via a local static server with live reload
 theme-engine preview --build --serve
 ```
 
-Since **3.11.0**, `--serve` adds live reload: the browser tab refreshes automatically whenever `dist/` changes. This enables a tight feedback loop — run `npm run tokens:themes && npm run tokens:build:all` in a separate terminal, and the preview updates instantly without manual reloads.
+`--serve` adds live reload: the browser tab refreshes automatically whenever `dist/` changes. This enables a tight feedback loop — run `npm run tokens:themes && npm run tokens:build:all` in a separate terminal, and the preview updates instantly without manual reloads.
 
 **What the preview renders:**
 
@@ -288,16 +288,24 @@ Since **3.11.0**, `--serve` adds live reload: the browser tab refreshes automati
 | Typography | All foundation typography classes applied to live sample text |
 | Elevation | All elevation classes rendered as raised card surfaces |
 
-**View modes (since 3.13.0):**
+**View modes and navigation (since 3.17.0):**
 
-The preview browser interface includes a **View** dropdown:
+v3.17 redesigned the preview interface with three main improvements:
+
+| Feature | Description |
+|---------|-------------|
+| **Reference layout** | Reference layout with a clear semantic hierarchy — sections in the right nav follow the canonical order (Brand → Mode → Surface → Semantic) |
+| **Compact mode** | Compact mode for quickly inspecting every token without excessive scrolling; ideal for visual QA across multiple brands |
+| **Search filters** | A search field filters tokens in real time by semantic family name — useful in workspaces with many brands |
+
+The **View** dropdown offers:
 
 | Mode | Description |
 |------|-------------|
 | **Detailed** (default) | Full card explorer — one card per semantic family and state, with all four color properties rendered visually |
 | **Summary** | Compact table — `background`, `txtOn`, `border`, `txt`, and WCAG contrast ratios for every family and state; optimized for QA across combinations |
 
-Use Summary mode to quickly compare generated colors across light/dark and positive/negative quadrants before syncing to Figma.
+Use Summary mode with the search filter to quickly isolate a specific family (e.g. `branding.first`) and compare it across light/dark and positive/negative quadrants before syncing to Figma.
 
 **Output written to:**
 

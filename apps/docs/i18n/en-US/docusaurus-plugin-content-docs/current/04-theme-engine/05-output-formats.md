@@ -155,6 +155,25 @@ export default defineTransformersConfig({
 
 See [`formatOptions.jsonTyped`](../09-engineering/04-transformers-configuration.md) for the full field reference.
 
+### Color format for Dart / Flutter (since 3.24.0, opt-in)
+
+By default `jsonTyped` emits colors exactly as the pipeline resolves them (a hex that may be shortened, like `#fb00`, or `rgba(...)`), which is not a stable shape for Dart / Flutter parsers. `formatOptions.jsonTyped.colorFormat` normalizes **every** resolved color in `dist/json-typed/` to one shape:
+
+| `colorFormat` | Example (`#265ed9` at 50%) |
+|---------------|----------------------------|
+| _(unset, default)_ | value exactly as resolved today |
+| `hex8` (recommended for Dart) | `#265ed980` - always `#RRGGBBAA`, lowercase |
+| `rgb` | `rgba(38, 94, 217, 0.5)` |
+| `argb` | `0x80265ED9` - Flutter `Color(0xAARRGGBB)` literal |
+| `components` | `{ "r": 38, "g": 94, "b": 217, "a": 0.5 }` |
+| `dtcg` | `{ "colorSpace": "srgb", "components": [0.149, 0.3686, 0.851], "alpha": 0.5, "hex": "#265ed9" }` |
+
+```js
+formatOptions: { jsonTyped: { colorFormat: 'hex8' } }
+```
+
+Only `jsonTyped` is affected. CSS and every other platform keep the standard output.
+
 ---
 
 ## CSS Format — for Web

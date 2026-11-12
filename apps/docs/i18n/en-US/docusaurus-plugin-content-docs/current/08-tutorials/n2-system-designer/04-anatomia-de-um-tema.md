@@ -234,34 +234,42 @@ These options affect the shared architecture layers (`mode/`, `surface/`, `seman
 options: {
   interaction: {
     decomposition: {
-      method: 'dilution',     // 'system-scale' (default) or 'dilution'
-      target: 'canvas',       // 'canvas' (default) or 'anchor' (since 3.13.1)
+      method: 'dilution',          // 'system-scale' (default) or 'dilution'
+      target: 'canvas',            // 'canvas' (default) or 'anchor' (since 3.13.1)
+      // anchor: {                 // only when target: 'anchor'
+      //   source: 'palette',      // 'palette' | 'hex' | 'token'
+      //   canvasAware: true,      // anchor adapts to light/dark canvas
+      //   canvasMix: 0.2          // 0.0 (fixed hue) → 1.0 (full canvas)
+      // },
+      modeResolution: 'quadrant',  // 'quadrant' (default) or 'mode' (since 3.13.6)
     },
-    legacyStructure: false,   // must match across all themes in the workspace
+    legacyStructure: false,        // must match across all themes in the workspace
     surfaces: {
-      solid: {
-        levels: { action: 1.2, active: 0.8, focus: 0.3 }
-      },
-      ghost: {
-        enabled: true,
-        levels: { action: 40, active: 60, focus: 20 }
-      }
-    }
+      solid: { levels: { action: 1.2, active: 0.8, focus: 0.3 } },
+      ghost: { enabled: true, levels: { action: 40, active: 60, focus: 20 } }
+    },
+    // groups: {                   // per-group overrides (since 3.12.0)
+    //   function: { decomposition: { method: 'dilution', target: 'anchor' } },
+    //   feedback: { decomposition: { modeResolution: 'mode' } }
+    // }
   },
-  baseAdaptation: true,       // quadrant-aware base surfaces (since 3.13.4)
+  baseAdaptation: true,            // quadrant-aware base surfaces (since 3.13.4)
 }
 ```
 
-| Option | What it controls | Default |
-|--------|-----------------|---------|
-| `method` | How states are computed: palette levels (`system-scale`) or dilution factors | `'system-scale'` |
-| `target` | Dilution anchor: canvas background (`'canvas'`) or a specific color (`'anchor'`) | `'canvas'` |
-| `legacyStructure` | Whether shared layers emit explicit `solid`/`ghost` groups | `true` |
-| `baseAdaptation` | Makes `interaction.normal` and `product.default` surfaces respond to the light/dark × positive/negative quadrant | `false` |
+| Option | What it controls | Scope | Default |
+|--------|-----------------|-------|---------|
+| `method` | How states are computed: palette levels (`system-scale`) or dilution factors | Workspace | `'system-scale'` |
+| `target` | Dilution destination: canvas (`'canvas'`) or a chromatic anchor (`'anchor'`) | Per-theme | `'canvas'` |
+| `anchor.*` | Anchor source (`'palette'`/`'hex'`/`'token'`), canvas-awareness, mix factor | Per-theme | — |
+| `modeResolution` | Whether feedback inverts with surface polarity (`'quadrant'`) or stays identical across positive/negative within the same mode (`'mode'`) | Per-theme | `'quadrant'` |
+| `legacyStructure` | Whether shared layers emit explicit `solid`/`ghost` groups | **Workspace** | `true` |
+| `groups` | Per-group config — `function` and `feedback` can use different methods | Per-theme | inherited |
+| `baseAdaptation` | Makes `interaction.normal` and `product.default` surfaces respond to the light/dark × positive/negative quadrant | Per-theme | `false` |
 
-> **Important:** `legacyStructure` must be **identical in all themes** — it controls shared `mode`, `surface`, and `semantic` layers. `baseAdaptation` is **per-theme** — themes in the same workspace can mix `true` and `false` freely.
+> **Important:** `legacyStructure` and `decomposition.method` must be **identical in all themes** — they control shared `mode`, `surface`, and `semantic` layers. All other options (`modeResolution`, `target`, `anchor`, `baseAdaptation`) are **per-theme** — themes in the same workspace can mix values freely.
 
-For full detail on dilution methods, `target: 'anchor'` options, and per-group configuration, see [03-configuration-guide.md](../../04-theme-engine/03-configuration-guide.md#interaction-decomposition-since-390).
+For full signal-based guidance on which option to choose in each situation, see [N2-07 · Color output decision guide](./07-guia-de-decisao-output.md). For complete configuration reference, see [03-configuration-guide.md](../../04-theme-engine/03-configuration-guide.md#interaction-decomposition-since-390).
 
 ---
 
@@ -281,7 +289,34 @@ For full detail on dilution methods, `target: 'anchor'` options, and per-group c
   },
 ```
 
-Overrides replace engine-generated values in specific cases. Only two points accept overrides: `grayscale` and `neutrals`.
+Overrides replace engine-generated values in specific cases. Three points accept overrides:
+
+| Override point | What it replaces |
+|----------------|-----------------|
+| `overrides.grayscale` | Grayscale surface, text, and border values |
+| `overrides.neutrals` | Neutral tints for specific brand colors |
+| `overrides.interaction` | Specific interaction states per group, item, preset, and state (since 3.14.5) |
+
+**`overrides.interaction`** allows overriding generated `function` or `feedback` states without changing the base color — useful when a specific state (e.g., `active` on the primary button) needs a fixed hex regardless of the decomposition method:
+
+```javascript
+overrides: {
+  interaction: {
+    function: {
+      states: {
+        active: { color: '#0067FF' }   // all function items, active state
+      },
+      items: {
+        primary: {
+          states: { normal: { color: '#0052CC' } }   // primary only
+        }
+      }
+    }
+  }
+}
+```
+
+Override colors pass through the full decomposition pipeline (dilution, quadrant mirroring, accessibility text) — they are not raw patches.
 
 This section should be the rarest in the config. If it is growing, it is a signal that the color declared in `colors` may not be the right one — or that expectations need adjusting.
 
@@ -469,4 +504,4 @@ You know how to write a complete config. The next step is to understand its most
 - Full configuration guide: [03-configuration-guide.md](../../04-theme-engine/03-configuration-guide.md)
 - The Config-First paradigm: [N2-03 · The Config-First paradigm](./03-paradigma-config-first.md)
 - Responsible overrides: [N2-06 · Responsible overrides](./06-overrides-responsaveis.md)
-- Real config example: [aplica-joy.config.mjs](../../../references/aplica-tokens-theme-engine/config/aplica-joy.config.mjs)
+- Real config example: [aplica-joy.config.mjs](https://github.com/aplica-ds/aplica-tokens-theme-engine/blob/main/config/aplica-joy.config.mjs)

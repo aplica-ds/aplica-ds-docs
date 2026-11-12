@@ -655,39 +655,51 @@ overrides: {
 | Um item, todos os presets, um estado | `interaction.{group}.items.{item}.states.{state}` | `feedback.items.warning_default.states.normal` |
 | Um item, um preset, um estado | `interaction.{group}.items.{item}.states.{state}.{preset}` | `feedback.items.warning_default.states.normal.ghost` |
 
-**Campos disponíveis no leaf de estado (v3.20+):**
+**Campos aceitos por leaf de estado (desde v3.20.0):**
 
-| Campo | O que faz | Checagem WCAG |
-|-------|-----------|---------------|
-| `background` | Substitui a surface gerada pelo hex declarado diretamente. Engine auto-computa `txtOn` (WCAG AA) e deriva `border` a partir desse hex. Use quando uma cor de marca deve aparecer diretamente num estado sem pipeline de dilução. | `txtOn` auto sempre passa AA |
-| `color` | Passa o hex pelo pipeline de decomposição completo como cor-fonte do estado. A surface é diluída, não é o hex bruto. Use para redirecionar um estado a outra cor de marca mantendo o comportamento de diluição. | derivado por estratégia |
-| `txtOn` | Sobrepõe o texto/ícone sobre a surface (solid) ou canvas (ghost transparente). **Só é aplicado se passar WCAG AA.** Se reprovar, o engine emite `[override:accessibility]` com o ratio exato e preserva o valor auto-computado. | enforced |
-| `txt` | Sobrepõe o texto de leitura ambiente. Só relevante quando `generateTxt: true` está ativo no workspace config. | enforced |
-| `border` | Sobrepõe a cor de borda incondicionalmente. Sem checagem de contraste. | nenhuma |
+| Campo | O que substitui | Checagem de contraste |
+|-------|-----------------|----------------------|
+| `background` | A surface do estado diretamente pelo hex declarado. `txtOn` é auto-computado com WCAG AA e `border` é derivado a partir desse hex. | `txtOn` sempre passa AA |
+| `color` | A cor-fonte do estado, que passa pelo pipeline de dilução completo. A surface é diluída — não é o hex bruto. | derivado pela estratégia do tema |
+| `txtOn` | O texto/ícone sobre a surface. **Só é aplicado se o valor passar WCAG AA (4.5:1).** Se reprovar, o engine emite `[override:accessibility]` com o ratio exato e preserva o valor auto-computado. | enforced |
+| `txt` | O texto de leitura ambiente sobre o canvas da página. Só relevante quando `generateTxt: true` está ativo no workspace. | enforced |
+| `border` | A cor de borda do estado. Aplicado incondicionalmente, sem checagem de contraste. | nenhuma |
 
-Cada leaf deve declarar pelo menos um campo — um leaf vazio lança erro em parse time.
+Cada leaf deve declarar pelo menos um campo — um leaf vazio causa erro em parse time.
 
 ```javascript
-// Exemplos de combinações válidas
-{ background: '#C73C9E' }                                // surface direta; txtOn e border automáticos
-{ color: '#0067FF' }                                     // redireciona via pipeline de dilução
-{ txtOn: '#FFFFFF', border: '#D0D5DD' }                  // só texto e borda, sem alterar surface
-{ color: '#FF0000', txtOn: '#FFFFFF' }                   // cor + texto fixo explícito
+overrides: {
+  interaction: {
+    function: {
+      items: {
+        primary: {
+          states: {
+            active: {
+              solid: { background: '#C73C9E' }   // surface direta, txtOn auto WCAG AA
+            },
+            action: {
+              solid: { color: '#0067FF' }         // pipeline de dilução, não hex bruto
+            },
+            focus: {
+              solid: { border: '#8B5CF6' }        // só borda, sem alterar surface
+            }
+          }
+        }
+      }
+    }
+  }
+}
 ```
 
-**Nomes de estado aceitos:** `normal`, `action`, `active`, `focus`
-
-> **Nota v3.21.0:** antes da v3.21, quando apenas `background` era declarado sem `txtOn` explícito, o engine derivava o `txtOn` usando a paleta da cor original do item (hue incorreto). A partir da v3.21, o `txtOn` é derivado da paleta gerada a partir do próprio hex declarado como `background`. Se precisar de um tom específico, declare `txtOn` explicitamente — o valor explícito tem sempre prioridade sobre o auto-computado.
+> **v3.21.0:** Quando apenas `background` é declarado sem `txtOn` explícito, o `txtOn` é derivado da paleta gerada a partir do próprio hex declarado — não mais da paleta da cor original do item. Declare `txtOn` explicitamente para fixar um tom específico.
 
 **Formato por modo (desde v3.22.0):**
 
-Desde v3.22.0, preset leaves aceitam valores diferentes por modo. Três formatos disponíveis — todos retrocompatíveis:
+Preset leaves agora aceitam valores diferentes por modo. Três formatos — todos retrocompatíveis:
 
 ```javascript
 // Global — mesmo valor em ambos os modos (comportamento existente, sem mudança)
-active: {
-  solid: { background: '#C73C9E' }
-}
+active: { solid: { background: '#C73C9E' } }
 
 // Modo-específico duplo — valor diferente por modo
 active: {
@@ -706,9 +718,9 @@ active: {
 }
 ```
 
-**Regra de detecção:** se o valor de um preset contiver chave `light` ou `dark`, é tratado como modo-específico. Do contrário, é tratado como leaf global. Consistente com a convenção `{ light, dark }` já usada em `overrides.grayscale`, `overrides.neutrals` e `options.txtOnCustomTint`.
+Regra de detecção: se o preset contiver chave `light` ou `dark` → modo-específico; do contrário → leaf global. Consistente com a convenção `{ light, dark }` já usada em `overrides.grayscale`, `overrides.neutrals` e `options.txtOnCustomTint`.
 
-Antes dessa release, a única forma de ter cores diferentes no dark mode era declarar um override global e aceitar que a mesma cor (muitas vezes otimizada para light) fosse forçada no dark mode — gerando warnings `[override:accessibility]` que o engine então contornava silenciosamente. Leaves por modo eliminam essa classe de warning inteiramente.
+**Nomes de estado aceitos:** `normal`, `action`, `active`, `focus`
 
 **Chaves de itens de function:** `primary`, `secondary`, `link`
 
@@ -820,7 +832,10 @@ APLICA_THEME_ENGINE_BRAND_TOKEN_LIMIT=3000 npm run tokens:figma
 
 Workspaces com esquemas de produto grandes (muitos tipos de carreira, muitas cores de produto) têm maior probabilidade de acionar a divisão.
 
-> **Dica de ouro — performance de tokens de marca.** Se o bundle de marca no Figma ultrapassar aproximadamente 3.000 tokens, o seletor de variáveis fica lento e a sincronização trava. O engine divide automaticamente o `_brand.json` desde a 3.14.0, o que normalmente resolve. Se a performance ainda degradar após a divisão, considere: (1) quebrar o workspace em repositórios por marca; ou (2) desabilitar a superfície `negative` (`options.surfaces: ['positive']`) — isso reduz o tamanho do arquivo de marca em 50%, e é adequado apenas quando o produto nunca renderiza em fundos com superfície negativa.
+> **Dica de ouro — performance de tokens de marca.** Se o seu bundle de marca ultrapassar aproximadamente 3.000 tokens, a performance das coleções no Figma começa a degradar (seletor de variável lento, sincronização travada). A divisão automática (acima) é a primeira linha de defesa. Se a performance ainda for um problema após a divisão, considere:
+>
+> 1. **Quebrar schemas grandes em workspaces separados** — ex.: dividir um workspace multi-marca em repositórios por marca.
+> 2. **Desabilitar a superfície `negative`** (medida extrema) — gerar apenas quadrantes `positive` reduz o tamanho do arquivo de marca em 50%. Defina `options.surfaces: ['positive']` na config do workspace. Recomendado apenas quando o produto não utiliza contextos de UI com superfície negativa.
 
 ### Quando rodar `sync:architecture`
 
@@ -847,18 +862,21 @@ Quando o conjunto padrão de aliases não é suficiente para um consumidor espec
 
 A chave `structure` aceita os seguintes grupos. Cada grupo é opcional — inclua apenas o que o consumidor precisa expor:
 
-| Grupo | O que expõe | Exemplo de item |
-|-------|-------------|-----------------|
+| Grupo | O que expõe | Exemplos de itens |
+|-------|-------------|-------------------|
 | `bg` | Superfícies de cor (background, border, txtOn, txt) | `primary`, `secondary`, `feedback.success` |
 | `border` | Tokens de borda derivados de superfície | `primary` |
 | `txt` | Tokens de texto legível sobre canvas | `primary` |
 | `opacity` | Tokens de opacidade (`surface.opacity.*`) | `light`, `dark` |
+| `opacityColors` | Opt-in (desde 3.24.0): `true` ou array de famílias (`brand`, `feedback`, `product`, `function`) com alias em `foundation.opacity.color.*` | `true`, `['brand', 'feedback']` |
 | `spacing` | Escala dimensional de espaçamento | `small`, `medium`, `large` |
 | `sizing` | Escala dimensional de tamanhos | `icon`, `avatar` |
 | `borderWidth` | Espessura de borda (`semantic.border.width.*`) — 5 níveis | `none`, `small`, `medium`, `large`, `extraLarge` |
 | `borderRadius` | Raio de borda (`semantic.border.radii.*`) — 9 níveis | `straight`, `small`, `medium`, `circular` |
 | `typography` | Estilos tipográficos compostos | `heading`, `body`, `action` |
 | `gradient` | Gradientes de marca | `primary`, `secondary` |
+
+> **`opacityColors` não é um grupo com `items`.** Recebe `true` ou uma lista de famílias, e só expõe o que `global.opacityColors` já gerou. Veja [Famílias de Cores de Opacidade](../03-visual-foundations/05-opacity.md#famílias-de-cores-de-opacidade-desde-3240).
 
 ```javascript
 // config/foundations/minha-foundation.config.mjs → structure:
@@ -879,7 +897,7 @@ structure: {
 
 ### Alias pass genérico (desde v3.23.0)
 
-Qualquer chave em `structure` que **não seja** um dos grupos acima pode declarar três campos para expor tokens semânticos como aliases de foundation sem precisar de mudanças no engine:
+Qualquer chave em `structure` que **não seja** um dos grupos acima pode declarar três campos para expor tokens semânticos como aliases de foundation sem mudanças no engine:
 
 | Campo | O que faz |
 |-------|-----------|
@@ -896,7 +914,7 @@ fontFamilies: {
 }
 ```
 
-Gera em CSS:
+CSS gerado:
 
 ```css
 --foundation-fontFamilies-main:    var(--semantic-typography-fontFamilies-main);

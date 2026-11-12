@@ -65,6 +65,22 @@ Each key under `themes` is a brand ID. The ID must match the `name` field in the
 | `modes` | `["light"]` / `["light", "dark"]` | Which luminosity modes to generate |
 | `surfaces` | `["positive"]` / `["positive", "negative"]` | Which surface contexts to generate |
 | `gradients` | boolean | Generate gradient tokens |
+| `surfacePolarity` | boolean (default `true`) | When `false`, collapses the contract to positive-only: `data/surface/negative.json` is removed, `mode` and `brand` stop emitting polarity branches, and the final semantic outputs generate only `*-positive` files. Use it in projects that do not need dark-on-light or inverse surfaces — it reduces token volume and simplifies the build. (since v3.14.1) |
+
+**Example — positive-only workspace:**
+
+```json
+{
+  "global": {
+    "modes": ["light", "dark"],
+    "surfaces": ["positive"],
+    "surfacePolarity": false,
+    "gradients": false
+  }
+}
+```
+
+> When `surfacePolarity: false`, `surfaces` may still list only `["positive"]` — the engine treats them equivalently in this mode. Contrast always exposes both polarities regardless of this flag.
 
 ### Typography scale (optional)
 

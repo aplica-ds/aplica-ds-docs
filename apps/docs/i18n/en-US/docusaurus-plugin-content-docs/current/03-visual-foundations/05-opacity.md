@@ -85,9 +85,54 @@ surface.opacity.color.light.<key>   → rgba(255, 255, 255, <alpha>)
 
 ---
 
+## Opacity Color Families (since 3.24.0)
+
+By default the engine only generates the neutral pair (`grayscale` and `light`). Two optional keys in `config/global/themes.config.json` -> `global` extend that **without changing any existing output** (a workspace that sets neither keeps a byte-identical `dist/`):
+
+| Key | Values | Default | Effect |
+|-----|--------|---------|--------|
+| `opacityColors` | array of `brand`, `feedback`, `product`, `function` | `[]` | Adds `semantic.opacity.color.<family>.<item>.<step>` (7 steps per item) for the selected families |
+| `opacityStrategy` | `modify` or `rgba-ref` | `modify` | How alpha is applied to the base color |
+
+Items and colors are **never a fixed list**: items come from your workspace schema and each color is whatever the theme `mapping` assigns, so product colors change per brand automatically. Only the **default** level/variant of each item is used. Secondary variants, interaction states (`action`/`active`/`focus`), ghost and `disabled` are intentionally excluded.
+
+```
+semantic.opacity.color.brand.first.translucid
+semantic.opacity.color.feedback.info.translucid
+semantic.opacity.color.product.promo.translucid
+semantic.opacity.color.function.primary.translucid
+```
+
+### Strategy: `modify` vs `rgba-ref`
+
+- **`modify`** (default): the token aliases the base color and applies a literal alpha through the Tokens Studio `modify` extension.
+- **`rgba-ref`**: the token is `rgba({<base color>}, {semantic.opacity.alpha.<step>})`. Alpha comes from **unitless 0-1 `number` tokens** (`semantic.opacity.alpha.*`, emitted only with this strategy and derived from `opacityScale`), so Tokens Studio >= 2.13.0 can link the color variable and the opacity variable in Figma.
+
+CSS, JS, ESM and JSON values are **identical** for both strategies: the build rewrites `rgba-ref` into the same modifier before Style Dictionary runs. Only `data/` (what Tokens Studio reads) differs.
+
+> [!NOTE]
+> **Why a `number` token and not the `opacity` type?** Tokens Studio documents `opacity` as layer visibility only: a color that references an `opacity` token exports to Figma as a blank variable. A unitless number inside `rgba()` links correctly. `semantic.opacity.raw` keeps its `opacity` type (0-100) for layer opacity and is never referenced from colors.
+
+### Exposing families in the Foundation
+
+Set `structure.opacityColors` in a foundation config to alias the families into `foundation.opacity.color.<family>.<item>.<step>` (steps `superTransparent`, `semiTranslucid`, `translucid`, `superTranslucid`, `semiOpaque`):
+
+```js
+// config/foundations/my-foundation.config.mjs
+structure: {
+  opacityColors: true            // all generated families
+  // opacityColors: ['brand', 'feedback']   // or a subset
+}
+```
+
+Families that were not generated via `global.opacityColors` are skipped. Absent (default) leaves the foundation unchanged.
+
+> [!WARNING]
+> Each selected family adds ~7 x (number of items) tokens per `data/surface/*.json` file. With the reference schema, `brand + feedback + product` = 70 tokens and `function` adds 21. Keep Figma's limit of 5,000 variables per collection in mind.
+
 ## References
 
 - [Depth & Elevation — Luminosity and shadow composition](./04-depth-elevation.md)
 - [Mathematics and Algorithms — Section 5: Opacity](./06-mathematics-and-algorithms.md)
-- Sync and Rules script: [sync-architecture.mjs](../../references/aplica-tokens-theme-engine/dynamic-themes/scripts/sync-architecture.mjs)
-- UI Generator mapper: [ui-generator.mjs](../../references/aplica-tokens-theme-engine/dynamic-themes/scripts/ui-generator.mjs)
+- Sync and Rules script: [sync-architecture.mjs](https://github.com/aplica-ds/aplica-tokens-theme-engine/blob/main/dynamic-themes/scripts/sync-architecture.mjs)
+- UI Generator mapper: [ui-generator.mjs](https://github.com/aplica-ds/aplica-tokens-theme-engine/blob/main/dynamic-themes/scripts/ui-generator.mjs)

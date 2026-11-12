@@ -197,6 +197,14 @@ formatOptions: {
 }
 ```
 
+### `colorFormat` (since 3.24.0, opt-in)
+
+Add `colorFormat` to `formatOptions.jsonTyped` to normalize every color in `dist/json-typed/`: `'hex8'` (`#RRGGBBAA`, recommended for Dart / Flutter), `'rgb'`, `'argb'`, `'components'` or `'dtcg'`. Unset keeps the previous output. Only `jsonTyped` is affected. Details and examples: [Output Formats](../04-theme-engine/05-output-formats.md#color-format-for-dart--flutter-since-3240-opt-in).
+
+```js
+formatOptions: { jsonTyped: { colorFormat: 'hex8' } }
+```
+
 ---
 
 ## Common configurations

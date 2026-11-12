@@ -222,7 +222,7 @@ Cores específicas de produto — promoções, cashback, tiers, categorizações
 Tokens de texto plano também disponíveis em `semantic.color.text.{item}` e `semantic.color.text.{item}_secondary`.
 
 > [!CAUTION]
-> **Custo exponencial.** Cada item novo em `product` gera no mínimo 40 tokens (desde 3.6.0) que se propagam por todas as camadas e todos os temas. Em um sistema com 4 temas, um único item representa +160 tokens. Antes de adicionar, pergunte: _"Isso pode ser resolvido com feedback ou brand existentes?"_ Veja [04-semantic-layer.md](../02-token-layers/04-semantic-layer.md#product) para o racional completo.
+> **Custo exponencial.** Cada item novo em `product` gera no mínimo 40 tokens (desde 3.6.0) que se propagam por todas as camadas e todos os temas. Em um sistema com 4 temas, um único item representa +160 tokens. Antes de adicionar, pergunte: _"Isso pode ser resolvido com feedback ou brand existentes?"_ Veja [04-semantic-layer.md](../02-token-layers/04-semantic-layer.md) para o racional completo.
 
 ---
 

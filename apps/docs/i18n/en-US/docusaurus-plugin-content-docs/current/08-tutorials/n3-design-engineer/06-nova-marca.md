@@ -221,7 +221,13 @@ These options affect the shared architecture layers (`mode/`, `surface/`, `seman
     // Interaction decomposition — omit to keep the default (system-scale)
     // Only add if the whole workspace is switching to dilution or ghost surfaces.
     // interaction: {
-    //   decomposition: { method: 'dilution', target: 'canvas' },
+    //   decomposition: {
+    //     method: 'dilution',
+    //     target: 'canvas',
+    //     // modeResolution: 'mode',  // 'quadrant' (default) or 'mode' (since 3.13.6)
+    //     //   'quadrant' — feedback inverts with surface polarity (positive vs negative)
+    //     //   'mode'     — feedback identical on positive and negative within the same mode
+    //   },
     //   legacyStructure: false,
     // },
 
@@ -232,9 +238,9 @@ These options affect the shared architecture layers (`mode/`, `surface/`, `seman
   }
 ```
 
-Verdana ships with both commented out. `options.interaction` requires the whole workspace to agree (workspace-wide contract). `baseAdaptation` is independent per theme — you can enable it for Verdana without touching other themes.
+Verdana ships with all of the above commented out. `options.interaction` (including `modeResolution`) requires the whole workspace to agree (workspace-wide contract for `method` and `legacyStructure`; per-theme for `modeResolution`, `target`, and `anchor`). `baseAdaptation` is fully independent per theme.
 
-See [03-configuration-guide.md](../../04-theme-engine/03-configuration-guide.md#interaction-decomposition-since-390) for the full details on both options.
+See [N2-07 · Color output decision guide](../../08-tutorials/n2-system-designer/07-guia-de-decisao-output.md) for signal-based guidance on when to enable each option, and [03-configuration-guide.md](../../04-theme-engine/03-configuration-guide.md#interaction-decomposition-since-390) for the full reference.
 
 ---
 
@@ -450,6 +456,23 @@ export default {
 }
 ```
 
+To expose tokens beyond the default groups (`bg`, `spacing`, `borderWidth`, etc.) use the **generic alias pass** — any key with three fields is processed automatically:
+
+```javascript
+structure: {
+  bg: { /* ... */ },
+
+  // Exposes font families as foundation.fontFamilies.*
+  fontFamilies: {
+    semanticPath: 'semantic.typography.fontFamilies',
+    type: 'fontFamilies',
+    items: ['main', 'content', 'display', 'code']
+  }
+}
+```
+
+The path in `semanticPath` must exist in `data/semantic/default.json`. See the [Configuration Guide](../../04-theme-engine/03-configuration-guide.md#generic-alias-pass-since-v3230) for the list of common types.
+
 Then link in `themes.config.json`:
 
 ```json
@@ -496,8 +519,8 @@ You have completed N3. You know how to build conforming components, integrate to
 The next level is **large-scale governance**: multiple teams consuming the same system, update cycles, breaking changes, and migration strategies. Those topics are covered in:
 
 - [Migration guide](../../07-implementation/01-migration-guide.md)
-- [Override best practices](../../../references/aplica-tokens-theme-engine/docs/context/dynamic-themes-reference/OVERRIDE-BEST-PRACTICES.md)
-- [Canonical naming contract](../../../references/aplica-tokens-theme-engine/docs/context/tokens/canonical-taxonomy-and-naming-contract.md)
+- [Override best practices](https://github.com/aplica-ds/aplica-tokens-theme-engine/blob/main/docs/context/dynamic-themes-reference/OVERRIDE-BEST-PRACTICES.md)
+- [Canonical naming contract](https://github.com/aplica-ds/aplica-tokens-theme-engine/blob/main/docs/context/tokens/canonical-taxonomy-and-naming-contract.md)
 
 ---
 

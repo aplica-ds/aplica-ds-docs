@@ -23,7 +23,7 @@ Overrides existem para esses casos. Mas eles têm um custo — não em tokens, m
 
 Overrides são configurações no `*.config.mjs` que substituem valores gerados pelo pipeline padrão. Você está dizendo ao engine: "Para este caso específico, ignore o valor calculado e use este."
 
-O engine aceita overrides em dois pontos:
+O engine aceita overrides em três pontos:
 
 **1. Grayscale** — a escala de cinza fixa
 Por padrão, o grayscale é um cinza neutro. Marcas com identidade quente (como marcas de moda, alimentação, lifestyle) frequentemente precisam de cinzas levemente amarelados ou rosados para manter a coerência visual.
@@ -56,14 +56,14 @@ overrides: {
 }
 ```
 
-**3. Interaction states** — substituição de estados de interação específicos
-A partir da v3.20, o leaf de override de interação aceita cinco campos. Cada um afeta uma parte diferente do visual do estado:
+**3. Estados de interação** (desde v3.20.0) — overrides específicos de estado para superfícies `function` ou `feedback`  
+Desde v3.20.0, o leaf de estado aceita cinco campos. Cada um afeta uma parte diferente do visual do estado:
 
 | Campo | O que substitui | Checagem de contraste |
 |-------|-----------------|----------------------|
-| `background` | A surface do estado diretamente pelo hex declarado. `txtOn` é auto-computado com WCAG AA e `border` é derivado a partir desse hex. | `txtOn` auto sempre passa AA |
+| `background` | A surface do estado diretamente pelo hex declarado. `txtOn` é auto-computado com WCAG AA e `border` é derivado a partir desse hex. | `txtOn` sempre passa AA |
 | `color` | A cor-fonte do estado, que passa pelo pipeline de dilução completo. A surface é diluída — não é o hex bruto. | derivado pela estratégia do tema |
-| `txtOn` | O texto/ícone sobre a surface. **Só é aplicado se o valor passar WCAG AA** (4.5:1). Se reprovar, o engine emite `[override:accessibility]` com o ratio exato e preserva o valor auto-computado. | enforced |
+| `txtOn` | O texto/ícone sobre a surface. **Só é aplicado se o valor passar WCAG AA (4.5:1).** Se reprovar, o engine emite `[override:accessibility]` com o ratio exato e preserva o valor auto-computado. | enforced |
 | `txt` | O texto de leitura ambiente sobre o canvas da página. Só relevante quando `generateTxt: true` está ativo no workspace. | enforced |
 | `border` | A cor de borda do estado. Aplicado incondicionalmente, sem checagem de contraste. | nenhuma |
 
@@ -77,16 +77,13 @@ overrides: {
         primary: {
           states: {
             active: {
-              // Cor de marca diretamente no estado active — txtOn auto-computado WCAG AA
-              solid: { background: '#C73C9E' }
+              solid: { background: '#C73C9E' }   // cor de marca diretamente — txtOn auto WCAG AA
             },
             action: {
-              // Redirecionar via pipeline de dilução — surface é diluída, não o hex bruto
-              solid: { color: '#0067FF' }
+              solid: { color: '#0067FF' }         // pipeline de dilução — surface diluída, não hex bruto
             },
             focus: {
-              // Só borda — sem alterar surface ou texto
-              solid: { border: '#8B5CF6' }
+              solid: { border: '#8B5CF6' }        // só borda — sem alterar surface ou texto
             }
           }
         }
@@ -96,15 +93,13 @@ overrides: {
 }
 ```
 
-> **A partir da v3.21:** quando apenas `background` é declarado sem `txtOn` explícito, o `txtOn` é derivado da paleta gerada a partir do próprio hex declarado — não mais da paleta da cor original do item. Se precisar de um tom específico, declare `txtOn` explicitamente.
+> **v3.21.0:** Quando apenas `background` é declarado sem `txtOn` explícito, o `txtOn` é derivado da paleta gerada a partir do próprio hex declarado — não mais da paleta da cor original do item. Declare `txtOn` explicitamente para fixar um tom específico.
 
-**Formato por modo (desde v3.22.0):**
-
-Preset leaves agora aceitam valores diferentes para light e dark mode:
+**Formato por modo (desde v3.22.0):** Preset leaves agora aceitam valores diferentes para light e dark mode:
 
 ```javascript
 active: {
-  // Global — mesmo valor em ambos os modos (comportamento anterior, sem mudança)
+  // Global — mesmo valor em ambos os modos (comportamento existente, sem mudança)
   solid: { background: '#C73C9E' }
 }
 
@@ -124,7 +119,18 @@ active: {
 }
 ```
 
-Regra de detecção: se o preset contiver chave `light` ou `dark`, é modo-específico. Do contrário, é global. Todos os configs existentes continuam funcionando sem mudança.
+Regra de detecção: se o preset contiver chave `light` ou `dark` → modo-específico; do contrário → global. Todos os configs existentes continuam funcionando sem mudança. Nenhuma migração necessária.
+
+**Níveis de targeting (o mais específico vence):**
+
+| Target | Caminho |
+|--------|---------|
+| Todos os itens do grupo, um estado | `interaction.{group}.states.{state}` |
+| Todos os itens do grupo, um preset, um estado | `interaction.{group}.states.{state}.{solid\|ghost}` |
+| Um item, um estado | `interaction.{group}.items.{item}.states.{state}` |
+| Um item, um preset, um estado | `interaction.{group}.items.{item}.states.{state}.{solid\|ghost}` |
+
+> **Nota de migração:** O formato legado `overrides.interface.function.*` ainda é aceito como alias de compatibilidade. Novos configs devem usar `overrides.interaction.*`.
 
 ### O ciclo obrigatório: Estudar → Testar → Documentar
 
@@ -142,7 +148,7 @@ Antes de aplicar qualquer override, siga as três etapas:
 
 **Tokens Semantic diretamente.** A camada Semantic é gerada pelo `sync:architecture` — qualquer edição manual em `data/semantic/default.json` é sobrescrita na próxima execução. Se você precisa mudar o comportamento de um token Semantic, a mudança precisa acontecer no schema ou no config do tema, não no arquivo gerado.
 
-**Valores calculados de txtOn sem considerar o contraste.** O `txtOn` é calculado para garantir WCAG AA. Se você configurar um override de `txtOn` e ele reprovar o contraste mínimo (4.5:1), o engine emite o warning nomeado `[override:accessibility]` com o ratio exato e a surface, e preserva o valor auto-computado — o override configurado é ignorado silenciosamente substituído pelo valor seguro. Se você precisa de uma estratégia diferente, use `txtOnStrategy: 'brand-tint'` ou `'custom-tint'` no config.
+**Valores calculados de txtOn sem considerar o contraste.** O `txtOn` é calculado para garantir WCAG AA. Se você configurar um override de `txtOn` no leaf de um estado de interação e ele reprovar o contraste mínimo (4.5:1), o engine emite o warning nomeado `[override:accessibility]` com o ratio exato e a surface, e preserva o valor auto-computado — o override configurado é ignorado silenciosamente substituído pelo valor seguro. Se você precisa de uma estratégia diferente, use `txtOnStrategy: 'brand-tint'` ou `'custom-tint'` no config.
 
 ```
 ⚠ [override:accessibility] action_primary.function.ghost.action.txtOn:
@@ -248,12 +254,10 @@ overrides: {
 
 Ao fim deste tutorial você deve saber:
 
-- [ ] Em quais pontos o engine aceita overrides (grayscale, neutrals, interaction states)
+- [ ] Em quais pontos o engine aceita overrides (grayscale, neutrals, estados de interação)
 - [ ] O ciclo Estudar → Testar → Documentar antes de qualquer override
 - [ ] Por que nunca editar `data/semantic/` manualmente
-- [ ] A diferença entre `color` e `background` no leaf de override de interação
-- [ ] Como o warning `[override:accessibility]` funciona — e por que o engine preserva o valor seguro
-- [ ] Quando usar o formato por modo (`light`/`dark` no preset) versus o formato global
+- [ ] Por que não sobrepor `txtOn` diretamente — usar `txtOnStrategy` em vez disso
 - [ ] Distinguir um override legítimo de um desnecessário e de um problemático
 
 ---
@@ -270,6 +274,6 @@ Se quiser avançar para construção técnica em código, comece o N3 por [N3-01
 
 ## Referências
 
-- Filosofia de overrides: [01-aplica-ds-vision.md](../../00-overview/01-aplica-ds-vision.md#filosofia-de-overrides)
+- Filosofia de overrides: [01-aplica-ds-vision.md](../../00-overview/01-aplica-ds-vision.md#filosofia-de-overrides-sobreposições)
 - Configuração de overrides: [03-configuration-guide.md](../../04-theme-engine/03-configuration-guide.md#sobreposições-overrides)
 - Boas práticas de overrides: [OVERRIDE-BEST-PRACTICES.md](https://github.com/aplica-ds/aplica-tokens-theme-engine/blob/main/docs/context/dynamic-themes-reference/OVERRIDE-BEST-PRACTICES.md)

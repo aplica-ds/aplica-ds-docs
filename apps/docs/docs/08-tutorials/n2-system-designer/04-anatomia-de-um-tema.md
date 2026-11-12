@@ -236,34 +236,42 @@ Estas opções afetam as camadas compartilhadas de arquitetura (`mode/`, `surfac
 options: {
   interaction: {
     decomposition: {
-      method: 'dilution',     // 'system-scale' (padrão) ou 'dilution'
-      target: 'canvas',       // 'canvas' (padrão) ou 'anchor' (desde 3.13.1)
+      method: 'dilution',          // 'system-scale' (padrão) ou 'dilution'
+      target: 'canvas',            // 'canvas' (padrão) ou 'anchor' (desde 3.13.1)
+      // anchor: {                 // apenas quando target: 'anchor'
+      //   source: 'palette',      // 'palette' | 'hex' | 'token'
+      //   canvasAware: true,      // âncora adapta ao canvas light/dark
+      //   canvasMix: 0.2          // 0.0 (matiz fixo) → 1.0 (full canvas)
+      // },
+      modeResolution: 'quadrant',  // 'quadrant' (padrão) ou 'mode' (desde 3.13.6)
     },
-    legacyStructure: false,   // deve ser igual em todos os temas do workspace
+    legacyStructure: false,        // deve ser igual em todos os temas do workspace
     surfaces: {
-      solid: {
-        levels: { action: 1.2, active: 0.8, focus: 0.3 }
-      },
-      ghost: {
-        enabled: true,
-        levels: { action: 40, active: 60, focus: 20 }
-      }
-    }
+      solid: { levels: { action: 1.2, active: 0.8, focus: 0.3 } },
+      ghost: { enabled: true, levels: { action: 40, active: 60, focus: 20 } }
+    },
+    // groups: {                   // overrides por grupo (desde 3.12.0)
+    //   function: { decomposition: { method: 'dilution', target: 'anchor' } },
+    //   feedback: { decomposition: { modeResolution: 'mode' } }
+    // }
   },
-  baseAdaptation: true,       // superfícies base por quadrante (desde 3.13.4)
+  baseAdaptation: true,            // superfícies base por quadrante (desde 3.13.4)
 }
 ```
 
-| Opção | O que controla | Padrão |
-|-------|---------------|--------|
-| `method` | Como os estados são calculados: níveis de paleta (`system-scale`) ou fatores de diluição | `'system-scale'` |
-| `target` | Âncora de diluição: fundo canvas (`'canvas'`) ou uma cor específica (`'anchor'`) | `'canvas'` |
-| `legacyStructure` | Se as camadas compartilhadas emitem grupos `solid`/`ghost` explícitos | `true` |
-| `baseAdaptation` | Faz as superfícies `interaction.normal` e `product.default` responderem ao quadrante light/dark × positive/negative | `false` |
+| Opção | O que controla | Escopo | Padrão |
+|-------|---------------|--------|--------|
+| `method` | Como os estados são calculados: níveis de paleta (`system-scale`) ou fatores de diluição | Workspace | `'system-scale'` |
+| `target` | Destino de diluição: canvas (`'canvas'`) ou âncora cromática (`'anchor'`) | Por tema | `'canvas'` |
+| `anchor.*` | Fonte da âncora (`'palette'`/`'hex'`/`'token'`), canvas-awareness, fator mix | Por tema | — |
+| `modeResolution` | Se o feedback inverte com a polaridade de superfície (`'quadrant'`) ou permanece idêntico entre positive/negative no mesmo modo (`'mode'`) | Por tema | `'quadrant'` |
+| `legacyStructure` | Se as camadas compartilhadas emitem grupos `solid`/`ghost` explícitos | **Workspace** | `true` |
+| `groups` | Config por grupo — `function` e `feedback` podem usar métodos diferentes | Por tema | herdado |
+| `baseAdaptation` | Faz as superfícies `interaction.normal` e `product.default` responderem ao quadrante light/dark × positive/negative | Por tema | `false` |
 
-> **Importante:** `legacyStructure` deve ser **idêntico em todos os temas** — ele controla as camadas compartilhadas `mode`, `surface` e `semantic`. `baseAdaptation` é **por tema** — temas no mesmo workspace podem misturar `true` e `false` livremente.
+> **Importante:** `legacyStructure` e `decomposition.method` devem ser **idênticos em todos os temas** — eles controlam as camadas compartilhadas `mode`, `surface` e `semantic`. Todas as outras opções (`modeResolution`, `target`, `anchor`, `baseAdaptation`) são **por tema** — temas no mesmo workspace podem ter valores diferentes livremente.
 
-Para detalhes completos sobre métodos de diluição, opções de `target: 'anchor'` e configuração por grupo, veja [03-configuration-guide.md](../../04-theme-engine/03-configuration-guide.md#decomposição-de-interação-desde-390).
+Para orientação baseada em sinais sobre qual opção usar em cada situação, veja [N2-07 · Guia de decisões de output de cores](./07-guia-de-decisao-output.md). Para referência completa de configuração, veja [03-configuration-guide.md](../../04-theme-engine/03-configuration-guide.md#decomposição-de-interação-desde-390).
 
 ---
 
@@ -283,7 +291,34 @@ Para detalhes completos sobre métodos de diluição, opções de `target: 'anch
   },
 ```
 
-Overrides substituem valores gerados pelo engine em casos específicos. Apenas dois pontos aceitam overrides: `grayscale` e `neutrals`.
+Overrides substituem valores gerados pelo engine em casos específicos. Três pontos aceitam overrides:
+
+| Ponto de override | O que substitui |
+|------------------|----------------|
+| `overrides.grayscale` | Valores de superfície, texto e borda da escala de cinza |
+| `overrides.neutrals` | Tints neutros para cores de marca específicas |
+| `overrides.interaction` | Estados de interação específicos por grupo, item, preset e estado (desde 3.14.5) |
+
+**`overrides.interaction`** permite sobrescrever estados gerados de `function` ou `feedback` sem mudar a cor base — útil quando um estado específico (ex.: `active` do botão primário) precisa de um hex fixo independente do método de decomposição:
+
+```javascript
+overrides: {
+  interaction: {
+    function: {
+      states: {
+        active: { color: '#0067FF' }   // todos os itens de function, estado active
+      },
+      items: {
+        primary: {
+          states: { normal: { color: '#0052CC' } }   // apenas primary
+        }
+      }
+    }
+  }
+}
+```
+
+As cores de override passam pelo pipeline de decomposição completo (dilution, espelhamento de quadrante, texto de acessibilidade) — não são patches brutos.
 
 Esta seção deve ser a mais rara do config. Se ela está crescendo, é um sinal de que a cor declarada no `colors` pode não ser a certa — ou de que as expectativas precisam ser ajustadas.
 
