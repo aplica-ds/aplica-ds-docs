@@ -1,8 +1,45 @@
 [
   {
+    "version": "v3.24.0",
+    "date": "Novembro 2026",
+    "status": "latest",
+    "changes": [
+      "Famílias de cores de opacidade (opt-in): global.opacityColors (brand, feedback, product, function) adiciona semantic.opacity.color.<familia>.<item>.<step>; itens e cores vêm do schema do workspace e do mapping do tema, nunca de uma lista fixa",
+      "Estratégia rgba-ref: global.opacityStrategy: 'rgba-ref' escreve rgba({cor base}, {semantic.opacity.alpha.<step>}) com tokens number de alpha sem unidade (0-1), para o Tokens Studio ≥ 2.13.0 linkar variáveis de cor e opacidade no Figma; output CSS/JS/JSON idêntico ao modo modify",
+      "Foundation: structure.opacityColors (true ou lista de famílias) cria aliases em foundation.opacity.color.*",
+      "Formato de cor para Dart/Flutter: formatOptions.jsonTyped.colorFormat (hex8, rgb, argb, components, dtcg) normaliza as cores de dist/json-typed/; CSS e demais plataformas não mudam",
+      "Retrocompatibilidade garantida: nada muda sem opt-in, protegido por test:opacity-contract contra um baseline congelado; shims de compatibilidade registrados em DEPRECATIONS.md para o próximo major",
+      "Guia de dilution canvas-aware (#13) substitui a proposta de design original"
+    ]
+  },
+  {
+    "version": "v3.20.0–3.23.4",
+    "date": "Maio – Setembro 2026",
+    "status": "stable",
+    "changes": [
+      "Overrides de estado de interação com cinco campos (3.20.0): background (superfície direta, txtOn automático WCAG AA), color (pipeline completo de decomposição), txtOn, txt e border; valores por modo light/dark desde a 3.22.0",
+      "Alias pass genérico no foundation (3.23.0): qualquer chave de structure com semanticPath, type e items vira alias automaticamente, sem mudar o engine; borderWidth e borderRadius viram chaves de primeira classe (3.22.5)",
+      "Correções de opacidade (3.21.1, 3.22.1, 3.22.2): tokens surface.opacity.color.* agora invertem corretamente ao trocar light/dark no Figma e respeitam o schema do workspace; surface/negative.json preservado quando surfacePolarity é false",
+      "Correção (3.21.0): override com apenas background passa a derivar o txtOn da paleta do próprio hex declarado",
+      "Pacote npm passa a incluir docs/context/ai-ui (3.23.4); playground com temas e fontes completos (3.23.3)"
+    ]
+  },
+  {
+    "version": "v3.15.0–3.19.3",
+    "date": "Maio 2026",
+    "status": "stable",
+    "changes": [
+      "Auditoria de acessibilidade (3.15.1): CLI audit:accessibility roda uma auditoria WCAG independente nos tokens gerados (--level AAA, --family function|feedback); ghostNormalTxtOnStrategy controla o texto do estado normal do ghost",
+      "DESIGN.md e contratos (3.16.0): design:md gera um snapshot com valores reais da marca no formato Google Stitch; tokens:contracts gera um contrato estrutural de paths para diffs de segurança no CI",
+      "Preview redesenhado (3.17.0): layout de referência, modo compacto, filtros de busca e navegação hierárquica",
+      "Brand-tint com overlap (3.18.0): a opção overlap pula o palette walk para alcançar níveis mais profundos da escala",
+      "IA (3.15–3.19): init:playground com temas de exemplo, ai:knowledge com skill conversacional e estrutura de contexto playbook-first com skills theme-engine e aplica-components"
+    ]
+  },
+  {
     "version": "v3.14.0–3.14.6",
     "date": "Maio 2026",
-    "status": "latest",
+    "status": "stable",
     "changes": [
       "Overrides dinâmicos de estado de interação (3.14.5): overrides.interaction substitui e estende o formato legado overrides.interface.function.* — overrides agora podem ter como alvo grupos function ou feedback, itens específicos (ex.: primary, warning_default), presets solid ou ghost, e estados individuais (normal, action, active, focus, disabled); as cores de override passam pelo pipeline de decomposição completo (dilution, base adaptation, espelhamento de quadrante, texto de acessibilidade) em vez de serem aplicadas como patches brutos",
       "Splitting de bundles de marca para Figma (3.14.0): figma:generate agora divide automaticamente bundles de tokens de marca oversized em chunks semânticos (_brand_product.json, _brand_text.json, _brand_interface.json) quando a contagem de tokens excede o limite por coleção do Figma (padrão 5.000 tokens); o contrato lógico de tokens e o output em dist/ não mudam — a divisão afeta apenas os arquivos intermediários em data/brand/ consumidos pelo Tokens Studio; sobrescreva o limite via a variável de ambiente APLICA_THEME_ENGINE_BRAND_TOKEN_LIMIT",
@@ -188,7 +225,7 @@
     "status": "stable",
     "changes": [
       "Fix de migração: generate-foundation.mjs agora preserva corretamente txt.base.items em workspaces com product text families customizados",
-      "Temas estilo Brewer com famílias personalizadas (ex.: tada, ze) não mais perdem dados de txt após generate-foundation"
+      "Temas estilo Brewer com famílias personalizadas (ex.: alpha, beta) não mais perdem dados de txt após generate-foundation"
     ]
   },
   {

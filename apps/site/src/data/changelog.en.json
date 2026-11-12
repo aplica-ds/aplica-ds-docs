@@ -1,8 +1,45 @@
 [
   {
+    "version": "v3.24.0",
+    "date": "November 2026",
+    "status": "latest",
+    "changes": [
+      "Opacity color families (opt-in): global.opacityColors (brand, feedback, product, function) adds semantic.opacity.color.<family>.<item>.<step>; items and colors come from the workspace schema and theme mapping, never from a fixed list",
+      "rgba-ref strategy: global.opacityStrategy: 'rgba-ref' writes rgba({base color}, {semantic.opacity.alpha.<step>}) with unitless 0-1 number alpha tokens, so Tokens Studio ≥ 2.13.0 links color and opacity variables in Figma; CSS/JS/JSON output is identical to modify mode",
+      "Foundation: structure.opacityColors (true or a list of families) aliases the families into foundation.opacity.color.*",
+      "Color format for Dart/Flutter: formatOptions.jsonTyped.colorFormat (hex8, rgb, argb, components, dtcg) normalizes colors in dist/json-typed/; CSS and other platforms are unchanged",
+      "Backward compatibility guaranteed: nothing changes without opt-in, guarded by test:opacity-contract against a frozen baseline; compatibility shims are registered in DEPRECATIONS.md for the next major",
+      "Canvas-aware dilution guide (#13) replaces the original design proposal"
+    ]
+  },
+  {
+    "version": "v3.20.0–3.23.4",
+    "date": "May – September 2026",
+    "status": "stable",
+    "changes": [
+      "Interaction state overrides with five fields (3.20.0): background (direct surface, auto WCAG AA txtOn), color (full decomposition pipeline), txtOn, txt and border; per-mode light/dark values since 3.22.0",
+      "Generic alias pass in foundation (3.23.0): any structure key with semanticPath, type and items becomes an alias automatically, no engine change; borderWidth and borderRadius became first-class keys (3.22.5)",
+      "Opacity fixes (3.21.1, 3.22.1, 3.22.2): surface.opacity.color.* tokens now invert correctly when switching light/dark in Figma and follow the workspace schema; surface/negative.json is preserved when surfacePolarity is false",
+      "Fix (3.21.0): an override that only declares background now derives txtOn from the palette of the declared hex",
+      "npm package now ships docs/context/ai-ui (3.23.4); playground ships complete themes and fonts (3.23.3)"
+    ]
+  },
+  {
+    "version": "v3.15.0–3.19.3",
+    "date": "May 2026",
+    "status": "stable",
+    "changes": [
+      "Accessibility audit (3.15.1): audit:accessibility CLI runs an independent WCAG audit over generated tokens (--level AAA, --family function|feedback); ghostNormalTxtOnStrategy controls ghost normal-state text",
+      "DESIGN.md and contracts (3.16.0): design:md generates a snapshot with real brand values in Google Stitch format; tokens:contracts generates a structural path contract for CI safety diffs",
+      "Preview redesigned (3.17.0): reference layout, compact mode, search filters and hierarchical navigation",
+      "Brand-tint overlap (3.18.0): the overlap option skips the palette walk to reach deeper scale levels",
+      "AI (3.15-3.19): init:playground with sample themes, ai:knowledge with a conversational skill, and a playbook-first context structure with theme-engine and aplica-components skills"
+    ]
+  },
+  {
     "version": "v3.14.0–3.14.6",
     "date": "May 2026",
-    "status": "latest",
+    "status": "stable",
     "changes": [
       "Dynamic interaction state overrides (3.14.5): overrides.interaction replaces and extends the legacy overrides.interface.function.* form — overrides can now target function or feedback groups, specific items (e.g. primary, warning_default), solid or ghost presets, and individual states (normal, action, active, focus, disabled); override colors pass through the full decomposition pipeline (dilution, base adaptation, quadrant mirroring, accessibility text) instead of being applied as raw patches",
       "Figma brand bundle splitting (3.14.0): figma:generate now automatically splits oversized brand token bundles into semantic chunks (_brand_product.json, _brand_text.json, _brand_interface.json) when the token count exceeds the Figma per-collection limit (default 5,000 tokens); the logical token contract and dist/ output are unchanged — splitting only affects the intermediate data/brand/ files consumed by Tokens Studio; override the limit via the APLICA_THEME_ENGINE_BRAND_TOKEN_LIMIT environment variable",
@@ -188,7 +225,7 @@
     "status": "stable",
     "changes": [
       "Migration fix: generate-foundation.mjs now correctly preserves txt.base.items in workspaces with custom product text families",
-      "Brewer-style themes with custom families (e.g., tada, ze) no longer lose txt data after generate-foundation"
+      "Brewer-style themes with custom families (e.g., alpha, beta) no longer lose txt data after generate-foundation"
     ]
   },
   {
