@@ -209,6 +209,36 @@ Use a patch-range (`~3.3.0`) for automatic patch updates only. Avoid `^` (caret)
 
 ---
 
+## Verifying an upgrade (since 3.25.1)
+
+There are two different checks. Do not mix them up.
+
+**1. Your workspace — did my tokens change?** Run these in your own workspace after upgrading the package:
+
+```bash
+theme-engine build
+theme-engine contracts:diff --contract ./contracts/<brand>-contract.json   # exits 1 on removed or retyped token paths
+theme-engine validate:data
+theme-engine audit:accessibility
+```
+
+Generate the contract with `theme-engine contracts:generate` **before** upgrading and commit it, so `contracts:diff` has something to compare with. See [Deploy Safety Contracts](../04-theme-engine/09-deploy-safety-contracts.md).
+
+**2. The engine itself — the packaged opacity contract.** The package ships the engine's own backward-compatibility gate for opacity:
+
+```bash
+node node_modules/@aplica/aplica-theme-engine/utils/test-opacity-contract.mjs
+```
+
+- It checks the **installed engine**, not your workspace: it builds the packaged `fixtures/consumer-workspace` in a temporary folder and compares the result with the frozen `fixtures/opacity-baseline`.
+- It takes a few minutes and writes only to the system temp folder.
+- It needs both fixture folders, which ship since **3.25.1** (3.25.0 and earlier do not include them; the script stops with a message saying what is missing).
+- Never run it with `--update-baseline` in a consumer project: that option rewrites the baseline and is reserved for the package maintainers.
+
+The other `utils/test-*.mjs` scripts are maintainer scripts for the package repository, not checks for consumer workspaces.
+
+---
+
 ## Troubleshooting failed CI builds
 
 1. **`No consumer workspace config was found`** — `aplica-theme-engine.config.mjs` is missing or not in the project root. Ensure the file is committed.

@@ -174,6 +174,30 @@ formatOptions: { jsonTyped: { colorFormat: 'hex8' } }
 
 Only `jsonTyped` is affected. CSS and every other platform keep the standard output.
 
+### Value shapes for Dart / Flutter (since 3.25.0, opt-in)
+
+Besides colors, the default `jsonTyped` value is not one primitive per `type`: dimensions are strings (`"12px"`), and gradients are `type: "color"` tokens holding a `linear-gradient(...)` string that a color parser cannot read. Two more `formatOptions.jsonTyped` keys fix that:
+
+| Option | Default (unset) | Value | Effect |
+|--------|-----------------|-------|--------|
+| `dimensionFormat` | dimensions stay strings (`"12px"`) | `'number'` | `spacing`, `sizing`, `borderRadius`, `borderWidth` and `dimension` become numbers (`12`, `0.05`). Only `px` and `em` are converted; aliases (`{spacing.base}`) and other units are left as written |
+| `gradientFormat` | `type: color` with a `linear-gradient(...)` string | `'structured'` | `type` becomes `gradient` and `value` becomes `{ "angle": 180, "stops": [{ "color": "#a8c8f4ff", "position": 0 }, ...] }`. The angle is in CSS degrees; positions are 0-1 fractions (Flutter `stops`); stop colors follow `colorFormat` |
+
+```js
+formatOptions: {
+  jsonTyped: {
+    colorFormat: 'hex8',
+    dimensionFormat: 'number',
+    gradientFormat: 'structured'
+  }
+}
+```
+
+- **`letterSpacing` is not converted.** The engine authors it as a unitless number (Tokens Studio / Figma read it as px) while the build appends `em`, so its unit is undefined and a bare number would hide that. It stays a string such as `"-0.72em"`; treat any non-zero value as unresolved until an explicit-unit mode ships. This was settled in 3.25.0 before the option was released, so no consumer is affected.
+- Anything the formatter cannot parse (an alias, an unsupported gradient) is returned untouched, so no information is lost. Unknown option values make `theme-engine build` fail.
+- Composite foundation tokens (`typography`, `boxShadow`) are objects and are not normalized by these options.
+- Both options are opt-in: without them `dist/json-typed/` is byte-identical to earlier versions. CSS, `json`, JS/ESM and the token contract never change because of them.
+
 ---
 
 ## CSS Format — for Web

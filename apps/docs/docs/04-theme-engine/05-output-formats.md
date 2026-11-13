@@ -174,6 +174,30 @@ formatOptions: { jsonTyped: { colorFormat: 'hex8' } }
 
 Só o `jsonTyped` é afetado. CSS e todas as outras plataformas mantêm o output padrão.
 
+### Formatos de valor para Dart / Flutter (desde 3.25.0, opt-in)
+
+Além das cores, o `value` padrão do `jsonTyped` não é uma primitiva por `type`: dimensões são strings (`"12px"`), e gradientes são tokens `type: "color"` com uma string `linear-gradient(...)` que um parser de cor não consegue ler. Mais duas chaves de `formatOptions.jsonTyped` resolvem isso:
+
+| Opção | Padrão (não definida) | Valor | Efeito |
+|-------|-----------------------|-------|--------|
+| `dimensionFormat` | dimensões continuam strings (`"12px"`) | `'number'` | `spacing`, `sizing`, `borderRadius`, `borderWidth` e `dimension` viram números (`12`, `0.05`). Só `px` e `em` são convertidos; aliases (`{spacing.base}`) e outras unidades ficam como escritos |
+| `gradientFormat` | `type: color` com string `linear-gradient(...)` | `'structured'` | `type` vira `gradient` e `value` vira `{ "angle": 180, "stops": [{ "color": "#a8c8f4ff", "position": 0 }, ...] }`. O ângulo é em graus CSS; posições são frações 0-1 (`stops` do Flutter); as cores dos stops seguem `colorFormat` |
+
+```js
+formatOptions: {
+  jsonTyped: {
+    colorFormat: 'hex8',
+    dimensionFormat: 'number',
+    gradientFormat: 'structured'
+  }
+}
+```
+
+- **`letterSpacing` não é convertido.** O engine o escreve como número sem unidade (Tokens Studio / Figma leem como px) enquanto o build acrescenta `em`, então a unidade é indefinida e um número puro esconderia isso. Ele continua string, tipo `"-0.72em"`; trate qualquer valor diferente de zero como não resolvido até existir um modo de unidade explícita. Isso foi definido na 3.25.0 antes de a opção ser lançada, então nenhum consumidor é afetado.
+- Tudo que o formatador não consegue interpretar (um alias, um gradiente não suportado) volta intacto, então nenhuma informação se perde. Valores desconhecidos fazem o `theme-engine build` falhar.
+- Tokens compostos de foundation (`typography`, `boxShadow`) são objetos e não são normalizados por essas opções.
+- As duas opções são opt-in: sem elas o `dist/json-typed/` é idêntico byte a byte ao das versões anteriores. CSS, `json`, JS/ESM e o contrato de tokens nunca mudam por causa delas.
+
 ---
 
 ## Formato CSS — para Web

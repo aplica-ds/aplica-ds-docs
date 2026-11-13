@@ -207,6 +207,16 @@ formatOptions: { jsonTyped: { colorFormat: 'hex8' } }
 
 ---
 
+### `dimensionFormat` e `gradientFormat` (desde 3.25.0, opt-in)
+
+Mais duas chaves de `formatOptions.jsonTyped` dão a cada `type` um único formato de valor para consumidores fortemente tipados: `dimensionFormat: 'number'` transforma dimensões `px` / `em` em números (`"12px"` → `12`) e `gradientFormat: 'structured'` emite `type: gradient` com `{ angle, stops }`. `letterSpacing` intencionalmente não é convertido. Sem definir, o output anterior é mantido. Detalhes: [Formatos de Output](../04-theme-engine/05-output-formats.md#formatos-de-valor-para-dart--flutter-desde-3250-opt-in).
+
+```js
+formatOptions: { jsonTyped: { colorFormat: 'hex8', dimensionFormat: 'number', gradientFormat: 'structured' } }
+```
+
+---
+
 ## Configurações comuns
 
 ### Projeto apenas para Web (CSS + JSON)

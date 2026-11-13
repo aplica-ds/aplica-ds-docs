@@ -209,6 +209,36 @@ Use um range de patch (`~3.3.0`) para updates automáticos de patch apenas. Evit
 
 ---
 
+## Verificando um upgrade (desde 3.25.1)
+
+São duas verificações diferentes. Não misture.
+
+**1. Seu workspace — meus tokens mudaram?** Rode no seu workspace depois de atualizar o pacote:
+
+```bash
+theme-engine build
+theme-engine contracts:diff --contract ./contracts/<brand>-contract.json   # exit 1 em paths removidos ou com tipo alterado
+theme-engine validate:data
+theme-engine audit:accessibility
+```
+
+Gere o contrato com `theme-engine contracts:generate` **antes** de atualizar e commite, para o `contracts:diff` ter com o que comparar. Veja [Deploy Safety Contracts](../04-theme-engine/09-deploy-safety-contracts.md).
+
+**2. O engine em si — o contrato de opacidade empacotado.** O pacote traz o gate de retrocompatibilidade de opacidade do próprio engine:
+
+```bash
+node node_modules/@aplica/aplica-theme-engine/utils/test-opacity-contract.mjs
+```
+
+- Ele verifica o **engine instalado**, não o seu workspace: builda o `fixtures/consumer-workspace` empacotado numa pasta temporária e compara o resultado com o `fixtures/opacity-baseline` congelado.
+- Leva alguns minutos e escreve apenas na pasta temporária do sistema.
+- Precisa das duas pastas de fixtures, que são publicadas desde a **3.25.1** (a 3.25.0 e anteriores não as incluem; o script para com uma mensagem dizendo o que falta).
+- Nunca rode com `--update-baseline` num projeto consumidor: essa opção reescreve o baseline e é reservada aos mantenedores do pacote.
+
+Os demais scripts `utils/test-*.mjs` são scripts de mantenedor do repositório do pacote, não verificações para workspaces consumidores.
+
+---
+
 ## Diagnóstico de builds CI com falha
 
 1. **`No consumer workspace config was found`** — `aplica-theme-engine.config.mjs` está ausente ou não está na raiz do projeto. Verifique se o arquivo está commitado.
