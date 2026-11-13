@@ -1,8 +1,19 @@
 [
   {
-    "version": "v3.24.1",
+    "version": "v3.25.0–3.25.1",
     "date": "November 2026",
     "status": "latest",
+    "changes": [
+      "Typed JSON value shapes for Dart / Flutter (3.25.0): formatOptions.jsonTyped.dimensionFormat: 'number' turns px / em dimensions into numbers (\"12px\" → 12) and gradientFormat: 'structured' emits type gradient with { angle, stops: [{ color, position }] } (angle in CSS degrees, positions as 0-1 fractions, colors following colorFormat)",
+      "letterSpacing is intentionally not converted by dimensionFormat: its unit is undefined (authored unitless, built as em), so it stays a string",
+      "Both options are opt-in and validated; without them dist/json-typed is byte-identical, and CSS, json, JS/ESM and the token contract never change",
+      "Packaging fix (3.25.1): the package now ships the fixtures that utils/test-opacity-contract.mjs reads, so the opacity contract can be run from node_modules; the consumer docs gained an upgrade-verification guide (contracts:diff, validate:data, audit:accessibility)"
+    ]
+  },
+  {
+    "version": "v3.24.1",
+    "date": "November 2026",
+    "status": "stable",
     "changes": [
       "Documentation patch: the docs installed by ai:init and ai:knowledge (knowledge-guide, engineering-guide, token-concepts, components-guide, aplica-ui-integration) now cover the 3.24.0 opt-in opacity families, alpha vs raw, opacityStrategy, jsonTyped.colorFormat and structure.opacityColors; no generated output changes"
     ]
